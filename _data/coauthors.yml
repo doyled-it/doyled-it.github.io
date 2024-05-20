@@ -1,34 +1,43 @@
-"adams":
-  - firstname: ["Edwin", "E.", "E. P.", "Edwin Plimpton"]
-    url: https://en.wikipedia.org/wiki/Edwin_Plimpton_Adams
+"tapley":
+  - firstname: ["Alex", "A.", "Alexander"]
+    url: https://www.linkedin.com/in/tapleyalex/
 
-"podolsky":
-  - firstname: ["Boris", "B.", "B. Y.", "Boris Yakovlevich"]
-    url: https://en.wikipedia.org/wiki/Boris_Podolsky
+"dotter":
+  - firstname: ["Marissa", "M."]
+    url: https://www.linkedin.com/in/marissa-dotter-a373551a9/
 
-"rosen":
-  - firstname: ["Nathan", "N."]
-    url: https://en.wikipedia.org/wiki/Nathan_Rosen
+"gandikota":
+  - firstname: ["Dhanuj", "D."]
+    url: https://www.linkedin.com/in/dhanujg/
 
-"bach":
-  - firstname: ["Johann Sebastian", "J. S."]
-    url: https://en.wikipedia.org/wiki/Johann_Sebastian_Bach
+"smith":
+  - firstname: ["Savanna", "S."]
+    url: https://www.linkedin.com/in/smithsavanna/
 
-  - firstname: ["Carl Philipp Emanuel", "C. P. E."]
-    url: https://en.wikipedia.org/wiki/Carl_Philipp_Emanuel_Bach
+"merkhofer":
+  - firstname: ["Liz", "E.", "Elizabeth", "Elizabeth M.", "Elizabeth M."]
+    url: https://www.linkedin.com/in/liz-merkhofer-88a84042/
 
-"przibram":
-  - firstname: ["Karl"]
-    url: https://link.springer.com/article/10.1007/s00016-019-00242-z
+"henderson":
+  - firstname: ["John"]
+    url: https://www.linkedin.com/in/jhndrsn/
 
-"schrodinger":
-  - firstname: ["Erwin"]
-    url: https://en.wikipedia.org/wiki/Erwin_Schr%C3%B6dinger
+"gertner":
+  - firstname: ["Abigail", "A.", "Abigail S."]
+    url: https://www.linkedin.com/in/abigailgertner/
 
-"lorentz":
-  - firstname: ["Hendrik Antoon"]
-    url: https://en.wikipedia.org/wiki/Hendrik_Lorentz
+"harguess":
+  - firstname: ["Josh"]
+    url: https://www.linkedin.com/in/harguess/
 
-"planck":
-  - firstname: ["Max"]
-    url: https://en.wikipedia.org/wiki/Max_Planck
+"manville":
+  - firstname: ["Keith"]
+    url: https://scholar.google.com/citations?user=I2-QZyEAAAAJ
+
+"rodriguez":
+  - firstname: ["Mikel"]
+    url: http://www.mikelrodriguez.com/about
+
+"macke":
+  - firstname: ["William"]
+    url: https://scholar.google.com/citations?user=vDqMhv0AAAAJ
