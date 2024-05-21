@@ -32,7 +32,18 @@
       "startDate": "2018",
       "endDate": "present",
       "summary": "Led multiple ML projects. Researched, developed, tested, trained, and deployed machine learning models and applications.",
-      "highlights": ["Adversarial Vision and Text", "Computer Vision (CV)", "Natural language processing (NLP)", "Underwater Acoustics", "Large Language Models (LLMs)", "Simulation", "Reinforcement Learning", "Maintained internal GPU servers and services", "Open sourced multiple codebases", "Directly deployed trained models on government sponsor systems"]
+      "highlights": [
+        "Adversarial Vision and Text",
+        "Computer Vision (CV)",
+        "Natural language processing (NLP)",
+        "Underwater Acoustics",
+        "Large Language Models (LLMs)",
+        "Simulation",
+        "Reinforcement Learning",
+        "Maintained internal GPU servers and services",
+        "Open sourced multiple codebases",
+        "Directly deployed trained models on government sponsor systems"
+      ]
     },
     {
       "name": "Space Micro Inc.",
@@ -104,53 +115,25 @@
       "name": "Python Libraries",
       "level": "Master",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "NumPy",
-        "SciPy",
-        "PyTorch",
-        "TensorFlow",
-        "FastAPI",
-        "Typer",
-        "LangChain",
-        "Chroma"
-      ]
+      "keywords": ["NumPy", "SciPy", "PyTorch", "TensorFlow", "FastAPI", "Typer", "LangChain", "Chroma"]
     },
     {
       "name": "Programming Languages",
       "level": "Beginner to Master",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "Python",
-        "MySQL",
-        "Bash",
-        "Vue.js"
-      ]
+      "keywords": ["Python", "MySQL", "Bash", "Vue.js"]
     },
     {
       "name": "Tools",
       "level": "Varies",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "Git",
-        "Docker",
-        "OpenShift",
-        "Jupyter",
-        "VS Code",
-        "Linux",
-        "Windows",
-        "macOS"
-      ]
+      "keywords": ["Git", "Docker", "OpenShift", "Jupyter", "VS Code", "Linux", "Windows", "macOS"]
     },
     {
       "name": "Hardware",
       "level": "Out of Practice",
       "icon": "fa-solid fa-hashtag",
-      "keywords": [
-        "FPGAs",
-        "PCB Design",
-        "Oscilloscopes",
-        "Soldering"
-      ]
+      "keywords": ["FPGAs", "PCB Design", "Oscilloscopes", "Soldering"]
     }
   ],
   "languages": [
@@ -174,9 +157,7 @@
     {
       "name": "Music",
       "icon": "fa-solid fa-music",
-      "keywords": [
-        "Drums"
-      ]
+      "keywords": ["Drums"]
     }
   ],
   "projects": [
