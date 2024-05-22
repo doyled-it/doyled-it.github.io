@@ -11,7 +11,7 @@ description: >
   The personal website of Michael Doyle, an AI Researcher and Software Engineer at the MITRE Corporation.
 
 footer_text: >
-  What's your favorite song right now? :)
+  "How we spend our days is, of course, how we spend our lives." ~ Annie Dillard :)
 keywords: jekyll, jekyll-theme, academic-website, portfolio-website # add your own keywords or leave empty
 lang: en # the language of your site (for example: en, fr, cn, ru, etc.)
 icon: favicon.ico # the emoji used as the favicon (alternatively, provide image name in /assets/img/)
@@ -49,7 +49,7 @@ navbar_fixed: true
 footer_fixed: true
 
 # Dimensions
-max_width: 800px
+max_width: 1000px
 
 # TODO: add layout settings (single page vs. multi-page)
 
