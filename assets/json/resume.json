@@ -57,7 +57,7 @@
       "url": "https://www.spacemicro.com/",
       "startDate": "2016-05",
       "endDate": "2018-05",
-      "summary": "Wrote, simulated, synthesized, and implemented FPGA code in VHDL using ModelSim, Synplify Pro, Vivado, and Libero Designer."
+      "summary": "Wrote, simulated, synthesized, and implemented FPGA code in VHDL using ModelSim, Synplify Pro, Vivado, and Libero Designer. Designed PCBs in KiCAD and tested hardware."
     }
   ],
   "education": [
@@ -179,7 +179,7 @@
       "startDate": "2019-09",
       "description": "",
       "roles": ["Developer"],
-      "url": "https://github.com/mitrefireline/simfire"
+      "url": "https://github.com/mitrefireline/simharness"
     }
   ]
 }
