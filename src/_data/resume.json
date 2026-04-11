@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "canonical": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/resume.json",
+    "version": "v1.0.0",
+    "lastModified": "2024-05-21"
+  },
+  "basics": {
+    "name": "Michael Doyle",
+    "label": "AI Researcher & Engineer",
+    "email": "michaeldoyle1994@gmail.com",
+    "website": "https://doyled-it.com",
+    "picture": "https://avatars.githubusercontent.com/u/12867253?v=4",
+    "phone": "(775) 450-6522",
+    "summary": "An AI researcher with a passion for language, open source, and applying research to important problems.",
+    "location": {
+      "city": "San Diego",
+      "countryCode": "US",
+      "region": "California"
+    },
+    "profiles": [
+      {
+        "network": "LinkedIn",
+        "username": "michaeldoyleml",
+        "url": "https://www.linkedin.com/in/michaeldoyleml/"
+      },
+      {
+        "network": "GitHub",
+        "username": "doyled-it",
+        "url": "https://github.com/doyled-it"
+      }
+    ]
+  },
+  "work": [
+    {
+      "name": "The MITRE Corporation",
+      "position": "Senior AI Research Engineer",
+      "url": "https://www.mitre.org",
+      "startDate": "2018-07",
+      "summary": "Led multiple ML projects. Researched, developed, tested, trained, and deployed machine learning models and applications.",
+      "highlights": [
+        "Led research project on LLMs, IT Modernization, and code understanding",
+        "Led research project on training object detectors for neuromorphic cameras",
+        "Maintained internal GPU servers and services on OpenShift and Linux servers",
+        "Developed and open sourced fire simulator to be used in RL training for wildfire mitigation",
+        "Developed and open sourced LLM IT modernization library",
+        "Developed agentic LLM backend prototype for government sponsor application",
+        "Directly deployed trained models on government sponsor systems"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "University of San Diego",
+      "url": "https://sandiego.edu/",
+      "area": "Electrical Engineering",
+      "studyType": "BS/BA Dual Degrees",
+      "startDate": "2013-09",
+      "endDate": "2018-05",
+      "courses": ["Minors in Mathematics and Physics", "Magna Cum Laude"]
+    }
+  ],
+  "publications": [
+    {
+      "name": "Testing the Effect of Code Documentation on Large Language Model Code Understanding",
+      "publisher": "North American Association for Computational Linguistics (NAACL)",
+      "releaseDate": "2024-06",
+      "url": "https://aclanthology.org/2024.findings-naacl.66/",
+      "summary": "Empirically analyzes how code documentation quality impacts the code generation and understanding capabilities of Large Language Models (LLMs). It reveals that incorrect documentation significantly hinders LLMs' code comprehension, while incomplete or missing documentation has no significant impact.",
+      "authors": ["William Macke", "Michael Doyle"]
+    },
+    {
+      "name": "The vulnerability of UAVs: an adversarial machine learning perspective",
+      "publisher": "SPIE",
+      "releaseDate": "2021-04",
+      "url": "https://www.spiedigitallibrary.org/conference-proceedings-of-spie/11733/117330F/The-vulnerability-of-UAVs-an-adversarial-machine-learning-perspective/10.1117/12.2589538.short#_=_",
+      "summary": "Proposes a methodology to evaluate the vulnerability of unmanned aerial vehicles (UAVs) to adversarial machine learning attacks by analyzing potential attack vectors at each stage of UAV operation.",
+      "authors": ["Michael Doyle", "Josh Harguess", "Keith Manville", "Mikel Rodriguez"]
+    },
+    {
+      "name": "Reinforcement Learning for Wildfire Mitigation in Simulated Disaster Environments",
+      "publisher": "Neural Information Processing Systems (NeurIPS)",
+      "releaseDate": "2023-11",
+      "url": "https://arxiv.org/abs/2311.15925",
+      "summary": "Presents a reinforcement learning approach to wildfire mitigation in simulated disaster environments. We release two software libraries, SimFire and SimHarness, to facilitate future research in this area.",
+      "authors": [
+        "Alexander Tapley",
+        "Marissa Dotter",
+        "Michael Doyle",
+        "Aidan Fennelly",
+        "Dhanuj Gandikota",
+        "Savanna Smith",
+        "Michael Threet",
+        "Tim Welsh"
+      ]
+    },
+    {
+      "name": "Practical Attacks on Machine Translation using Paraphrase",
+      "publisher": "Association for Machine Translation in the Americas (AMTA)",
+      "releaseDate": "2022-09",
+      "url": "https://aclanthology.org/2022.amta-research.17/",
+      "summary": "Investigated the vulnerability of machine translation systems to adversarial attacks constructed with limited information. A novel attack method was proposed that generates perturbations using paraphrases and evaluates their impact on meaning preservation and translation degradation across various language pairs and systems.",
+      "authors": ["Elizabeth Merkhofer", "John Henderson", "Abigail Gertner", "Michael Doyle", "Lily Wong"]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Machine Learning",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": ["NLP", "LLMs", "Computer Vision", "Acoustics", "RL", "Simulation", "Adversarial"]
+    },
+    {
+      "name": "Languages",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": ["Python", "Bash", "SQL", "LaTeX", "Vue.js", "JavaScript", "CSS", "MATLAB", "VHDL"]
+    },
+    {
+      "name": "Libraries",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": ["NumPy", "SciPy", "PyTorch", "TensorFlow", "FastAPI", "Typer", "LangChain", "Chroma", "HuggingFace"]
+    },
+    {
+      "name": "Technologies",
+      "icon": "fa-solid fa-hashtag",
+      "keywords": ["Git", "Docker", "OpenShift", "GitLab CI", "GitHub Actions"]
+    }
+  ],
+  "languages": [
+    {
+      "language": "English",
+      "fluency": "Native speaker",
+      "icon": ""
+    },
+    {
+      "language": "Spanish",
+      "fluency": "Intermediate",
+      "icon": ""
+    },
+    {
+      "language": "German",
+      "fluency": "Beginner",
+      "icon": ""
+    }
+  ],
+  "projects": [
+    {
+      "name": "SimFire",
+      "summary": "A wildfire simulator written in Python and meant for Reinforcement Learning research for wildfire mitigation.",
+      "highlights": [],
+      "startDate": "2019-09",
+      "description": "",
+      "roles": ["Lead Developer", "Maintainer"],
+      "url": "https://github.com/mitrefireline/simfire"
+    },
+    {
+      "name": "Janus LLM",
+      "summary": "A library for LLM IT modernization, using LLMs, RAG, and intelligent chunking.",
+      "highlights": [],
+      "startDate": "2023-07",
+      "description": "",
+      "roles": ["Lead Developer", "Maintainer"],
+      "url": "https://github.com/janus-llm"
+    },
+    {
+      "name": "SimHarness",
+      "summary": "A reinforcement learning harness meant to be used with SimFire for wildfire mitigation research.",
+      "highlights": [],
+      "startDate": "2019-09",
+      "description": "",
+      "roles": ["Developer"],
+      "url": "https://github.com/mitrefireline/simharness"
+    }
+  ]
+}

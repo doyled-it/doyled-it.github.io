@@ -1,0 +1,48 @@
+.resume-web { font-family: var(--font-body); }
+
+.resume-web .basics { text-align: center; margin-bottom: 18px; }
+.resume-web .basics h2 { margin: 0; font-size: 24px; }
+.resume-web .basics .label { font-family: var(--font-mono); font-size: 16px; color: #555; }
+.resume-web .basics .contact { font-family: var(--font-mono); font-size: 14px; color: #444; margin-top: 6px; }
+.resume-web .basics .contact a { color: var(--accent-pink-dark); }
+
+.resume-web .section { margin: 18px 0; }
+.resume-web .section > h3 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  color: var(--accent-pink-dark);
+  border-bottom: 2px dashed var(--ink);
+  padding-bottom: 3px;
+  margin-bottom: 8px;
+}
+
+.resume-web .entry { margin-bottom: 12px; }
+.resume-web .entry-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: baseline;
+}
+.resume-web .entry-head .name { font-weight: 700; }
+.resume-web .entry-head .date { font-family: var(--font-mono); font-size: 13px; color: #555; white-space: nowrap; }
+.resume-web .entry .sub { font-style: italic; color: #444; font-size: 14px; }
+.resume-web .entry .summary { margin: 4px 0; }
+.resume-web .entry ul { margin: 4px 0 4px 18px; padding: 0; }
+
+.resume-web .skills .entry-head { display: block; margin-bottom: 2px; }
+.resume-web .skills .keywords { font-family: var(--font-mono); font-size: 14px; color: #333; }
+
+.resume-web .pdf-btn {
+  display: inline-block;
+  padding: 4px 14px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--accent-yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  text-decoration: none;
+  color: var(--ink);
+}
+.resume-web .pdf-btn:hover { background: var(--accent-pink); }

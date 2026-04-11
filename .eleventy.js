@@ -1,3 +1,5 @@
+import { dateRange, yearOf } from "./lib/resume-filters.mjs";
+
 export default function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
   eleventyConfig.setOutputDirectory("_site");
@@ -21,6 +23,9 @@ export default function (eleventyConfig) {
     const date = d instanceof Date ? d : new Date(d);
     return date.toISOString();
   });
+
+  eleventyConfig.addFilter("dateRange", dateRange);
+  eleventyConfig.addFilter("yearOf", yearOf);
 
   eleventyConfig.addCollection("words", (collection) =>
     collection

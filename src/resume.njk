@@ -4,6 +4,116 @@ title: résumé
 cardNum: 2
 cardTitle: résumé
 permalink: /resume/index.html
+extraCSS:
+  - /assets/css/resume-web.css
 ---
-<h2>◆ Résumé ◆</h2>
-<p>stub — filled in task 9.</p>
+<div class="resume-web">
+  <div class="basics">
+    <h2>◆ {{ resume.basics.name }} ◆</h2>
+    <div class="label">{{ resume.basics.label }}</div>
+    <div class="contact">
+      {% if resume.basics.email %}<a href="mailto:{{ resume.basics.email }}">{{ resume.basics.email }}</a>{% endif %}
+      {% if resume.basics.url %} · <a href="{{ resume.basics.url }}">{{ resume.basics.url | replace("https://", "") }}</a>{% endif %}
+    </div>
+    <p style="margin-top:10px"><a class="pdf-btn" href="/resume.pdf">download pdf</a></p>
+  </div>
+
+  {% if resume.basics.summary %}
+    <div class="section">
+      <h3>Summary</h3>
+      <p>{{ resume.basics.summary }}</p>
+    </div>
+  {% endif %}
+
+  {% if resume.work and resume.work.length %}
+    <div class="section">
+      <h3>Work</h3>
+      {% for job in resume.work %}
+        <div class="entry">
+          <div class="entry-head">
+            <span class="name">{{ job.position }} · {{ job.name or job.company }}</span>
+            <span class="date">{{ job.startDate | dateRange(job.endDate) }}</span>
+          </div>
+          {% if job.summary %}<p class="summary">{{ job.summary }}</p>{% endif %}
+          {% if job.highlights and job.highlights.length %}
+            <ul>{% for h in job.highlights %}<li>{{ h }}</li>{% endfor %}</ul>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if resume.education and resume.education.length %}
+    <div class="section">
+      <h3>Education</h3>
+      {% for e in resume.education %}
+        <div class="entry">
+          <div class="entry-head">
+            <span class="name">{{ e.studyType }}{% if e.area %} in {{ e.area }}{% endif %} · {{ e.institution }}</span>
+            <span class="date">{{ e.startDate | dateRange(e.endDate) }}</span>
+          </div>
+          {% if e.score %}<div class="sub">{{ e.score }}</div>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if resume.skills and resume.skills.length %}
+    <div class="section skills">
+      <h3>Skills</h3>
+      {% for s in resume.skills %}
+        <div class="entry">
+          <div class="entry-head"><span class="name">{{ s.name }}</span></div>
+          {% if s.keywords %}<div class="keywords">{{ s.keywords | join(" · ") }}</div>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if resume.projects and resume.projects.length %}
+    <div class="section">
+      <h3>Projects</h3>
+      {% for p in resume.projects %}
+        <div class="entry">
+          <div class="entry-head">
+            <span class="name">{{ p.name }}</span>
+            <span class="date">{{ p.startDate | dateRange(p.endDate) }}</span>
+          </div>
+          {% if p.description %}<p class="summary">{{ p.description }}</p>{% endif %}
+          {% if p.highlights %}<ul>{% for h in p.highlights %}<li>{{ h }}</li>{% endfor %}</ul>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if resume.publications and resume.publications.length %}
+    <div class="section">
+      <h3>Publications</h3>
+      {% for pub in resume.publications %}
+        <div class="entry">
+          <div class="entry-head">
+            <span class="name">{{ pub.name }}</span>
+            <span class="date">{{ pub.releaseDate | yearOf }}</span>
+          </div>
+          {% if pub.publisher %}<div class="sub">{{ pub.publisher }}</div>{% endif %}
+          {% if pub.summary %}<p class="summary">{{ pub.summary }}</p>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  {% if resume.awards and resume.awards.length %}
+    <div class="section">
+      <h3>Awards</h3>
+      {% for a in resume.awards %}
+        <div class="entry">
+          <div class="entry-head">
+            <span class="name">{{ a.title }}{% if a.awarder %} · {{ a.awarder }}{% endif %}</span>
+            <span class="date">{{ a.date | yearOf }}</span>
+          </div>
+          {% if a.summary %}<p class="summary">{{ a.summary }}</p>{% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
