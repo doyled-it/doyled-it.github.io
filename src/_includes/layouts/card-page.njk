@@ -1,0 +1,11 @@
+---
+layout: base.njk
+---
+<main class="card" id="main">
+  {% include "titlebar.njk" %}
+  {% include "marquee.njk" %}
+  <div class="card-body">
+    {{ content | safe }}
+  </div>
+  {% include "footer.njk" %}
+</main>

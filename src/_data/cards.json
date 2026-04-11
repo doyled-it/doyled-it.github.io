@@ -1,0 +1,9 @@
+[
+  { "num": 0, "name": "home",     "title": "home",     "url": "/" },
+  { "num": 1, "name": "about",    "title": "about",    "url": "/about/" },
+  { "num": 2, "name": "resume",   "title": "résumé",   "url": "/resume/" },
+  { "num": 3, "name": "projects", "title": "projects", "url": "/projects/" },
+  { "num": 4, "name": "words",    "title": "words",    "url": "/words/" },
+  { "num": 5, "name": "music",    "title": "music",    "url": "/music/" },
+  { "num": 6, "name": "contact",  "title": "contact",  "url": "/contact/" }
+]

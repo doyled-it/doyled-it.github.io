@@ -1,0 +1,13 @@
+{% set cardList = cards %}
+{% set currentNum = cardNum %}
+{% set total = cardList.length %}
+{% set prev = cardList[(currentNum - 1 + total) % total] %}
+{% set next = cardList[(currentNum + 1) % total] %}
+<div class="card-footer">
+  <span class="counter">{{ site.counter }}</span>
+  <nav>
+    <a href="{{ prev.url }}">◀ {{ prev.name }}</a>
+    &nbsp;·&nbsp; card {{ currentNum }} of {{ total - 1 }} &nbsp;·&nbsp;
+    <a href="{{ next.url }}">{{ next.name }} ▶</a>
+  </nav>
+</div>
