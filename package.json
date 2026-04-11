@@ -11,6 +11,9 @@
     "build:resume-pdf:legacy": "echo 'Legacy pipeline retired; see Task 11 fallback clause.' && exit 1",
     "test": "node --test tests/"
   },
-  "devDependencies": {},
-  "dependencies": {}
+  "devDependencies": {
+    "@11ty/eleventy": "^3.1.5",
+    "@11ty/eleventy-navigation": "^1.0.5",
+    "@11ty/eleventy-plugin-rss": "^3.0.0"
+  }
 }
