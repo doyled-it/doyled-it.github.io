@@ -1,0 +1,134 @@
+/* ============================================================
+   doyled-it.com — main stylesheet
+   palette, reset, desktop background, card chassis, typography
+   ============================================================ */
+
+:root {
+  --bg-desk: #bfe4ff;
+  --card-body: #fffbe6;
+  --ink: #000;
+  --marquee-bg: #000;
+  --marquee-fg: #0f0;
+  --accent-pink: #ff6fb3;
+  --accent-pink-dark: #c0006e;
+  --accent-yellow: #ffe14d;
+  --accent-green: #8dff8d;
+  --accent-cyan: #6fe6ff;
+  --accent-purple: #c99dff;
+  --shadow-offset: 4px;
+  --card-max: 720px;
+
+  --font-display: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono: "VT323", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  font-family: var(--font-body);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.desk {
+  background-color: var(--bg-desk);
+  background-image: radial-gradient(circle at 2px 2px, #448844 0.5px, transparent 0);
+  background-size: 5px 5px;
+  padding: 40px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.card {
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
+  width: 100%;
+  max-width: var(--card-max);
+  display: flex;
+  flex-direction: column;
+}
+
+.card-titlebar {
+  background: linear-gradient(90deg, var(--accent-pink) 0%, var(--accent-yellow) 100%);
+  border-bottom: 2px solid var(--ink);
+  padding: 3px 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.card-titlebar .label { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.card-titlebar .controls { letter-spacing: 2px; flex-shrink: 0; }
+
+.card-marquee {
+  background: var(--marquee-bg);
+  color: var(--marquee-fg);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  padding: 2px 0;
+  border-bottom: 2px solid var(--ink);
+  overflow: hidden;
+  white-space: nowrap;
+}
+.card-marquee > span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: marquee 30s linear infinite;
+}
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+.card-body {
+  padding: 16px 20px;
+  font-size: 15px;
+  line-height: 1.5;
+  flex: 1;
+}
+
+.card-body h1, .card-body h2, .card-body h3 {
+  font-family: var(--font-display);
+  color: var(--accent-pink-dark);
+  margin-top: 0;
+}
+.card-body h2 { font-size: 22px; text-align: center; letter-spacing: 0.05em; }
+.card-body h3 { font-size: 16px; letter-spacing: 0.05em; }
+
+.card-footer {
+  border-top: 2px dashed var(--ink);
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #555;
+}
+.card-footer .counter {
+  background: #000;
+  color: var(--marquee-fg);
+  border: 1px solid var(--marquee-fg);
+  padding: 1px 6px;
+  font-family: var(--font-mono);
+}
+.card-footer nav a { color: #444; text-decoration: none; }
+.card-footer nav a:hover { color: var(--accent-pink-dark); text-decoration: underline; }
+
+a { color: var(--accent-pink-dark); }
+a:visited { color: var(--accent-purple); }
+
+@media (max-width: 720px) {
+  .desk { padding: 16px 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-marquee > span { animation: none; padding-left: 0; text-align: center; display: block; }
+}
