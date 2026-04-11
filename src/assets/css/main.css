@@ -4,6 +4,7 @@
    ============================================================ */
 
 :root {
+  color-scheme: only light;
   --bg-desk: #bfe4ff;
   --card-body: #fffbe6;
   --ink: #000;
