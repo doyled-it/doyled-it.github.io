@@ -1,0 +1,16 @@
+---
+layout: base.njk
+cardNum: 4
+cardTitle: words
+---
+<main class="card" id="main">
+  {% include "titlebar.njk" %}
+  {% include "marquee.njk" %}
+  <article class="card-body">
+    <h2>◆ {{ title }} ◆</h2>
+    <p class="post-meta"><time datetime="{{ page.date | dateToISOString }}">{{ page.date | readableDate }}</time></p>
+    {{ content | safe }}
+    <p><a href="/words/">◀ back to words index</a></p>
+  </article>
+  {% include "footer.njk" %}
+</main>

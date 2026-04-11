@@ -5,4 +5,15 @@ cardNum: 4
 cardTitle: words
 ---
 <h2>◆ Words ◆</h2>
-<p>stub — filled in task 8.</p>
+<p>Things I've written.</p>
+<ul class="words-index">
+  {% for post in collections.words %}
+    <li>
+      <time datetime="{{ post.date | dateToISOString }}">{{ post.date | readableDate }}</time> —
+      <a href="{{ post.url }}">{{ post.data.title }}</a>
+    </li>
+  {% endfor %}
+  {% if collections.words.length == 0 %}
+    <li><em>No posts yet.</em></li>
+  {% endif %}
+</ul>

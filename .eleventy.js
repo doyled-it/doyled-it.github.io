@@ -9,6 +9,25 @@ export default function (eleventyConfig) {
 
   eleventyConfig.setServerOptions({ port: 8080, showAllHosts: false });
 
+  eleventyConfig.addFilter("readableDate", (d) => {
+    const date = d instanceof Date ? d : new Date(d);
+    return date.toLocaleDateString("en-US", {
+      year: "numeric", month: "long", day: "numeric",
+      timeZone: "UTC",
+    });
+  });
+
+  eleventyConfig.addFilter("dateToISOString", (d) => {
+    const date = d instanceof Date ? d : new Date(d);
+    return date.toISOString();
+  });
+
+  eleventyConfig.addCollection("words", (collection) =>
+    collection
+      .getFilteredByGlob("src/words/*.md")
+      .sort((a, b) => b.date - a.date)
+  );
+
   return {
     templateFormats: ["njk", "md", "html"],
     markdownTemplateEngine: "njk",
