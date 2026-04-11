@@ -3,5 +3,22 @@ layout: layouts/card-page.njk
 title: home
 cardNum: 0
 cardTitle: home
+extraCSS:
+  - /assets/css/cracktro.css
+extraJS:
+  - /assets/js/keyboard-nav.js
 ---
-<p>chassis working. content goes here in task 5.</p>
+<div class="cracktro">
+  <h1 class="cracktro-logo">DOYLED-IT</h1>
+  <p class="cracktro-sub">— a personal site, episode i —</p>
+  <div class="cracktro-scroller" aria-hidden="true">
+    <span>greetz to the internet · this site has no purpose except to exist · thanks for stopping by · press a key to navigate · · ·</span>
+  </div>
+  <ul class="cracktro-menu">
+    <li><a href="/about/" accesskey="a"><span class="k">[A]</span> about</a></li>
+    <li><a href="/resume/" accesskey="r"><span class="k">[R]</span> résumé</a> &nbsp; <a href="/projects/" accesskey="p"><span class="k">[P]</span> projects</a></li>
+    <li><a href="/words/" accesskey="w"><span class="k">[W]</span> words</a> &nbsp; <a href="/music/" accesskey="m"><span class="k">[M]</span> music</a></li>
+    <li><a href="/contact/" accesskey="c"><span class="k">[C]</span> contact</a></li>
+  </ul>
+  <button class="cracktro-pets-btn" type="button" id="pets-btn" disabled title="pet switcher wired up in task 13">◆ pets</button>
+</div>

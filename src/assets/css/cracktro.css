@@ -1,0 +1,97 @@
+/* ============================================================
+   card 0 cracktro — landing page specific styles
+   ============================================================ */
+
+.cracktro { text-align: center; font-family: var(--font-mono); }
+
+.cracktro-logo {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 10vw, 88px);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  margin: 20px 0 4px;
+  line-height: 1;
+  background: linear-gradient(180deg, #ff2a6d 0%, #ffff00 50%, #ff8800 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 12px rgba(255, 100, 200, 0.35);
+}
+
+.cracktro-sub {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: #555;
+  letter-spacing: 0.15em;
+  margin: 0 0 18px;
+}
+
+.cracktro-scroller {
+  background: #001;
+  color: #0ff;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  border-top: 1px solid #0ff;
+  border-bottom: 1px solid #0ff;
+  margin: 0 -20px 18px;
+  padding: 4px 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.cracktro-scroller > span {
+  display: inline-block;
+  padding-left: 100%;
+  animation: cracktro-scroll 24s linear infinite;
+}
+@keyframes cracktro-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-100%); }
+}
+
+.cracktro-menu {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  line-height: 1.6;
+  margin: 14px 0 8px;
+  list-style: none;
+  padding: 0;
+}
+.cracktro-menu li { display: block; }
+.cracktro-menu a {
+  color: var(--ink);
+  text-decoration: none;
+  padding: 0 12px;
+}
+.cracktro-menu a .k {
+  color: var(--accent-pink-dark);
+  font-weight: 700;
+}
+.cracktro-menu a:hover,
+.cracktro-menu a:focus {
+  background: var(--accent-pink);
+  color: #fff;
+  outline: none;
+}
+.cracktro-menu a:hover .k,
+.cracktro-menu a:focus .k {
+  color: #fff;
+}
+
+.cracktro-pets-btn {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 4px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 12px;
+  background: var(--accent-cyan);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--ink);
+}
+.cracktro-pets-btn:hover { background: var(--accent-yellow); }
+
+@media (prefers-reduced-motion: reduce) {
+  .cracktro-scroller > span { animation: none; padding-left: 0; text-align: center; display: block; }
+}
