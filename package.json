@@ -1,6 +1,16 @@
 {
-  "devDependencies": {
-    "@shopify/prettier-plugin-liquid": "1.4.0",
-    "prettier": "3.1.1"
-  }
+  "name": "doyled-it",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "eleventy --serve --quiet",
+    "build": "eleventy && npm run build:resume-pdf",
+    "build:eleventy": "eleventy",
+    "build:resume-pdf": "node scripts/build-resume-pdf.mjs",
+    "build:resume-pdf:legacy": "echo 'Legacy pipeline retired; see Task 11 fallback clause.' && exit 1",
+    "test": "node --test tests/"
+  },
+  "devDependencies": {},
+  "dependencies": {}
 }
