@@ -5,6 +5,8 @@ const STORAGE_KEY = "doyled_it_buddy";
 const SPEED = 10;
 const FOLLOW_DISTANCE = 48;
 const TICK_MS = 100;
+const ALERT_TICKS = 4;
+const WOBBLE = 3;
 
 async function loadManifest(name) {
   const res = await fetch(`/assets/sprites/${name}/manifest.json`);
@@ -44,7 +46,7 @@ function createSpriteElement(name, manifest) {
   return el;
 }
 
-function animate(state, manifest, el) {
+function setFrame(state, manifest, el) {
   const step = manifest.frameStep || manifest.frameSize;
   const frames = state.frames;
   let frameIdx = 0;
@@ -61,6 +63,13 @@ let activeTickTimer = null;
 let activeFrameTimer = null;
 let activeSprite = null;
 let idleTicks = 0;
+let alertCountdown = 0;
+
+function switchState(name, manifest, el) {
+  if (!manifest.states[name]) return;
+  clearInterval(activeFrameTimer);
+  activeFrameTimer = setFrame(manifest.states[name], manifest, el);
+}
 
 async function startBuddy(name) {
   const manifest = await loadManifest(name);
@@ -71,7 +80,8 @@ async function startBuddy(name) {
   let target = { x: pos.x, y: pos.y };
   let currentState = "idle";
   idleTicks = 0;
-  activeFrameTimer = animate(manifest.states.idle, manifest, el);
+  alertCountdown = 0;
+  activeFrameTimer = setFrame(manifest.states.idle, manifest, el);
 
   const onMouse = (e) => { target = { x: e.clientX, y: e.clientY }; };
   const onTouch = (e) => {
@@ -86,28 +96,46 @@ async function startBuddy(name) {
   function tick() {
     const dist = Math.hypot(target.x - pos.x, target.y - pos.y);
 
+    // Close enough — idle, then sleep
     if (dist < FOLLOW_DISTANCE) {
       idleTicks++;
+      alertCountdown = 0;
       if (currentState !== "idle" && currentState !== "sleeping") {
-        clearInterval(activeFrameTimer);
-        activeFrameTimer = animate(manifest.states.idle, manifest, el);
+        switchState("idle", manifest, el);
         currentState = "idle";
       }
       if (idleTicks > 50 && manifest.states.sleeping && currentState !== "sleeping") {
-        clearInterval(activeFrameTimer);
-        activeFrameTimer = animate(manifest.states.sleeping, manifest, el);
+        switchState("sleeping", manifest, el);
         currentState = "sleeping";
       }
       return;
     }
 
+    // Waking up — play alert for a few ticks before chasing
+    const wasResting = currentState === "idle" || currentState === "sleeping";
+    if (wasResting && alertCountdown === 0 && manifest.states.alert) {
+      alertCountdown = ALERT_TICKS;
+      switchState("alert", manifest, el);
+      currentState = "alert";
+    }
+    if (alertCountdown > 0) {
+      alertCountdown--;
+      return;
+    }
+
     idleTicks = 0;
-    pos = stepToward(pos, target, SPEED);
+
+    // Add wobble for organic movement
+    const wobbleX = (Math.random() - 0.5) * WOBBLE * 2;
+    const wobbleY = (Math.random() - 0.5) * WOBBLE * 2;
+    const wobblyTarget = { x: target.x + wobbleX, y: target.y + wobbleY };
+
+    pos = stepToward(pos, wobblyTarget, SPEED);
     el.style.transform = `translate(${Math.round(pos.x - manifest.frameSize / 2)}px, ${Math.round(pos.y - manifest.frameSize / 2)}px)`;
+
     const dir = chooseDirection(pos.x, pos.y, target.x, target.y);
     if (dir !== currentState && manifest.states[dir]) {
-      clearInterval(activeFrameTimer);
-      activeFrameTimer = animate(manifest.states[dir], manifest, el);
+      switchState(dir, manifest, el);
       currentState = dir;
     }
   }
@@ -124,6 +152,7 @@ async function switchBuddy(name) {
   document.querySelectorAll(".buddy-sprite").forEach((n) => n.remove());
   activeSprite = null;
   idleTicks = 0;
+  alertCountdown = 0;
   await startBuddy(name);
 }
 
