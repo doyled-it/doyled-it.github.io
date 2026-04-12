@@ -1,6 +1,7 @@
 {
-  "file": "sheet.gif",
+  "file": "sheet.png",
   "frameSize": 32,
+  "frameStep": 33,
   "sheetCols": 8,
   "states": {
     "idle":   { "frames": [[-3, -3]], "frameDuration": 400 },

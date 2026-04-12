@@ -1,6 +1,6 @@
 import { chooseDirection, stepToward, pickRandom } from "./buddies-core.mjs";
 
-const BUDDIES = ["oneko", "ghost", "duck"];
+const BUDDIES = ["oneko", "tabby", "dog"];
 const STORAGE_KEY = "doyled_it_buddy";
 const SPEED = 10;
 
@@ -43,11 +43,12 @@ function createSpriteElement(name, manifest) {
 }
 
 function animate(state, manifest, el) {
+  const step = manifest.frameStep || manifest.frameSize;
   const frames = state.frames;
   let frameIdx = 0;
   const apply = () => {
     const [fx, fy] = frames[frameIdx % frames.length];
-    el.style.backgroundPosition = `${fx * manifest.frameSize}px ${fy * manifest.frameSize}px`;
+    el.style.backgroundPosition = `${fx * step}px ${fy * step}px`;
     frameIdx++;
   };
   apply();
