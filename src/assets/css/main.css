@@ -134,6 +134,19 @@ a:visited { color: var(--accent-purple); }
   .card-marquee > span { animation: none; padding-left: 0; text-align: center; display: block; }
 }
 
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 8px;
+  padding: 6px 10px;
+  background: #000;
+  color: #0f0;
+  font-family: var(--font-mono);
+  z-index: 10000;
+  text-decoration: none;
+}
+.skip-link:focus { left: 8px; }
+
 .words-index { list-style: none; padding: 0; font-family: var(--font-mono); font-size: 16px; }
 .words-index li { padding: 4px 0; border-bottom: 1px dashed #999; }
 .words-index time { color: #555; }
