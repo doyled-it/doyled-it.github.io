@@ -137,4 +137,11 @@ a:visited { color: var(--accent-purple); }
 .words-index { list-style: none; padding: 0; font-family: var(--font-mono); font-size: 16px; }
 .words-index li { padding: 4px 0; border-bottom: 1px dashed #999; }
 .words-index time { color: #555; }
+
+.music-list { list-style: none; padding: 0; font-family: var(--font-mono); font-size: 15px; }
+.music-list.top { list-style: decimal inside; }
+.music-list li { padding: 3px 0; border-bottom: 1px dashed #bbb; }
+.music-list .track { font-weight: 700; }
+.music-list .artist { color: #555; }
+.music-list .when, .music-list .plays { color: #777; font-size: 13px; }
 .post-meta { font-family: var(--font-mono); color: #555; margin-top: -8px; }

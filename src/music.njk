@@ -5,4 +5,28 @@ cardNum: 5
 cardTitle: music
 ---
 <h2>◆ Music ◆</h2>
-<p>stub — filled in task 12.</p>
+{% if lastfm.error %}
+  <p><em>Music data unavailable. Set <code>LASTFM_USER</code> and <code>LASTFM_API_KEY</code> env vars and rebuild.</em></p>
+{% elif lastfm.stale %}
+  <p><em>Showing cached data — the latest fetch failed.</em></p>
+{% endif %}
+
+{% if lastfm.recent and lastfm.recent.length %}
+  <h3>◆ Recently Played ◆</h3>
+  <ul class="music-list">
+    {% for t in lastfm.recent %}
+      <li><span class="track">{{ t.name }}</span> — <span class="artist">{{ t.artist }}</span> <span class="when">({{ t.date }})</span></li>
+    {% endfor %}
+  </ul>
+{% endif %}
+
+{% if lastfm.top and lastfm.top.length %}
+  <h3>◆ Top This Week ◆</h3>
+  <ol class="music-list top">
+    {% for t in lastfm.top %}
+      <li><span class="track">{{ t.name }}</span> — <span class="artist">{{ t.artist }}</span> <span class="plays">[{{ t.plays }} plays]</span></li>
+    {% endfor %}
+  </ol>
+{% endif %}
+
+<p style="margin-top:16px"><small><a href="https://www.last.fm/user/{{ site.lastfmUser }}">last.fm →</a></small></p>
