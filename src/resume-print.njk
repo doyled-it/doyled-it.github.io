@@ -1,0 +1,125 @@
+---
+permalink: /resume-print/index.html
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>{{ resume.basics.name }} — Résumé</title>
+    <link rel="stylesheet" href="/assets/css/resume-print.css">
+  </head>
+  <body>
+    <div class="resume-print">
+      <div class="basics">
+        <h1>{{ resume.basics.name }}</h1>
+        <div class="label">{{ resume.basics.label }}</div>
+        <div class="contact">
+          {% if resume.basics.email %}{{ resume.basics.email }}{% endif %}
+          {% if resume.basics.phone %} · {{ resume.basics.phone }}{% endif %}
+          {% if resume.basics.url %} · {{ resume.basics.url | replace("https://", "") }}{% endif %}
+          {% if resume.basics.location and resume.basics.location.city %} · {{ resume.basics.location.city }}, {{ resume.basics.location.region }}{% endif %}
+        </div>
+      </div>
+
+      {% if resume.basics.summary %}
+        <div class="section">
+          <h2>Summary</h2>
+          <p>{{ resume.basics.summary }}</p>
+        </div>
+      {% endif %}
+
+      {% if resume.work and resume.work.length %}
+        <div class="section">
+          <h2>Experience</h2>
+          {% for job in resume.work %}
+            <div class="entry">
+              <div class="entry-head">
+                <span class="name">{{ job.position }} · {{ job.name or job.company }}</span>
+                <span class="date">{{ job.startDate | dateRange(job.endDate) }}</span>
+              </div>
+              {% if job.summary %}<p class="summary">{{ job.summary }}</p>{% endif %}
+              {% if job.highlights and job.highlights.length %}
+                <ul>{% for h in job.highlights %}<li>{{ h }}</li>{% endfor %}</ul>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if resume.education and resume.education.length %}
+        <div class="section">
+          <h2>Education</h2>
+          {% for e in resume.education %}
+            <div class="entry">
+              <div class="entry-head">
+                <span class="name">{{ e.studyType }}{% if e.area %}, {{ e.area }}{% endif %} · {{ e.institution }}</span>
+                <span class="date">{{ e.startDate | dateRange(e.endDate) }}</span>
+              </div>
+              {% if e.score %}<div class="sub">{{ e.score }}</div>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if resume.skills and resume.skills.length %}
+        <div class="section skills">
+          <h2>Skills</h2>
+          {% for s in resume.skills %}
+            <div class="entry">
+              <div class="entry-head"><span class="name">{{ s.name }}</span></div>
+              {% if s.keywords %}<div class="keywords">{{ s.keywords | join(", ") }}</div>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if resume.projects and resume.projects.length %}
+        <div class="section">
+          <h2>Projects</h2>
+          {% for p in resume.projects %}
+            <div class="entry">
+              <div class="entry-head">
+                <span class="name">{{ p.name }}</span>
+                <span class="date">{{ p.startDate | dateRange(p.endDate) }}</span>
+              </div>
+              {% if p.description %}<p class="summary">{{ p.description }}</p>{% endif %}
+              {% if p.highlights %}<ul>{% for h in p.highlights %}<li>{{ h }}</li>{% endfor %}</ul>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if resume.publications and resume.publications.length %}
+        <div class="section">
+          <h2>Publications</h2>
+          {% for pub in resume.publications %}
+            <div class="entry">
+              <div class="entry-head">
+                <span class="name">{{ pub.name }}</span>
+                <span class="date">{{ pub.releaseDate | yearOf }}</span>
+              </div>
+              {% if pub.publisher %}<div class="sub">{{ pub.publisher }}</div>{% endif %}
+              {% if pub.summary %}<p class="summary">{{ pub.summary }}</p>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+
+      {% if resume.awards and resume.awards.length %}
+        <div class="section">
+          <h2>Awards</h2>
+          {% for a in resume.awards %}
+            <div class="entry">
+              <div class="entry-head">
+                <span class="name">{{ a.title }}{% if a.awarder %} · {{ a.awarder }}{% endif %}</span>
+                <span class="date">{{ a.date | yearOf }}</span>
+              </div>
+              {% if a.summary %}<p class="summary">{{ a.summary }}</p>{% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </body>
+</html>

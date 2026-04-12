@@ -1,0 +1,44 @@
+@page { size: letter; margin: 0.6in 0.7in; }
+
+html, body {
+  background: #fff;
+  color: #000;
+  font-family: "Charter", "Georgia", "Cambria", "Times New Roman", serif;
+  font-size: 10.5pt;
+  line-height: 1.35;
+  margin: 0;
+  padding: 0;
+}
+
+.resume-print {
+  max-width: 7.1in;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.resume-print .basics { text-align: center; border-bottom: 1pt solid #000; padding-bottom: 6pt; margin-bottom: 10pt; }
+.resume-print .basics h1 { font-size: 18pt; margin: 0 0 2pt; letter-spacing: 0.02em; }
+.resume-print .basics .label { font-size: 11pt; font-style: italic; color: #333; }
+.resume-print .basics .contact { font-size: 9.5pt; color: #333; margin-top: 4pt; }
+.resume-print .basics .contact a { color: #000; text-decoration: none; }
+
+.resume-print .section { margin-top: 10pt; break-inside: avoid-page; }
+.resume-print .section > h2 {
+  font-size: 11.5pt;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 0.5pt solid #000;
+  padding-bottom: 2pt;
+  margin: 10pt 0 5pt;
+}
+
+.resume-print .entry { margin-bottom: 7pt; break-inside: avoid; }
+.resume-print .entry-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12pt; }
+.resume-print .entry-head .name { font-weight: 700; }
+.resume-print .entry-head .date { font-size: 9.5pt; color: #333; white-space: nowrap; }
+.resume-print .entry .sub { font-style: italic; color: #333; font-size: 10pt; }
+.resume-print .entry .summary { margin: 2pt 0; }
+.resume-print .entry ul { margin: 2pt 0 2pt 14pt; padding: 0; }
+.resume-print .entry li { margin-bottom: 1pt; }
+
+.resume-print .skills .keywords { font-size: 10pt; }
