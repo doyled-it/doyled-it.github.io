@@ -1,0 +1,17 @@
+{
+  "file": "sheet.png",
+  "frameSize": 32,
+  "sheetCols": 1,
+  "placeholder": true,
+  "states": {
+    "idle":  { "frames": [[0, 0]], "frameDuration": 500 },
+    "N": { "frames": [[0, 0]], "frameDuration": 200 },
+    "NE": { "frames": [[0, 0]], "frameDuration": 200 },
+    "E": { "frames": [[0, 0]], "frameDuration": 200 },
+    "SE": { "frames": [[0, 0]], "frameDuration": 200 },
+    "S": { "frames": [[0, 0]], "frameDuration": 200 },
+    "SW": { "frames": [[0, 0]], "frameDuration": 200 },
+    "W": { "frames": [[0, 0]], "frameDuration": 200 },
+    "NW": { "frames": [[0, 0]], "frameDuration": 200 }
+  }
+}

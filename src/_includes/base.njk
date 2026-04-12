@@ -18,6 +18,7 @@
   </head>
   <body class="desk">
     {{ content | safe }}
+    <script type="module" src="/assets/js/buddies.js"></script>
     {% if extraJS %}
       {% for script in extraJS %}
         <script src="{{ script }}" defer></script>
