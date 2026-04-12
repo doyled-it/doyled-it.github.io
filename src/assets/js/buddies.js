@@ -1,8 +1,10 @@
 import { chooseDirection, stepToward, pickRandom } from "./buddies-core.mjs";
 
-const BUDDIES = ["oneko", "tabby", "dog"];
+const BUDDIES = ["oneko"];
 const STORAGE_KEY = "doyled_it_buddy";
 const SPEED = 10;
+const FOLLOW_DISTANCE = 48;
+const TICK_MS = 100;
 
 async function loadManifest(name) {
   const res = await fetch(`/assets/sprites/${name}/manifest.json`);
@@ -58,6 +60,7 @@ function animate(state, manifest, el) {
 let activeTickTimer = null;
 let activeFrameTimer = null;
 let activeSprite = null;
+let idleTicks = 0;
 
 async function startBuddy(name) {
   const manifest = await loadManifest(name);
@@ -67,6 +70,7 @@ async function startBuddy(name) {
   let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
   let target = { x: pos.x, y: pos.y };
   let currentState = "idle";
+  idleTicks = 0;
   activeFrameTimer = animate(manifest.states.idle, manifest, el);
 
   const onMouse = (e) => { target = { x: e.clientX, y: e.clientY }; };
@@ -80,6 +84,24 @@ async function startBuddy(name) {
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function tick() {
+    const dist = Math.hypot(target.x - pos.x, target.y - pos.y);
+
+    if (dist < FOLLOW_DISTANCE) {
+      idleTicks++;
+      if (currentState !== "idle" && currentState !== "sleeping") {
+        clearInterval(activeFrameTimer);
+        activeFrameTimer = animate(manifest.states.idle, manifest, el);
+        currentState = "idle";
+      }
+      if (idleTicks > 50 && manifest.states.sleeping && currentState !== "sleeping") {
+        clearInterval(activeFrameTimer);
+        activeFrameTimer = animate(manifest.states.sleeping, manifest, el);
+        currentState = "sleeping";
+      }
+      return;
+    }
+
+    idleTicks = 0;
     pos = stepToward(pos, target, SPEED);
     el.style.transform = `translate(${Math.round(pos.x - manifest.frameSize / 2)}px, ${Math.round(pos.y - manifest.frameSize / 2)}px)`;
     const dir = chooseDirection(pos.x, pos.y, target.x, target.y);
@@ -91,7 +113,7 @@ async function startBuddy(name) {
   }
 
   if (!reducedMotion) {
-    activeTickTimer = setInterval(tick, 60);
+    activeTickTimer = setInterval(tick, TICK_MS);
   }
 }
 
@@ -101,12 +123,17 @@ async function switchBuddy(name) {
   if (activeFrameTimer) { clearInterval(activeFrameTimer); activeFrameTimer = null; }
   document.querySelectorAll(".buddy-sprite").forEach((n) => n.remove());
   activeSprite = null;
+  idleTicks = 0;
   await startBuddy(name);
 }
 
 function initPetsButton() {
   const btn = document.getElementById("pets-btn");
   if (!btn) return;
+  if (BUDDIES.length <= 1) {
+    btn.style.display = "none";
+    return;
+  }
   btn.disabled = false;
   btn.removeAttribute("title");
   const current = localStorage.getItem(STORAGE_KEY) || BUDDIES[0];
