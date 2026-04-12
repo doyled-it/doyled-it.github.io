@@ -8,6 +8,8 @@ export default function (eleventyConfig) {
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy("CNAME");
+  eleventyConfig.addPassthroughCopy("src/favicon.svg");
+  eleventyConfig.addPassthroughCopy("src/robots.txt");
 
   eleventyConfig.setServerOptions({ port: 8080, showAllHosts: false });
 

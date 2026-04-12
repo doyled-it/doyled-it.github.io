@@ -1,0 +1,19 @@
+---
+permalink: /sitemap.xml
+eleventyExcludeFromCollections: true
+---
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  {% for card in cards %}
+    <url>
+      <loc>{{ site.url }}{{ card.url }}</loc>
+      <changefreq>weekly</changefreq>
+    </url>
+  {% endfor %}
+  {% for post in collections.words %}
+    <url>
+      <loc>{{ site.url }}{{ post.url }}</loc>
+      <lastmod>{{ post.date | dateToISOString }}</lastmod>
+    </url>
+  {% endfor %}
+</urlset>
