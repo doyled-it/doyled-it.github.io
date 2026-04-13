@@ -1,0 +1,71 @@
+---
+layout: base.njk
+title: golf
+cardNum: 8
+cardTitle: golf
+extraCSS:
+  - /assets/css/golf.css
+---
+{% set g = golf.golfer %}
+{% set scores = golf.scores %}
+<main class="card golf-card" id="main">
+  {% include "titlebar.njk" %}
+  <div class="card-marquee" aria-hidden="true">
+    <span>⛳ on the tee... michael doyle... handicap {{ g.handicapIndex }}... {{ g.club | lower }} ⛳</span>
+  </div>
+  <div class="card-body">
+    <div class="golf-header">
+      <h2>⛳ {{ g.name }} ⛳</h2>
+      <div class="golfer-info">{{ g.club }} · Handicap {{ g.handicapIndex }}</div>
+      <div class="golfer-info">{{ scores | length }} rounds played</div>
+    </div>
+
+    <div class="golf-stats-grid">
+      <div class="golf-stat-box">
+        <div class="stat-label">Handicap</div>
+        <div class="stat-value">{{ g.handicapIndex }}</div>
+      </div>
+      <div class="golf-stat-box">
+        <div class="stat-label">Rounds</div>
+        <div class="stat-value">{{ scores | length }}</div>
+      </div>
+      <div class="golf-stat-box">
+        <div class="stat-label">Low 18</div>
+        <div class="stat-value" id="golf-low">--</div>
+      </div>
+    </div>
+
+    <div class="golf-section">
+      <h3>RECENT ROUNDS</h3>
+      <table class="scorecard-table">
+        <thead>
+          <tr><th>Date</th><th>Holes</th><th>Score</th><th>Rating</th><th>Slope</th><th>Diff</th></tr>
+        </thead>
+        <tbody>
+          {% for s in scores %}
+          {% if loop.index0 < 10 %}
+          <tr>
+            <td>{{ s.played_at | readableDate }}</td>
+            <td>{{ s.number_of_holes }}</td>
+            <td><strong>{{ s.adjusted_gross_score }}</strong></td>
+            <td>{{ s.course_rating }}</td>
+            <td>{{ s.slope_rating }}</td>
+            <td>{{ s.differential }}</td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% include "footer.njk" %}
+</main>
+<script>
+(function() {
+  const scores = {{ scores | dump | safe }};
+  const full18 = scores.filter(s => s.number_of_holes === 18 || s.adjusted_gross_score > 50);
+  const low = Math.min(...full18.map(s => s.adjusted_gross_score));
+  const el = document.getElementById('golf-low');
+  if (el && isFinite(low)) el.textContent = low;
+})();
+</script>
