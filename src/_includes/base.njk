@@ -28,6 +28,16 @@
   <body class="desk">
     <a class="skip-link" href="#main">skip to content</a>
     {{ content | safe }}
+    <div class="buddy-selector" id="buddy-selector">
+      <button type="button" class="buddy-toggle" id="buddy-toggle" aria-label="Choose your buddy">
+        <span class="buddy-toggle-sprite" id="buddy-toggle-sprite"></span>
+        <span class="buddy-toggle-name" id="buddy-toggle-name">buddy</span>
+      </button>
+      <div class="buddy-grid-popup" id="buddy-grid-popup" hidden>
+        <div class="buddy-grid-header">CHOOSE YOUR BUDDY</div>
+        <div class="buddy-grid" id="buddy-grid"></div>
+      </div>
+    </div>
     <script type="module" src="/assets/js/buddies.js"></script>
     <script src="/assets/js/keyboard-nav.js" defer></script>
     <script src="/assets/js/window-controls.js" defer></script>
