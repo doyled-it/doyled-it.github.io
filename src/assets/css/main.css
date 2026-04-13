@@ -261,11 +261,14 @@ a:visited { color: var(--accent-purple); }
 
 .chiptune-cd {
   display: inline-block;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   border-radius: 50%;
-  background: radial-gradient(circle at center, #222 3px, #aaa 3px, #ccc 5px, #aaa 6px, #ddd 7px, #bbb 8px);
-  border: 1px solid #555;
+  background:
+    radial-gradient(circle at center, #111 4px, transparent 4px),
+    radial-gradient(circle at center, transparent 4px, #c0c0c0 5px, #e0e0e0 7px, #a0a0a0 9px, #d0d0d0 10px, #b0b0b0 11px, #c8c8c8 12px);
+  border: 2px solid #666;
+  box-shadow: inset 0 0 2px rgba(255,255,255,0.4);
 }
 .chiptune-cd--spin {
   animation: cd-spin 1s linear infinite;

@@ -62,10 +62,12 @@
     const s1 = document.createElement("script");
     s1.src = "/assets/js/nsf-player/libgme.js";
     s1.onload = () => {
-      const s2 = document.createElement("script");
-      s2.src = "/assets/js/nsf-player/index.js";
-      s2.onload = () => { nsfLoaded = true; cb(); };
-      document.head.appendChild(s2);
+      setTimeout(() => {
+        const s2 = document.createElement("script");
+        s2.src = "/assets/js/nsf-player/index.js";
+        s2.onload = () => { nsfLoaded = true; cb(); };
+        document.head.appendChild(s2);
+      }, 100);
     };
     document.head.appendChild(s1);
   }
