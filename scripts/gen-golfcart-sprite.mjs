@@ -52,9 +52,6 @@ function drawCartRight(ctx, bounceY = 0) {
   rect(ctx, 5, y + 8, 1, 5, DGREEN);
   rect(ctx, 27, y + 8, 1, 5, DGREEN);
 
-  // Seat
-  rect(ctx, 15, y + 5, 5, 3, SEAT);
-  rect(ctx, 15, y + 4, 1, 1, SEAT);
 
   // Golf bag on back
   rect(ctx, 21, y + 2, 5, 6, BROWN);
@@ -173,8 +170,6 @@ function drawCartNE(ctx, bounceY = 0) {
   px(ctx, 20, y - 2, "#aaa");
   px(ctx, 22, y - 3, "#aaa");
 
-  // Seat
-  rect(ctx, 13, y + 4, 5, 3, SEAT);
 
   rect(ctx, 4, y + 14, 23, 1, BLACK);
   rect(ctx, 6, y + 13, 4, 4, WHEEL);
@@ -218,8 +213,6 @@ function drawCartSE(ctx, bounceY = 0) {
   rect(ctx, 22, y + 1, 1, 3, GRAY);
   px(ctx, 22, y, "#aaa");
 
-  // Seat
-  rect(ctx, 14, y + 4, 5, 3, SEAT);
 
   rect(ctx, 4, y + 14, 23, 1, BLACK);
   rect(ctx, 6, y + 13, 4, 4, WHEEL);
