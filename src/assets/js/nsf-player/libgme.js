@@ -98,7 +98,7 @@ else if (ENVIRONMENT_IS_WEB || ENVIRONMENT_IS_WORKER) {
     Module['printErr'] = function(x) {
       //console.log(x);
     };
-    window['Module'] = Module;
+    this['Module'] = Module;
   } else if (ENVIRONMENT_IS_WORKER) {
     // We can do very little here...
     var TRY_USE_DUMP = false;
@@ -1371,7 +1371,7 @@ function copyTempDouble(ptr) {
         }}};
   Module["TTY"] = TTY;
   var MEMFS={mount:function (mount) {
-        return MEMFS.create_node(null, '/', parseInt('0040000', 8) | parseInt('0777', 8), 0);
+        return MEMFS.create_node(null, '/', 0040000 | 0777, 0);
       },create_node:function (parent, name, mode, dev) {
         if (FS.isBlkdev(mode) || FS.isFIFO(mode)) {
           // no supported
@@ -1507,7 +1507,7 @@ function copyTempDouble(ptr) {
           }
           return entries;
         },symlink:function (parent, newname, oldpath) {
-          var node = MEMFS.create_node(parent, newname, parseInt('0777', 8) | parseInt('0120000', 8), 0);
+          var node = MEMFS.create_node(parent, newname, 0777 | 0120000, 0);
           node.link = oldpath;
           return node;
         },readlink:function (node) {
@@ -1693,17 +1693,17 @@ function copyTempDouble(ptr) {
       },isMountpoint:function (node) {
         return node.mounted;
       },isFile:function (mode) {
-        return (mode & parseInt('0170000', 8)) === parseInt('0100000', 8);
+        return (mode & 0170000) === 0100000;
       },isDir:function (mode) {
-        return (mode & parseInt('0170000', 8)) === parseInt('0040000', 8);
+        return (mode & 0170000) === 0040000;
       },isLink:function (mode) {
-        return (mode & parseInt('0170000', 8)) === parseInt('0120000', 8);
+        return (mode & 0170000) === 0120000;
       },isChrdev:function (mode) {
-        return (mode & parseInt('0170000', 8)) === parseInt('0020000', 8);
+        return (mode & 0170000) === 0020000;
       },isBlkdev:function (mode) {
-        return (mode & parseInt('0170000', 8)) === parseInt('0060000', 8);
+        return (mode & 0170000) === 0060000;
       },isFIFO:function (mode) {
-        return (mode & parseInt('0170000', 8)) === parseInt('0010000', 8);
+        return (mode & 0170000) === 0010000;
       },cwd:function () {
         return FS.currentPath;
       },lookupPath:function (path, opts) {
@@ -1786,12 +1786,12 @@ function copyTempDouble(ptr) {
       },mayLookup:function (dir) {
         return FS.nodePermissions(dir, 'x');
       },mayMknod:function (mode) {
-        switch (mode & parseInt('0170000', 8)) {
-          case parseInt('0100000', 8):
-          case parseInt('0020000', 8):
-          case parseInt('0060000', 8):
-          case parseInt('0010000', 8):
-          case parseInt('0140000', 8):
+        switch (mode & 0170000) {
+          case 0100000:
+          case 0020000:
+          case 0060000:
+          case 0010000:
+          case 0140000:
             return 0;
           default:
             return ERRNO_CODES.EINVAL;
@@ -1954,7 +1954,7 @@ function copyTempDouble(ptr) {
           if (!part) continue;
           var current = PATH.join(parent, part);
           try {
-            FS.mkdir(current, parseInt('0777', 8));
+            FS.mkdir(current, 0777);
           } catch (e) {
             // ignore EEXIST
           }
@@ -1985,7 +1985,7 @@ function copyTempDouble(ptr) {
         return node;
       },createDevice:function (parent, name, input, output) {
         var path = PATH.join(typeof parent === 'string' ? parent : FS.getPath(parent), name);
-        var mode = input && output ? parseInt('0777', 8) : (input ? parseInt('0333', 8) : parseInt('0555', 8));
+        var mode = input && output ? 0777 : (input ? 0333 : 0555);
         if (!FS.createDevice.major) FS.createDevice.major = 64;
         var dev = FS.makedev(FS.createDevice.major++, 0);
         // Create a fake device that a set of stream ops to emulate
@@ -2222,27 +2222,27 @@ function copyTempDouble(ptr) {
           processData(url);
         }
       },createDefaultDirectories:function () {
-        FS.mkdir('/tmp', parseInt('0777', 8));
+        FS.mkdir('/tmp', 0777);
       },createDefaultDevices:function () {
         // create /dev
-        FS.mkdir('/dev', parseInt('0777', 8));
+        FS.mkdir('/dev', 0777);
         // setup /dev/null
         FS.registerDevice(FS.makedev(1, 3), {
           read: function() { return 0; },
           write: function() { return 0; }
         });
-        FS.mkdev('/dev/null', parseInt('0666', 8), FS.makedev(1, 3));
+        FS.mkdev('/dev/null', 0666, FS.makedev(1, 3));
         // setup /dev/tty and /dev/tty1
         // stderr needs to print output using Module['printErr']
         // so we register a second tty just for it.
         TTY.register(FS.makedev(5, 0), TTY.default_tty_ops);
         TTY.register(FS.makedev(6, 0), TTY.default_tty1_ops);
-        FS.mkdev('/dev/tty', parseInt('0666', 8), FS.makedev(5, 0));
-        FS.mkdev('/dev/tty1', parseInt('0666', 8), FS.makedev(6, 0));
+        FS.mkdev('/dev/tty', 0666, FS.makedev(5, 0));
+        FS.mkdev('/dev/tty1', 0666, FS.makedev(6, 0));
         // we're not going to emulate the actual shm device,
         // just create the tmp dirs that reside in it commonly
-        FS.mkdir('/dev/shm', parseInt('0777', 8));
-        FS.mkdir('/dev/shm/tmp', parseInt('0777', 8));
+        FS.mkdir('/dev/shm', 0777);
+        FS.mkdir('/dev/shm/tmp', 0777);
       },createStandardStreams:function () {
         // TODO deprecate the old functionality of a single
         // input / output callback and that utilizes FS.createDevice
@@ -2278,7 +2278,7 @@ function copyTempDouble(ptr) {
         assert(stderr.fd === 3, 'invalid handle for stderr (' + stderr.fd + ')');
       },staticInit:function () {
         FS.name_table = new Array(4096);
-        FS.root = FS.createNode(null, '/', parseInt('0040000', 8) | parseInt('0777', 8), 0);
+        FS.root = FS.createNode(null, '/', 0040000 | 0777, 0);
         FS.mount(MEMFS, {}, '/');
         FS.createDefaultDirectories();
         FS.createDefaultDevices();
@@ -2340,14 +2340,14 @@ function copyTempDouble(ptr) {
         return parent.node_ops.mknod(parent, name, mode, dev);
       },create:function (path, mode) {
         mode &= 4095;
-        mode |= parseInt('0100000', 8);
+        mode |= 0100000;
         return FS.mknod(path, mode, 0);
       },mkdir:function (path, mode) {
-        mode &= 511 | parseInt('0001000', 8);
-        mode |= parseInt('0040000', 8);
+        mode &= 511 | 0001000;
+        mode |= 0040000;
         return FS.mknod(path, mode, 0);
       },mkdev:function (path, mode, dev) {
-        mode |= parseInt('0020000', 8);
+        mode |= 0020000;
         return FS.mknod(path, mode, dev);
       },symlink:function (oldpath, newpath) {
         var lookup = FS.lookupPath(newpath, { parent: true });
@@ -2593,16 +2593,16 @@ function copyTempDouble(ptr) {
       },open:function (path, flags, mode, fd_start, fd_end) {
         path = PATH.normalize(path);
         flags = typeof flags === 'string' ? FS.modeStringToFlags(flags) : flags;
-        mode = typeof mode === 'undefined' ? parseInt('0666', 8) : mode;
+        mode = typeof mode === 'undefined' ? 0666 : mode;
         if ((flags & 512)) {
-          mode = (mode & 4095) | parseInt('0100000', 8);
+          mode = (mode & 4095) | 0100000;
         } else {
           mode = 0;
         }
         var node;
         try {
           var lookup = FS.lookupPath(path, {
-            follow: !(flags & parseInt('0200000', 8))
+            follow: !(flags & 0200000)
           });
           node = lookup.node;
           path = lookup.path;
@@ -5834,7 +5834,7 @@ Module['callMain'] = Module.callMain = function callMain(args) {
     }
   }
 }
-export function run(args) {
+function run(args) {
   args = args || Module['arguments'];
   if (runDependencies > 0) {
     Module.printErr('run() called, but dependencies remain, so not running');

@@ -61,15 +61,16 @@
     if (nsfLoaded) { cb(); return; }
     const s1 = document.createElement("script");
     s1.src = "/assets/js/nsf-player/libgme.js";
-    s1.onload = () => {
-      setTimeout(() => {
-        const s2 = document.createElement("script");
-        s2.src = "/assets/js/nsf-player/index.js";
-        s2.onload = () => { nsfLoaded = true; cb(); };
-        document.head.appendChild(s2);
-      }, 100);
-    };
     document.head.appendChild(s1);
+    s1.onload = () => {
+      const s2 = document.createElement("script");
+      s2.src = "/assets/js/nsf-player/index.js";
+      document.head.appendChild(s2);
+      s2.onload = () => {
+        nsfLoaded = true;
+        setTimeout(cb, 200);
+      };
+    };
   }
 
   function startMusic() {
@@ -78,7 +79,7 @@
       loadNsfScripts(() => {
         if (!nsfCtx) nsfCtx = new (window.AudioContext || window.webkitAudioContext)();
         nsfCtx.resume();
-        nsfPlayer = window.createNsfPlayer(nsfCtx);
+        nsfPlayer = createNsfPlayer(nsfCtx);
         nsfPlayer.play(nsf.src, nsf.track);
       });
     } else {
