@@ -1,12 +1,18 @@
 import { chooseDirection, stepToward, pickRandom } from "./buddies-core.mjs";
 
-const BUDDIES = ["oneko"];
+const BUDDIES = [
+  "oneko", "ace", "black", "bunny", "calico", "default", "eevee",
+  "esmeralda", "fox", "ghost", "gray", "jess", "kina", "lucy",
+  "maia", "maria", "mike", "silver", "silversky", "snuupy",
+  "spirit", "tora", "valentine",
+];
 const STORAGE_KEY = "doyled_it_buddy";
 const SPEED = 10;
 const FOLLOW_DISTANCE = 48;
 const TICK_MS = 100;
 const ALERT_TICKS = 4;
-const WOBBLE = 3;
+const WOBBLE = 8;
+const THRESHOLD_JITTER = 24;
 
 async function loadManifest(name) {
   const res = await fetch(`/assets/sprites/${name}/manifest.json`);
@@ -76,12 +82,13 @@ async function startBuddy(name) {
   const el = createSpriteElement(name, manifest);
   activeSprite = el;
 
-  let pos = { x: window.innerWidth / 2, y: window.innerHeight / 2 };
+  let pos = { x: 32, y: 32 };
   let target = { x: pos.x, y: pos.y };
-  let currentState = "idle";
-  idleTicks = 0;
+  let currentState = "sleeping";
+  let activeThreshold = FOLLOW_DISTANCE + (Math.random() - 0.5) * THRESHOLD_JITTER;
+  idleTicks = 51;
   alertCountdown = 0;
-  activeFrameTimer = setFrame(manifest.states.idle, manifest, el);
+  activeFrameTimer = setFrame(manifest.states.sleeping || manifest.states.idle, manifest, el);
 
   const onMouse = (e) => { target = { x: e.clientX, y: e.clientY }; };
   const onTouch = (e) => {
@@ -97,13 +104,14 @@ async function startBuddy(name) {
     const dist = Math.hypot(target.x - pos.x, target.y - pos.y);
 
     // Close enough — idle, then sleep
-    if (dist < FOLLOW_DISTANCE) {
-      idleTicks++;
-      alertCountdown = 0;
+    if (dist < activeThreshold) {
       if (currentState !== "idle" && currentState !== "sleeping") {
+        activeThreshold = FOLLOW_DISTANCE + (Math.random() - 0.5) * THRESHOLD_JITTER;
         switchState("idle", manifest, el);
         currentState = "idle";
       }
+      idleTicks++;
+      alertCountdown = 0;
       if (idleTicks > 50 && manifest.states.sleeping && currentState !== "sleeping") {
         switchState("sleeping", manifest, el);
         currentState = "sleeping";
@@ -114,6 +122,7 @@ async function startBuddy(name) {
     // Waking up — play alert for a few ticks before chasing
     const wasResting = currentState === "idle" || currentState === "sleeping";
     if (wasResting && alertCountdown === 0 && manifest.states.alert) {
+      activeThreshold = FOLLOW_DISTANCE + (Math.random() - 0.5) * THRESHOLD_JITTER;
       alertCountdown = ALERT_TICKS;
       switchState("alert", manifest, el);
       currentState = "alert";
@@ -156,28 +165,94 @@ async function switchBuddy(name) {
   await startBuddy(name);
 }
 
-function initPetsButton() {
-  const btn = document.getElementById("pets-btn");
-  if (!btn) return;
-  if (BUDDIES.length <= 1) {
-    btn.style.display = "none";
-    return;
+function getIdleBackgroundPosition(manifest) {
+  const step = manifest.frameStep || manifest.frameSize;
+  const idleState = manifest.states.idle;
+  if (!idleState || !idleState.frames.length) return "0px 0px";
+  const [fx, fy] = idleState.frames[0];
+  return `${fx * step}px ${fy * step}px`;
+}
+
+async function buildGrid() {
+  const grid = document.getElementById("buddy-grid");
+  const toggleSprite = document.getElementById("buddy-toggle-sprite");
+  const toggleName = document.getElementById("buddy-toggle-name");
+  const popup = document.getElementById("buddy-grid-popup");
+  const toggle = document.getElementById("buddy-toggle");
+
+  if (!grid || !toggle) return;
+
+  const current = getOrInitBuddy();
+
+  for (const name of BUDDIES) {
+    const cell = document.createElement("button");
+    cell.type = "button";
+    cell.className = "buddy-cell" + (name === current ? " buddy-cell--active" : "");
+    cell.dataset.buddy = name;
+
+    const sprite = document.createElement("span");
+    sprite.className = "buddy-cell-sprite";
+
+    const label = document.createElement("span");
+    label.className = "buddy-cell-name";
+    label.textContent = name;
+
+    cell.appendChild(sprite);
+    cell.appendChild(label);
+    grid.appendChild(cell);
+
+    loadManifest(name).then((manifest) => {
+      const sheet = `/assets/sprites/${name}/${manifest.file}`;
+      sprite.style.backgroundImage = `url(${sheet})`;
+      sprite.style.backgroundPosition = getIdleBackgroundPosition(manifest);
+
+      if (name === current) {
+        toggleSprite.style.backgroundImage = `url(${sheet})`;
+        toggleSprite.style.backgroundPosition = getIdleBackgroundPosition(manifest);
+        toggleName.textContent = name;
+      }
+    }).catch(() => {});
   }
-  btn.disabled = false;
-  btn.removeAttribute("title");
-  const current = localStorage.getItem(STORAGE_KEY) || BUDDIES[0];
-  btn.textContent = `◆ pets — ${current}`;
-  btn.addEventListener("click", () => {
-    const cur = localStorage.getItem(STORAGE_KEY) || BUDDIES[0];
-    const idx = BUDDIES.indexOf(cur);
-    const next = BUDDIES[(idx + 1) % BUDDIES.length];
-    switchBuddy(next);
-    btn.textContent = `◆ pets — ${next}`;
+
+  toggle.addEventListener("click", () => {
+    const isOpen = !popup.hidden;
+    popup.hidden = isOpen;
+  });
+
+  grid.addEventListener("click", (e) => {
+    const cell = e.target.closest("[data-buddy]");
+    if (!cell) return;
+    const name = cell.dataset.buddy;
+
+    grid.querySelectorAll(".buddy-cell--active").forEach((c) => c.classList.remove("buddy-cell--active"));
+    cell.classList.add("buddy-cell--active");
+
+    loadManifest(name).then((manifest) => {
+      const sheet = `/assets/sprites/${name}/${manifest.file}`;
+      toggleSprite.style.backgroundImage = `url(${sheet})`;
+      toggleSprite.style.backgroundPosition = getIdleBackgroundPosition(manifest);
+      toggleName.textContent = name;
+    }).catch(() => {});
+
+    switchBuddy(name);
+    popup.hidden = true;
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!popup.hidden && !e.target.closest("#buddy-selector")) {
+      popup.hidden = true;
+    }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !popup.hidden) {
+      popup.hidden = true;
+    }
   });
 }
 
 window.addEventListener("DOMContentLoaded", () => {
   const initial = getOrInitBuddy();
   startBuddy(initial).catch((err) => console.warn("buddy init failed", err));
-  initPetsButton();
+  buildGrid();
 });
