@@ -7,6 +7,7 @@
     w: "/words/",
     m: "/music/",
     c: "/contact/",
+    b: "/baseball/",
   };
   document.addEventListener("keydown", (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;

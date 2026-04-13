@@ -19,7 +19,8 @@
     {key: "P", url: "/projects/", label: "projects"},
     {key: "W", url: "/words/", label: "words"},
     {key: "M", url: "/music/", label: "music"},
-    {key: "C", url: "/contact/", label: "contact"}
+    {key: "C", url: "/contact/", label: "contact"},
+    {key: "B", url: "/baseball/", label: "baseball"}
   ] -%}
   {%- for k in keys -%}
     <a href="{{ k.url }}" class="key-hint{% if page.url == k.url %} key-hint--active{% endif %}">[{{ k.key }}] {{ k.label }}</a>
