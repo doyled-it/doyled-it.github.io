@@ -1,0 +1,110 @@
+/* Golf scorecard theme */
+
+.golf-card .card-titlebar {
+  background: linear-gradient(90deg, #228b22 0%, #87ceeb 50%, #228b22 100%);
+  color: #fff;
+}
+.golf-card .card-titlebar .label { color: #fff; }
+.golf-card .ctrl-btn { color: #fff; }
+.golf-card .ctrl-btn:hover { color: var(--accent-yellow); }
+
+.golf-card .card-marquee {
+  background: #1a4d1a;
+  color: #8dff8d;
+  border-bottom-color: #228b22;
+}
+
+.golf-card .card-body {
+  background: #f0f8f0;
+  font-family: var(--font-mono);
+}
+
+.golf-header {
+  text-align: center;
+  padding: 12px 0 8px;
+  border-bottom: 3px double #228b22;
+  margin-bottom: 16px;
+}
+.golf-header h2 {
+  font-family: var(--font-display);
+  color: #228b22;
+  font-size: 24px;
+  margin: 0 0 4px;
+  letter-spacing: 0.08em;
+}
+.golf-header .golfer-info {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #444;
+}
+
+.golf-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.golf-stat-box {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid #228b22;
+  border-radius: 4px;
+  background: #fff;
+}
+.golf-stat-box .stat-label {
+  font-size: 10px;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.golf-stat-box .stat-value {
+  font-size: 20px;
+  font-weight: 700;
+  color: #228b22;
+  font-family: var(--font-display);
+}
+
+.golf-section {
+  margin-bottom: 16px;
+}
+.golf-section h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  margin: 0 0 6px;
+  padding: 2px 6px;
+  background: #228b22;
+  color: #fff;
+  display: inline-block;
+}
+
+.scorecard-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.scorecard-table th {
+  background: #2d5a2d;
+  color: #fff;
+  padding: 3px 4px;
+  text-align: center;
+  font-size: 10px;
+}
+.scorecard-table td {
+  padding: 3px 4px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.scorecard-table tr:nth-child(even) td {
+  background: rgba(34, 139, 34, 0.05);
+}
+
+.score-under { color: #c41e3a; font-weight: 700; }
+.score-over { color: #228b22; }
+.score-even { color: #666; }
+
+@media (max-width: 720px) {
+  .golf-stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .scorecard-table { font-size: 10px; }
+}
