@@ -98,7 +98,7 @@ extraCSS:
           <tr><th>Date</th><th>Opponent</th><th>Result</th><th>AB</th><th>H</th><th>RBI</th><th>R</th></tr>
         </thead>
         <tbody>
-          {% for game in s.gamesList %}
+          {% for game in s.gamesList | reverse %}
           <tr{% if not game.played %} class="dnp"{% endif %}>
             <td>{{ game.date }}</td>
             <td>{{ game.opponent }}</td>
