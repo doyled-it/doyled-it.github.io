@@ -3,30 +3,104 @@ layout: layouts/card-page.njk
 title: music
 cardNum: 5
 cardTitle: music
+extraCSS:
+  - /assets/css/music.css
 ---
 <h2>◆ Music ◆</h2>
 {% if lastfm.error %}
   <p><em>Music data unavailable. Set <code>LASTFM_USER</code> and <code>LASTFM_API_KEY</code> env vars and rebuild.</em></p>
 {% elif lastfm.stale %}
-  <p><em>Showing cached data — the latest fetch failed.</em></p>
+  <p><em>Showing cached data.</em></p>
 {% endif %}
 
 {% if lastfm.recent and lastfm.recent.length %}
-  <h3>◆ Recently Played ◆</h3>
-  <ul class="music-list">
+<div class="music-section">
+  <h3>◆ Recently Played</h3>
+  <ul class="music-items">
     {% for t in lastfm.recent %}
-      <li><span class="track">{{ t.name }}</span> — <span class="artist">{{ t.artist }}</span> <span class="when">({{ t.date }})</span></li>
+    <li class="music-item">
+      {% if t.image %}
+        <img class="music-item-art" src="{{ t.image }}" alt="" loading="lazy" width="48" height="48">
+      {% else %}
+        <span class="music-item-art music-item-art--placeholder">♪</span>
+      {% endif %}
+      <div class="music-item-info">
+        <span class="music-item-name">
+          {% if t.nowPlaying %}<span class="now-playing-dot" title="Now playing"></span>{% endif %}
+          {{ t.name }}
+        </span>
+        <span class="music-item-artist">{{ t.artist }}</span>
+      </div>
+      <span class="music-item-stat">{{ t.date }}</span>
+    </li>
     {% endfor %}
   </ul>
+</div>
 {% endif %}
 
-{% if lastfm.top and lastfm.top.length %}
-  <h3>◆ Top This Week ◆</h3>
-  <ol class="music-list top">
-    {% for t in lastfm.top %}
-      <li><span class="track">{{ t.name }}</span> — <span class="artist">{{ t.artist }}</span> <span class="plays">[{{ t.plays }} plays]</span></li>
+{% if lastfm.topTracks and lastfm.topTracks.length %}
+<div class="music-section">
+  <h3>◆ Top Songs This Week</h3>
+  <ul class="music-items">
+    {% for t in lastfm.topTracks %}
+    <li class="music-item">
+      {% if t.image %}
+        <img class="music-item-art" src="{{ t.image }}" alt="" loading="lazy" width="48" height="48">
+      {% else %}
+        <span class="music-item-art music-item-art--placeholder">♪</span>
+      {% endif %}
+      <div class="music-item-info">
+        <span class="music-item-name">{% if t.url %}<a href="{{ t.url }}">{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}</span>
+        <span class="music-item-artist">{{ t.artist }}</span>
+      </div>
+      <span class="music-item-stat">{{ t.plays }} plays</span>
+    </li>
     {% endfor %}
-  </ol>
+  </ul>
+</div>
 {% endif %}
 
-<p style="margin-top:16px"><small><a href="https://www.last.fm/user/{{ site.lastfmUser }}">last.fm →</a></small></p>
+{% if lastfm.topArtists and lastfm.topArtists.length %}
+<div class="music-section">
+  <h3>◆ Top Artists This Month</h3>
+  <ul class="music-items">
+    {% for a in lastfm.topArtists %}
+    <li class="music-item">
+      {% if a.image %}
+        <img class="music-item-art" src="{{ a.image }}" alt="" loading="lazy" width="48" height="48">
+      {% else %}
+        <span class="music-item-art music-item-art--placeholder">♪</span>
+      {% endif %}
+      <div class="music-item-info">
+        <span class="music-item-name">{% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}</span>
+      </div>
+      <span class="music-item-stat">{{ a.plays }} plays</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+{% if lastfm.topAlbums and lastfm.topAlbums.length %}
+<div class="music-section">
+  <h3>◆ Top Albums This Year</h3>
+  <ul class="music-items">
+    {% for a in lastfm.topAlbums %}
+    <li class="music-item">
+      {% if a.image %}
+        <img class="music-item-art" src="{{ a.image }}" alt="" loading="lazy" width="48" height="48">
+      {% else %}
+        <span class="music-item-art music-item-art--placeholder">♪</span>
+      {% endif %}
+      <div class="music-item-info">
+        <span class="music-item-name">{% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}</span>
+        <span class="music-item-artist">{{ a.artist }}</span>
+      </div>
+      <span class="music-item-stat">{{ a.plays }} plays</span>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<p class="music-footer"><a href="https://www.last.fm/user/{{ site.lastfmUser }}">last.fm →</a></p>
