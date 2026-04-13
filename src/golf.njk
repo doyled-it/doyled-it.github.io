@@ -39,17 +39,16 @@ extraCSS:
       <h3>RECENT ROUNDS</h3>
       <table class="scorecard-table">
         <thead>
-          <tr><th>Date</th><th>Holes</th><th>Score</th><th>Rating</th><th>Slope</th><th>Diff</th></tr>
+          <tr><th>Date</th><th>Course</th><th>Holes</th><th>Score</th><th>Diff</th></tr>
         </thead>
         <tbody>
           {% for s in scores %}
           {% if loop.index0 < 10 %}
           <tr>
             <td>{{ s.played_at | readableDate }}</td>
+            <td>{{ s.course_name }}</td>
             <td>{{ s.number_of_holes }}</td>
             <td><strong>{{ s.adjusted_gross_score }}</strong></td>
-            <td>{{ s.course_rating }}</td>
-            <td>{{ s.slope_rating }}</td>
             <td>{{ s.differential }}</td>
           </tr>
           {% endif %}
@@ -62,9 +61,8 @@ extraCSS:
 </main>
 <script>
 (function() {
-  const scores = {{ scores | dump | safe }};
-  const full18 = scores.filter(s => s.number_of_holes === 18 || s.adjusted_gross_score > 50);
-  const low = Math.min(...full18.map(s => s.adjusted_gross_score));
+  const scores = [{% for s in scores %}{% if s.number_of_holes == 18 or s.adjusted_gross_score > 50 %}{{ s.adjusted_gross_score }},{% endif %}{% endfor %}];
+  const low = Math.min(...scores);
   const el = document.getElementById('golf-low');
   if (el && isFinite(low)) el.textContent = low;
 })();
