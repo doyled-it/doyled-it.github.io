@@ -1,0 +1,127 @@
+/* Baseball card theme overrides — applied via card-page layout */
+
+/* Override titlebar gradient for baseball */
+.baseball-card .card-titlebar {
+  background: linear-gradient(90deg, #c41e3a 0%, #002d72 50%, #c41e3a 100%);
+  color: #fff;
+}
+.baseball-card .card-titlebar .label { color: #fff; }
+.baseball-card .ctrl-btn { color: #fff; }
+.baseball-card .ctrl-btn:hover { color: var(--accent-yellow); }
+
+/* Override marquee for baseball */
+.baseball-card .card-marquee {
+  background: #002d72;
+  color: #fff;
+  border-bottom-color: #c41e3a;
+}
+
+/* Card body — baseball card tan/cream */
+.baseball-card .card-body {
+  background: #f5e6c8;
+  font-family: var(--font-mono);
+}
+
+/* Player header */
+.baseball-header {
+  text-align: center;
+  padding: 12px 0 8px;
+  border-bottom: 3px double #c41e3a;
+  margin-bottom: 16px;
+}
+.baseball-header h2 {
+  font-family: var(--font-display);
+  color: #c41e3a;
+  font-size: 24px;
+  margin: 0 0 4px;
+  letter-spacing: 0.08em;
+}
+.baseball-header .player-info {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #444;
+}
+
+/* Stat block — classic baseball card style */
+.stat-block {
+  margin-bottom: 16px;
+}
+.stat-block h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  margin: 0 0 6px;
+  padding: 2px 6px;
+  background: #002d72;
+  color: #fff;
+  display: inline-block;
+}
+
+.stat-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
+.stat-table th {
+  background: #c41e3a;
+  color: #fff;
+  padding: 3px 6px;
+  text-align: center;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.05em;
+}
+.stat-table td {
+  padding: 3px 6px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+.stat-table tr:nth-child(even) td {
+  background: rgba(0, 45, 114, 0.05);
+}
+
+/* Calculated rates row */
+.stat-rate {
+  font-weight: 700;
+  color: #c41e3a;
+}
+
+/* Game log */
+.game-log { margin-top: 16px; }
+.game-log h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  margin: 0 0 6px;
+  padding: 2px 6px;
+  background: #002d72;
+  color: #fff;
+  display: inline-block;
+}
+
+.game-log-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+.game-log-table th {
+  background: #444;
+  color: #fff;
+  padding: 2px 4px;
+  text-align: left;
+  font-size: 10px;
+}
+.game-log-table td {
+  padding: 2px 4px;
+  border-bottom: 1px solid #ddd;
+}
+.game-log-table .win { color: #228b22; font-weight: 700; }
+.game-log-table .loss { color: #c41e3a; font-weight: 700; }
+.game-log-table .dnp { color: #999; font-style: italic; }
+
+/* Responsive */
+@media (max-width: 720px) {
+  .stat-table { font-size: 10px; }
+  .stat-table th, .stat-table td { padding: 2px 3px; }
+  .game-log-table { font-size: 10px; }
+}
