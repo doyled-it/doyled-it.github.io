@@ -32,28 +32,28 @@ const K = "#222";
 const S = "#ccc";
 
 // 14x14 baseball bitmap (centered in 32x32 at offset 9,9)
-// Two vertical stitch lines with small notches, like the reference image
+// Stitches curve outward at top/bottom like a real baseball
 const ballPixels = [
   "....KKKKKK....",
-  "..KKWWWWWWKK..",
-  ".KWWWrWWrWWWK.",
-  ".KWWrWWWWrWWK.",
+  "..KKWrWWrWKK..",
+  ".KWrWWWWWWrWK.",
+  ".KWrWWWWWWrWK.",
+  "KWWrWWWWWWrWWK",
   "KWWWrWWWWrWWWK",
   "KWWWrWWWWrWWWK",
   "KWWWrWWWWrWWWK",
   "KWWWrWWWWrWWWK",
-  "KWWWrWWWWrWWWK",
-  "KWWWrWWWWrWWWK",
-  ".KWWrWWWWrWWK.",
-  ".KWWWrWWrWWWK.",
-  "..KKWWWWWWKK..",
+  "KWWrWWWWWWrWWK",
+  ".KWrWWWWWWrWK.",
+  ".KWrWWWWWWrWK.",
+  "..KKWrWWrWKK..",
   "....KKKKKK....",
 ];
 
 // Slightly shifted stitching for animation frame 2
 const ballPixels2 = [
   "....KKKKKK....",
-  "..KKWWWWWWKK..",
+  "..KKrWWWWrKK..",
   ".KWWrWWWWrWWK.",
   ".KWWrWWWWrWWK.",
   "KWWWrWWWWrWWWK",
@@ -63,8 +63,8 @@ const ballPixels2 = [
   "KWWWWrWWrWWWWK",
   "KWWWrWWWWrWWWK",
   ".KWWrWWWWrWWK.",
-  ".KWWWrWWrWWWK.",
-  "..KKWWWWWWKK..",
+  ".KWWrWWWWrWWK.",
+  "..KKrWWWWrKK..",
   "....KKKKKK....",
 ];
 
