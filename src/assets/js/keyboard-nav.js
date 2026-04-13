@@ -1,7 +1,6 @@
 (function () {
   const map = {
     h: "/",
-    a: "/about/",
     r: "/resume/",
     p: "/projects/",
     w: "/words/",
