@@ -25,156 +25,222 @@ function rect(ctx, x, y, w, h, color) {
   ctx.fillRect(x, y, w, h);
 }
 
-const WHITE = "#fff";
 const GREEN = "#228b22";
 const DGREEN = "#1a6b1a";
 const BLACK = "#222";
 const GRAY = "#888";
 const LGRAY = "#ccc";
 const WHEEL = "#333";
-const ROOF = "#e8e8e8";
+const ROOF = "#e0e0e0";
+const GLASS = "#87ceeb";
+const BROWN = "#8B4513";
+const LBROWN = "#a0622d";
+const SEAT = "#6B3410";
 
-function drawCartSide(ctx, flip = false, bounceY = 0) {
-  ctx.save();
-  if (flip) {
-    ctx.translate(32, 0);
-    ctx.scale(-1, 1);
-  }
-
-  const y = 8 + bounceY;
-
+function drawCartRight(ctx, bounceY = 0) {
+  const y = 6 + bounceY;
   // Roof
-  rect(ctx, 8, y, 18, 2, ROOF);
-  rect(ctx, 7, y + 1, 1, 1, LGRAY);
-  rect(ctx, 26, y + 1, 1, 1, LGRAY);
-
-  // Roof posts
-  rect(ctx, 9, y + 2, 1, 6, LGRAY);
-  rect(ctx, 24, y + 2, 1, 4, LGRAY);
-
-  // Body
-  rect(ctx, 6, y + 8, 22, 8, GREEN);
-  rect(ctx, 5, y + 9, 1, 6, DGREEN);
-  rect(ctx, 28, y + 9, 1, 6, DGREEN);
+  rect(ctx, 7, y, 18, 2, ROOF);
+  rect(ctx, 8, y + 2, 1, 5, LGRAY); // front post
+  rect(ctx, 23, y + 2, 1, 4, LGRAY); // rear post
 
   // Windshield
-  rect(ctx, 10, y + 4, 6, 5, "rgba(135,206,235,0.7)");
-  rect(ctx, 10, y + 4, 6, 1, "#87ceeb");
+  rect(ctx, 9, y + 3, 5, 4, GLASS);
+
+  // Body
+  rect(ctx, 6, y + 7, 21, 7, GREEN);
+  rect(ctx, 5, y + 8, 1, 5, DGREEN);
+  rect(ctx, 27, y + 8, 1, 5, DGREEN);
 
   // Seat
-  rect(ctx, 17, y + 6, 6, 3, "#8B4513");
-  rect(ctx, 17, y + 5, 1, 1, "#8B4513");
+  rect(ctx, 15, y + 5, 5, 3, SEAT);
+  rect(ctx, 15, y + 4, 1, 1, SEAT);
 
-  // Rear cargo
-  rect(ctx, 22, y + 8, 5, 5, DGREEN);
+  // Golf bag on back
+  rect(ctx, 21, y + 2, 5, 6, BROWN);
+  rect(ctx, 21, y + 2, 5, 1, LBROWN);
+  // Club heads poking out
+  rect(ctx, 22, y, 1, 3, GRAY);
+  rect(ctx, 24, y - 1, 1, 4, GRAY);
+  rect(ctx, 23, y + 1, 1, 2, GRAY);
+  px(ctx, 22, y - 1, "#aaa");
+  px(ctx, 24, y - 2, "#aaa");
 
-  // Outline accents
-  rect(ctx, 6, y + 16, 22, 1, BLACK);
+  // Bottom line
+  rect(ctx, 5, y + 14, 23, 1, BLACK);
 
   // Wheels
-  rect(ctx, 8, y + 15, 4, 4, WHEEL);
-  rect(ctx, 9, y + 16, 2, 2, GRAY);
-  rect(ctx, 21, y + 15, 4, 4, WHEEL);
-  rect(ctx, 22, y + 16, 2, 2, GRAY);
+  rect(ctx, 7, y + 13, 5, 4, WHEEL);
+  rect(ctx, 8, y + 14, 3, 2, GRAY);
+  rect(ctx, 20, y + 13, 5, 4, WHEEL);
+  rect(ctx, 21, y + 14, 3, 2, GRAY);
+}
 
-  // Flag on back
-  rect(ctx, 26, y + 2, 1, 7, "#8B4513");
-  rect(ctx, 27, y + 2, 4, 3, "#ff4444");
-
+function drawCartLeft(ctx, bounceY = 0) {
+  ctx.save();
+  ctx.translate(32, 0);
+  ctx.scale(-1, 1);
+  drawCartRight(ctx, bounceY);
   ctx.restore();
 }
 
 function drawCartFront(ctx, bounceY = 0) {
-  const y = 8 + bounceY;
-
-  // Roof (wider, head-on)
-  rect(ctx, 6, y, 20, 2, ROOF);
-
-  // Roof posts
-  rect(ctx, 7, y + 2, 1, 6, LGRAY);
-  rect(ctx, 24, y + 2, 1, 6, LGRAY);
+  const y = 6 + bounceY;
+  // Roof
+  rect(ctx, 5, y, 22, 2, ROOF);
+  rect(ctx, 6, y + 2, 1, 5, LGRAY);
+  rect(ctx, 25, y + 2, 1, 5, LGRAY);
 
   // Windshield
-  rect(ctx, 8, y + 3, 16, 5, "rgba(135,206,235,0.7)");
-  rect(ctx, 8, y + 3, 16, 1, "#87ceeb");
+  rect(ctx, 7, y + 2, 18, 5, GLASS);
 
   // Body
-  rect(ctx, 5, y + 8, 22, 8, GREEN);
+  rect(ctx, 4, y + 7, 24, 7, GREEN);
 
   // Headlights
-  rect(ctx, 7, y + 9, 3, 2, "#ffe14d");
-  rect(ctx, 22, y + 9, 3, 2, "#ffe14d");
+  rect(ctx, 6, y + 8, 3, 2, "#ffe14d");
+  rect(ctx, 23, y + 8, 3, 2, "#ffe14d");
 
   // Bumper
-  rect(ctx, 6, y + 14, 20, 2, LGRAY);
-  rect(ctx, 5, y + 16, 22, 1, BLACK);
+  rect(ctx, 5, y + 12, 22, 2, LGRAY);
+  rect(ctx, 4, y + 14, 24, 1, BLACK);
 
-  // Wheels (showing edges)
-  rect(ctx, 5, y + 14, 3, 5, WHEEL);
-  rect(ctx, 24, y + 14, 3, 5, WHEEL);
+  // Wheels
+  rect(ctx, 4, y + 12, 3, 5, WHEEL);
+  rect(ctx, 25, y + 12, 3, 5, WHEEL);
 }
 
 function drawCartBack(ctx, bounceY = 0) {
-  const y = 8 + bounceY;
-
+  const y = 6 + bounceY;
   // Roof
-  rect(ctx, 6, y, 20, 2, ROOF);
+  rect(ctx, 5, y, 22, 2, ROOF);
+  rect(ctx, 6, y + 2, 1, 5, LGRAY);
+  rect(ctx, 25, y + 2, 1, 5, LGRAY);
 
-  // Posts
-  rect(ctx, 7, y + 2, 1, 6, LGRAY);
-  rect(ctx, 24, y + 2, 1, 6, LGRAY);
+  // Golf bag (visible from back, centered)
+  rect(ctx, 10, y + 1, 12, 7, BROWN);
+  rect(ctx, 10, y + 1, 12, 1, LBROWN);
+  // Clubs poking up
+  rect(ctx, 12, y - 2, 1, 4, GRAY);
+  rect(ctx, 15, y - 3, 1, 5, GRAY);
+  rect(ctx, 18, y - 1, 1, 3, GRAY);
+  px(ctx, 12, y - 3, "#aaa");
+  px(ctx, 15, y - 4, "#aaa");
+  px(ctx, 18, y - 2, "#aaa");
 
-  // Rear body
-  rect(ctx, 5, y + 8, 22, 8, DGREEN);
+  // Body
+  rect(ctx, 4, y + 7, 24, 7, DGREEN);
 
   // Tail lights
-  rect(ctx, 7, y + 9, 3, 2, "#c41e3a");
-  rect(ctx, 22, y + 9, 3, 2, "#c41e3a");
-
-  // Cargo area
-  rect(ctx, 8, y + 6, 16, 3, GREEN);
-
-  // Clubs sticking out
-  rect(ctx, 12, y + 1, 1, 6, "#8B4513");
-  rect(ctx, 15, y + 2, 1, 5, "#8B4513");
-  rect(ctx, 18, y + 0, 1, 7, "#8B4513");
-  rect(ctx, 12, y, 1, 2, GRAY);
-  rect(ctx, 15, y + 1, 1, 2, GRAY);
-  rect(ctx, 18, y - 1, 1, 2, GRAY);
+  rect(ctx, 6, y + 8, 3, 2, "#c41e3a");
+  rect(ctx, 23, y + 8, 3, 2, "#c41e3a");
 
   // Bumper
-  rect(ctx, 6, y + 14, 20, 2, LGRAY);
-  rect(ctx, 5, y + 16, 22, 1, BLACK);
+  rect(ctx, 5, y + 12, 22, 2, LGRAY);
+  rect(ctx, 4, y + 14, 24, 1, BLACK);
 
   // Wheels
-  rect(ctx, 5, y + 14, 3, 5, WHEEL);
-  rect(ctx, 24, y + 14, 3, 5, WHEEL);
+  rect(ctx, 4, y + 12, 3, 5, WHEEL);
+  rect(ctx, 25, y + 12, 3, 5, WHEEL);
+}
+
+// Diagonal views: 3/4 perspective
+function drawCartNE(ctx, bounceY = 0) {
+  const y = 6 + bounceY;
+  // Slightly angled - show right side + back corner
+  rect(ctx, 8, y, 17, 2, ROOF);
+  rect(ctx, 9, y + 2, 1, 5, LGRAY);
+  rect(ctx, 23, y + 2, 1, 4, LGRAY);
+
+  // Windshield (angled)
+  rect(ctx, 10, y + 3, 4, 4, GLASS);
+
+  // Body
+  rect(ctx, 7, y + 7, 19, 7, GREEN);
+  rect(ctx, 6, y + 8, 1, 5, DGREEN);
+
+  // Golf bag
+  rect(ctx, 20, y + 2, 4, 6, BROWN);
+  rect(ctx, 21, y, 1, 3, GRAY);
+  rect(ctx, 23, y - 1, 1, 3, GRAY);
+  px(ctx, 21, y - 1, "#aaa");
+  px(ctx, 23, y - 2, "#aaa");
+
+  // Seat
+  rect(ctx, 15, y + 5, 4, 3, SEAT);
+
+  rect(ctx, 6, y + 14, 20, 1, BLACK);
+  rect(ctx, 8, y + 13, 4, 4, WHEEL);
+  rect(ctx, 9, y + 14, 2, 2, GRAY);
+  rect(ctx, 20, y + 13, 4, 4, WHEEL);
+  rect(ctx, 21, y + 14, 2, 2, GRAY);
+}
+
+function drawCartNW(ctx, bounceY = 0) {
+  ctx.save();
+  ctx.translate(32, 0);
+  ctx.scale(-1, 1);
+  drawCartNE(ctx, bounceY);
+  ctx.restore();
+}
+
+function drawCartSE(ctx, bounceY = 0) {
+  const y = 6 + bounceY;
+  rect(ctx, 8, y, 17, 2, ROOF);
+  rect(ctx, 9, y + 2, 1, 5, LGRAY);
+  rect(ctx, 23, y + 2, 1, 4, LGRAY);
+
+  // Windshield
+  rect(ctx, 10, y + 3, 5, 4, GLASS);
+
+  // Body
+  rect(ctx, 7, y + 7, 19, 7, GREEN);
+
+  // Headlight visible
+  rect(ctx, 8, y + 8, 2, 2, "#ffe14d");
+
+  // Golf bag (partially visible)
+  rect(ctx, 20, y + 3, 4, 5, BROWN);
+  rect(ctx, 21, y + 1, 1, 3, GRAY);
+  px(ctx, 21, y, "#aaa");
+
+  // Seat
+  rect(ctx, 15, y + 5, 4, 3, SEAT);
+
+  rect(ctx, 6, y + 14, 20, 1, BLACK);
+  rect(ctx, 8, y + 13, 4, 4, WHEEL);
+  rect(ctx, 9, y + 14, 2, 2, GRAY);
+  rect(ctx, 20, y + 13, 4, 4, WHEEL);
+  rect(ctx, 21, y + 14, 2, 2, GRAY);
+}
+
+function drawCartSW(ctx, bounceY = 0) {
+  ctx.save();
+  ctx.translate(32, 0);
+  ctx.scale(-1, 1);
+  drawCartSE(ctx, bounceY);
+  ctx.restore();
 }
 
 function drawSleepingCart(ctx, frame) {
-  drawCartSide(ctx, false, 2);
+  drawCartRight(ctx, 2);
   ctx.fillStyle = "#555";
-  ctx.font = "bold 8px monospace";
+  ctx.font = "bold 7px monospace";
   if (frame === 0) {
-    ctx.fillText("z", 20, 9);
+    ctx.fillText("z", 14, 8);
   } else {
-    ctx.fillText("z", 18, 11);
-    ctx.fillText("z", 23, 7);
+    ctx.fillText("z", 12, 10);
+    ctx.fillText("z", 17, 5);
   }
 }
 
 function drawAlertCart(ctx) {
-  drawCartSide(ctx, false, -2);
+  drawCartRight(ctx, -2);
   ctx.fillStyle = "#c41e3a";
-  ctx.font = "bold 10px monospace";
+  ctx.font = "bold 9px monospace";
   ctx.fillText("!", 2, 12);
 }
 
-function drawIdleCart(ctx) {
-  drawCartSide(ctx, false, 0);
-}
-
-// Layout matches oneko manifest coordinates
 const layout = {
   idle:     [[3, 3]],
   alert:    [[7, 3]],
@@ -193,55 +259,34 @@ const layout = {
 
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-// Idle
-drawAt(...layout.idle[0], (c) => drawIdleCart(c));
-
-// Alert
+drawAt(...layout.idle[0], (c) => drawCartRight(c));
 drawAt(...layout.alert[0], (c) => drawAlertCart(c));
-
-// Sleeping
 drawAt(...layout.sleeping[0], (c) => drawSleepingCart(c, 0));
 drawAt(...layout.sleeping[1], (c) => drawSleepingCart(c, 1));
+drawAt(...layout.tired[0], (c) => drawCartRight(c, 1));
+drawAt(...layout.scratch[0], (c) => drawCartRight(c, -1));
+drawAt(...layout.scratch[1], (c) => drawCartRight(c, 1));
+drawAt(...layout.scratch[2], (c) => drawCartRight(c, -1));
 
-// Tired
-drawAt(...layout.tired[0], (c) => drawCartSide(c, false, 1));
-
-// Scratch (cart rocking)
-drawAt(...layout.scratch[0], (c) => drawCartSide(c, false, -1));
-drawAt(...layout.scratch[1], (c) => drawCartSide(c, false, 1));
-drawAt(...layout.scratch[2], (c) => drawCartSide(c, false, -1));
-
-// E - facing right (side view)
-drawAt(...layout.E[0], (c) => drawCartSide(c, false, 0));
-drawAt(...layout.E[1], (c) => drawCartSide(c, false, -1));
-
-// W - facing left (flipped side)
-drawAt(...layout.W[0], (c) => drawCartSide(c, true, 0));
-drawAt(...layout.W[1], (c) => drawCartSide(c, true, -1));
-
-// N - facing away (back view)
+// Cardinal directions
+drawAt(...layout.E[0], (c) => drawCartRight(c, 0));
+drawAt(...layout.E[1], (c) => drawCartRight(c, -1));
+drawAt(...layout.W[0], (c) => drawCartLeft(c, 0));
+drawAt(...layout.W[1], (c) => drawCartLeft(c, -1));
 drawAt(...layout.N[0], (c) => drawCartBack(c, 0));
 drawAt(...layout.N[1], (c) => drawCartBack(c, -1));
-
-// S - facing toward (front view)
 drawAt(...layout.S[0], (c) => drawCartFront(c, 0));
 drawAt(...layout.S[1], (c) => drawCartFront(c, -1));
 
-// NE - angled right-side + back elements
-drawAt(...layout.NE[0], (c) => drawCartSide(c, false, 0));
-drawAt(...layout.NE[1], (c) => drawCartSide(c, false, -1));
-
-// NW - angled left-side + back elements
-drawAt(...layout.NW[0], (c) => drawCartSide(c, true, 0));
-drawAt(...layout.NW[1], (c) => drawCartSide(c, true, -1));
-
-// SE - angled right-side + front elements
-drawAt(...layout.SE[0], (c) => drawCartSide(c, false, 0));
-drawAt(...layout.SE[1], (c) => drawCartSide(c, false, -1));
-
-// SW - angled left-side + front elements
-drawAt(...layout.SW[0], (c) => drawCartSide(c, true, 0));
-drawAt(...layout.SW[1], (c) => drawCartSide(c, true, -1));
+// Diagonal directions
+drawAt(...layout.NE[0], (c) => drawCartNE(c, 0));
+drawAt(...layout.NE[1], (c) => drawCartNE(c, -1));
+drawAt(...layout.NW[0], (c) => drawCartNW(c, 0));
+drawAt(...layout.NW[1], (c) => drawCartNW(c, -1));
+drawAt(...layout.SE[0], (c) => drawCartSE(c, 0));
+drawAt(...layout.SE[1], (c) => drawCartSE(c, -1));
+drawAt(...layout.SW[0], (c) => drawCartSW(c, 0));
+drawAt(...layout.SW[1], (c) => drawCartSW(c, -1));
 
 const out = "src/assets/sprites/golf-cart/sheet.png";
 fs.mkdirSync("src/assets/sprites/golf-cart", { recursive: true });
