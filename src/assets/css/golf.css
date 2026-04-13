@@ -63,7 +63,7 @@
   font-size: 24px;
   font-weight: 700;
   color: #228b22;
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
 }
 
 .golf-section {
