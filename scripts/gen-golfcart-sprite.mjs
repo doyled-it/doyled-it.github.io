@@ -141,92 +141,27 @@ function drawCartBack(ctx, bounceY = 0) {
   rect(ctx, 25, y + 12, 3, 5, WHEEL);
 }
 
-// Diagonal views: 3/4 perspective — shorter, wider body to look angled
+// Diagonal: draw the side-view cart rotated 30 degrees
+function drawCartDiag(ctx, baseDrawFn, angle, bounceY = 0) {
+  ctx.save();
+  ctx.translate(16, 16);
+  ctx.rotate(angle * Math.PI / 180);
+  ctx.translate(-16, -16);
+  baseDrawFn(ctx, bounceY);
+  ctx.restore();
+}
+
 function drawCartNE(ctx, bounceY = 0) {
-  const y = 6 + bounceY;
-  // Skewed roof — shorter on near side
-  rect(ctx, 6, y, 20, 2, ROOF);
-  rect(ctx, 7, y + 2, 1, 4, LGRAY);
-  rect(ctx, 24, y + 2, 1, 5, LGRAY);
-
-  // Windshield — narrower, angled
-  rect(ctx, 8, y + 3, 4, 3, GLASS);
-
-  // Body — show back corner
-  rect(ctx, 5, y + 7, 22, 7, GREEN);
-  rect(ctx, 4, y + 8, 1, 5, DGREEN);
-  // Back face visible
-  rect(ctx, 24, y + 7, 3, 7, DGREEN);
-
-  // Tail light on back face
-  rect(ctx, 25, y + 8, 2, 2, "#c41e3a");
-
-  // Golf bag — prominent on back
-  rect(ctx, 19, y + 1, 6, 7, BROWN);
-  rect(ctx, 19, y + 1, 6, 1, LBROWN);
-  rect(ctx, 20, y - 1, 1, 3, GRAY);
-  rect(ctx, 22, y - 2, 1, 4, GRAY);
-  rect(ctx, 24, y, 1, 2, GRAY);
-  px(ctx, 20, y - 2, "#aaa");
-  px(ctx, 22, y - 3, "#aaa");
-
-
-  rect(ctx, 4, y + 14, 23, 1, BLACK);
-  rect(ctx, 6, y + 13, 4, 4, WHEEL);
-  rect(ctx, 7, y + 14, 2, 2, GRAY);
-  rect(ctx, 21, y + 13, 4, 4, WHEEL);
-  rect(ctx, 22, y + 14, 2, 2, GRAY);
+  drawCartDiag(ctx, drawCartLeft, -30, bounceY);
 }
-
 function drawCartNW(ctx, bounceY = 0) {
-  ctx.save();
-  ctx.translate(32, 0);
-  ctx.scale(-1, 1);
-  drawCartNE(ctx, bounceY);
-  ctx.restore();
+  drawCartDiag(ctx, drawCartRight, 30, bounceY);
 }
-
 function drawCartSE(ctx, bounceY = 0) {
-  const y = 6 + bounceY;
-  // Skewed roof
-  rect(ctx, 6, y, 20, 2, ROOF);
-  rect(ctx, 7, y + 2, 1, 5, LGRAY);
-  rect(ctx, 24, y + 2, 1, 4, LGRAY);
-
-  // Windshield — wider, angled toward viewer
-  rect(ctx, 8, y + 2, 7, 5, GLASS);
-
-  // Body — show front corner
-  rect(ctx, 5, y + 7, 22, 7, GREEN);
-  // Front face visible
-  rect(ctx, 4, y + 7, 2, 7, GREEN);
-
-  // Headlights on front face
-  rect(ctx, 4, y + 8, 2, 2, "#ffe14d");
-  rect(ctx, 7, y + 8, 2, 2, "#ffe14d");
-
-  // Front bumper
-  rect(ctx, 4, y + 12, 4, 2, LGRAY);
-
-  // Golf bag — less visible
-  rect(ctx, 21, y + 3, 4, 5, BROWN);
-  rect(ctx, 22, y + 1, 1, 3, GRAY);
-  px(ctx, 22, y, "#aaa");
-
-
-  rect(ctx, 4, y + 14, 23, 1, BLACK);
-  rect(ctx, 6, y + 13, 4, 4, WHEEL);
-  rect(ctx, 7, y + 14, 2, 2, GRAY);
-  rect(ctx, 21, y + 13, 4, 4, WHEEL);
-  rect(ctx, 22, y + 14, 2, 2, GRAY);
+  drawCartDiag(ctx, drawCartLeft, 30, bounceY);
 }
-
 function drawCartSW(ctx, bounceY = 0) {
-  ctx.save();
-  ctx.translate(32, 0);
-  ctx.scale(-1, 1);
-  drawCartSE(ctx, bounceY);
-  ctx.restore();
+  drawCartDiag(ctx, drawCartRight, -30, bounceY);
 }
 
 function drawSleepingCart(ctx, frame) {
