@@ -154,21 +154,27 @@ function drawCartDiag(ctx, baseDrawFn, angle, bounceY = 0) {
   ctx.restore();
 }
 
-// NE: facing right, roof tilts up-right
+// Diagonals: cart faces direction of travel, tilted appropriately
+// drawCartLeft = windshield on RIGHT (faces east)
+// drawCartRight = windshield on LEFT (faces west)
+// Positive rotation = clockwise = nose tilts down-right
+// Negative rotation = counter-clockwise = nose tilts up-right
+
+// NE: faces right, nose tilts up → negative rotation on drawCartLeft
 function drawCartNE(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartLeft, -30, bounceY);
+  drawCartDiag(ctx, drawCartLeft, -25, bounceY);
 }
-// NW: facing left, roof tilts up-left
-function drawCartNW(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartRight, 30, bounceY);
-}
-// SE: facing right, bottom tilts down-right
+// SE: faces right, nose tilts down → positive rotation on drawCartLeft
 function drawCartSE(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartLeft, 30, bounceY);
+  drawCartDiag(ctx, drawCartLeft, 25, bounceY);
 }
-// SW: facing left, bottom tilts down-left
+// NW: faces left, nose tilts up → positive rotation on drawCartRight
+function drawCartNW(ctx, bounceY = 0) {
+  drawCartDiag(ctx, drawCartRight, 25, bounceY);
+}
+// SW: faces left, nose tilts down → negative rotation on drawCartRight
 function drawCartSW(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartRight, -30, bounceY);
+  drawCartDiag(ctx, drawCartRight, -25, bounceY);
 }
 
 function drawSleepingCart(ctx, frame) {
@@ -230,15 +236,15 @@ drawAt(...layout.N[1], (c) => drawCartBack(c, -1));
 drawAt(...layout.S[0], (c) => drawCartFront(c, 0));
 drawAt(...layout.S[1], (c) => drawCartFront(c, -1));
 
-// Diagonal directions — NE/SE use flipped NW/SW (windshield leads)
-drawAt(...layout.NE[0], (c) => drawCartNW(c, 0));
-drawAt(...layout.NE[1], (c) => drawCartNW(c, -1));
-drawAt(...layout.NW[0], (c) => drawCartNE(c, 0));
-drawAt(...layout.NW[1], (c) => drawCartNE(c, -1));
-drawAt(...layout.SE[0], (c) => drawCartSW(c, 0));
-drawAt(...layout.SE[1], (c) => drawCartSW(c, -1));
-drawAt(...layout.SW[0], (c) => drawCartSE(c, 0));
-drawAt(...layout.SW[1], (c) => drawCartSE(c, -1));
+// Diagonal directions
+drawAt(...layout.NE[0], (c) => drawCartNE(c, 0));
+drawAt(...layout.NE[1], (c) => drawCartNE(c, -1));
+drawAt(...layout.NW[0], (c) => drawCartNW(c, 0));
+drawAt(...layout.NW[1], (c) => drawCartNW(c, -1));
+drawAt(...layout.SE[0], (c) => drawCartSE(c, 0));
+drawAt(...layout.SE[1], (c) => drawCartSE(c, -1));
+drawAt(...layout.SW[0], (c) => drawCartSW(c, 0));
+drawAt(...layout.SW[1], (c) => drawCartSW(c, -1));
 
 const out = "src/assets/sprites/golf-cart/sheet.png";
 fs.mkdirSync("src/assets/sprites/golf-cart", { recursive: true });
