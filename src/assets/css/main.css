@@ -242,16 +242,38 @@ a:visited { color: var(--accent-purple); }
   bottom: 12px;
   right: 12px;
   z-index: 9998;
-  padding: 6px 12px;
+  padding: 6px 10px;
   border: 2px solid var(--ink);
   border-radius: 8px;
   background: var(--accent-yellow);
   box-shadow: 2px 2px 0 var(--ink);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ink);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 .chiptune-btn:hover { background: var(--accent-pink); color: #fff; }
 .chiptune-btn--playing { background: var(--accent-green); }
+
+.chiptune-cd {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #222 3px, #aaa 3px, #ccc 5px, #aaa 6px, #ddd 7px, #bbb 8px);
+  border: 1px solid #555;
+}
+.chiptune-cd--spin {
+  animation: cd-spin 1s linear infinite;
+}
+@keyframes cd-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .chiptune-cd--spin { animation: none; }
+}

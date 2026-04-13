@@ -1,4 +1,4 @@
-export const createNsfPlayer = (audioContext) => {
+window.createNsfPlayer = (audioContext) => {
   // Messages are disabled. Feel free to handle them however you like.
   const message = () => null;
 
