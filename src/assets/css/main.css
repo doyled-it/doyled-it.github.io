@@ -266,15 +266,13 @@ a:visited { color: var(--accent-purple); }
   border-radius: 50%;
   background:
     radial-gradient(circle at center, #111 4px, transparent 4px),
+    linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.5) 50%, transparent 60%),
     radial-gradient(circle at center, transparent 4px, #c0c0c0 5px, #e0e0e0 7px, #a0a0a0 9px, #d0d0d0 10px, #b0b0b0 11px, #c8c8c8 12px);
   border: 2px solid #666;
-  box-shadow: inset 0 0 2px rgba(255,255,255,0.4);
-}
-.chiptune-cd {
-  animation: cd-spin 4s linear infinite;
+  animation: cd-spin 3s linear infinite;
 }
 .chiptune-cd--spin {
-  animation: cd-spin 0.8s linear infinite;
+  animation: cd-spin 0.6s linear infinite;
 }
 @keyframes cd-spin {
   from { transform: rotate(0deg); }
