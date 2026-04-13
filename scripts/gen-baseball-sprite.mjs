@@ -116,16 +116,20 @@ function drawMovingBall(ctx, dir, frame) {
   if (dir.includes("E")) ox = 2;
   if (dir.includes("W")) ox = -2;
 
-  // Motion lines behind the ball
-  ctx.fillStyle = "rgba(0,0,0,0.08)";
-  if (frame === 1) {
-    rect(ctx, 16 - ox * 3, 16 - oy * 3, 2, 2, "rgba(0,0,0,0.08)");
-    rect(ctx, 16 - ox * 5, 16 - oy * 5, 1, 1, "rgba(0,0,0,0.05)");
-  }
+  const bounce = frame === 0 ? -3 : 1;
 
-  drawShadow(ctx, ox);
-  const bounce = frame === 0 ? -1 : 1;
-  drawBallFromPixels(ctx, frame === 0 ? ballPixels : ballPixels2, ox, oy + bounce);
+  // Shadow stretches when ball is high
+  ctx.fillStyle = frame === 0 ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.15)";
+  const shadowW = frame === 0 ? 6 : 8;
+  rect(ctx, 13 + ox, 27, shadowW, 2, ctx.fillStyle);
+
+  // Rotate the ball by drawing it tilted
+  ctx.save();
+  ctx.translate(16 + ox, 16 + oy + bounce);
+  ctx.rotate((frame === 0 ? 25 : -25) * Math.PI / 180);
+  ctx.translate(-16, -16);
+  drawBallFromPixels(ctx, frame === 0 ? ballPixels : ballPixels2, 0, 0);
+  ctx.restore();
 }
 
 const layout = {
