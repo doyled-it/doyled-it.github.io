@@ -144,36 +144,43 @@ function drawCartBack(ctx, bounceY = 0) {
   rect(ctx, 25, y + 12, 3, 5, WHEEL);
 }
 
-// Diagonal views: 3/4 perspective
+// Diagonal views: 3/4 perspective — shorter, wider body to look angled
 function drawCartNE(ctx, bounceY = 0) {
   const y = 6 + bounceY;
-  // Slightly angled - show right side + back corner
-  rect(ctx, 8, y, 17, 2, ROOF);
-  rect(ctx, 9, y + 2, 1, 5, LGRAY);
-  rect(ctx, 23, y + 2, 1, 4, LGRAY);
+  // Skewed roof — shorter on near side
+  rect(ctx, 6, y, 20, 2, ROOF);
+  rect(ctx, 7, y + 2, 1, 4, LGRAY);
+  rect(ctx, 24, y + 2, 1, 5, LGRAY);
 
-  // Windshield (angled)
-  rect(ctx, 10, y + 3, 4, 4, GLASS);
+  // Windshield — narrower, angled
+  rect(ctx, 8, y + 3, 4, 3, GLASS);
 
-  // Body
-  rect(ctx, 7, y + 7, 19, 7, GREEN);
-  rect(ctx, 6, y + 8, 1, 5, DGREEN);
+  // Body — show back corner
+  rect(ctx, 5, y + 7, 22, 7, GREEN);
+  rect(ctx, 4, y + 8, 1, 5, DGREEN);
+  // Back face visible
+  rect(ctx, 24, y + 7, 3, 7, DGREEN);
 
-  // Golf bag
-  rect(ctx, 20, y + 2, 4, 6, BROWN);
-  rect(ctx, 21, y, 1, 3, GRAY);
-  rect(ctx, 23, y - 1, 1, 3, GRAY);
-  px(ctx, 21, y - 1, "#aaa");
-  px(ctx, 23, y - 2, "#aaa");
+  // Tail light on back face
+  rect(ctx, 25, y + 8, 2, 2, "#c41e3a");
+
+  // Golf bag — prominent on back
+  rect(ctx, 19, y + 1, 6, 7, BROWN);
+  rect(ctx, 19, y + 1, 6, 1, LBROWN);
+  rect(ctx, 20, y - 1, 1, 3, GRAY);
+  rect(ctx, 22, y - 2, 1, 4, GRAY);
+  rect(ctx, 24, y, 1, 2, GRAY);
+  px(ctx, 20, y - 2, "#aaa");
+  px(ctx, 22, y - 3, "#aaa");
 
   // Seat
-  rect(ctx, 15, y + 5, 4, 3, SEAT);
+  rect(ctx, 13, y + 4, 5, 3, SEAT);
 
-  rect(ctx, 6, y + 14, 20, 1, BLACK);
-  rect(ctx, 8, y + 13, 4, 4, WHEEL);
-  rect(ctx, 9, y + 14, 2, 2, GRAY);
-  rect(ctx, 20, y + 13, 4, 4, WHEEL);
-  rect(ctx, 21, y + 14, 2, 2, GRAY);
+  rect(ctx, 4, y + 14, 23, 1, BLACK);
+  rect(ctx, 6, y + 13, 4, 4, WHEEL);
+  rect(ctx, 7, y + 14, 2, 2, GRAY);
+  rect(ctx, 21, y + 13, 4, 4, WHEEL);
+  rect(ctx, 22, y + 14, 2, 2, GRAY);
 }
 
 function drawCartNW(ctx, bounceY = 0) {
@@ -186,32 +193,39 @@ function drawCartNW(ctx, bounceY = 0) {
 
 function drawCartSE(ctx, bounceY = 0) {
   const y = 6 + bounceY;
-  rect(ctx, 8, y, 17, 2, ROOF);
-  rect(ctx, 9, y + 2, 1, 5, LGRAY);
-  rect(ctx, 23, y + 2, 1, 4, LGRAY);
+  // Skewed roof
+  rect(ctx, 6, y, 20, 2, ROOF);
+  rect(ctx, 7, y + 2, 1, 5, LGRAY);
+  rect(ctx, 24, y + 2, 1, 4, LGRAY);
 
-  // Windshield
-  rect(ctx, 10, y + 3, 5, 4, GLASS);
+  // Windshield — wider, angled toward viewer
+  rect(ctx, 8, y + 2, 7, 5, GLASS);
 
-  // Body
-  rect(ctx, 7, y + 7, 19, 7, GREEN);
+  // Body — show front corner
+  rect(ctx, 5, y + 7, 22, 7, GREEN);
+  // Front face visible
+  rect(ctx, 4, y + 7, 2, 7, GREEN);
 
-  // Headlight visible
-  rect(ctx, 8, y + 8, 2, 2, "#ffe14d");
+  // Headlights on front face
+  rect(ctx, 4, y + 8, 2, 2, "#ffe14d");
+  rect(ctx, 7, y + 8, 2, 2, "#ffe14d");
 
-  // Golf bag (partially visible)
-  rect(ctx, 20, y + 3, 4, 5, BROWN);
-  rect(ctx, 21, y + 1, 1, 3, GRAY);
-  px(ctx, 21, y, "#aaa");
+  // Front bumper
+  rect(ctx, 4, y + 12, 4, 2, LGRAY);
+
+  // Golf bag — less visible
+  rect(ctx, 21, y + 3, 4, 5, BROWN);
+  rect(ctx, 22, y + 1, 1, 3, GRAY);
+  px(ctx, 22, y, "#aaa");
 
   // Seat
-  rect(ctx, 15, y + 5, 4, 3, SEAT);
+  rect(ctx, 14, y + 4, 5, 3, SEAT);
 
-  rect(ctx, 6, y + 14, 20, 1, BLACK);
-  rect(ctx, 8, y + 13, 4, 4, WHEEL);
-  rect(ctx, 9, y + 14, 2, 2, GRAY);
-  rect(ctx, 20, y + 13, 4, 4, WHEEL);
-  rect(ctx, 21, y + 14, 2, 2, GRAY);
+  rect(ctx, 4, y + 14, 23, 1, BLACK);
+  rect(ctx, 6, y + 13, 4, 4, WHEEL);
+  rect(ctx, 7, y + 14, 2, 2, GRAY);
+  rect(ctx, 21, y + 13, 4, 4, WHEEL);
+  rect(ctx, 22, y + 14, 2, 2, GRAY);
 }
 
 function drawCartSW(ctx, bounceY = 0) {
@@ -268,25 +282,28 @@ drawAt(...layout.scratch[0], (c) => drawCartRight(c, -1));
 drawAt(...layout.scratch[1], (c) => drawCartRight(c, 1));
 drawAt(...layout.scratch[2], (c) => drawCartRight(c, -1));
 
-// Cardinal directions
-drawAt(...layout.E[0], (c) => drawCartRight(c, 0));
-drawAt(...layout.E[1], (c) => drawCartRight(c, -1));
-drawAt(...layout.W[0], (c) => drawCartLeft(c, 0));
-drawAt(...layout.W[1], (c) => drawCartLeft(c, -1));
+// Cardinal directions — cart faces direction of travel (windshield forward)
+// drawCartRight has windshield on LEFT, bag on RIGHT
+// So moving E (right): use Left (windshield faces right)
+// Moving W (left): use Right (windshield faces left)
+drawAt(...layout.E[0], (c) => drawCartLeft(c, 0));
+drawAt(...layout.E[1], (c) => drawCartLeft(c, -1));
+drawAt(...layout.W[0], (c) => drawCartRight(c, 0));
+drawAt(...layout.W[1], (c) => drawCartRight(c, -1));
 drawAt(...layout.N[0], (c) => drawCartBack(c, 0));
 drawAt(...layout.N[1], (c) => drawCartBack(c, -1));
 drawAt(...layout.S[0], (c) => drawCartFront(c, 0));
 drawAt(...layout.S[1], (c) => drawCartFront(c, -1));
 
-// Diagonal directions
-drawAt(...layout.NE[0], (c) => drawCartNE(c, 0));
-drawAt(...layout.NE[1], (c) => drawCartNE(c, -1));
-drawAt(...layout.NW[0], (c) => drawCartNW(c, 0));
-drawAt(...layout.NW[1], (c) => drawCartNW(c, -1));
-drawAt(...layout.SE[0], (c) => drawCartSE(c, 0));
-drawAt(...layout.SE[1], (c) => drawCartSE(c, -1));
-drawAt(...layout.SW[0], (c) => drawCartSW(c, 0));
-drawAt(...layout.SW[1], (c) => drawCartSW(c, -1));
+// Diagonal directions — NE/SE use flipped NW/SW (windshield leads)
+drawAt(...layout.NE[0], (c) => drawCartNW(c, 0));
+drawAt(...layout.NE[1], (c) => drawCartNW(c, -1));
+drawAt(...layout.NW[0], (c) => drawCartNE(c, 0));
+drawAt(...layout.NW[1], (c) => drawCartNE(c, -1));
+drawAt(...layout.SE[0], (c) => drawCartSW(c, 0));
+drawAt(...layout.SE[1], (c) => drawCartSW(c, -1));
+drawAt(...layout.SW[0], (c) => drawCartSE(c, 0));
+drawAt(...layout.SW[1], (c) => drawCartSE(c, -1));
 
 const out = "src/assets/sprites/golf-cart/sheet.png";
 fs.mkdirSync("src/assets/sprites/golf-cart", { recursive: true });
