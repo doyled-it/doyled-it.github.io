@@ -7,6 +7,9 @@ extraCSS:
   - /assets/css/music.css
 ---
 <h2>◆ Music ◆</h2>
+{% if lastfm.topGenre %}
+<p class="music-genre">Currently vibing: <strong>{{ lastfm.topGenre }}</strong></p>
+{% endif %}
 {% if lastfm.error %}
   <p><em>Music data unavailable. Set <code>LASTFM_USER</code> and <code>LASTFM_API_KEY</code> env vars and rebuild.</em></p>
 {% elif lastfm.stale %}

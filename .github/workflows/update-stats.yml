@@ -1,0 +1,51 @@
+name: Update Stats Data
+
+on:
+  schedule:
+    - cron: '0 6 * * 0'  # Every Sunday at 6am UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: refactor/site-redesign
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      # Baseball: clone repo, process stats, copy JSON
+      - name: Fetch baseball stats
+        run: |
+          git clone --depth 1 https://github.com/doyled-it/obsidian-baseball.git /tmp/baseball
+          cd /tmp/baseball
+          npm install --production
+          node process-stats.js
+          cp stats-data.json $GITHUB_WORKSPACE/src/_data/baseball.json
+
+      # Golf: clone repo, copy GHIN data
+      - name: Fetch golf stats
+        run: |
+          git clone --depth 1 https://github.com/doyled-it/golf-stats.git /tmp/golf
+          cp /tmp/golf/ghin-data.json $GITHUB_WORKSPACE/src/_data/golf.json
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/_data/baseball.json src/_data/golf.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/_data/baseball.json src/_data/golf.json
+          git commit -m "chore: update baseball and golf stats data"
+          git push

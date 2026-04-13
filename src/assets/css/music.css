@@ -90,6 +90,14 @@
   50% { opacity: 0.4; box-shadow: none; }
 }
 
+.music-genre {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 15px;
+  color: #555;
+  margin-bottom: 16px;
+}
+
 .music-footer {
   margin-top: 16px;
   font-family: var(--font-mono);

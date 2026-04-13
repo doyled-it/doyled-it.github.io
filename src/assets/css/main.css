@@ -236,3 +236,22 @@ a:visited { color: var(--accent-purple); }
 .music-list .artist { color: #555; }
 .music-list .when, .music-list .plays { color: #777; font-size: 13px; }
 .post-meta { font-family: var(--font-mono); color: #555; margin-top: -8px; }
+
+.chiptune-btn {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 9998;
+  padding: 6px 12px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--accent-yellow);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+}
+.chiptune-btn:hover { background: var(--accent-pink); color: #fff; }
+.chiptune-btn--playing { background: var(--accent-green); }
