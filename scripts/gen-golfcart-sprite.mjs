@@ -63,6 +63,9 @@ function drawCartRight(ctx, bounceY = 0) {
   px(ctx, 22, y - 1, "#aaa");
   px(ctx, 24, y - 2, "#aaa");
 
+  // Headlight (front is left side of this sprite)
+  rect(ctx, 5, y + 10, 2, 2, "#ffe14d");
+
   // Bottom line
   rect(ctx, 5, y + 14, 23, 1, BLACK);
 
@@ -151,17 +154,21 @@ function drawCartDiag(ctx, baseDrawFn, angle, bounceY = 0) {
   ctx.restore();
 }
 
+// NE: facing right, roof tilts up-right
 function drawCartNE(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartLeft, -30, bounceY);
-}
-function drawCartNW(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartRight, 30, bounceY);
-}
-function drawCartSE(ctx, bounceY = 0) {
   drawCartDiag(ctx, drawCartLeft, 30, bounceY);
 }
-function drawCartSW(ctx, bounceY = 0) {
+// NW: facing left, roof tilts up-left
+function drawCartNW(ctx, bounceY = 0) {
   drawCartDiag(ctx, drawCartRight, -30, bounceY);
+}
+// SE: facing right, bottom tilts down-right
+function drawCartSE(ctx, bounceY = 0) {
+  drawCartDiag(ctx, drawCartLeft, -30, bounceY);
+}
+// SW: facing left, bottom tilts down-left
+function drawCartSW(ctx, bounceY = 0) {
+  drawCartDiag(ctx, drawCartRight, 30, bounceY);
 }
 
 function drawSleepingCart(ctx, frame) {
