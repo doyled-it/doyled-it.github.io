@@ -77,18 +77,19 @@ function switchState(name, manifest, el) {
   activeFrameTimer = setFrame(manifest.states[name], manifest, el);
 }
 
-async function startBuddy(name) {
+async function startBuddy(name, startPos) {
   const manifest = await loadManifest(name);
   const el = createSpriteElement(name, manifest);
   activeSprite = el;
 
-  let pos = { x: 32, y: 32 };
+  let pos = startPos || { x: 32, y: 32 };
   let target = { x: pos.x, y: pos.y };
-  let currentState = "sleeping";
+  let currentState = startPos ? "idle" : "sleeping";
   let activeThreshold = FOLLOW_DISTANCE + (Math.random() - 0.5) * THRESHOLD_JITTER;
-  idleTicks = 51;
+  idleTicks = startPos ? 0 : 51;
   alertCountdown = 0;
-  activeFrameTimer = setFrame(manifest.states.sleeping || manifest.states.idle, manifest, el);
+  el.style.transform = `translate(${Math.round(pos.x - manifest.frameSize / 2)}px, ${Math.round(pos.y - manifest.frameSize / 2)}px)`;
+  activeFrameTimer = setFrame(manifest.states[currentState] || manifest.states.idle, manifest, el);
 
   const onMouse = (e) => { target = { x: e.clientX, y: e.clientY }; };
   const onTouch = (e) => {
@@ -155,6 +156,14 @@ async function startBuddy(name) {
 }
 
 async function switchBuddy(name) {
+  let oldPos = null;
+  if (activeSprite) {
+    const t = activeSprite.style.transform;
+    const m = t.match(/translate\((-?\d+(?:\.\d+)?)px,\s*(-?\d+(?:\.\d+)?)px\)/);
+    if (m) {
+      oldPos = { x: parseFloat(m[1]) + 16, y: parseFloat(m[2]) + 16 };
+    }
+  }
   try { localStorage.setItem(STORAGE_KEY, name); } catch {}
   if (activeTickTimer) { clearInterval(activeTickTimer); activeTickTimer = null; }
   if (activeFrameTimer) { clearInterval(activeFrameTimer); activeFrameTimer = null; }
@@ -162,7 +171,7 @@ async function switchBuddy(name) {
   activeSprite = null;
   idleTicks = 0;
   alertCountdown = 0;
-  await startBuddy(name);
+  await startBuddy(name, oldPos);
 }
 
 function getIdleBackgroundPosition(manifest) {
