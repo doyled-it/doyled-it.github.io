@@ -118,10 +118,10 @@ function drawMovingBall(ctx, dir, frame) {
 
   const bounce = frame === 0 ? -3 : 1;
 
-  // Shadow stretches when ball is high
-  ctx.fillStyle = frame === 0 ? "rgba(0,0,0,0.08)" : "rgba(0,0,0,0.15)";
-  const shadowW = frame === 0 ? 6 : 8;
-  rect(ctx, 13 + ox, 27, shadowW, 2, ctx.fillStyle);
+  // Shadow only when airborne
+  if (frame === 0) {
+    rect(ctx, 13 + ox, 27, 6, 2, "rgba(0,0,0,0.1)");
+  }
 
   // Rotate the ball by drawing it tilted
   ctx.save();
@@ -150,7 +150,7 @@ const layout = {
 
 ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-drawAt(...layout.idle[0], (c) => { drawShadow(c); drawBallFromPixels(c, ballPixels); });
+drawAt(...layout.idle[0], (c) => { drawBallFromPixels(c, ballPixels); });
 drawAt(...layout.alert[0], (c) => drawAlertBall(c));
 drawAt(...layout.sleeping[0], (c) => drawSleepingBall(c, 0));
 drawAt(...layout.sleeping[1], (c) => drawSleepingBall(c, 1));
