@@ -29,6 +29,7 @@
     {{ content | safe }}
     <script type="module" src="/assets/js/buddies.js"></script>
     <script src="/assets/js/keyboard-nav.js" defer></script>
+    <script src="/assets/js/window-controls.js" defer></script>
     {% if extraJS %}
       {% for script in extraJS %}
         <script src="{{ script }}" defer></script>
