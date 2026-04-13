@@ -1,23 +1,6 @@
-.crt-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 99999;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  pointer-events: all;
-}
-
-.crt-dot {
-  width: 8px;
-  height: 4px;
-  background: #fff;
-  border-radius: 50%;
-  box-shadow: 0 0 15px 5px rgba(255, 255, 255, 0.6);
-}
-
+/* CRT power-off: card squeezes to line, then dot, then gone */
 .crt-off {
+  transform-origin: center center;
   animation: crt-off 0.6s cubic-bezier(0.2, 0, 0, 1) forwards;
 }
 
@@ -28,27 +11,20 @@
   100% { transform: scaleY(0) scaleX(0); filter: brightness(0); opacity: 0; }
 }
 
-.crt-on .crt-dot {
-  animation: crt-dot-on 0.4s ease-out forwards;
-}
-
-@keyframes crt-dot-on {
-  0%   { transform: scaleX(1) scaleY(1); opacity: 1; box-shadow: 0 0 20px 8px rgba(255, 255, 255, 0.8); }
-  100% { transform: scaleX(60) scaleY(2); opacity: 0; box-shadow: 0 0 40px 15px rgba(255, 255, 255, 0.4); }
-}
-
+/* CRT power-on: card expands from dot to full size */
 .crt-on {
-  animation: crt-screen-on 0.3s ease-out 0.35s forwards;
-  opacity: 1;
+  transform-origin: center center;
+  animation: crt-on 0.5s cubic-bezier(0, 0.2, 0.2, 1) forwards;
 }
 
-@keyframes crt-screen-on {
-  0%   { opacity: 1; }
-  100% { opacity: 0; pointer-events: none; }
+@keyframes crt-on {
+  0%   { transform: scaleY(0) scaleX(0); filter: brightness(2); opacity: 0; }
+  30%  { transform: scaleY(0.005) scaleX(0.01); filter: brightness(2); opacity: 0.9; }
+  60%  { transform: scaleY(0.005) scaleX(1); filter: brightness(1.5); opacity: 1; }
+  100% { transform: scaleY(1) scaleX(1); filter: brightness(1); opacity: 1; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .crt-off { animation: none; opacity: 0; }
-  .crt-on { animation: none; opacity: 0; }
-  .crt-on .crt-dot { animation: none; }
+  .crt-on { animation: none; }
 }

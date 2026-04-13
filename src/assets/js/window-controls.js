@@ -33,14 +33,11 @@
 
     card.classList.add("crt-off");
     card.addEventListener("animationend", () => {
-      const overlay = document.createElement("div");
-      overlay.className = "crt-overlay";
-      document.body.appendChild(overlay);
-
+      card.style.visibility = "hidden";
       sessionStorage.setItem("crt_boot", "1");
       setTimeout(() => {
         window.location.href = "/";
-      }, 200);
+      }, 300);
     }, { once: true });
   }
 
@@ -51,16 +48,13 @@
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return;
 
-    const overlay = document.createElement("div");
-    overlay.className = "crt-overlay crt-on";
-    const dot = document.createElement("div");
-    dot.className = "crt-dot";
-    overlay.appendChild(dot);
-    document.body.appendChild(overlay);
+    const card = document.querySelector(".card");
+    if (!card) return;
 
-    overlay.addEventListener("animationend", () => {
-      overlay.remove();
-    });
+    card.classList.add("crt-on");
+    card.addEventListener("animationend", () => {
+      card.classList.remove("crt-on");
+    }, { once: true });
   }
 
   if (document.readyState === "loading") {
