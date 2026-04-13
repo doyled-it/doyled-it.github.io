@@ -1,9 +1,9 @@
 import { chooseDirection, stepToward, pickRandom } from "./buddies-core.mjs";
 
 const BUDDIES = [
-  "oneko", "ace", "black", "bunny", "calico",
-  "esmeralda", "fox", "ghost", "gray", "jess", "kina", "lucy",
-  "maia", "maria", "mike", "silver", "silversky", "snuupy",
+  "oneko", "ace", "baseball", "black", "bunny", "calico",
+  "esmeralda", "fox", "ghost", "golf-cart", "gray", "jess", "kina",
+  "lucy", "maia", "maria", "mike", "silver", "silversky", "snuupy",
   "spirit", "tora", "valentine",
 ];
 const STORAGE_KEY = "doyled_it_buddy";
