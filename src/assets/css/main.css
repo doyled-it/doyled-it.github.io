@@ -205,6 +205,7 @@ a:visited { color: var(--accent-purple); }
 
 @media (max-width: 720px) {
   .desk { padding: 16px 8px; }
+  .key-hints { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
