@@ -32,38 +32,39 @@ const K = "#222";
 const S = "#ccc";
 
 // 14x14 baseball bitmap (centered in 32x32 at offset 9,9)
+// Two vertical stitch lines with small notches, like the reference image
 const ballPixels = [
   "....KKKKKK....",
-  "..KKOOWWOOkk..",
-  ".KOWWWWWWWWOK.",
-  ".OWWrWWWWrWWO.",
-  "KOWWrWWWWrWWOK",
-  "KWWWWrWWrWWWWK",
-  "KWWWWWrrWWWWWK",
-  "KWWWWWrrWWWWWK",
-  "KWWWWrWWrWWWWK",
-  "KOWWrWWWWrWWOK",
-  ".OWWrWWWWrWWO.",
-  ".KOWWWWWWWWOK.",
-  "..KKOOWWOOkk..",
+  "..KKWWWWWWKK..",
+  ".KWWWrWWrWWWK.",
+  ".KWWrWWWWrWWK.",
+  "KWWWrWWWWrWWWK",
+  "KWWWrWWWWrWWWK",
+  "KWWWrWWWWrWWWK",
+  "KWWWrWWWWrWWWK",
+  "KWWWrWWWWrWWWK",
+  "KWWWrWWWWrWWWK",
+  ".KWWrWWWWrWWK.",
+  ".KWWWrWWrWWWK.",
+  "..KKWWWWWWKK..",
   "....KKKKKK....",
 ];
 
-// Rotated version (stitching at different angle)
+// Slightly shifted stitching for animation frame 2
 const ballPixels2 = [
   "....KKKKKK....",
-  "..KKOOWWOOkk..",
-  ".KOWWWWWWWWOk.",
-  ".OWWWWrrrWWWO.",
-  "KOWWWrWWWWWOK.",
-  "KWWWrWWWWWWWK.",
-  "KWWrWWWWWWWWK.",
-  "KWWWWWWWWWrWK.",
-  "KWWWWWWWWrWWK.",
-  "KOWWWWWrWWWOK.",
-  ".OWWWrrWWWWO..",
-  ".KOWWWWWWWOk..",
-  "..KKOOWWOOkk..",
+  "..KKWWWWWWKK..",
+  ".KWWrWWWWrWWK.",
+  ".KWWrWWWWrWWK.",
+  "KWWWrWWWWrWWWK",
+  "KWWWWrWWrWWWWK",
+  "KWWWWrWWrWWWWK",
+  "KWWWWrWWrWWWWK",
+  "KWWWWrWWrWWWWK",
+  "KWWWrWWWWrWWWK",
+  ".KWWrWWWWrWWK.",
+  ".KWWWrWWrWWWK.",
+  "..KKWWWWWWKK..",
   "....KKKKKK....",
 ];
 
