@@ -156,19 +156,19 @@ function drawCartDiag(ctx, baseDrawFn, angle, bounceY = 0) {
 
 // NE: facing right, roof tilts up-right
 function drawCartNE(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartLeft, 30, bounceY);
+  drawCartDiag(ctx, drawCartLeft, -30, bounceY);
 }
 // NW: facing left, roof tilts up-left
 function drawCartNW(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartRight, -30, bounceY);
+  drawCartDiag(ctx, drawCartRight, 30, bounceY);
 }
 // SE: facing right, bottom tilts down-right
 function drawCartSE(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartLeft, -30, bounceY);
+  drawCartDiag(ctx, drawCartLeft, 30, bounceY);
 }
 // SW: facing left, bottom tilts down-left
 function drawCartSW(ctx, bounceY = 0) {
-  drawCartDiag(ctx, drawCartRight, 30, bounceY);
+  drawCartDiag(ctx, drawCartRight, -30, bounceY);
 }
 
 function drawSleepingCart(ctx, frame) {
