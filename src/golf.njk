@@ -8,6 +8,7 @@ extraCSS:
 ---
 {% set g = golf.golfer %}
 {% set scores = golf.scores %}
+{% set st = golf.stats %}
 <main class="card golf-card" id="main">
   {% include "titlebar.njk" %}
   <div class="card-marquee" aria-hidden="true">
@@ -17,7 +18,7 @@ extraCSS:
     <div class="golf-header">
       <h2>⛳ {{ g.name }} ⛳</h2>
       <div class="golfer-info">{{ g.club }} · Handicap {{ g.handicapIndex }}</div>
-      <div class="golfer-info">{{ scores | length }} rounds played</div>
+      <div class="golfer-info">{{ st.totalRounds }} rounds ({{ st.full18Rounds }} x 18H · {{ st.nineRounds }} x 9H)</div>
     </div>
 
     <div class="golf-stats-grid">
@@ -26,14 +27,145 @@ extraCSS:
         <div class="stat-value">{{ g.handicapIndex }}</div>
       </div>
       <div class="golf-stat-box">
-        <div class="stat-label">Rounds</div>
-        <div class="stat-value">{{ scores | length }}</div>
+        <div class="stat-label">Low 18</div>
+        <div class="stat-value">{{ st.low18 }}</div>
       </div>
       <div class="golf-stat-box">
-        <div class="stat-label">Low 18</div>
-        <div class="stat-value" id="golf-low">--</div>
+        <div class="stat-label">Avg 18</div>
+        <div class="stat-value">{{ st.avg18 }}</div>
+      </div>
+      <div class="golf-stat-box">
+        <div class="stat-label">Avg to Par</div>
+        <div class="stat-value">+{{ st.avgToPar }}</div>
+      </div>
+      <div class="golf-stat-box">
+        <div class="stat-label">Best Diff</div>
+        <div class="stat-value">{{ st.bestDifferential }}</div>
+      </div>
+      <div class="golf-stat-box">
+        <div class="stat-label">Low 9</div>
+        <div class="stat-value">{{ st.low9 }}</div>
       </div>
     </div>
+
+    <div class="golf-section">
+      <h3>RECENT FORM</h3>
+      <div class="golf-stats-grid">
+        <div class="golf-stat-box">
+          <div class="stat-label">Last 5</div>
+          <div class="stat-value">{{ st.recentForm.last5 }}</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">Last 10</div>
+          <div class="stat-value">{{ st.recentForm.last10 }}</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">Last 20</div>
+          <div class="stat-value">{{ st.recentForm.last20 }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="golf-section">
+      <h3>SCORING DISTRIBUTION</h3>
+      <div class="scoring-dist">
+        <div class="dist-bar">
+          <span class="dist-label">Birdie+</span>
+          <div class="dist-fill dist-birdie" style="width: {{ st.scoring.birdies }}%"></div>
+          <span class="dist-pct">{{ st.scoring.birdies }}%</span>
+        </div>
+        <div class="dist-bar">
+          <span class="dist-label">Par</span>
+          <div class="dist-fill dist-par" style="width: {{ st.scoring.pars }}%"></div>
+          <span class="dist-pct">{{ st.scoring.pars }}%</span>
+        </div>
+        <div class="dist-bar">
+          <span class="dist-label">Bogey</span>
+          <div class="dist-fill dist-bogey" style="width: {{ st.scoring.bogeys }}%"></div>
+          <span class="dist-pct">{{ st.scoring.bogeys }}%</span>
+        </div>
+        <div class="dist-bar">
+          <span class="dist-label">Double</span>
+          <div class="dist-fill dist-double" style="width: {{ st.scoring.doubles }}%"></div>
+          <span class="dist-pct">{{ st.scoring.doubles }}%</span>
+        </div>
+        <div class="dist-bar">
+          <span class="dist-label">Triple+</span>
+          <div class="dist-fill dist-triple" style="width: {{ st.scoring.triples }}%"></div>
+          <span class="dist-pct">{{ st.scoring.triples }}%</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="golf-section">
+      <h3>BY HOLE TYPE</h3>
+      <div class="golf-stats-grid">
+        <div class="golf-stat-box">
+          <div class="stat-label">Par 3 Avg</div>
+          <div class="stat-value {% if st.holeType.par3 > 1 %}score-over{% elif st.holeType.par3 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par3 }}</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">Par 4 Avg</div>
+          <div class="stat-value {% if st.holeType.par4 > 1 %}score-over{% elif st.holeType.par4 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par4 }}</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">Par 5 Avg</div>
+          <div class="stat-value {% if st.holeType.par5 > 1 %}score-over{% elif st.holeType.par5 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par5 }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="golf-section">
+      <h3>SHOT STATS</h3>
+      <div class="golf-stats-grid">
+        <div class="golf-stat-box">
+          <div class="stat-label">Fairways</div>
+          <div class="stat-value">{{ st.shotStats.fairways }}%</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">GIR</div>
+          <div class="stat-value">{{ st.shotStats.gir }}%</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">Avg Putts</div>
+          <div class="stat-value">{{ st.shotStats.avgPutts }}</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">1-Putt</div>
+          <div class="stat-value">{{ st.shotStats.onePutt }}%</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">2-Putt</div>
+          <div class="stat-value">{{ st.shotStats.twoPutt }}%</div>
+        </div>
+        <div class="golf-stat-box">
+          <div class="stat-label">3-Putt+</div>
+          <div class="stat-value">{{ st.shotStats.threePutt }}%</div>
+        </div>
+      </div>
+    </div>
+
+    {% if st.courses.length %}
+    <div class="golf-section">
+      <h3>COURSES PLAYED</h3>
+      <table class="scorecard-table">
+        <thead>
+          <tr><th>Course</th><th>Rnds</th><th>Avg</th><th>Best</th><th>Avg Diff</th></tr>
+        </thead>
+        <tbody>
+          {% for c in st.courses %}
+          <tr>
+            <td style="text-align:left">{{ c.name }}</td>
+            <td>{{ c.rounds }}</td>
+            <td>{{ c.avgScore }}</td>
+            <td><strong>{{ c.bestScore }}</strong></td>
+            <td>{{ c.avgDiff }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endif %}
 
     <div class="golf-section">
       <h3>RECENT ROUNDS</h3>
@@ -43,10 +175,10 @@ extraCSS:
         </thead>
         <tbody>
           {% for s in scores %}
-          {% if loop.index0 < 10 %}
+          {% if loop.index0 < 15 %}
           <tr>
             <td>{{ s.played_at | readableDate }}</td>
-            <td>{{ s.course_name }}</td>
+            <td style="text-align:left">{{ s.course_name }}</td>
             <td>{{ s.number_of_holes }}</td>
             <td><strong>{{ s.adjusted_gross_score }}</strong></td>
             <td>{{ s.differential }}</td>
@@ -59,11 +191,3 @@ extraCSS:
   </div>
   {% include "footer.njk" %}
 </main>
-<script>
-(function() {
-  const scores = [{% for s in scores %}{% if s.number_of_holes == 18 or s.adjusted_gross_score > 50 %}{{ s.adjusted_gross_score }},{% endif %}{% endfor %}];
-  const low = Math.min(...scores);
-  const el = document.getElementById('golf-low');
-  if (el && isFinite(low)) el.textContent = low;
-})();
-</script>

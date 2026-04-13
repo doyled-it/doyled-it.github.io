@@ -104,7 +104,48 @@
 .score-over { color: #228b22; }
 .score-even { color: #666; }
 
+/* Scoring distribution bars */
+.scoring-dist { display: flex; flex-direction: column; gap: 4px; }
+.dist-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 22px;
+}
+.dist-label {
+  width: 60px;
+  font-size: 11px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.dist-fill {
+  height: 16px;
+  min-width: 2px;
+  border-radius: 2px;
+  transition: width 0.3s;
+}
+.dist-pct {
+  font-size: 11px;
+  color: #555;
+  flex-shrink: 0;
+  width: 32px;
+}
+.dist-birdie { background: #228b22; }
+.dist-par { background: #4caf50; }
+.dist-bogey { background: #ff9800; }
+.dist-double { background: #f44336; }
+.dist-triple { background: #b71c1c; }
+
+/* Golfer info size bump */
+.golf-header .golfer-info { font-size: 14px; }
+
+/* Table size bump */
+.scorecard-table { font-size: 13px; }
+.scorecard-table th { font-size: 12px; padding: 4px 6px; }
+.scorecard-table td { padding: 4px 6px; }
+
 @media (max-width: 720px) {
   .golf-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .scorecard-table { font-size: 10px; }
+  .scorecard-table { font-size: 11px; }
+  .dist-label { width: 48px; font-size: 10px; }
 }
