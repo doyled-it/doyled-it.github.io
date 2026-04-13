@@ -53,11 +53,11 @@
   background: #fff;
 }
 .golf-stat-box .stat-label {
-  font-size: 13px;
+  font-family: var(--font-mono);
+  font-size: 14px;
   color: #444;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 700;
 }
 .golf-stat-box .stat-value {
   font-size: 24px;
