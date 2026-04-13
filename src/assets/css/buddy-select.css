@@ -1,0 +1,109 @@
+.buddy-selector {
+  position: fixed;
+  bottom: 12px;
+  left: 12px;
+  z-index: 9998;
+}
+
+.buddy-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 4px;
+  border: 2px solid var(--ink);
+  border-radius: 8px;
+  background: var(--accent-cyan);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--ink);
+  cursor: pointer;
+  line-height: 1;
+}
+.buddy-toggle:hover { background: var(--accent-yellow); }
+
+.buddy-toggle-sprite {
+  display: block;
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+}
+
+.buddy-grid-popup {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  width: 320px;
+  max-height: 400px;
+  overflow-y: auto;
+  background: #111;
+  border: 3px solid var(--accent-cyan);
+  box-shadow: 0 0 12px rgba(111, 230, 255, 0.3), 4px 4px 0 var(--ink);
+  padding: 8px;
+}
+
+.buddy-grid-header {
+  font-family: var(--font-display);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  text-align: center;
+  padding: 4px 0 8px;
+  letter-spacing: 0.1em;
+  text-shadow: 0 0 6px rgba(111, 230, 255, 0.5);
+}
+
+.buddy-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 4px;
+}
+
+.buddy-cell {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4px 2px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: none;
+  border-radius: 4px;
+}
+.buddy-cell:hover {
+  border-color: var(--accent-yellow);
+  background: rgba(255, 225, 77, 0.15);
+}
+.buddy-cell--active {
+  border-color: var(--accent-pink);
+  background: rgba(255, 111, 179, 0.15);
+}
+
+.buddy-cell-sprite {
+  display: block;
+  width: 32px;
+  height: 32px;
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+}
+
+.buddy-cell-name {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #aaa;
+  margin-top: 2px;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 56px;
+}
+
+@media (max-width: 720px) {
+  .buddy-selector { bottom: 8px; left: 8px; }
+  .buddy-toggle-name { display: none; }
+  .buddy-toggle { padding: 4px; }
+  .buddy-grid-popup { width: 280px; }
+  .buddy-grid { grid-template-columns: repeat(4, 1fr); }
+}
