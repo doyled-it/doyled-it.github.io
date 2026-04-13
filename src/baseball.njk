@@ -1,0 +1,126 @@
+---
+layout: base.njk
+title: baseball
+cardNum: 7
+cardTitle: baseball
+extraCSS:
+  - /assets/css/baseball.css
+---
+{% set season = baseball.seasons[baseball.currentSeason] %}
+{% set s = season.stats %}
+{% set h = s.hitting %}
+{% set f = s.fielding %}
+{% set p = s.pitching %}
+{% set g = s.games %}
+<main class="card baseball-card" id="main">
+  {% include "titlebar.njk" %}
+  <div class="card-marquee" aria-hidden="true">
+    <span>⚾ now batting... michael doyle... utility... happy sox... fall {{ season.name | replace("Fall ", "") }} ⚾</span>
+  </div>
+  <div class="card-body">
+    <div class="baseball-header">
+      <h2>⚾ {{ season.player }} ⚾</h2>
+      <div class="player-info">{{ season.team }} · {{ season.position }} · {{ season.name }}</div>
+      <div class="player-info">{{ g.played }} GP · {{ g.wins }}-{{ g.losses }} W-L</div>
+    </div>
+
+    <div class="stat-block">
+      <h3>HITTING</h3>
+      <table class="stat-table">
+        <thead>
+          <tr><th>AB</th><th>H</th><th>2B</th><th>3B</th><th>HR</th><th>RBI</th><th>R</th><th>BB</th><th>K</th><th>SB</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>{{ h.AB }}</td><td>{{ h.H }}</td><td>{{ h["2B"] }}</td><td>{{ h["3B"] }}</td>
+            <td>{{ h.HR }}</td><td>{{ h.RBI }}</td><td>{{ h.R }}</td><td>{{ h.BB }}</td>
+            <td>{{ h.K }}</td><td>{{ h.SB }}</td>
+          </tr>
+          <tr>
+            <th colspan="2">AVG</th><th colspan="2">OBP</th><th colspan="2">SLG</th><th colspan="2">OPS</th><th colspan="2">ISO</th>
+          </tr>
+          {% set avg = (h.H / h.AB) if h.AB else 0 %}
+          {% set obp = ((h.H + h.BB + h.HBP) / (h.AB + h.BB + h.HBP + h.SF)) if (h.AB + h.BB + h.HBP + h.SF) else 0 %}
+          {% set slg = ((h.H - h["2B"] - h["3B"] - h.HR + h["2B"]*2 + h["3B"]*3 + h.HR*4) / h.AB) if h.AB else 0 %}
+          {% set ops = obp + slg %}
+          {% set iso = slg - avg %}
+          <tr class="stat-rate">
+            <td colspan="2">{{ avg | round(3) }}</td>
+            <td colspan="2">{{ obp | round(3) }}</td>
+            <td colspan="2">{{ slg | round(3) }}</td>
+            <td colspan="2">{{ ops | round(3) }}</td>
+            <td colspan="2">{{ iso | round(3) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stat-block">
+      <h3>FIELDING</h3>
+      <table class="stat-table">
+        <thead>
+          <tr><th>PO</th><th>A</th><th>E</th><th>TC</th><th>DP</th><th>FLD%</th></tr>
+        </thead>
+        <tbody>
+          {% set fldPct = ((f.PO + f.A) / f.TC) if f.TC else 0 %}
+          <tr>
+            <td>{{ f.PO }}</td><td>{{ f.A }}</td><td>{{ f.E }}</td>
+            <td>{{ f.TC }}</td><td>{{ f.DP }}</td>
+            <td class="stat-rate">{{ fldPct | round(3) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="stat-block">
+      <h3>PITCHING</h3>
+      <table class="stat-table">
+        <thead>
+          <tr><th>IP</th><th>H</th><th>ER</th><th>BB</th><th>K</th><th>ERA</th><th>WHIP</th></tr>
+        </thead>
+        <tbody>
+          {% set era = (p.ER * 9 / p.IP) if p.IP else 0 %}
+          {% set whip = ((p.H_p + p.BB_p) / p.IP) if p.IP else 0 %}
+          <tr>
+            <td>{{ p.IP }}</td><td>{{ p.H_p }}</td><td>{{ p.ER }}</td>
+            <td>{{ p.BB_p }}</td><td>{{ p.K_p }}</td>
+            <td class="stat-rate">{{ era | round(2) }}</td>
+            <td class="stat-rate">{{ whip | round(2) }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="game-log">
+      <h3>GAME LOG</h3>
+      <table class="game-log-table">
+        <thead>
+          <tr><th>Date</th><th>Opponent</th><th>Result</th><th>AB</th><th>H</th><th>RBI</th><th>R</th></tr>
+        </thead>
+        <tbody>
+          {% for game in s.gamesList %}
+          <tr{% if not game.played %} class="dnp"{% endif %}>
+            <td>{{ game.date }}</td>
+            <td>{{ game.opponent }}</td>
+            <td>
+              {% if not game.played %}DNP
+              {% elif game.result == "W" %}<span class="win">W {{ game.score }}</span>
+              {% else %}<span class="loss">L {{ game.score }}</span>
+              {% endif %}
+            </td>
+            {% if game.played %}
+            <td>{{ game.stats.hitting.AB }}</td>
+            <td>{{ game.stats.hitting.H }}</td>
+            <td>{{ game.stats.hitting.RBI }}</td>
+            <td>{{ game.stats.hitting.R }}</td>
+            {% else %}
+            <td>-</td><td>-</td><td>-</td><td>-</td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  {% include "footer.njk" %}
+</main>
