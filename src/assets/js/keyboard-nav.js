@@ -1,5 +1,6 @@
 (function () {
   const map = {
+    h: "/",
     a: "/about/",
     r: "/resume/",
     p: "/projects/",
@@ -12,7 +13,7 @@
     const tag = e.target && e.target.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || e.target.isContentEditable) return;
     const dest = map[e.key.toLowerCase()];
-    if (dest) {
+    if (dest && dest !== window.location.pathname) {
       e.preventDefault();
       window.location.href = dest;
     }
