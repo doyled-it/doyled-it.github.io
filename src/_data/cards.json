@@ -6,5 +6,6 @@
   { "num": 4, "name": "words",    "title": "words",    "url": "/words/" },
   { "num": 5, "name": "music",    "title": "music",    "url": "/music/" },
   { "num": 6, "name": "contact",  "title": "contact",  "url": "/contact/" },
-  { "num": 7, "name": "baseball", "title": "baseball", "url": "/baseball/" }
+  { "num": 7, "name": "baseball", "title": "baseball", "url": "/baseball/" },
+  { "num": 8, "name": "golf",     "title": "golf",     "url": "/golf/" }
 ]

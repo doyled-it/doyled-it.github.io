@@ -8,6 +8,7 @@
     m: "/music/",
     c: "/contact/",
     b: "/baseball/",
+    g: "/golf/",
   };
   document.addEventListener("keydown", (e) => {
     if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey) return;
