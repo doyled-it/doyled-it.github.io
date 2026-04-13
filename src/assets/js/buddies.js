@@ -271,7 +271,8 @@ async function buildGrid() {
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-  const initial = getOrInitBuddy();
+  const forced = document.body.dataset.forceBuddy;
+  const initial = forced || getOrInitBuddy();
   startBuddy(initial).catch((err) => console.warn("buddy init failed", err));
-  buildGrid();
+  if (!forced) buildGrid();
 });

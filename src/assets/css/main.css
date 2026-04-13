@@ -16,8 +16,8 @@
   --accent-green: #8dff8d;
   --accent-cyan: #6fe6ff;
   --accent-purple: #c99dff;
-  --shadow-offset: 4px;
-  --card-max: 720px;
+  --shadow-offset: 5px;
+  --card-max: 864px;
 
   --font-display: "Pixelify Sans", ui-sans-serif, system-ui, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -55,12 +55,12 @@ body {
 .card-titlebar {
   background: linear-gradient(90deg, var(--accent-pink) 0%, var(--accent-yellow) 100%);
   border-bottom: 2px solid var(--ink);
-  padding: 3px 8px;
+  padding: 4px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ink);
 }
@@ -71,10 +71,10 @@ body {
 .ctrl-btn {
   background: none;
   border: none;
-  padding: 0 2px;
+  padding: 0 3px;
   margin: 0;
   font-family: var(--font-display);
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--ink);
   cursor: pointer;
@@ -120,8 +120,8 @@ body {
   background: var(--marquee-bg);
   color: var(--marquee-fg);
   font-family: var(--font-mono);
-  font-size: 14px;
-  padding: 2px 0;
+  font-size: 17px;
+  padding: 3px 0;
   border-bottom: 2px solid var(--ink);
   overflow: hidden;
   white-space: nowrap;
@@ -137,8 +137,8 @@ body {
 }
 
 .card-body {
-  padding: 16px 20px;
-  font-size: 15px;
+  padding: 20px 24px;
+  font-size: 18px;
   line-height: 1.5;
   flex: 1;
 }
@@ -148,8 +148,8 @@ body {
   color: var(--accent-pink-dark);
   margin-top: 0;
 }
-.card-body h2 { font-size: 22px; text-align: center; letter-spacing: 0.05em; }
-.card-body h3 { font-size: 16px; letter-spacing: 0.05em; }
+.card-body h2 { font-size: 26px; text-align: center; letter-spacing: 0.05em; }
+.card-body h3 { font-size: 19px; letter-spacing: 0.05em; }
 
 .card-footer {
   border-top: 2px dashed var(--ink);
@@ -158,7 +158,7 @@ body {
   justify-content: space-between;
   align-items: center;
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   color: #555;
 }
 .card-footer .counter {
@@ -179,7 +179,7 @@ body {
   justify-content: center;
   gap: 2px 8px;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   color: #777;
   background: var(--card-body);
 }

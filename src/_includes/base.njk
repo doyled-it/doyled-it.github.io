@@ -26,10 +26,10 @@
       {% endfor %}
     {% endif %}
   </head>
-  <body class="desk">
+  <body class="desk"{% if forceBuddy %} data-force-buddy="{{ forceBuddy }}"{% endif %}>
     <a class="skip-link" href="#main">skip to content</a>
     {{ content | safe }}
-    <div class="buddy-selector" id="buddy-selector">
+    <div class="buddy-selector" id="buddy-selector"{% if forceBuddy %} hidden{% endif %}>
       <button type="button" class="buddy-toggle" id="buddy-toggle" aria-label="Choose your buddy">
         <span class="buddy-toggle-sprite" id="buddy-toggle-sprite"></span>
         <span class="buddy-toggle-name" id="buddy-toggle-name">buddy</span>
