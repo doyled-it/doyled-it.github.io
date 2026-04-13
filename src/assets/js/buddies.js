@@ -82,11 +82,16 @@ async function startBuddy(name, startPos) {
   const el = createSpriteElement(name, manifest);
   activeSprite = el;
 
-  let pos = startPos || { x: 32, y: 32 };
+  let savedPos = null;
+  try {
+    const raw = sessionStorage.getItem("buddy_pos");
+    if (raw) savedPos = JSON.parse(raw);
+  } catch {}
+  let pos = startPos || savedPos || { x: 32, y: 32 };
   let target = { x: pos.x, y: pos.y };
-  let currentState = startPos ? "idle" : "sleeping";
+  let currentState = (startPos || savedPos) ? "idle" : "sleeping";
   let activeThreshold = FOLLOW_DISTANCE + (Math.random() - 0.5) * THRESHOLD_JITTER;
-  idleTicks = startPos ? 0 : 51;
+  idleTicks = (startPos || savedPos) ? 0 : 51;
   alertCountdown = 0;
   el.style.transform = `translate(${Math.round(pos.x - manifest.frameSize / 2)}px, ${Math.round(pos.y - manifest.frameSize / 2)}px)`;
   activeFrameTimer = setFrame(manifest.states[currentState] || manifest.states.idle, manifest, el);
@@ -150,9 +155,14 @@ async function startBuddy(name, startPos) {
     }
   }
 
-  if (!reducedMotion) {
-    activeTickTimer = setInterval(tick, TICK_MS);
+  function savePos() {
+    try { sessionStorage.setItem("buddy_pos", JSON.stringify(pos)); } catch {}
   }
+
+  if (!reducedMotion) {
+    activeTickTimer = setInterval(() => { tick(); savePos(); }, TICK_MS);
+  }
+  window.addEventListener("beforeunload", savePos);
 }
 
 async function switchBuddy(name) {
