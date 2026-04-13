@@ -78,6 +78,28 @@
 }
 
 
+.home-about {
+  border-top: 2px dashed #bbb;
+  margin-top: 16px;
+  padding-top: 16px;
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+}
+.home-about h3 {
+  font-family: var(--font-display);
+  color: var(--accent-pink-dark);
+  font-size: 18px;
+  margin: 14px 0 6px;
+}
+.home-about ul {
+  padding-left: 20px;
+}
+.home-about li {
+  margin-bottom: 4px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .cracktro-scroller > span { animation: none; padding-left: 0; text-align: center; display: block; }
 }
