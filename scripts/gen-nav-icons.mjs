@@ -195,7 +195,7 @@ writeIcon("music", (ctx) => {
   renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- BASEBALL: with proper curving laces (matches buddy sprite pattern) ---
+// --- BASEBALL: bracket-shaped laces matching real ball stitching ---
 writeIcon("baseball", (ctx) => {
   const map = {
     ".": null,
@@ -203,21 +203,22 @@ writeIcon("baseball", (ctx) => {
     W: W,
     R: "#c41e3a",   // stitch
   };
-  // Laces curve outward at top/bottom, pinch toward middle
+  // Two thick vertical laces with stair-step flares at top and bottom.
+  // Mimics the baseball stitch pattern from the reference.
   const art = [
     "................",
     "....KKKKKKKK....",
     "...KWWWWWWWWK...",
-    "..KWWRWWWWRWWK..",
-    ".KWWRWWWWWWRWWK.",
-    ".KWWRWWWWWWRWWK.",
-    "KWWWRWWWWWWRWWWK",
-    "KWWWRWWWWWWRWWWK",
-    "KWWWRWWWWWWRWWWK",
-    "KWWWRWWWWWWRWWWK",
-    ".KWWRWWWWWWRWWK.",
-    ".KWWRWWWWWWRWWK.",
-    "..KWWRWWWWRWWK..",
+    "..KWRRWWWWRRWK..",
+    ".KWRRWWWWWWRRWK.",
+    ".KWWRRWWWWRRWWK.",
+    "KWWWRRWWWWRRWWWK",
+    "KWWWRRWWWWRRWWWK",
+    "KWWWRRWWWWRRWWWK",
+    "KWWWRRWWWWRRWWWK",
+    ".KWWRRWWWWRRWWK.",
+    ".KWRRWWWWWWRRWK.",
+    "..KWRRWWWWRRWK..",
     "...KWWWWWWWWK...",
     "....KKKKKKKK....",
     "................",
