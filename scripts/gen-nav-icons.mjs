@@ -261,7 +261,7 @@ writeIcon("golf", (ctx) => {
   renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- CONTACT: clean envelope with V flap ---
+// --- CONTACT: clean square envelope with V flap ---
 writeIcon("contact", (ctx) => {
   const map = {
     ".": null,
@@ -272,18 +272,18 @@ writeIcon("contact", (ctx) => {
   const art = [
     "................",
     "................",
-    "..KKKKKKKKKKKK..",
-    "..KWWWWWWWWWWK..",
-    "..KKWWWWWWWWKK..",
-    "..KgKWWWWWWKgK..",
-    "..KggKWWWWKggK..",
-    "..KgggKWWKgggK..",
-    "..KggggKKggggK..",
-    "..KgggggKgggggK.",
-    "..KggggggKggggK.",
-    "..KgggggggggggK.",
-    "..KgggggggggggK.",
-    "..KKKKKKKKKKKKK.",
+    ".KKKKKKKKKKKKKK.",
+    ".KWWWWWWWWWWWWK.",
+    ".KKWWWWWWWWWWKK.",
+    ".KgKWWWWWWWWKgK.",
+    ".KggKWWWWWWKggK.",
+    ".KgggKWWWWKgggK.",
+    ".KggggKWWKggggK.",
+    ".KgggggKKgggggK.",
+    ".KggggggggggggK.",
+    ".KggggggggggggK.",
+    ".KggggggggggggK.",
+    ".KKKKKKKKKKKKKK.",
     "................",
     "................",
   ];
