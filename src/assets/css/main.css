@@ -219,6 +219,7 @@ a:visited { color: var(--accent-purple); }
   .desk { padding: 16px 8px; }
   .key-hints { display: none; }
   .card-footer nav { display: none; }
+  .card-footer { justify-content: center; }
   .chiptune-btn { font-size: 13px; padding: 4px 8px; bottom: 8px; right: 8px; }
   .chiptune-cd { width: 20px; height: 20px; }
   .card-body { padding: 16px 14px; }
