@@ -25,68 +25,69 @@
 /* Player header */
 .baseball-header {
   text-align: center;
-  padding: 12px 64px 8px;
+  padding: 12px 80px 8px;
   border-bottom: 3px double #c41e3a;
   margin-bottom: 16px;
   position: relative;
-  min-height: 72px;
+  min-height: 88px;
 }
 
-/* Animated pixel players on header border */
+/* Animated pixel players on header border — 2x scaled */
 .sprite-player {
   position: absolute;
   bottom: 3px;
-  width: 14px;
-  height: 16px;
+  width: 28px;
+  height: 32px;
   image-rendering: pixelated;
   background-repeat: no-repeat;
-  background-size: 42px 16px;
-  animation: player-throw 4s steps(1) infinite;
+  background-size: 84px 32px;
+  animation: player-throw 8s steps(1) infinite;
 }
 .sprite-player--left {
-  left: 16px;
+  left: 20px;
   background-image: url(/assets/sprites/scenes/player-left.png);
   animation-delay: 0s;
 }
 .sprite-player--right {
-  right: 16px;
+  right: 20px;
   background-image: url(/assets/sprites/scenes/player-right.png);
-  animation-delay: 2s;
+  animation-delay: 4s;
 }
 @keyframes player-throw {
-  0%    { background-position: 0 0; }      /* ready */
-  15%   { background-position: -14px 0; }  /* wind-up */
-  25%   { background-position: -28px 0; }  /* release */
-  30%   { background-position: 0 0; }      /* back to ready */
+  0%    { background-position: 0 0; }       /* ready */
+  12%   { background-position: -28px 0; }   /* wind-up */
+  22%   { background-position: -56px 0; }   /* release */
+  30%   { background-position: 0 0; }       /* back to ready */
   50%   { background-position: 0 0; }
-  50.1% { background-position: -28px 0; }  /* catch/reach */
-  65%   { background-position: -28px 0; }
-  75%   { background-position: -14px 0; }  /* wind-up */
-  85%   { background-position: -28px 0; }  /* release */
+  50.1% { background-position: -56px 0; }   /* catch/reach */
+  65%   { background-position: -56px 0; }
   100%  { background-position: 0 0; }
 }
 
-/* Arcing baseball */
+/* Arcing baseball — smaller relative to the bigger players */
 .sprite-ball--catch {
   position: absolute;
   width: 8px;
   height: 8px;
   image-rendering: pixelated;
   background: url(/assets/sprites/scenes/ball-small.png) no-repeat;
-  left: 30px;
-  bottom: 8px;
-  animation: ball-arc 4s linear infinite, ball-spin 0.3s linear infinite;
+  background-size: 8px 8px;
+  left: 42px;
+  bottom: 18px;
+  animation: ball-arc 8s linear infinite, ball-spin 0.4s linear infinite;
 }
 @keyframes ball-arc {
-  0%   { left: 30px; bottom: 8px; opacity: 0; }
-  5%   { left: 30px; bottom: 8px; opacity: 1; }
-  25%  { left: 50%; bottom: 56px; }
-  45%  { left: calc(100% - 38px); bottom: 8px; opacity: 1; }
-  50%  { left: calc(100% - 38px); bottom: 8px; opacity: 0; }
-  55%  { left: calc(100% - 38px); bottom: 8px; opacity: 1; }
-  75%  { left: 50%; bottom: 56px; }
-  95%  { left: 30px; bottom: 8px; opacity: 1; }
-  100% { left: 30px; bottom: 8px; opacity: 0; }
+  0%    { left: 42px; bottom: 18px; opacity: 0; }
+  22%   { left: 42px; bottom: 18px; opacity: 0; }
+  22.5% { left: 42px; bottom: 22px; opacity: 1; }
+  36%   { left: 50%; bottom: 64px; }
+  49%   { left: calc(100% - 50px); bottom: 22px; opacity: 1; }
+  49.5% { left: calc(100% - 50px); bottom: 22px; opacity: 0; }
+  72%   { left: calc(100% - 50px); bottom: 22px; opacity: 0; }
+  72.5% { left: calc(100% - 50px); bottom: 22px; opacity: 1; }
+  86%   { left: 50%; bottom: 64px; }
+  99%   { left: 42px; bottom: 22px; opacity: 1; }
+  100%  { left: 42px; bottom: 18px; opacity: 0; }
 }
 @keyframes ball-spin {
   from { transform: rotate(0deg); }
@@ -97,9 +98,9 @@
   .sprite-player, .sprite-ball--catch { animation: none; }
 }
 @media (max-width: 720px) {
-  .baseball-header { padding-left: 40px; padding-right: 40px; }
-  .sprite-player--left { left: 8px; }
-  .sprite-player--right { right: 8px; }
+  .baseball-header { padding-left: 50px; padding-right: 50px; }
+  .sprite-player--left { left: 10px; }
+  .sprite-player--right { right: 10px; }
 }
 .baseball-header h2 {
   font-family: var(--font-display);
