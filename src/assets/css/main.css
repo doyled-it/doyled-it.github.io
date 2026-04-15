@@ -276,7 +276,10 @@ a:visited { color: var(--accent-purple); }
 
 /* Base nav tile */
 .nav-tile {
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
   font-family: var(--font-display);
   font-size: 20px;
   color: var(--ink);
@@ -287,6 +290,22 @@ a:visited { color: var(--accent-purple); }
   text-align: center;
   letter-spacing: 0.05em;
   transition: transform 0.1s ease;
+}
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  font-size: 22px;
+  background: rgba(0, 0, 0, 0.15);
+  border: 2px solid var(--ink);
+  flex-shrink: 0;
+}
+.nav-tile--music .nav-icon,
+.nav-tile--baseball .nav-icon,
+.nav-tile--golf .nav-icon {
+  background: rgba(255, 255, 255, 0.25);
 }
 .nav-tile:visited { color: var(--ink); }
 .nav-tile:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }

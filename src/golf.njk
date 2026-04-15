@@ -30,8 +30,8 @@ extraCSS:
         <div class="stat-value">{{ g.handicapIndex }}</div>
       </div>
       <div class="golf-stat-box">
-        <div class="stat-label">Best 18H</div>
-        <div class="stat-value">{{ st.low18 }}</div>
+        <div class="stat-label">Best 18H (to par)</div>
+        <div class="stat-value">{% if st.low18ToPar > 0 %}+{% endif %}{{ st.low18ToPar }}</div>
       </div>
       <div class="golf-stat-box">
         <div class="stat-label">Avg Score (18H)</div>
@@ -46,8 +46,8 @@ extraCSS:
         <div class="stat-value">{{ st.bestDifferential }}</div>
       </div>
       <div class="golf-stat-box">
-        <div class="stat-label">Best 9H</div>
-        <div class="stat-value">{{ st.low9 }}</div>
+        <div class="stat-label">Best 9H (to par)</div>
+        <div class="stat-value">{% if st.low9ToPar > 0 %}+{% endif %}{{ st.low9ToPar }}</div>
       </div>
     </div>
 
