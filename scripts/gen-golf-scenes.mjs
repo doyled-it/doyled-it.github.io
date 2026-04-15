@@ -30,6 +30,7 @@ function px(ctx, x, y, color) {
   const HOLE = "#111";
   const FLAG = "#c41e3a";
   const FLAG_D = "#8a0e25";
+  const OUTLINE = "#1a1a1a";
 
   // Flag flutter patterns (5 wide, 3 tall triangular pennant)
   const flags = [
@@ -64,39 +65,66 @@ function px(ctx, x, y, color) {
     ctx.save();
     ctx.translate(f * W, 0);
 
-    // === Mound (bottom of sprite) — shallow, wide profile ===
-    // Full base rows
-    rect(ctx, 0, 36, 20, 4, GREEN);
-    // Slight taper
-    rect(ctx, 1, 34, 18, 2, GREEN);
-    rect(ctx, 2, 32, 16, 2, GREEN);
-    // Top of mound — gently curved
+    // === Mound (bottom of sprite) — shallow, wide profile with dark outline ===
+    // Outline: step along the mound edge
+    rect(ctx, 0, 35, 1, 5, OUTLINE);     // left side
+    rect(ctx, 19, 35, 1, 5, OUTLINE);    // right side
+    rect(ctx, 1, 33, 1, 2, OUTLINE);
+    rect(ctx, 18, 33, 1, 2, OUTLINE);
+    rect(ctx, 2, 31, 1, 2, OUTLINE);
+    rect(ctx, 17, 31, 1, 2, OUTLINE);
+    rect(ctx, 3, 30, 14, 1, OUTLINE);    // top
+
+    // Base rows
+    rect(ctx, 1, 36, 18, 4, GREEN);
+    rect(ctx, 2, 34, 16, 2, GREEN);
+    rect(ctx, 3, 32, 14, 2, GREEN);
     rect(ctx, 3, 31, 14, 1, GREEN);
     // Top highlight
     rect(ctx, 4, 31, 12, 1, GREEN_L);
     // Subtle shadow on right
-    rect(ctx, 16, 33, 2, 3, GREEN_D);
-    rect(ctx, 18, 36, 2, 4, GREEN_D);
-    // Grass tufts
+    rect(ctx, 15, 33, 2, 3, GREEN_D);
+    rect(ctx, 17, 36, 1, 4, GREEN_D);
+    // Grass tufts (with tiny outline)
+    px(ctx, 5, 29, OUTLINE);
     px(ctx, 5, 30, GREEN);
+    px(ctx, 9, 29, OUTLINE);
     px(ctx, 9, 30, GREEN);
+    px(ctx, 12, 29, OUTLINE);
     px(ctx, 12, 30, GREEN);
+    px(ctx, 15, 29, OUTLINE);
     px(ctx, 15, 30, GREEN);
 
     // === Hole on top of mound ===
     rect(ctx, 8, 31, 3, 1, HOLE);
     px(ctx, 7, 31, GREEN_D);
 
-    // === Flagstick (pin) rising from hole ===
+    // === Flagstick (pin) rising from hole — with outline ===
+    // Outline columns flanking the pin
+    rect(ctx, 8, 8, 1, 23, OUTLINE);
+    rect(ctx, 10, 8, 1, 23, OUTLINE);
+    // Pin body
     rect(ctx, 9, 8, 1, 23, PIN);
-    px(ctx, 10, 10, PIN_D);
-    px(ctx, 10, 18, PIN_D);
-    px(ctx, 10, 26, PIN_D);
-    // Tiny point on top of pin
+    // Tiny point on top of pin with outline
+    px(ctx, 8, 7, OUTLINE);
+    px(ctx, 10, 7, OUTLINE);
+    px(ctx, 9, 6, OUTLINE);
     px(ctx, 9, 7, PIN);
 
-    // === Flag at top of pin ===
+    // === Flag at top of pin — with outline ===
     const pattern = flags[f];
+    // Draw outline first
+    for (let y = 0; y < pattern.length; y++) {
+      for (let x = 0; x < pattern[y].length; x++) {
+        if (fmap[pattern[y][x]]) {
+          px(ctx, 10 + x, 8 + y - 1, OUTLINE);
+          px(ctx, 10 + x, 8 + y + 1, OUTLINE);
+          px(ctx, 10 + x - 1, 8 + y, OUTLINE);
+          px(ctx, 10 + x + 1, 8 + y, OUTLINE);
+        }
+      }
+    }
+    // Then flag body
     for (let y = 0; y < pattern.length; y++) {
       for (let x = 0; x < pattern[y].length; x++) {
         const col = fmap[pattern[y][x]];

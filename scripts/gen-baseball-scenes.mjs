@@ -408,12 +408,17 @@ writePlayerSprite("player-right.png");
 
   const fmap = { ".": null, F: FLAG, D: FLAG_D };
 
+  const BLACK = "#1a1a1a";
+
   for (let f = 0; f < FRAMES; f++) {
     ctx.save();
     ctx.translate(f * W, 0);
 
-    // Foul pole — tall vertical yellow column
-    // Pole body (centered at x=2, 2px wide)
+    // Foul pole — tall vertical yellow column with dark outline
+    // Dark outlines down both sides
+    rect(ctx, 1, 3, 1, 37, BLACK);
+    rect(ctx, 4, 3, 1, 37, BLACK);
+    // Pole body
     rect(ctx, 2, 3, 2, 37, POLE);
     // Highlight on left
     rect(ctx, 2, 3, 1, 37, POLE_L);
@@ -421,19 +426,36 @@ writePlayerSprite("player-right.png");
     px(ctx, 3, 3, POLE_D);
     px(ctx, 3, 39, POLE_D);
 
-    // Pole cap / finial at top — slightly wider
+    // Pole cap / finial at top — slightly wider, with outline
+    rect(ctx, 0, 1, 1, 2, BLACK);
+    rect(ctx, 5, 1, 1, 2, BLACK);
     rect(ctx, 1, 1, 4, 2, POLE);
     rect(ctx, 1, 1, 1, 2, POLE_L);
     rect(ctx, 4, 1, 1, 2, POLE_D);
-    // Tiny point on top
+    // Tiny point on top with outline
+    rect(ctx, 1, 0, 1, 1, BLACK);
+    rect(ctx, 4, 0, 1, 1, BLACK);
     rect(ctx, 2, 0, 2, 1, POLE);
 
-    // Horizontal cross-piece where the flag attaches (looks like a foul pole)
-    rect(ctx, 0, 4, 5, 1, POLE);
-    px(ctx, 0, 4, POLE_D);
+    // Horizontal cross-piece where the flag attaches
+    rect(ctx, 0, 4, 6, 1, BLACK);
+    rect(ctx, 0, 5, 5, 1, POLE);
 
-    // Flag attached to pole, flying to the right
+    // Flag attached to pole, flying to the right (with outline)
     const pattern = flags[f];
+    // First draw outline one pixel in each direction
+    for (let y = 0; y < pattern.length; y++) {
+      for (let x = 0; x < pattern[y].length; x++) {
+        if (fmap[pattern[y][x]]) {
+          // Outline — draw a dark pixel around edges
+          px(ctx, 4 + x, 6 + y - 1, BLACK);
+          px(ctx, 4 + x, 6 + y + 1, BLACK);
+          px(ctx, 4 + x - 1, 6 + y, BLACK);
+          px(ctx, 4 + x + 1, 6 + y, BLACK);
+        }
+      }
+    }
+    // Then draw the flag body over the outline
     for (let y = 0; y < pattern.length; y++) {
       for (let x = 0; x < pattern[y].length; x++) {
         const col = fmap[pattern[y][x]];
