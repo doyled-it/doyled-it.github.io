@@ -21,9 +21,42 @@
 
 .golf-header {
   text-align: center;
-  padding: 12px 0 8px;
+  padding: 20px 80px 8px;
   border-bottom: 3px double #228b22;
   margin-bottom: 16px;
+  position: relative;
+  min-height: 130px;
+}
+
+/* Golf greens with flagsticks flanking the name */
+.sprite-green {
+  position: absolute;
+  bottom: 3px;
+  width: 60px;    /* 20 * 3 */
+  height: 120px;  /* 40 * 3 */
+  image-rendering: pixelated;
+  background: url(/assets/sprites/scenes/golf-green.png) no-repeat;
+  background-size: 240px 120px;  /* 80 * 3 x 40 * 3 */
+  animation: green-flag 0.8s steps(1) infinite;
+}
+.sprite-green--left  { left: 12px; }
+.sprite-green--right { right: 12px; transform: scaleX(-1); animation-delay: 0.4s; }
+
+@keyframes green-flag {
+  0%   { background-position: 0 0; }
+  25%  { background-position: -60px 0; }
+  50%  { background-position: -120px 0; }
+  75%  { background-position: -180px 0; }
+  100% { background-position: 0 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sprite-green { animation: none; }
+}
+@media (max-width: 720px) {
+  .golf-header { padding-left: 64px; padding-right: 64px; }
+  .sprite-green--left  { left: 4px; }
+  .sprite-green--right { right: 4px; }
 }
 .golf-header h2 {
   font-family: var(--font-display);
