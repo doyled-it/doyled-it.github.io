@@ -375,51 +375,75 @@ writePlayerSprite("player-right.png");
   const MESH = "#e8c820";
   const MESH_L = "#ffec6b";
   const BLACK = "#1a1a1a";
+  const FLAG = "#c41e3a";
+  const FLAG_D = "#8a0e25";
+
+  // Flag patterns at top of pole (3 wide, 2 tall)
+  const flags = [
+    ["FFF", "FF."],
+    ["FF.", "FFF"],
+  ];
+  const fmap = { ".": null, F: FLAG };
+
+  const POLE_TOP_Y = 8;       // pole starts below the flag
+  const MESH_START = 10;
+  const MESH_END = 36;        // mesh goes almost all the way down
 
   for (let f = 0; f < FRAMES; f++) {
     ctx.save();
     ctx.translate(f * W, 0);
 
-    // === Foul pole — tall thin vertical yellow column ===
-    // Dark outlines both sides, full height
-    rect(ctx, 3, 0, 1, 40, BLACK);
-    rect(ctx, 6, 0, 1, 40, BLACK);
-    // Pole body
-    rect(ctx, 4, 0, 2, 40, POLE);
-    // Highlight on left
-    rect(ctx, 4, 0, 1, 40, POLE_L);
-    // Shadow on right (subtle)
-    px(ctx, 5, 5, POLE_D);
-    px(ctx, 5, 15, POLE_D);
-    px(ctx, 5, 25, POLE_D);
-    px(ctx, 5, 35, POLE_D);
+    // === Flag on top of pole ===
+    const pattern = flags[f];
+    // Outline
+    for (let y = 0; y < pattern.length; y++) {
+      for (let x = 0; x < pattern[y].length; x++) {
+        if (fmap[pattern[y][x]]) {
+          px(ctx, 5 + x, 3 + y - 1, BLACK);
+          px(ctx, 5 + x, 3 + y + 1, BLACK);
+          px(ctx, 5 + x - 1, 3 + y, BLACK);
+          px(ctx, 5 + x + 1, 3 + y, BLACK);
+        }
+      }
+    }
+    // Flag fill
+    for (let y = 0; y < pattern.length; y++) {
+      for (let x = 0; x < pattern[y].length; x++) {
+        const col = fmap[pattern[y][x]];
+        if (col) px(ctx, 5 + x, 3 + y, col);
+      }
+    }
+    // Flag bottom shadow
+    for (let x = 0; x < 3; x++) {
+      if (fmap[pattern[1][x]]) px(ctx, 5 + x, 5, FLAG_D);
+    }
 
-    // === Mesh/screen panel near top (where the pole meets fair territory) ===
-    // Sits to the RIGHT of the pole (inside the playing field)
+    // === Foul pole — tall thin vertical yellow column ===
+    rect(ctx, 3, POLE_TOP_Y - 2, 1, 42 - POLE_TOP_Y, BLACK);  // left outline
+    rect(ctx, 6, POLE_TOP_Y - 2, 1, 42 - POLE_TOP_Y, BLACK);  // right outline
+    // Pole body
+    rect(ctx, 4, POLE_TOP_Y - 2, 2, 42 - POLE_TOP_Y, POLE);
+    rect(ctx, 4, POLE_TOP_Y - 2, 1, 42 - POLE_TOP_Y, POLE_L);
+    // Pole top cap (below flag)
+    rect(ctx, 3, POLE_TOP_Y - 2, 4, 1, BLACK);
+    rect(ctx, 4, POLE_TOP_Y - 1, 2, 1, POLE);
+
+    // === Mesh/screen panel — extends most of pole length, to the right ===
     // Outline box
-    rect(ctx, 6, 6, 1, 12, BLACK);    // left edge (adjacent to pole)
-    rect(ctx, 9, 6, 1, 12, BLACK);    // right edge
-    rect(ctx, 7, 5, 2, 1, BLACK);     // top
-    rect(ctx, 7, 18, 2, 1, BLACK);    // bottom
+    rect(ctx, 6, MESH_START - 1, 1, MESH_END - MESH_START + 2, BLACK);   // left edge
+    rect(ctx, 9, MESH_START - 1, 1, MESH_END - MESH_START + 2, BLACK);   // right edge
+    rect(ctx, 7, MESH_START - 1, 2, 1, BLACK);                           // top
+    rect(ctx, 7, MESH_END, 2, 1, BLACK);                                 // bottom
     // Mesh fill
-    rect(ctx, 7, 6, 2, 12, MESH);
+    rect(ctx, 7, MESH_START, 2, MESH_END - MESH_START, MESH);
     // Highlight column
-    rect(ctx, 7, 6, 1, 12, MESH_L);
-    // Crosshatch grid pattern — slight shift between frames
+    rect(ctx, 7, MESH_START, 1, MESH_END - MESH_START, MESH_L);
+    // Crosshatch grid pattern — subtle shimmer via pixel offset between frames
     const offset = f === 0 ? 0 : 1;
-    for (let y = 6 + offset; y < 18; y += 3) {
+    for (let y = MESH_START + offset; y < MESH_END; y += 3) {
       px(ctx, 7, y, POLE_D);
       px(ctx, 8, y, POLE_D);
     }
-    for (let y = 7; y < 18; y += 3) {
-      px(ctx, 7 + ((y + f) % 2), y, BLACK);
-    }
-
-    // === Tiny cap on top of pole ===
-    rect(ctx, 2, 0, 1, 1, BLACK);
-    rect(ctx, 7, 0, 1, 1, BLACK);
-    px(ctx, 3, 0, POLE_L);
-    px(ctx, 6, 0, POLE_D);
 
     ctx.restore();
   }
