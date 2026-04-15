@@ -105,6 +105,7 @@
 }
 
 @media (max-width: 720px) {
-  .music-item-art { width: 28px; height: 28px; }
+  .music-item-art { width: 32px; height: 32px; }
   .music-item-name { font-size: 12px; }
+  .music-items { grid-template-columns: 1fr; }
 }

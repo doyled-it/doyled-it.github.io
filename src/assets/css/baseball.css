@@ -152,7 +152,17 @@
 
 /* Responsive */
 @media (max-width: 720px) {
-  .stat-table { font-size: 10px; }
-  .stat-table th, .stat-table td { padding: 2px 3px; }
-  .game-log-table { font-size: 10px; }
+  /* Horizontal scroll for stat tables instead of cramming */
+  .stat-block { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .game-log { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .stat-table { font-size: 12px; min-width: 420px; }
+  .stat-table th, .stat-table td { padding: 3px 5px; }
+  .game-log-table { font-size: 12px; min-width: 420px; }
+  .game-log-table th, .game-log-table td { padding: 3px 4px; }
+}
+@media (max-width: 480px) {
+  .baseball-header h2 { font-size: 20px; }
+  .baseball-header { padding-top: 12px; min-height: 110px; padding-left: 50px; padding-right: 50px; }
+  .sprite-flag { transform-origin: bottom center; transform: scale(0.7); }
+  .sprite-flag--right { transform: scale(0.7) scaleX(-1); }
 }

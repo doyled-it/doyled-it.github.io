@@ -206,6 +206,11 @@ a:visited { color: var(--accent-purple); }
 @media (max-width: 720px) {
   .desk { padding: 16px 8px; }
   .key-hints { display: none; }
+  .chiptune-btn { font-size: 13px; padding: 4px 8px; bottom: 8px; right: 8px; }
+  .chiptune-cd { width: 20px; height: 20px; }
+  .card-body { padding: 16px 14px; }
+  .card-body h2 { font-size: 22px; }
+  .card-body h3 { font-size: 17px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

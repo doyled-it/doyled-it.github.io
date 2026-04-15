@@ -182,6 +182,17 @@
 
 @media (max-width: 720px) {
   .golf-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .scorecard-table { font-size: 11px; }
-  .dist-label { width: 48px; font-size: 10px; }
+  .golf-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .scorecard-table { font-size: 12px; min-width: 440px; }
+  .scorecard-table th { font-size: 11px; }
+  .dist-label { width: 52px; font-size: 11px; }
+}
+@media (max-width: 480px) {
+  .golf-header h2 { font-size: 20px; }
+  .golf-header { padding-top: 12px; min-height: 110px; padding-left: 50px; padding-right: 50px; }
+  .sprite-green { transform-origin: bottom center; transform: scale(0.7); }
+  .sprite-green--right { transform: scale(0.7) scaleX(-1); }
+  .golf-stats-grid { gap: 6px; }
+  .golf-stat-box { padding: 6px; }
+  .golf-stat-box .stat-value { font-size: 20px; }
 }
