@@ -182,9 +182,9 @@
 
 @media (max-width: 720px) {
   .golf-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .golf-section { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .scorecard-table { font-size: 12px; white-space: nowrap; }
-  .scorecard-table th { font-size: 11px; }
+  .scorecard-table { font-size: 11px; }
+  .scorecard-table th { font-size: 10px; padding: 2px 3px; }
+  .scorecard-table td { padding: 2px 3px; }
   .dist-label { width: 52px; font-size: 11px; }
 }
 @media (max-width: 480px) {
