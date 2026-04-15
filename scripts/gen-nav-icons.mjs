@@ -20,227 +20,271 @@ function writeIcon(name, draw) {
   console.log(`wrote ${name}.png`);
 }
 
-const BLACK = "#1a1a1a";
+// Render a pixel art bitmap from a string array
+function renderBitmap(ctx, ox, oy, lines, colorMap) {
+  for (let y = 0; y < lines.length; y++) {
+    for (let x = 0; x < lines[y].length; x++) {
+      const c = colorMap[lines[y][x]];
+      if (c) px(ctx, ox + x, oy + y, c);
+    }
+  }
+}
 
-// --- HOME: retro house ---
+const K = "#1a1a1a";  // outline / black
+const W = "#ffffff";  // white
+
+// --- HOME: clear pitched roof house ---
 writeIcon("home", (ctx) => {
-  // Roof
-  rect(ctx, 7, 2, 2, 1, BLACK);
-  rect(ctx, 5, 3, 6, 1, BLACK);
-  rect(ctx, 3, 4, 10, 1, BLACK);
-  // Roof fill
-  rect(ctx, 7, 3, 2, 1, "#c41e3a");
-  rect(ctx, 5, 4, 6, 1, "#c41e3a");
-  // Walls outline
-  rect(ctx, 3, 5, 1, 8, BLACK);
-  rect(ctx, 12, 5, 1, 8, BLACK);
-  rect(ctx, 3, 13, 10, 1, BLACK);
-  // Wall fill
-  rect(ctx, 4, 5, 8, 8, "#e8c48f");
-  // Door
-  rect(ctx, 7, 9, 2, 4, BLACK);
-  rect(ctx, 7, 9, 2, 1, "#8B4513");
-  rect(ctx, 7, 10, 2, 3, "#8B4513");
-  px(ctx, 8, 11, "#ffe14d"); // doorknob
-  // Windows
-  rect(ctx, 5, 7, 2, 2, BLACK);
-  px(ctx, 5, 7, "#87ceeb"); px(ctx, 6, 7, "#87ceeb");
-  px(ctx, 5, 8, "#87ceeb"); px(ctx, 6, 8, "#87ceeb");
-  rect(ctx, 9, 7, 2, 2, BLACK);
-  px(ctx, 9, 7, "#87ceeb"); px(ctx, 10, 7, "#87ceeb");
-  px(ctx, 9, 8, "#87ceeb"); px(ctx, 10, 8, "#87ceeb");
+  const map = {
+    ".": null,
+    K: K,
+    R: "#c41e3a",   // roof
+    r: "#8a0e25",   // roof shadow
+    Y: "#e8c48f",   // wall
+    y: "#c8a570",   // wall shadow
+    B: "#8B4513",   // door
+    b: "#5a2d0a",   // door shadow
+    G: "#ffe14d",   // doorknob
+    L: "#87ceeb",   // window glass
+    l: "#5a9cc8",   // window shadow
+  };
+  const art = [
+    "................",
+    "........K.......",
+    ".......KRK......",
+    "......KRRRK.....",
+    ".....KRRRRRK....",
+    "....KRRRRRRRK...",
+    "...KRRRRRRRRRK..",
+    "..KRrrrrrrrrrK..",
+    ".KKKKKKKKKKKKK..",
+    ".KYLLYYYLLYBBK..",
+    ".KYLLYYYLLYBBK..",
+    ".KYYYYYYYYYBGK..",
+    ".KYYYYYYYYYBBK..",
+    ".KYYYYYYYYYBBK..",
+    ".KKKKKKKKKKKKK..",
+    "................",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- RESUME: document with lines ---
+// --- RESUME: clean document with header line and text rows ---
 writeIcon("resume", (ctx) => {
-  // Outline
-  rect(ctx, 3, 1, 10, 1, BLACK);
-  rect(ctx, 3, 14, 10, 1, BLACK);
-  rect(ctx, 3, 2, 1, 12, BLACK);
-  rect(ctx, 12, 2, 1, 12, BLACK);
-  // Paper fill
-  rect(ctx, 4, 2, 8, 12, "#ffffff");
-  // Corner fold
-  rect(ctx, 10, 2, 2, 1, "#ddd");
-  rect(ctx, 11, 3, 1, 1, "#ddd");
-  px(ctx, 11, 2, BLACK);
-  px(ctx, 12, 3, BLACK);
-  // Text lines
-  rect(ctx, 5, 4, 5, 1, "#555");
-  rect(ctx, 5, 6, 6, 1, "#888");
-  rect(ctx, 5, 7, 4, 1, "#888");
-  rect(ctx, 5, 9, 6, 1, "#888");
-  rect(ctx, 5, 10, 5, 1, "#888");
-  rect(ctx, 5, 12, 4, 1, "#888");
+  const map = {
+    ".": null,
+    K: K,
+    W: W,
+    g: "#ddd",
+    H: "#c41e3a",   // header bar
+    T: "#666",      // text line
+  };
+  const art = [
+    "................",
+    "..KKKKKKKKKKK...",
+    "..KWWWWWWWgKK...",
+    "..KWHHHHHWggK...",
+    "..KWHHHHHWgWK...",
+    "..KWWWWWWWWWK...",
+    "..KWTTTTTTWWK...",
+    "..KWWWWWWWWWK...",
+    "..KWTTTTTTWWK...",
+    "..KWTTTTWWWWK...",
+    "..KWWWWWWWWWK...",
+    "..KWTTTTTTTWK...",
+    "..KWTTTWWWWWK...",
+    "..KWWWWWWWWWK...",
+    "..KKKKKKKKKKK...",
+    "................",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- PROJECTS: gear/cog ---
+// --- PROJECTS: full 8-tooth gear ---
 writeIcon("projects", (ctx) => {
-  // Teeth (8 directions)
-  rect(ctx, 7, 1, 2, 2, BLACK);
-  rect(ctx, 7, 13, 2, 2, BLACK);
-  rect(ctx, 1, 7, 2, 2, BLACK);
-  rect(ctx, 13, 7, 2, 2, BLACK);
-  // Diagonal teeth
-  rect(ctx, 3, 3, 2, 2, BLACK);
-  rect(ctx, 11, 3, 2, 2, BLACK);
-  rect(ctx, 3, 11, 2, 2, BLACK);
-  rect(ctx, 11, 11, 2, 2, BLACK);
-  // Body outline
-  rect(ctx, 5, 3, 6, 1, BLACK);
-  rect(ctx, 4, 4, 1, 1, BLACK);
-  rect(ctx, 12, 4, 1, 1, BLACK);
-  rect(ctx, 3, 5, 1, 6, BLACK);
-  rect(ctx, 13, 5, 1, 6, BLACK);
-  rect(ctx, 4, 11, 1, 1, BLACK);
-  rect(ctx, 12, 11, 1, 1, BLACK);
-  rect(ctx, 5, 12, 6, 1, BLACK);
-  // Body fill
-  rect(ctx, 5, 4, 6, 8, "#888");
-  rect(ctx, 4, 5, 1, 6, "#888");
-  rect(ctx, 12, 5, 1, 6, "#888");
-  // Hole in middle
-  rect(ctx, 7, 6, 2, 1, BLACK);
-  rect(ctx, 6, 7, 4, 2, BLACK);
-  rect(ctx, 7, 9, 2, 1, BLACK);
-  rect(ctx, 7, 7, 2, 2, "#fffbe6");
-  // Highlight
-  rect(ctx, 5, 4, 2, 1, "#bbb");
+  const map = {
+    ".": null,
+    K: K,
+    G: "#999",   // gear body
+    g: "#666",   // shadow
+    L: "#ccc",   // highlight
+    H: "#fffbe6",// hole
+  };
+  const art = [
+    ".....KKKK.......",
+    ".K...KGGK....K..",
+    "KGK..KGGK..KGK..",
+    "KGKKKKGGKKKKGK..",
+    ".KGGGGGGGGGGGK..",
+    "..KGGLLLLGGGK...",
+    ".KGGLKKKKLGGGK..",
+    ".KGGLKHHKLGGgK..",
+    ".KGGLKHHKLGggK..",
+    ".KGGLKKKKLGggK..",
+    "..KGGLLLLGggK...",
+    ".KGGgGGgggggK...",
+    "KGKKKKggKKKKgK..",
+    "KGK..KggK..KgK..",
+    ".K...KggK....K..",
+    ".....KKKK.......",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- WORDS: book/pencil ---
+// --- WORDS: open book ---
 writeIcon("words", (ctx) => {
-  // Book outline
-  rect(ctx, 3, 2, 10, 1, BLACK);
-  rect(ctx, 3, 13, 10, 1, BLACK);
-  rect(ctx, 3, 2, 1, 12, BLACK);
-  rect(ctx, 12, 2, 1, 12, BLACK);
-  // Spine
-  rect(ctx, 7, 2, 1, 12, BLACK);
-  // Pages fill
-  rect(ctx, 4, 3, 3, 10, "#fffbe6");
-  rect(ctx, 8, 3, 4, 10, "#fffbe6");
-  // Text lines on pages
-  rect(ctx, 5, 5, 2, 1, "#888");
-  rect(ctx, 5, 7, 2, 1, "#888");
-  rect(ctx, 5, 9, 2, 1, "#888");
-  rect(ctx, 9, 5, 3, 1, "#888");
-  rect(ctx, 9, 7, 3, 1, "#888");
-  rect(ctx, 9, 9, 3, 1, "#888");
-  rect(ctx, 9, 11, 2, 1, "#888");
+  const map = {
+    ".": null,
+    K: K,
+    W: W,
+    g: "#ddd",
+    T: "#888",   // text lines
+    B: "#8B4513",// book cover
+    b: "#5a2d0a",// cover shadow
+  };
+  const art = [
+    "................",
+    "..BBKKK..KKKBB..",
+    ".BBWWWBKBWWWBB..",
+    "BBWTTTWBWTTTWBB.",
+    "BWWWWWWBWWWWWWB.",
+    "BWTTTTWBWTTTTWB.",
+    "BWWWWWWBWWWWWWB.",
+    "BWTTTWWBWTTTWWB.",
+    "BWWWWWWBWWWWWWB.",
+    "BWTTTTWBWTTTTWB.",
+    "BWWWWWWBWWWWWWB.",
+    "BWTTWWWBWTTWWWB.",
+    "BWWWWWWBWWWWWWB.",
+    "BBWWWWBBWWWWWBB.",
+    ".BBKKKBKBKKKBB..",
+    "..bbbbbbbbbbb...",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- MUSIC: cassette tape ---
+// --- MUSIC: cassette tape with clear reels ---
 writeIcon("music", (ctx) => {
-  // Body outline
-  rect(ctx, 1, 3, 14, 1, BLACK);
-  rect(ctx, 1, 12, 14, 1, BLACK);
-  rect(ctx, 1, 4, 1, 8, BLACK);
-  rect(ctx, 14, 4, 1, 8, BLACK);
-  // Body fill
-  rect(ctx, 2, 4, 12, 8, "#333");
-  // Label area
-  rect(ctx, 3, 5, 10, 3, "#fffbe6");
-  // Reels (two holes)
-  rect(ctx, 4, 8, 3, 3, "#e8c820");
-  px(ctx, 5, 9, BLACK);
-  rect(ctx, 9, 8, 3, 3, "#e8c820");
-  px(ctx, 10, 9, BLACK);
-  // Tape between reels
-  rect(ctx, 7, 10, 2, 1, "#222");
+  const map = {
+    ".": null,
+    K: K,
+    B: "#222",      // body
+    L: "#fffbe6",   // label
+    Y: "#e8c820",   // reel
+    y: "#c8a62a",   // reel inner
+    T: "#666",      // text on label
+  };
+  const art = [
+    "................",
+    ".KKKKKKKKKKKKKK.",
+    ".KBBBBBBBBBBBBK.",
+    ".KBLLLLLLLLLLBK.",
+    ".KBLTTTTTTTTLBK.",
+    ".KBLLLLLLLLLLBK.",
+    ".KBLLLTTTTLLLBK.",
+    ".KBBBBBBBBBBBBK.",
+    ".KBKYYKBBKYYKBK.",
+    ".KBKYKYKKYKYKBK.",
+    ".KBKYYKBBKYYKBK.",
+    ".KBKKKBBBBKKKBK.",
+    ".KBBBBBBBBBBBBK.",
+    ".KBBBBBBBBBBBBK.",
+    ".KKKKKKKKKKKKKK.",
+    "................",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- BASEBALL: classic ball ---
+// --- BASEBALL: with proper curving laces (matches buddy sprite pattern) ---
 writeIcon("baseball", (ctx) => {
-  // Outline circle
-  rect(ctx, 6, 1, 4, 1, BLACK);
-  rect(ctx, 4, 2, 2, 1, BLACK);
-  rect(ctx, 10, 2, 2, 1, BLACK);
-  rect(ctx, 3, 3, 1, 1, BLACK);
-  rect(ctx, 12, 3, 1, 1, BLACK);
-  rect(ctx, 2, 4, 1, 2, BLACK);
-  rect(ctx, 13, 4, 1, 2, BLACK);
-  rect(ctx, 1, 6, 1, 4, BLACK);
-  rect(ctx, 14, 6, 1, 4, BLACK);
-  rect(ctx, 2, 10, 1, 2, BLACK);
-  rect(ctx, 13, 10, 1, 2, BLACK);
-  rect(ctx, 3, 12, 1, 1, BLACK);
-  rect(ctx, 12, 12, 1, 1, BLACK);
-  rect(ctx, 4, 13, 2, 1, BLACK);
-  rect(ctx, 10, 13, 2, 1, BLACK);
-  rect(ctx, 6, 14, 4, 1, BLACK);
-  // Fill
-  rect(ctx, 6, 2, 4, 1, "#fff");
-  rect(ctx, 4, 3, 8, 1, "#fff");
-  rect(ctx, 3, 4, 10, 2, "#fff");
-  rect(ctx, 2, 6, 12, 4, "#fff");
-  rect(ctx, 3, 10, 10, 2, "#fff");
-  rect(ctx, 4, 12, 8, 1, "#fff");
-  rect(ctx, 6, 13, 4, 1, "#fff");
-  // Stitches (two vertical curves)
-  px(ctx, 5, 4, "#c41e3a");
-  px(ctx, 4, 5, "#c41e3a"); px(ctx, 5, 5, "#c41e3a");
-  px(ctx, 4, 6, "#c41e3a");
-  px(ctx, 4, 7, "#c41e3a");
-  px(ctx, 4, 8, "#c41e3a");
-  px(ctx, 4, 9, "#c41e3a");
-  px(ctx, 4, 10, "#c41e3a"); px(ctx, 5, 10, "#c41e3a");
-  px(ctx, 5, 11, "#c41e3a");
-  // Right stitch
-  px(ctx, 10, 4, "#c41e3a");
-  px(ctx, 10, 5, "#c41e3a"); px(ctx, 11, 5, "#c41e3a");
-  px(ctx, 11, 6, "#c41e3a");
-  px(ctx, 11, 7, "#c41e3a");
-  px(ctx, 11, 8, "#c41e3a");
-  px(ctx, 11, 9, "#c41e3a");
-  px(ctx, 10, 10, "#c41e3a"); px(ctx, 11, 10, "#c41e3a");
-  px(ctx, 10, 11, "#c41e3a");
+  const map = {
+    ".": null,
+    K: K,
+    W: W,
+    R: "#c41e3a",   // stitch
+  };
+  // Laces curve outward at top/bottom, pinch toward middle
+  const art = [
+    "................",
+    "....KKKKKKKK....",
+    "...KWWWWWWWWK...",
+    "..KWWRWWWWRWWK..",
+    ".KWWRWWWWWWRWWK.",
+    ".KWWRWWWWWWRWWK.",
+    "KWWWRWWWWWWRWWWK",
+    "KWWWRWWWWWWRWWWK",
+    "KWWWRWWWWWWRWWWK",
+    "KWWWRWWWWWWRWWWK",
+    ".KWWRWWWWWWRWWK.",
+    ".KWWRWWWWWWRWWK.",
+    "..KWWRWWWWRWWK..",
+    "...KWWWWWWWWK...",
+    "....KKKKKKKK....",
+    "................",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- GOLF: flagstick in hole ---
+// --- GOLF: small green mound with hole and flagstick ---
 writeIcon("golf", (ctx) => {
-  // Grass base
-  rect(ctx, 0, 13, 16, 3, "#228b22");
-  rect(ctx, 0, 12, 16, 1, "#4caf50");
-  // Hole
-  rect(ctx, 7, 11, 3, 2, BLACK);
-  // Flagstick
-  rect(ctx, 8, 2, 1, 10, BLACK);
-  px(ctx, 7, 2, BLACK);
-  // Flag
-  rect(ctx, 9, 2, 4, 1, BLACK);
-  rect(ctx, 9, 5, 4, 1, BLACK);
-  rect(ctx, 9, 3, 4, 2, "#c41e3a");
-  rect(ctx, 12, 3, 1, 2, "#8a0e25");
-  // Grass tufts
-  px(ctx, 2, 11, "#228b22");
-  px(ctx, 4, 11, "#228b22");
-  px(ctx, 12, 11, "#228b22");
-  px(ctx, 14, 11, "#228b22");
+  const map = {
+    ".": null,
+    K: K,
+    P: "#c0c0c0",  // pin/pole
+    p: "#888",     // pin shadow
+    R: "#c41e3a",  // flag
+    r: "#8a0e25",  // flag shadow
+    G: "#4caf50",  // green
+    g: "#2d7a32",  // green shadow
+    L: "#7ed981",  // green light
+    H: K,          // hole (black)
+  };
+  const art = [
+    "................",
+    ".......K........",
+    "......KKK.......",
+    ".....KPRRK......",
+    ".....KPRRrK.....",
+    ".....KPRRrK.....",
+    ".....KPRRK......",
+    ".....KP.........",
+    ".....KP.........",
+    ".....KP.........",
+    ".....KP.........",
+    "...KKKHHHKKK....",
+    "..KGGLLLLLGGgK..",
+    ".KGGLLGGGGLGggK.",
+    "KGGGGGGGGGGGggK.",
+    ".KGGGggggggggK..",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- CONTACT: envelope ---
+// --- CONTACT: clean envelope with V flap ---
 writeIcon("contact", (ctx) => {
-  // Outline
-  rect(ctx, 1, 3, 14, 1, BLACK);
-  rect(ctx, 1, 13, 14, 1, BLACK);
-  rect(ctx, 1, 4, 1, 9, BLACK);
-  rect(ctx, 14, 4, 1, 9, BLACK);
-  // Fill
-  rect(ctx, 2, 4, 12, 9, "#ffffff");
-  // Flap triangle (lines from corners to middle top)
-  px(ctx, 2, 4, BLACK);
-  px(ctx, 3, 5, BLACK);
-  px(ctx, 4, 6, BLACK);
-  px(ctx, 5, 7, BLACK);
-  px(ctx, 6, 8, BLACK);
-  px(ctx, 7, 8, BLACK); // middle meeting
-  px(ctx, 8, 8, BLACK);
-  px(ctx, 9, 7, BLACK);
-  px(ctx, 10, 6, BLACK);
-  px(ctx, 11, 5, BLACK);
-  px(ctx, 12, 4, BLACK);
-  px(ctx, 13, 4, BLACK);
-  // Flap shading
-  rect(ctx, 3, 4, 10, 1, "#f0f0f0");
+  const map = {
+    ".": null,
+    K: K,
+    W: W,
+    g: "#e0e0e0",
+  };
+  const art = [
+    "................",
+    "................",
+    "..KKKKKKKKKKKK..",
+    "..KWWWWWWWWWWK..",
+    "..KKWWWWWWWWKK..",
+    "..KgKWWWWWWKgK..",
+    "..KggKWWWWKggK..",
+    "..KgggKWWKgggK..",
+    "..KggggKKggggK..",
+    "..KgggggKgggggK.",
+    "..KggggggKggggK.",
+    "..KgggggggggggK.",
+    "..KgggggggggggK.",
+    "..KKKKKKKKKKKKK.",
+    "................",
+    "................",
+  ];
+  renderBitmap(ctx, 0, 0, art, map);
 });
