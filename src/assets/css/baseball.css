@@ -77,16 +77,31 @@
   bottom: 36px;
   animation: ball-arc 8s linear infinite, ball-spin 0.4s linear infinite;
 }
+/* Parabolic arc: x moves linearly, y follows parabola via many waypoints */
 @keyframes ball-arc {
   0%    { left: 60px; bottom: 36px; opacity: 0; }
   22%   { left: 60px; bottom: 36px; opacity: 0; }
   22.5% { left: 60px; bottom: 36px; opacity: 1; }
+  /* Left → Right toss */
+  25%   { left: calc(12% + 20px); bottom: 70px; }
+  28%   { left: calc(25% + 20px); bottom: 96px; }
+  32%   { left: calc(40% + 10px); bottom: 115px; }
   36%   { left: 50%; bottom: 120px; }
+  40%   { left: calc(60% - 10px); bottom: 115px; }
+  44%   { left: calc(75% - 20px); bottom: 96px; }
+  47%   { left: calc(88% - 20px); bottom: 70px; }
   49%   { left: calc(100% - 70px); bottom: 36px; opacity: 1; }
   49.5% { left: calc(100% - 70px); bottom: 36px; opacity: 0; }
   72%   { left: calc(100% - 70px); bottom: 36px; opacity: 0; }
   72.5% { left: calc(100% - 70px); bottom: 36px; opacity: 1; }
+  /* Right → Left toss */
+  75%   { left: calc(88% - 20px); bottom: 70px; }
+  78%   { left: calc(75% - 20px); bottom: 96px; }
+  82%   { left: calc(60% - 10px); bottom: 115px; }
   86%   { left: 50%; bottom: 120px; }
+  90%   { left: calc(40% + 10px); bottom: 115px; }
+  94%   { left: calc(25% + 20px); bottom: 96px; }
+  97%   { left: calc(12% + 20px); bottom: 70px; }
   99%   { left: 60px; bottom: 36px; opacity: 1; }
   100%  { left: 60px; bottom: 36px; opacity: 0; }
 }
