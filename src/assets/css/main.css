@@ -292,21 +292,32 @@ a:visited { color: var(--accent-purple); }
   transition: transform 0.1s ease;
 }
 .nav-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  display: inline-block;
   width: 32px;
   height: 32px;
-  font-size: 22px;
-  background: rgba(0, 0, 0, 0.15);
+  image-rendering: pixelated;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 28px 28px;
+  background-color: rgba(0, 0, 0, 0.15);
   border: 2px solid var(--ink);
   flex-shrink: 0;
+  vertical-align: middle;
 }
 .nav-tile--music .nav-icon,
 .nav-tile--baseball .nav-icon,
 .nav-tile--golf .nav-icon {
-  background: rgba(255, 255, 255, 0.25);
+  background-color: rgba(255, 255, 255, 0.25);
 }
+
+.nav-icon--home     { background-image: url(/assets/sprites/nav/home.png); }
+.nav-icon--resume   { background-image: url(/assets/sprites/nav/resume.png); }
+.nav-icon--projects { background-image: url(/assets/sprites/nav/projects.png); }
+.nav-icon--words    { background-image: url(/assets/sprites/nav/words.png); }
+.nav-icon--music    { background-image: url(/assets/sprites/nav/music.png); }
+.nav-icon--baseball { background-image: url(/assets/sprites/nav/baseball.png); }
+.nav-icon--golf     { background-image: url(/assets/sprites/nav/golf.png); }
+.nav-icon--contact  { background-image: url(/assets/sprites/nav/contact.png); }
 .nav-tile:visited { color: var(--ink); }
 .nav-tile:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0 var(--ink); }
 
