@@ -34,91 +34,173 @@ const STITCH = "#c41e3a";
 const BLACK = "#222";
 const SHADOW = "rgba(0,0,0,0.15)";
 
-// --- Player sprite (14w x 16h, facing right) ---
-// Glove hand = BACK (left side when facing right), Throwing hand = FRONT (right side)
-// armFrame: 0 = ready, 1 = wind-up, 2 = throw-release, 3 = catch
-function drawPlayer(ctx, ox, oy, armFrame = 0) {
-  // --- Cap ---
-  rect(ctx, ox + 4, oy + 0, 5, 1, CAP);           // top
-  rect(ctx, ox + 3, oy + 1, 6, 1, CAP);           // brim + cap
-  rect(ctx, ox + 9, oy + 1, 2, 1, CAP);           // bill extending right
-  px(ctx, ox + 6, oy + 1, "#ffffff");             // white stripe on cap
+// --- Player sprite (16w x 20h, facing right) ---
+// Glove hand = BACK (sprite LEFT), Throwing hand = FRONT (sprite RIGHT)
+// Frames: 0=ready, 1=prep, 2=wind-up-low, 3=wind-up-high, 4=release, 5=follow-through,
+//         6=reach-forward, 7=catch-high
+const CAP_TRIM = "#ffffff";
+const SKIN_SHADE = "#d9a26b";
+const SHIRT_TRIM = "#c41e3a";
+const GLOVE_D = "#5a2d0a";
+const SHOE = "#1a1a1a";
 
-  // --- Head / Face ---
-  rect(ctx, ox + 4, oy + 2, 5, 3, SKIN);
-  px(ctx, ox + 4, oy + 2, "#d9a26b");             // ear shadow
-  px(ctx, ox + 7, oy + 3, BLACK);                 // eye
-  px(ctx, ox + 6, oy + 4, "#c88a5a");             // mouth/chin shadow
-  px(ctx, ox + 4, oy + 4, "#e0a878");             // chin curve
+function drawBody(ctx, ox, oy, legFrame = 0) {
+  // Cap dome
+  rect(ctx, ox + 5, oy + 0, 5, 1, CAP);
+  rect(ctx, ox + 4, oy + 1, 6, 1, CAP);
+  px(ctx, ox + 6, oy + 1, CAP_TRIM);
+  px(ctx, ox + 8, oy + 1, CAP_TRIM);
+  // Cap bill (protruding to the right = facing right)
+  rect(ctx, ox + 10, oy + 2, 2, 1, CAP);
+  px(ctx, ox + 12, oy + 2, "#8a0e25");
 
-  // --- Neck ---
-  rect(ctx, ox + 5, oy + 5, 3, 1, "#d9a26b");
+  // Face / head
+  rect(ctx, ox + 5, oy + 2, 5, 1, SKIN);
+  rect(ctx, ox + 4, oy + 3, 6, 3, SKIN);
+  // Ear
+  px(ctx, ox + 4, oy + 3, SKIN_SHADE);
+  px(ctx, ox + 4, oy + 4, SKIN_SHADE);
+  // Eye
+  px(ctx, ox + 8, oy + 4, BLACK);
+  // Nose / cheek
+  px(ctx, ox + 9, oy + 5, SKIN_SHADE);
+  // Chin shadow
+  rect(ctx, ox + 5, oy + 6, 4, 1, SKIN_SHADE);
 
-  // --- Torso / Jersey ---
-  rect(ctx, ox + 3, oy + 6, 6, 4, SHIRT);         // main jersey
-  rect(ctx, ox + 3, oy + 6, 1, 4, SHIRT_D);       // left shadow
-  rect(ctx, ox + 8, oy + 6, 1, 4, SHIRT_D);       // right shadow
-  px(ctx, ox + 5, oy + 7, CAP);                   // button/logo dot
-  px(ctx, ox + 6, oy + 7, CAP);
+  // Neck
+  rect(ctx, ox + 6, oy + 7, 3, 1, SKIN_SHADE);
 
-  // --- Belt ---
-  rect(ctx, ox + 3, oy + 10, 6, 1, BLACK);
+  // Torso / jersey
+  rect(ctx, ox + 4, oy + 8, 6, 5, SHIRT);
+  // Pinstripe on front (facing right = right side is front)
+  px(ctx, ox + 7, oy + 9, SHIRT_TRIM);
+  px(ctx, ox + 7, oy + 10, SHIRT_TRIM);
+  px(ctx, ox + 7, oy + 11, SHIRT_TRIM);
+  // Jersey number
+  px(ctx, ox + 8, oy + 10, SHIRT_TRIM);
+  // Shoulder shading
+  rect(ctx, ox + 4, oy + 8, 1, 5, SHIRT_D);
+  px(ctx, ox + 9, oy + 8, SHIRT_TRIM);
 
-  // --- Pants ---
-  rect(ctx, ox + 3, oy + 11, 6, 2, PANTS);
-  rect(ctx, ox + 3, oy + 11, 1, 2, "#666");       // pants shadow
+  // Belt
+  rect(ctx, ox + 4, oy + 13, 6, 1, BLACK);
+  px(ctx, ox + 6, oy + 13, "#c0c0c0"); // belt buckle
 
-  // --- Legs ---
-  rect(ctx, ox + 3, oy + 13, 2, 2, PANTS);
-  rect(ctx, ox + 7, oy + 13, 2, 2, PANTS);
-  rect(ctx, ox + 3, oy + 15, 2, 1, BLACK);        // left cleat
-  rect(ctx, ox + 7, oy + 15, 2, 1, BLACK);        // right cleat
+  // Hips / upper pants
+  rect(ctx, ox + 4, oy + 14, 6, 1, PANTS);
 
-  // --- Arms & Glove ---
-  // Glove hand = LEFT side of sprite (back)
-  // Throwing hand = RIGHT side of sprite (front)
+  // Legs (with motion)
+  if (legFrame === 0) {
+    // Standing
+    rect(ctx, ox + 4, oy + 15, 2, 3, PANTS);
+    rect(ctx, ox + 8, oy + 15, 2, 3, PANTS);
+    rect(ctx, ox + 4, oy + 18, 3, 1, SHOE);
+    rect(ctx, ox + 8, oy + 18, 3, 1, SHOE);
+    px(ctx, ox + 5, oy + 19, SHOE);
+    px(ctx, ox + 9, oy + 19, SHOE);
+  } else if (legFrame === 1) {
+    // Front leg stepping forward
+    rect(ctx, ox + 4, oy + 15, 2, 3, PANTS);
+    rect(ctx, ox + 4, oy + 18, 3, 1, SHOE);
+    rect(ctx, ox + 9, oy + 15, 2, 2, PANTS);
+    rect(ctx, ox + 10, oy + 17, 2, 1, PANTS);
+    rect(ctx, ox + 10, oy + 18, 3, 1, SHOE);
+    px(ctx, ox + 12, oy + 19, SHOE);
+  } else if (legFrame === 2) {
+    // Back leg planted, front leg follow-through
+    rect(ctx, ox + 3, oy + 15, 2, 3, PANTS);
+    rect(ctx, ox + 3, oy + 18, 3, 1, SHOE);
+    rect(ctx, ox + 9, oy + 15, 2, 3, PANTS);
+    rect(ctx, ox + 9, oy + 18, 3, 1, SHOE);
+  }
+}
 
-  if (armFrame === 0) {
-    // READY: glove hand relaxed at side, throwing hand at side with ball
-    // Left (glove) arm
-    rect(ctx, ox + 2, oy + 7, 1, 3, SHIRT);
-    rect(ctx, ox + 1, oy + 9, 2, 2, GLOVE);       // glove at hip
-    px(ctx, ox + 1, oy + 10, "#5a2d0a");          // glove shadow
-    // Right (throwing) arm
-    rect(ctx, ox + 9, oy + 7, 1, 3, SHIRT);
-    rect(ctx, ox + 9, oy + 10, 1, 1, SKIN);       // bare hand
+function drawPlayer(ctx, ox, oy, frame = 0) {
+  // Pick leg pose based on frame
+  let legFrame = 0;
+  if (frame === 2 || frame === 3) legFrame = 1; // wind-up, step into throw
+  if (frame === 4 || frame === 5) legFrame = 2; // release / follow-through
+  if (frame === 6 || frame === 7) legFrame = 1; // stepping forward for catch
 
-  } else if (armFrame === 1) {
-    // WIND-UP: glove hand up in front for aim, throwing hand pulled back
-    // Glove arm extended forward-up (in front)
-    rect(ctx, ox + 9, oy + 5, 2, 2, SHIRT);       // shoulder raised
-    rect(ctx, ox + 11, oy + 4, 2, 2, GLOVE);      // glove forward
-    px(ctx, ox + 12, oy + 5, "#5a2d0a");
-    // Throwing arm pulled back up high
-    rect(ctx, ox + 2, oy + 5, 1, 2, SHIRT);
-    rect(ctx, ox + 1, oy + 3, 2, 3, SHIRT);       // arm bent up
-    rect(ctx, ox + 2, oy + 2, 2, 2, SKIN);        // hand back behind head
+  drawBody(ctx, ox, oy, legFrame);
 
-  } else if (armFrame === 2) {
-    // RELEASE: throwing arm extended forward, glove hand pulled back
-    // Throwing arm stretched forward (the ball just left)
-    rect(ctx, ox + 8, oy + 6, 2, 1, SHIRT);       // shoulder
-    rect(ctx, ox + 10, oy + 6, 3, 2, SHIRT);      // upper arm extended
-    rect(ctx, ox + 13, oy + 6, 1, 2, SKIN);       // hand (follow-through)
-    // Glove arm tucked in
-    rect(ctx, ox + 2, oy + 8, 1, 2, SHIRT);
-    rect(ctx, ox + 1, oy + 10, 2, 2, GLOVE);
+  // Arm/glove positions per frame
+  if (frame === 0) {
+    // READY: both arms at sides, glove at left hip, bare hand at right hip
+    rect(ctx, ox + 3, oy + 9, 1, 4, SHIRT);          // glove shoulder
+    rect(ctx, ox + 2, oy + 12, 2, 2, GLOVE);         // glove at hip
+    px(ctx, ox + 2, oy + 13, GLOVE_D);
+    rect(ctx, ox + 10, oy + 9, 1, 4, SHIRT);         // throwing shoulder
+    rect(ctx, ox + 10, oy + 13, 1, 1, SKIN);         // bare hand
 
-  } else if (armFrame === 3) {
-    // CATCH: glove hand extended up/forward to catch
-    // Glove arm extended up
-    rect(ctx, ox + 2, oy + 5, 1, 2, SHIRT);
-    rect(ctx, ox + 0, oy + 3, 3, 3, SHIRT);       // arm raised
-    rect(ctx, ox + 0, oy + 1, 3, 3, GLOVE);       // glove high
-    px(ctx, ox + 1, oy + 2, "#5a2d0a");
-    // Throwing arm at side
-    rect(ctx, ox + 9, oy + 7, 1, 3, SHIRT);
-    rect(ctx, ox + 9, oy + 10, 1, 1, SKIN);
+  } else if (frame === 1) {
+    // PREP: arms moving — glove coming forward, throwing arm bending back
+    rect(ctx, ox + 3, oy + 9, 1, 2, SHIRT);
+    rect(ctx, ox + 3, oy + 11, 2, 2, SHIRT);         // glove arm angled forward
+    rect(ctx, ox + 5, oy + 11, 2, 2, GLOVE);
+    px(ctx, ox + 5, oy + 12, GLOVE_D);
+    rect(ctx, ox + 10, oy + 9, 1, 2, SHIRT);
+    rect(ctx, ox + 11, oy + 11, 1, 2, SHIRT);        // throwing arm pulling back
+    px(ctx, ox + 12, oy + 12, SKIN);
+
+  } else if (frame === 2) {
+    // WIND-UP LOW: glove arm up-forward, throwing arm down and back
+    rect(ctx, ox + 3, oy + 8, 1, 2, SHIRT);
+    rect(ctx, ox + 2, oy + 10, 2, 2, SHIRT);         // glove arm forward
+    rect(ctx, ox + 0, oy + 8, 2, 3, GLOVE);          // glove far forward
+    px(ctx, ox + 0, oy + 9, GLOVE_D);
+    rect(ctx, ox + 10, oy + 9, 1, 3, SHIRT);
+    rect(ctx, ox + 11, oy + 11, 2, 2, SHIRT);        // throwing arm behind
+    rect(ctx, ox + 13, oy + 12, 1, 2, SKIN);
+
+  } else if (frame === 3) {
+    // WIND-UP HIGH: glove forward high, throwing arm high behind head
+    rect(ctx, ox + 3, oy + 8, 1, 2, SHIRT);
+    rect(ctx, ox + 1, oy + 8, 3, 2, SHIRT);          // glove arm forward
+    rect(ctx, ox + 0, oy + 6, 2, 3, GLOVE);          // glove up forward
+    px(ctx, ox + 0, oy + 7, GLOVE_D);
+    rect(ctx, ox + 10, oy + 7, 1, 3, SHIRT);         // throwing shoulder up
+    rect(ctx, ox + 11, oy + 5, 2, 3, SHIRT);         // arm up high
+    rect(ctx, ox + 12, oy + 3, 2, 2, SKIN);          // hand back behind head
+
+  } else if (frame === 4) {
+    // RELEASE: throwing arm extending forward, glove arm pulling down
+    rect(ctx, ox + 3, oy + 10, 1, 2, SHIRT);
+    rect(ctx, ox + 2, oy + 11, 2, 2, SHIRT);
+    rect(ctx, ox + 1, oy + 12, 2, 2, GLOVE);         // glove low
+    px(ctx, ox + 1, oy + 13, GLOVE_D);
+    rect(ctx, ox + 10, oy + 8, 2, 1, SHIRT);         // shoulder extended
+    rect(ctx, ox + 11, oy + 8, 3, 2, SHIRT);         // upper arm forward
+    rect(ctx, ox + 14, oy + 8, 1, 3, SKIN);          // hand reaching forward
+
+  } else if (frame === 5) {
+    // FOLLOW-THROUGH: throwing arm down across body, glove tucked in
+    rect(ctx, ox + 4, oy + 11, 2, 2, SHIRT);
+    rect(ctx, ox + 3, oy + 13, 2, 1, GLOVE);
+    rect(ctx, ox + 10, oy + 9, 1, 2, SHIRT);
+    rect(ctx, ox + 9, oy + 11, 2, 3, SHIRT);         // arm across body
+    rect(ctx, ox + 8, oy + 13, 1, 1, SKIN);
+
+  } else if (frame === 6) {
+    // REACH FORWARD: glove extended forward to receive ball
+    rect(ctx, ox + 3, oy + 9, 1, 2, SHIRT);
+    rect(ctx, ox + 1, oy + 8, 3, 2, SHIRT);          // glove arm forward
+    rect(ctx, ox + 0, oy + 7, 1, 3, SHIRT);
+    rect(ctx, ox + 0, oy + 5, 2, 3, GLOVE);          // glove up high forward
+    px(ctx, ox + 0, oy + 6, GLOVE_D);
+    px(ctx, ox + 1, oy + 7, GLOVE_D);
+    rect(ctx, ox + 10, oy + 9, 1, 4, SHIRT);         // throwing arm at side
+    rect(ctx, ox + 10, oy + 13, 1, 1, SKIN);
+
+  } else if (frame === 7) {
+    // CATCH HIGH: glove raised up high, ball just caught
+    rect(ctx, ox + 3, oy + 8, 1, 3, SHIRT);
+    rect(ctx, ox + 1, oy + 5, 2, 4, SHIRT);          // arm raised up
+    rect(ctx, ox + 0, oy + 2, 3, 4, GLOVE);          // glove way up
+    px(ctx, ox + 1, oy + 3, GLOVE_D);
+    px(ctx, ox + 2, oy + 4, GLOVE_D);
+    rect(ctx, ox + 10, oy + 9, 1, 4, SHIRT);
+    rect(ctx, ox + 10, oy + 13, 1, 1, SKIN);
   }
 }
 
@@ -138,11 +220,12 @@ function drawBall(ctx, x, y) {
 // Separate sprites so the ball can fly independently.
 // ===========================================================================
 
-// Player sprite: 4 frames — ready, wind-up, release, catch
+// Player sprite: 8 frames — ready, prep, wind-up-low, wind-up-high,
+//                            release, follow-through, reach, catch
 // Single sprite used for both players; right player is flipped via CSS
 function writePlayerSprite(filename) {
-  const FRAMES = 4;
-  const W = 14, H = 16;
+  const FRAMES = 8;
+  const W = 16, H = 20;
   const c = createCanvas(W * FRAMES, H);
   const ctx = c.getContext("2d");
   ctx.imageSmoothingEnabled = false;

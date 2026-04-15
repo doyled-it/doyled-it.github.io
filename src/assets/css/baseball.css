@@ -25,22 +25,22 @@
 /* Player header */
 .baseball-header {
   text-align: center;
-  padding: 60px 100px 8px;
+  padding: 70px 100px 8px;
   border-bottom: 3px double #c41e3a;
   margin-bottom: 16px;
   position: relative;
-  min-height: 130px;
+  min-height: 150px;
 }
 
-/* Animated pixel players on header border — 3x scaled, 4 frames */
+/* Animated pixel players on header border — 3x scaled, 8 frames */
 .sprite-player {
   position: absolute;
   bottom: 3px;
-  width: 42px;
-  height: 48px;
+  width: 48px;   /* 16 * 3 */
+  height: 60px;  /* 20 * 3 */
   image-rendering: pixelated;
   background-repeat: no-repeat;
-  background-size: 168px 48px;
+  background-size: 384px 60px;  /* 128 * 3 x 20 * 3 */
   animation: player-throw 8s steps(1) infinite;
 }
 .sprite-player--left {
@@ -54,16 +54,20 @@
   animation-delay: 4s;
   transform: scaleX(-1);
 }
-/* Frames: 0=ready, -42px=wind-up, -84px=release, -126px=catch */
-/* 8s cycle = 0-50% left throws, 50-100% right throws */
+/* 8 frames, each 48px wide: 0, -48, -96, -144, -192, -240, -288, -336 */
+/* 8s cycle: 0-50% throw (ball travels), 50-100% receive + throw back */
 @keyframes player-throw {
-  0%   { background-position: 0 0; }           /* ready */
-  10%  { background-position: -42px 0; }       /* wind-up */
-  22%  { background-position: -84px 0; }       /* release */
-  30%  { background-position: 0 0; }           /* back to ready */
-  45%  { background-position: 0 0; }           /* ready, waiting for ball */
-  49%  { background-position: -126px 0; }      /* catching */
-  52%  { background-position: 0 0; }           /* caught, reset */
+  0%   { background-position: 0 0; }            /* ready */
+  8%   { background-position: -48px 0; }        /* prep */
+  14%  { background-position: -96px 0; }        /* wind-up low */
+  19%  { background-position: -144px 0; }       /* wind-up high */
+  22%  { background-position: -192px 0; }       /* release */
+  26%  { background-position: -240px 0; }       /* follow-through */
+  32%  { background-position: 0 0; }            /* back to ready */
+  45%  { background-position: 0 0; }            /* ready, waiting for ball */
+  47%  { background-position: -288px 0; }       /* reach forward */
+  49%  { background-position: -336px 0; }       /* catch high */
+  53%  { background-position: 0 0; }            /* back to ready */
   100% { background-position: 0 0; }
 }
 
