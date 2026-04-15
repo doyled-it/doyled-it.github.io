@@ -152,12 +152,15 @@
 
 /* Responsive */
 @media (max-width: 720px) {
-  /* Horizontal scroll for stat tables instead of cramming */
-  .stat-block { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .game-log { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .stat-table { font-size: 12px; min-width: 420px; }
+  /* Tables become scrollable blocks on mobile */
+  .stat-table, .game-log-table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    font-size: 12px;
+  }
   .stat-table th, .stat-table td { padding: 3px 5px; }
-  .game-log-table { font-size: 12px; min-width: 420px; }
   .game-log-table th, .game-log-table td { padding: 3px 4px; }
 }
 @media (max-width: 480px) {

@@ -51,6 +51,8 @@ body {
   max-width: var(--card-max);
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .card-titlebar {
@@ -142,7 +144,11 @@ body {
   font-size: 18px;
   line-height: 1.5;
   flex: 1;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  min-width: 0;
 }
+.card-body a { overflow-wrap: break-word; word-break: break-word; }
 
 .card-body h1, .card-body h2, .card-body h3 {
   font-family: var(--font-display);
