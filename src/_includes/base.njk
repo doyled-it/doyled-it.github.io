@@ -29,6 +29,19 @@
   <body class="desk"{% if forceBuddy %} data-force-buddy="{{ forceBuddy }}"{% endif %}>
     <a class="skip-link" href="#main">skip to content</a>
     {{ content | safe }}
+    <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Site navigation">
+      <button type="button" class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">✕</button>
+      <ul class="mobile-nav-list">
+        <li><a href="/">home</a></li>
+        <li><a href="/resume/">résumé</a></li>
+        <li><a href="/projects/">projects</a></li>
+        <li><a href="/words/">words</a></li>
+        <li><a href="/music/">music</a></li>
+        <li><a href="/baseball/">baseball</a></li>
+        <li><a href="/golf/">golf</a></li>
+        <li><a href="/contact/">contact</a></li>
+      </ul>
+    </nav>
     <div class="buddy-selector" id="buddy-selector"{% if forceBuddy %} hidden{% endif %}>
       <button type="button" class="buddy-toggle" id="buddy-toggle" aria-label="Choose your buddy">
         <span class="buddy-toggle-sprite" id="buddy-toggle-sprite"></span>
@@ -43,6 +56,7 @@
     <script src="/assets/js/keyboard-nav.js" defer></script>
     <script src="/assets/js/window-controls.js" defer></script>
     <script src="/assets/js/chiptune.js" defer></script>
+    <script src="/assets/js/mobile-nav.js" defer></script>
     {% if extraJS %}
       {% for script in extraJS %}
         <script src="{{ script }}" defer></script>
