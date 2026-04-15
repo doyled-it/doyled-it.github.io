@@ -225,6 +225,7 @@ a:visited { color: var(--accent-purple); }
 }
 
 /* Full-screen mobile navigation overlay */
+.mobile-nav[hidden] { display: none !important; }
 .mobile-nav {
   position: fixed;
   inset: 0;
