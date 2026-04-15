@@ -25,22 +25,22 @@
 /* Player header */
 .baseball-header {
   text-align: center;
-  padding: 12px 80px 8px;
+  padding: 60px 100px 8px;
   border-bottom: 3px double #c41e3a;
   margin-bottom: 16px;
   position: relative;
-  min-height: 88px;
+  min-height: 130px;
 }
 
-/* Animated pixel players on header border — 2x scaled */
+/* Animated pixel players on header border — 3x scaled */
 .sprite-player {
   position: absolute;
   bottom: 3px;
-  width: 28px;
-  height: 32px;
+  width: 42px;
+  height: 48px;
   image-rendering: pixelated;
   background-repeat: no-repeat;
-  background-size: 84px 32px;
+  background-size: 126px 48px;
   animation: player-throw 8s steps(1) infinite;
 }
 .sprite-player--left {
@@ -52,19 +52,20 @@
   right: 20px;
   background-image: url(/assets/sprites/scenes/player-right.png);
   animation-delay: 4s;
+  transform: scaleX(-1);
 }
 @keyframes player-throw {
   0%    { background-position: 0 0; }       /* ready */
-  12%   { background-position: -28px 0; }   /* wind-up */
-  22%   { background-position: -56px 0; }   /* release */
+  12%   { background-position: -42px 0; }   /* wind-up */
+  22%   { background-position: -84px 0; }   /* release */
   30%   { background-position: 0 0; }       /* back to ready */
   50%   { background-position: 0 0; }
-  50.1% { background-position: -56px 0; }   /* catch/reach */
-  65%   { background-position: -56px 0; }
+  50.1% { background-position: -84px 0; }   /* catch/reach */
+  65%   { background-position: -84px 0; }
   100%  { background-position: 0 0; }
 }
 
-/* Arcing baseball — smaller relative to the bigger players */
+/* Arcing baseball — arcs high over the name */
 .sprite-ball--catch {
   position: absolute;
   width: 8px;
@@ -72,22 +73,22 @@
   image-rendering: pixelated;
   background: url(/assets/sprites/scenes/ball-small.png) no-repeat;
   background-size: 8px 8px;
-  left: 42px;
-  bottom: 18px;
+  left: 60px;
+  bottom: 36px;
   animation: ball-arc 8s linear infinite, ball-spin 0.4s linear infinite;
 }
 @keyframes ball-arc {
-  0%    { left: 42px; bottom: 18px; opacity: 0; }
-  22%   { left: 42px; bottom: 18px; opacity: 0; }
-  22.5% { left: 42px; bottom: 22px; opacity: 1; }
-  36%   { left: 50%; bottom: 64px; }
-  49%   { left: calc(100% - 50px); bottom: 22px; opacity: 1; }
-  49.5% { left: calc(100% - 50px); bottom: 22px; opacity: 0; }
-  72%   { left: calc(100% - 50px); bottom: 22px; opacity: 0; }
-  72.5% { left: calc(100% - 50px); bottom: 22px; opacity: 1; }
-  86%   { left: 50%; bottom: 64px; }
-  99%   { left: 42px; bottom: 22px; opacity: 1; }
-  100%  { left: 42px; bottom: 18px; opacity: 0; }
+  0%    { left: 60px; bottom: 36px; opacity: 0; }
+  22%   { left: 60px; bottom: 36px; opacity: 0; }
+  22.5% { left: 60px; bottom: 36px; opacity: 1; }
+  36%   { left: 50%; bottom: 120px; }
+  49%   { left: calc(100% - 70px); bottom: 36px; opacity: 1; }
+  49.5% { left: calc(100% - 70px); bottom: 36px; opacity: 0; }
+  72%   { left: calc(100% - 70px); bottom: 36px; opacity: 0; }
+  72.5% { left: calc(100% - 70px); bottom: 36px; opacity: 1; }
+  86%   { left: 50%; bottom: 120px; }
+  99%   { left: 60px; bottom: 36px; opacity: 1; }
+  100%  { left: 60px; bottom: 36px; opacity: 0; }
 }
 @keyframes ball-spin {
   from { transform: rotate(0deg); }

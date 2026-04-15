@@ -36,12 +36,10 @@ const SHADOW = "rgba(0,0,0,0.15)";
 
 // --- Tiny player (facing right, 10w x 14h starting at ox, oy) ---
 function drawPlayer(ctx, ox, oy, armFrame = 0, hasGlove = true, facingRight = true) {
-  const save = ctx.save.bind(ctx);
-  save();
+  ctx.save();
   if (!facingRight) {
-    ctx.translate(ox + 10, oy);
+    ctx.translate(ox * 2 + 10, 0);
     ctx.scale(-1, 1);
-    ox = 0; oy = 0;
   }
 
   // Cap
@@ -76,7 +74,7 @@ function drawPlayer(ctx, ox, oy, armFrame = 0, hasGlove = true, facingRight = tr
   // Legs
   rect(ctx, ox + 3, oy + 12, 1, 2, PANTS);
   rect(ctx, ox + 6, oy + 12, 1, 2, PANTS);
-  save === ctx.save.bind(ctx); // noop
+
   ctx.restore();
 }
 
@@ -115,7 +113,7 @@ function drawBall(ctx, x, y) {
   console.log("wrote player-left.png", `${W * FRAMES}x${H}`, `${FRAMES} frames`);
 }
 
-// Right player (facing left): 3 frames — ready, catch-reach, release
+// Right player: reuse left sprite but with different frames — CSS flips it visually
 {
   const FRAMES = 3;
   const W = 14, H = 16;
@@ -126,7 +124,7 @@ function drawBall(ctx, x, y) {
   for (let f = 0; f < FRAMES; f++) {
     ctx.save();
     ctx.translate(f * W, 0);
-    drawPlayer(ctx, 2, 1, arms[f], true, false);
+    drawPlayer(ctx, 2, 1, arms[f], true, true); // always drawn facing right
     ctx.restore();
   }
   fs.writeFileSync("src/assets/sprites/scenes/player-right.png", c.toBuffer("image/png"));
