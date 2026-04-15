@@ -5,19 +5,6 @@
   z-index: 9998;
 }
 
-/* When moved into the hamburger menu on mobile, behave as inline */
-.mobile-nav-tools .buddy-selector {
-  position: static;
-  bottom: auto;
-  left: auto;
-}
-.mobile-nav-tools .buddy-grid-popup {
-  position: static;
-  margin-top: 8px;
-  width: auto;
-  max-width: 100%;
-}
-
 .buddy-toggle {
   display: flex;
   align-items: center;

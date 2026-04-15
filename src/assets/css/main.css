@@ -333,30 +333,6 @@ a:visited { color: var(--accent-purple); }
 .nav-tile--golf:visited { color: #fff; }
 .nav-tile--contact  { background: var(--accent-green); }
 
-/* Tools section in nav (only populated on mobile) */
-.mobile-nav-tools {
-  margin-top: 24px;
-  padding-top: 16px;
-  border-top: 1px dashed #999;
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.mobile-nav-tools:empty { display: none; }
-/* When inside the nav, unset fixed positioning */
-.mobile-nav-tools .buddy-selector,
-.mobile-nav-tools .chiptune-btn {
-  position: static;
-  inset: auto;
-}
-
-body.mobile-nav-open .buddy-selector,
-body.mobile-nav-open .chiptune-btn {
-  /* Only hide if still in body (not moved into nav) */
-}
-
 @media (max-width: 480px) {
   .mobile-nav-list { grid-template-columns: 1fr; }
   .nav-tile { font-size: 22px; padding: 16px; }
