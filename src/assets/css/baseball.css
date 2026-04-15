@@ -152,12 +152,13 @@
 
 /* Responsive */
 @media (max-width: 720px) {
-  /* Tables become scrollable blocks on mobile */
-  .stat-table, .game-log-table {
-    display: block;
+  /* Stat blocks become horizontal scrollable wrappers */
+  .stat-block, .game-log {
     overflow-x: auto;
-    white-space: nowrap;
     -webkit-overflow-scrolling: touch;
+  }
+  .stat-table, .game-log-table {
+    white-space: nowrap;
     font-size: 12px;
   }
   .stat-table th, .stat-table td { padding: 3px 5px; }
