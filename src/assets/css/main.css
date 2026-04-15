@@ -210,13 +210,15 @@ body {
 a { color: var(--accent-pink-dark); }
 a:visited { color: var(--accent-purple); }
 
-.mobile-menu-btn { display: none; }
+.mobile-menu-btn {
+  display: inline-block;
+  margin-right: 6px;
+}
 
 @media (max-width: 720px) {
   .desk { padding: 16px 8px; }
   .key-hints { display: none; }
   .card-footer nav { display: none; }
-  .mobile-menu-btn { display: inline-block; margin-right: 6px; }
   .chiptune-btn { font-size: 13px; padding: 4px 8px; bottom: 8px; right: 8px; }
   .chiptune-cd { width: 20px; height: 20px; }
   .card-body { padding: 16px 14px; }
