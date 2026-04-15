@@ -64,38 +64,34 @@ function px(ctx, x, y, color) {
     ctx.save();
     ctx.translate(f * W, 0);
 
-    // === Mound (bottom of sprite) ===
-    // Mound is roughly pyramidal, 20px wide at base tapering up
-    // Base row (y=37-39): full width green
-    rect(ctx, 1, 37, 18, 3, GREEN);
-    // Row y=34-36: narrower
-    rect(ctx, 2, 34, 16, 3, GREEN);
-    // Row y=31-33: narrower
-    rect(ctx, 3, 31, 14, 3, GREEN);
-    // Row y=28-30: top of mound
-    rect(ctx, 4, 28, 12, 3, GREEN);
+    // === Mound (bottom of sprite) — shallow, wide profile ===
+    // Full base rows
+    rect(ctx, 0, 36, 20, 4, GREEN);
+    // Slight taper
+    rect(ctx, 1, 34, 18, 2, GREEN);
+    rect(ctx, 2, 32, 16, 2, GREEN);
+    // Top of mound — gently curved
+    rect(ctx, 3, 31, 14, 1, GREEN);
     // Top highlight
-    rect(ctx, 5, 28, 10, 1, GREEN_L);
-    // Mound shadow (right side)
-    rect(ctx, 14, 31, 3, 3, GREEN_D);
-    rect(ctx, 16, 34, 2, 3, GREEN_D);
-    rect(ctx, 17, 37, 2, 3, GREEN_D);
-    // Grass tufts on top
-    px(ctx, 6, 27, GREEN);
-    px(ctx, 10, 27, GREEN);
-    px(ctx, 13, 27, GREEN);
+    rect(ctx, 4, 31, 12, 1, GREEN_L);
+    // Subtle shadow on right
+    rect(ctx, 16, 33, 2, 3, GREEN_D);
+    rect(ctx, 18, 36, 2, 4, GREEN_D);
+    // Grass tufts
+    px(ctx, 5, 30, GREEN);
+    px(ctx, 9, 30, GREEN);
+    px(ctx, 12, 30, GREEN);
+    px(ctx, 15, 30, GREEN);
 
     // === Hole on top of mound ===
-    rect(ctx, 8, 28, 3, 1, HOLE);
-    px(ctx, 7, 28, GREEN_D);
+    rect(ctx, 8, 31, 3, 1, HOLE);
+    px(ctx, 7, 31, GREEN_D);
 
     // === Flagstick (pin) rising from hole ===
-    rect(ctx, 9, 8, 1, 20, PIN);
-    px(ctx, 10, 8, PIN_D);           // shadow on pole
-    px(ctx, 10, 14, PIN_D);
-    px(ctx, 10, 20, PIN_D);
-    // Pin base (where it meets the green)
-    rect(ctx, 8, 28, 3, 1, HOLE);    // hole darkness
+    rect(ctx, 9, 8, 1, 23, PIN);
+    px(ctx, 10, 10, PIN_D);
+    px(ctx, 10, 18, PIN_D);
+    px(ctx, 10, 26, PIN_D);
     // Tiny point on top of pin
     px(ctx, 9, 7, PIN);
 
