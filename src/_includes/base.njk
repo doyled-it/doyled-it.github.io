@@ -31,16 +31,22 @@
     {{ content | safe }}
     <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Site navigation">
       <button type="button" class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">✕</button>
-      <ul class="mobile-nav-list">
-        <li><a href="/">home</a></li>
-        <li><a href="/resume/">résumé</a></li>
-        <li><a href="/projects/">projects</a></li>
-        <li><a href="/words/">words</a></li>
-        <li><a href="/music/">music</a></li>
-        <li><a href="/baseball/">baseball</a></li>
-        <li><a href="/golf/">golf</a></li>
-        <li><a href="/contact/">contact</a></li>
-      </ul>
+      <div class="mobile-nav-scroll">
+        <h2 class="mobile-nav-heading">◆ navigate</h2>
+        <ul class="mobile-nav-list">
+          <li><a href="/" class="nav-tile nav-tile--home">home</a></li>
+          <li><a href="/resume/" class="nav-tile nav-tile--resume">résumé</a></li>
+          <li><a href="/projects/" class="nav-tile nav-tile--projects">projects</a></li>
+          <li><a href="/words/" class="nav-tile nav-tile--words">words</a></li>
+          <li><a href="/music/" class="nav-tile nav-tile--music">music</a></li>
+          <li><a href="/baseball/" class="nav-tile nav-tile--baseball">baseball</a></li>
+          <li><a href="/golf/" class="nav-tile nav-tile--golf">golf</a></li>
+          <li><a href="/contact/" class="nav-tile nav-tile--contact">contact</a></li>
+        </ul>
+        <div class="mobile-nav-tools" id="mobile-nav-tools">
+          <!-- chiptune + buddy tools get moved here on mobile -->
+        </div>
+      </div>
     </nav>
     <div class="buddy-selector" id="buddy-selector"{% if forceBuddy %} hidden{% endif %}>
       <button type="button" class="buddy-toggle" id="buddy-toggle" aria-label="Choose your buddy">

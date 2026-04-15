@@ -52,32 +52,32 @@
 }
 
 .cracktro-menu {
-  font-family: var(--font-mono);
-  font-size: 20px;
-  line-height: 1.6;
-  margin: 14px 0 8px;
   list-style: none;
   padding: 0;
+  margin: 14px auto 8px;
+  max-width: 560px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
 }
 .cracktro-menu li { display: block; }
-.cracktro-menu a {
-  color: var(--ink);
-  text-decoration: none;
-  padding: 0 12px;
+.cracktro-menu .nav-tile {
+  font-family: var(--font-display);
+  font-size: 20px;
+  padding: 16px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
-.cracktro-menu a .k {
-  color: var(--accent-pink-dark);
-  font-weight: 700;
+.cracktro-menu .nav-tile .k {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  opacity: 0.9;
 }
-.cracktro-menu a:hover,
-.cracktro-menu a:focus {
-  background: var(--accent-pink);
-  color: #fff;
-  outline: none;
-}
-.cracktro-menu a:hover .k,
-.cracktro-menu a:focus .k {
-  color: #fff;
+
+@media (max-width: 480px) {
+  .cracktro-menu { grid-template-columns: 1fr; }
 }
 
 
