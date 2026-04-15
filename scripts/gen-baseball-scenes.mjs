@@ -358,12 +358,13 @@ writePlayerSprite("player-right.png");
 }
 
 // ===========================================================================
-// Foul pole with flag — tall yellow pole, small flag flutters at top
-// 12w x 40h canvas, 4 frames
+// Foul pole — tall yellow pole with mesh screen panel near top.
+// Static sprite (pole doesn't move), but screen has subtle shimmer frames.
+// 10w x 40h canvas, 2 frames
 // ===========================================================================
 {
-  const FRAMES = 4;
-  const W = 12, H = 40;
+  const FRAMES = 2;
+  const W = 10, H = 40;
   const c = createCanvas(W * FRAMES, H);
   const ctx = c.getContext("2d");
   ctx.imageSmoothingEnabled = false;
@@ -371,101 +372,54 @@ writePlayerSprite("player-right.png");
   const POLE = "#ffe14d";
   const POLE_D = "#c8a62a";
   const POLE_L = "#fff5a0";
-  const FLAG = "#c41e3a";
-  const FLAG_D = "#8a0e25";
-
-  // Flag flutter patterns (5 wide, 4 tall) — ". " = transparent, "F" = flag, "D" = dark edge
-  const flags = [
-    // frame 0 — flag extended fully right
-    [
-      "FFFF.",
-      "FFFFF",
-      "FFFFF",
-      "FFFF.",
-    ],
-    // frame 1 — slight wave, end curls up
-    [
-      ".FFFF",
-      "FFFFF",
-      "FFFFF",
-      ".FFFD",
-    ],
-    // frame 2 — ruffled, end curls down
-    [
-      "FFFF.",
-      "FFFF.",
-      "FFFFF",
-      "FFFFF",
-    ],
-    // frame 3 — wave in middle
-    [
-      "FFFFF",
-      "FFFF.",
-      "FFFFF",
-      "FFFF.",
-    ],
-  ];
-
-  const fmap = { ".": null, F: FLAG, D: FLAG_D };
-
+  const MESH = "#e8c820";
+  const MESH_L = "#ffec6b";
   const BLACK = "#1a1a1a";
 
   for (let f = 0; f < FRAMES; f++) {
     ctx.save();
     ctx.translate(f * W, 0);
 
-    // Foul pole — tall vertical yellow column with dark outline
-    // Dark outlines down both sides
-    rect(ctx, 1, 3, 1, 37, BLACK);
-    rect(ctx, 4, 3, 1, 37, BLACK);
+    // === Foul pole — tall thin vertical yellow column ===
+    // Dark outlines both sides, full height
+    rect(ctx, 3, 0, 1, 40, BLACK);
+    rect(ctx, 6, 0, 1, 40, BLACK);
     // Pole body
-    rect(ctx, 2, 3, 2, 37, POLE);
+    rect(ctx, 4, 0, 2, 40, POLE);
     // Highlight on left
-    rect(ctx, 2, 3, 1, 37, POLE_L);
-    // Shadow on right
-    px(ctx, 3, 3, POLE_D);
-    px(ctx, 3, 39, POLE_D);
+    rect(ctx, 4, 0, 1, 40, POLE_L);
+    // Shadow on right (subtle)
+    px(ctx, 5, 5, POLE_D);
+    px(ctx, 5, 15, POLE_D);
+    px(ctx, 5, 25, POLE_D);
+    px(ctx, 5, 35, POLE_D);
 
-    // Pole cap / finial at top — slightly wider, with outline
-    rect(ctx, 0, 1, 1, 2, BLACK);
-    rect(ctx, 5, 1, 1, 2, BLACK);
-    rect(ctx, 1, 1, 4, 2, POLE);
-    rect(ctx, 1, 1, 1, 2, POLE_L);
-    rect(ctx, 4, 1, 1, 2, POLE_D);
-    // Tiny point on top with outline
-    rect(ctx, 1, 0, 1, 1, BLACK);
-    rect(ctx, 4, 0, 1, 1, BLACK);
-    rect(ctx, 2, 0, 2, 1, POLE);
+    // === Mesh/screen panel near top (where the pole meets fair territory) ===
+    // Sits to the RIGHT of the pole (inside the playing field)
+    // Outline box
+    rect(ctx, 6, 6, 1, 12, BLACK);    // left edge (adjacent to pole)
+    rect(ctx, 9, 6, 1, 12, BLACK);    // right edge
+    rect(ctx, 7, 5, 2, 1, BLACK);     // top
+    rect(ctx, 7, 18, 2, 1, BLACK);    // bottom
+    // Mesh fill
+    rect(ctx, 7, 6, 2, 12, MESH);
+    // Highlight column
+    rect(ctx, 7, 6, 1, 12, MESH_L);
+    // Crosshatch grid pattern — slight shift between frames
+    const offset = f === 0 ? 0 : 1;
+    for (let y = 6 + offset; y < 18; y += 3) {
+      px(ctx, 7, y, POLE_D);
+      px(ctx, 8, y, POLE_D);
+    }
+    for (let y = 7; y < 18; y += 3) {
+      px(ctx, 7 + ((y + f) % 2), y, BLACK);
+    }
 
-    // Horizontal cross-piece where the flag attaches
-    rect(ctx, 0, 4, 6, 1, BLACK);
-    rect(ctx, 0, 5, 5, 1, POLE);
-
-    // Flag attached to pole, flying to the right (with outline)
-    const pattern = flags[f];
-    // First draw outline one pixel in each direction
-    for (let y = 0; y < pattern.length; y++) {
-      for (let x = 0; x < pattern[y].length; x++) {
-        if (fmap[pattern[y][x]]) {
-          // Outline — draw a dark pixel around edges
-          px(ctx, 4 + x, 6 + y - 1, BLACK);
-          px(ctx, 4 + x, 6 + y + 1, BLACK);
-          px(ctx, 4 + x - 1, 6 + y, BLACK);
-          px(ctx, 4 + x + 1, 6 + y, BLACK);
-        }
-      }
-    }
-    // Then draw the flag body over the outline
-    for (let y = 0; y < pattern.length; y++) {
-      for (let x = 0; x < pattern[y].length; x++) {
-        const col = fmap[pattern[y][x]];
-        if (col) px(ctx, 4 + x, 6 + y, col);
-      }
-    }
-    // Flag bottom shadow edge
-    for (let x = 0; x < 5; x++) {
-      if (fmap[pattern[3][x]]) px(ctx, 4 + x, 10, FLAG_D);
-    }
+    // === Tiny cap on top of pole ===
+    rect(ctx, 2, 0, 1, 1, BLACK);
+    rect(ctx, 7, 0, 1, 1, BLACK);
+    px(ctx, 3, 0, POLE_L);
+    px(ctx, 6, 0, POLE_D);
 
     ctx.restore();
   }
