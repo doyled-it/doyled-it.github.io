@@ -29,22 +29,6 @@
   <body class="desk"{% if forceBuddy %} data-force-buddy="{{ forceBuddy }}"{% endif %}>
     <a class="skip-link" href="#main">skip to content</a>
     {{ content | safe }}
-    <nav class="mobile-nav" id="mobile-nav" hidden aria-label="Site navigation">
-      <button type="button" class="mobile-nav-close" id="mobile-nav-close" aria-label="Close menu">✕</button>
-      <div class="mobile-nav-scroll">
-        <h2 class="mobile-nav-heading">◆ navigate</h2>
-        <ul class="mobile-nav-list">
-          <li><a href="/" class="nav-tile nav-tile--home"><span class="nav-icon nav-icon--home"></span> home</a></li>
-          <li><a href="/resume/" class="nav-tile nav-tile--resume"><span class="nav-icon nav-icon--resume"></span> résumé</a></li>
-          <li><a href="/projects/" class="nav-tile nav-tile--projects"><span class="nav-icon nav-icon--projects"></span> projects</a></li>
-          <li><a href="/words/" class="nav-tile nav-tile--words"><span class="nav-icon nav-icon--words"></span> words</a></li>
-          <li><a href="/music/" class="nav-tile nav-tile--music"><span class="nav-icon nav-icon--music"></span> music</a></li>
-          <li><a href="/baseball/" class="nav-tile nav-tile--baseball"><span class="nav-icon nav-icon--baseball"></span> baseball</a></li>
-          <li><a href="/golf/" class="nav-tile nav-tile--golf"><span class="nav-icon nav-icon--golf"></span> golf</a></li>
-          <li><a href="/contact/" class="nav-tile nav-tile--contact"><span class="nav-icon nav-icon--contact"></span> contact</a></li>
-        </ul>
-      </div>
-    </nav>
     <div class="buddy-selector" id="buddy-selector"{% if forceBuddy %} hidden{% endif %}>
       <button type="button" class="buddy-toggle" id="buddy-toggle" aria-label="Choose your buddy">
         <span class="buddy-toggle-sprite" id="buddy-toggle-sprite"></span>
