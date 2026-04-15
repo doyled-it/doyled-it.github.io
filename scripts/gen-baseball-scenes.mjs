@@ -34,48 +34,92 @@ const STITCH = "#c41e3a";
 const BLACK = "#222";
 const SHADOW = "rgba(0,0,0,0.15)";
 
-// --- Tiny player (facing right, 10w x 14h starting at ox, oy) ---
-function drawPlayer(ctx, ox, oy, armFrame = 0, hasGlove = true, facingRight = true) {
-  ctx.save();
-  if (!facingRight) {
-    ctx.translate(ox * 2 + 10, 0);
-    ctx.scale(-1, 1);
-  }
+// --- Player sprite (14w x 16h, facing right) ---
+// Glove hand = BACK (left side when facing right), Throwing hand = FRONT (right side)
+// armFrame: 0 = ready, 1 = wind-up, 2 = throw-release, 3 = catch
+function drawPlayer(ctx, ox, oy, armFrame = 0) {
+  // --- Cap ---
+  rect(ctx, ox + 4, oy + 0, 5, 1, CAP);           // top
+  rect(ctx, ox + 3, oy + 1, 6, 1, CAP);           // brim + cap
+  rect(ctx, ox + 9, oy + 1, 2, 1, CAP);           // bill extending right
+  px(ctx, ox + 6, oy + 1, "#ffffff");             // white stripe on cap
 
-  // Cap
-  rect(ctx, ox + 3, oy + 0, 5, 2, CAP);
-  rect(ctx, ox + 2, oy + 1, 1, 1, CAP);
-  rect(ctx, ox + 7, oy + 1, 1, 1, CAP); // cap bill
-  // Head
-  rect(ctx, ox + 3, oy + 2, 4, 3, SKIN);
-  px(ctx, ox + 4, oy + 3, BLACK);
-  // Body
-  rect(ctx, ox + 3, oy + 5, 4, 4, SHIRT);
-  rect(ctx, ox + 3, oy + 5, 1, 4, SHIRT_D);
-  // Arms (depend on frame)
+  // --- Head / Face ---
+  rect(ctx, ox + 4, oy + 2, 5, 3, SKIN);
+  px(ctx, ox + 4, oy + 2, "#d9a26b");             // ear shadow
+  px(ctx, ox + 7, oy + 3, BLACK);                 // eye
+  px(ctx, ox + 6, oy + 4, "#c88a5a");             // mouth/chin shadow
+  px(ctx, ox + 4, oy + 4, "#e0a878");             // chin curve
+
+  // --- Neck ---
+  rect(ctx, ox + 5, oy + 5, 3, 1, "#d9a26b");
+
+  // --- Torso / Jersey ---
+  rect(ctx, ox + 3, oy + 6, 6, 4, SHIRT);         // main jersey
+  rect(ctx, ox + 3, oy + 6, 1, 4, SHIRT_D);       // left shadow
+  rect(ctx, ox + 8, oy + 6, 1, 4, SHIRT_D);       // right shadow
+  px(ctx, ox + 5, oy + 7, CAP);                   // button/logo dot
+  px(ctx, ox + 6, oy + 7, CAP);
+
+  // --- Belt ---
+  rect(ctx, ox + 3, oy + 10, 6, 1, BLACK);
+
+  // --- Pants ---
+  rect(ctx, ox + 3, oy + 11, 6, 2, PANTS);
+  rect(ctx, ox + 3, oy + 11, 1, 2, "#666");       // pants shadow
+
+  // --- Legs ---
+  rect(ctx, ox + 3, oy + 13, 2, 2, PANTS);
+  rect(ctx, ox + 7, oy + 13, 2, 2, PANTS);
+  rect(ctx, ox + 3, oy + 15, 2, 1, BLACK);        // left cleat
+  rect(ctx, ox + 7, oy + 15, 2, 1, BLACK);        // right cleat
+
+  // --- Arms & Glove ---
+  // Glove hand = LEFT side of sprite (back)
+  // Throwing hand = RIGHT side of sprite (front)
+
   if (armFrame === 0) {
-    // Arms down, glove at hip
-    rect(ctx, ox + 2, oy + 6, 1, 2, SHIRT);
-    rect(ctx, ox + 7, oy + 6, 1, 2, SHIRT);
-    if (hasGlove) rect(ctx, ox + 7, oy + 8, 2, 2, GLOVE);
-  } else if (armFrame === 1) {
-    // One arm raised (throwing wind-up)
-    rect(ctx, ox + 1, oy + 4, 2, 2, SHIRT);
-    rect(ctx, ox + 7, oy + 6, 1, 2, SHIRT);
-    if (hasGlove) rect(ctx, ox + 0, oy + 3, 2, 2, GLOVE);
-  } else if (armFrame === 2) {
-    // Both arms forward (catch / throw release)
-    rect(ctx, ox + 7, oy + 5, 2, 2, SHIRT);
-    rect(ctx, ox + 2, oy + 6, 1, 2, SHIRT);
-    if (hasGlove) rect(ctx, ox + 8, oy + 5, 2, 2, GLOVE);
-  }
-  // Pants
-  rect(ctx, ox + 3, oy + 9, 4, 3, PANTS);
-  // Legs
-  rect(ctx, ox + 3, oy + 12, 1, 2, PANTS);
-  rect(ctx, ox + 6, oy + 12, 1, 2, PANTS);
+    // READY: glove hand relaxed at side, throwing hand at side with ball
+    // Left (glove) arm
+    rect(ctx, ox + 2, oy + 7, 1, 3, SHIRT);
+    rect(ctx, ox + 1, oy + 9, 2, 2, GLOVE);       // glove at hip
+    px(ctx, ox + 1, oy + 10, "#5a2d0a");          // glove shadow
+    // Right (throwing) arm
+    rect(ctx, ox + 9, oy + 7, 1, 3, SHIRT);
+    rect(ctx, ox + 9, oy + 10, 1, 1, SKIN);       // bare hand
 
-  ctx.restore();
+  } else if (armFrame === 1) {
+    // WIND-UP: glove hand up in front for aim, throwing hand pulled back
+    // Glove arm extended forward-up (in front)
+    rect(ctx, ox + 9, oy + 5, 2, 2, SHIRT);       // shoulder raised
+    rect(ctx, ox + 11, oy + 4, 2, 2, GLOVE);      // glove forward
+    px(ctx, ox + 12, oy + 5, "#5a2d0a");
+    // Throwing arm pulled back up high
+    rect(ctx, ox + 2, oy + 5, 1, 2, SHIRT);
+    rect(ctx, ox + 1, oy + 3, 2, 3, SHIRT);       // arm bent up
+    rect(ctx, ox + 2, oy + 2, 2, 2, SKIN);        // hand back behind head
+
+  } else if (armFrame === 2) {
+    // RELEASE: throwing arm extended forward, glove hand pulled back
+    // Throwing arm stretched forward (the ball just left)
+    rect(ctx, ox + 8, oy + 6, 2, 1, SHIRT);       // shoulder
+    rect(ctx, ox + 10, oy + 6, 3, 2, SHIRT);      // upper arm extended
+    rect(ctx, ox + 13, oy + 6, 1, 2, SKIN);       // hand (follow-through)
+    // Glove arm tucked in
+    rect(ctx, ox + 2, oy + 8, 1, 2, SHIRT);
+    rect(ctx, ox + 1, oy + 10, 2, 2, GLOVE);
+
+  } else if (armFrame === 3) {
+    // CATCH: glove hand extended up/forward to catch
+    // Glove arm extended up
+    rect(ctx, ox + 2, oy + 5, 1, 2, SHIRT);
+    rect(ctx, ox + 0, oy + 3, 3, 3, SHIRT);       // arm raised
+    rect(ctx, ox + 0, oy + 1, 3, 3, GLOVE);       // glove high
+    px(ctx, ox + 1, oy + 2, "#5a2d0a");
+    // Throwing arm at side
+    rect(ctx, ox + 9, oy + 7, 1, 3, SHIRT);
+    rect(ctx, ox + 9, oy + 10, 1, 1, SKIN);
+  }
 }
 
 // --- Ball (4x4 centered around x,y) ---
@@ -94,42 +138,27 @@ function drawBall(ctx, x, y) {
 // Separate sprites so the ball can fly independently.
 // ===========================================================================
 
-// Left player (facing right): 3 frames — ready, wind-up, release
-{
-  const FRAMES = 3;
+// Player sprite: 4 frames — ready, wind-up, release, catch
+// Single sprite used for both players; right player is flipped via CSS
+function writePlayerSprite(filename) {
+  const FRAMES = 4;
   const W = 14, H = 16;
   const c = createCanvas(W * FRAMES, H);
   const ctx = c.getContext("2d");
   ctx.imageSmoothingEnabled = false;
-  const arms = [0, 1, 2]; // ready, wind-up, release
   for (let f = 0; f < FRAMES; f++) {
     ctx.save();
     ctx.translate(f * W, 0);
-    drawPlayer(ctx, 2, 1, arms[f], true, true);
+    drawPlayer(ctx, 0, 0, f);
     ctx.restore();
   }
   fs.mkdirSync("src/assets/sprites/scenes", { recursive: true });
-  fs.writeFileSync("src/assets/sprites/scenes/player-left.png", c.toBuffer("image/png"));
-  console.log("wrote player-left.png", `${W * FRAMES}x${H}`, `${FRAMES} frames`);
+  fs.writeFileSync(`src/assets/sprites/scenes/${filename}`, c.toBuffer("image/png"));
+  console.log(`wrote ${filename}`, `${W * FRAMES}x${H}`, `${FRAMES} frames`);
 }
 
-// Right player: reuse left sprite but with different frames — CSS flips it visually
-{
-  const FRAMES = 3;
-  const W = 14, H = 16;
-  const c = createCanvas(W * FRAMES, H);
-  const ctx = c.getContext("2d");
-  ctx.imageSmoothingEnabled = false;
-  const arms = [0, 2, 1]; // ready, reach-to-catch, wind-up-to-throw-back
-  for (let f = 0; f < FRAMES; f++) {
-    ctx.save();
-    ctx.translate(f * W, 0);
-    drawPlayer(ctx, 2, 1, arms[f], true, true); // always drawn facing right
-    ctx.restore();
-  }
-  fs.writeFileSync("src/assets/sprites/scenes/player-right.png", c.toBuffer("image/png"));
-  console.log("wrote player-right.png", `${W * FRAMES}x${H}`, `${FRAMES} frames`);
-}
+writePlayerSprite("player-left.png");
+writePlayerSprite("player-right.png");
 
 // Floating ball (single 8x8 frame for use with CSS animation)
 {

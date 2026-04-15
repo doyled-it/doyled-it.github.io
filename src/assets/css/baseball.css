@@ -32,7 +32,7 @@
   min-height: 130px;
 }
 
-/* Animated pixel players on header border — 3x scaled */
+/* Animated pixel players on header border — 3x scaled, 4 frames */
 .sprite-player {
   position: absolute;
   bottom: 3px;
@@ -40,7 +40,7 @@
   height: 48px;
   image-rendering: pixelated;
   background-repeat: no-repeat;
-  background-size: 126px 48px;
+  background-size: 168px 48px;
   animation: player-throw 8s steps(1) infinite;
 }
 .sprite-player--left {
@@ -54,15 +54,17 @@
   animation-delay: 4s;
   transform: scaleX(-1);
 }
+/* Frames: 0=ready, -42px=wind-up, -84px=release, -126px=catch */
+/* 8s cycle = 0-50% left throws, 50-100% right throws */
 @keyframes player-throw {
-  0%    { background-position: 0 0; }       /* ready */
-  12%   { background-position: -42px 0; }   /* wind-up */
-  22%   { background-position: -84px 0; }   /* release */
-  30%   { background-position: 0 0; }       /* back to ready */
-  50%   { background-position: 0 0; }
-  50.1% { background-position: -84px 0; }   /* catch/reach */
-  65%   { background-position: -84px 0; }
-  100%  { background-position: 0 0; }
+  0%   { background-position: 0 0; }           /* ready */
+  10%  { background-position: -42px 0; }       /* wind-up */
+  22%  { background-position: -84px 0; }       /* release */
+  30%  { background-position: 0 0; }           /* back to ready */
+  45%  { background-position: 0 0; }           /* ready, waiting for ball */
+  49%  { background-position: -126px 0; }      /* catching */
+  52%  { background-position: 0 0; }           /* caught, reset */
+  100% { background-position: 0 0; }
 }
 
 /* Arcing baseball — arcs high over the name */
