@@ -25,22 +25,22 @@
 /* Player header */
 .baseball-header {
   text-align: center;
-  padding: 12px 80px 8px;
+  padding: 20px 80px 8px;
   border-bottom: 3px double #c41e3a;
   margin-bottom: 16px;
   position: relative;
-  min-height: 80px;
+  min-height: 130px;
 }
 
-/* Waving flags flanking the name — lightweight 4-frame sprite */
+/* Foul poles flanking the name — tall yellow poles with waving flags */
 .sprite-flag {
   position: absolute;
   bottom: 3px;
-  width: 48px;
-  height: 60px;
+  width: 36px;    /* 12 * 3 */
+  height: 120px;  /* 40 * 3 */
   image-rendering: pixelated;
-  background: url(/assets/sprites/scenes/flag-red.png) no-repeat;
-  background-size: 192px 60px;
+  background: url(/assets/sprites/scenes/foul-pole.png) no-repeat;
+  background-size: 144px 120px;  /* 48 * 3 x 40 * 3 */
   animation: flag-wave 0.8s steps(1) infinite;
 }
 .sprite-flag--left  { left: 16px; }
@@ -48,9 +48,9 @@
 
 @keyframes flag-wave {
   0%   { background-position: 0 0; }
-  25%  { background-position: -48px 0; }
-  50%  { background-position: -96px 0; }
-  75%  { background-position: -144px 0; }
+  25%  { background-position: -36px 0; }
+  50%  { background-position: -72px 0; }
+  75%  { background-position: -108px 0; }
   100% { background-position: 0 0; }
 }
 

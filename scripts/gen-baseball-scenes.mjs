@@ -358,78 +358,96 @@ writePlayerSprite("player-right.png");
 }
 
 // ===========================================================================
-// Scene 3: Waving flag (small accent animation)
-// 16x20 canvas, 4 frames
+// Foul pole with flag — tall yellow pole, small flag flutters at top
+// 12w x 40h canvas, 4 frames
 // ===========================================================================
 {
   const FRAMES = 4;
-  const W = 16, H = 20;
+  const W = 12, H = 40;
   const c = createCanvas(W * FRAMES, H);
   const ctx = c.getContext("2d");
   ctx.imageSmoothingEnabled = false;
 
-  const waves = [
-    // frame 0
+  const POLE = "#ffe14d";
+  const POLE_D = "#c8a62a";
+  const POLE_L = "#fff5a0";
+  const FLAG = "#c41e3a";
+  const FLAG_D = "#8a0e25";
+
+  // Flag flutter patterns (5 wide, 4 tall) — ". " = transparent, "F" = flag, "D" = dark edge
+  const flags = [
+    // frame 0 — flag extended fully right
     [
-      "PPPPP.",
-      "PRRRRP",
-      "PRRRR.",
-      "PRRRRP",
-      "PPPPP.",
+      "FFFF.",
+      "FFFFF",
+      "FFFFF",
+      "FFFF.",
     ],
-    // frame 1
+    // frame 1 — slight wave, end curls up
     [
-      ".PPPPP",
-      "PRRRRR",
-      "PRRRR.",
-      "PRRRRR",
-      ".PPPPP",
+      ".FFFF",
+      "FFFFF",
+      "FFFFF",
+      ".FFFD",
     ],
-    // frame 2
+    // frame 2 — ruffled, end curls down
     [
-      "PPPPP.",
-      "PRRRR.",
-      "PRRRRP",
-      "PRRRR.",
-      "PPPPP.",
+      "FFFF.",
+      "FFFF.",
+      "FFFFF",
+      "FFFFF",
     ],
-    // frame 3
+    // frame 3 — wave in middle
     [
-      ".PPPPP",
-      "PRRRR.",
-      "PRRRRR",
-      "PRRRR.",
-      ".PPPPP",
+      "FFFFF",
+      "FFFF.",
+      "FFFFF",
+      "FFFF.",
     ],
   ];
 
-  const cmap = { ".": null, P: "#c41e3a", R: "#c41e3a" };
+  const fmap = { ".": null, F: FLAG, D: FLAG_D };
 
   for (let f = 0; f < FRAMES; f++) {
     ctx.save();
     ctx.translate(f * W, 0);
 
-    // Pole
-    rect(ctx, 2, 2, 1, 18, "#b0b0b0");
-    px(ctx, 1, 1, "#ffe14d");
-    px(ctx, 2, 0, "#ffe14d");
-    px(ctx, 3, 1, "#ffe14d");
+    // Foul pole — tall vertical yellow column
+    // Pole body (centered at x=2, 2px wide)
+    rect(ctx, 2, 3, 2, 37, POLE);
+    // Highlight on left
+    rect(ctx, 2, 3, 1, 37, POLE_L);
+    // Shadow on right
+    px(ctx, 3, 3, POLE_D);
+    px(ctx, 3, 39, POLE_D);
 
-    // Flag
-    const pattern = waves[f];
+    // Pole cap / finial at top — slightly wider
+    rect(ctx, 1, 1, 4, 2, POLE);
+    rect(ctx, 1, 1, 1, 2, POLE_L);
+    rect(ctx, 4, 1, 1, 2, POLE_D);
+    // Tiny point on top
+    rect(ctx, 2, 0, 2, 1, POLE);
+
+    // Horizontal cross-piece where the flag attaches (looks like a foul pole)
+    rect(ctx, 0, 4, 5, 1, POLE);
+    px(ctx, 0, 4, POLE_D);
+
+    // Flag attached to pole, flying to the right
+    const pattern = flags[f];
     for (let y = 0; y < pattern.length; y++) {
       for (let x = 0; x < pattern[y].length; x++) {
-        const col = cmap[pattern[y][x]];
-        if (col) px(ctx, 3 + x, 3 + y, col);
+        const col = fmap[pattern[y][x]];
+        if (col) px(ctx, 4 + x, 6 + y, col);
       }
     }
-    // White star in flag
-    px(ctx, 5, 5, "#fff");
-    px(ctx, 6, 5, "#fff");
+    // Flag bottom shadow edge
+    for (let x = 0; x < 5; x++) {
+      if (fmap[pattern[3][x]]) px(ctx, 4 + x, 10, FLAG_D);
+    }
 
     ctx.restore();
   }
 
-  fs.writeFileSync("src/assets/sprites/scenes/flag-red.png", c.toBuffer("image/png"));
-  console.log("wrote flag-red.png", `${W * FRAMES}x${H}`, `${FRAMES} frames`);
+  fs.writeFileSync("src/assets/sprites/scenes/foul-pole.png", c.toBuffer("image/png"));
+  console.log("wrote foul-pole.png", `${W * FRAMES}x${H}`, `${FRAMES} frames`);
 }
