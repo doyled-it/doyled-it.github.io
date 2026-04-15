@@ -85,11 +85,11 @@ body {
 }
 .ctrl-btn:hover { color: var(--accent-pink-dark); }
 
+/* Smooth transition for minimize toggle */
 .card .card-marquee,
 .card .card-body,
 .card .card-footer,
 .card .key-hints {
-  max-height: 2000px;
   opacity: 1;
   transition: max-height 0.4s ease, opacity 0.3s ease 0.1s, padding 0.3s ease;
 }
