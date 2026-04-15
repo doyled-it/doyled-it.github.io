@@ -5,7 +5,7 @@
   if (themeName !== "baseball" && themeName !== "golf") return;
 
   const nsfFiles = {
-    baseball: { src: "/assets/audio/bases-loaded-2.nsf", tracks: [0, 1] },
+    baseball: { src: "/assets/audio/bases-loaded-2.nsf", tracks: [2, 3, 4, 5] },
     golf: { src: "/assets/audio/golf-grand-slam.nsf", tracks: [0, 1, 2, 3] },
   };
 
