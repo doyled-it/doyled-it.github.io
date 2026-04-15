@@ -100,33 +100,36 @@ writeIcon("resume", (ctx) => {
   renderBitmap(ctx, 0, 0, art, map);
 });
 
-// --- PROJECTS: full 8-tooth gear ---
+// --- PROJECTS: hammer and wrench side by side ---
 writeIcon("projects", (ctx) => {
   const map = {
     ".": null,
     K: K,
-    G: "#999",   // gear body
-    g: "#666",   // shadow
-    L: "#ccc",   // highlight
-    H: "#fffbe6",// hole
+    H: "#999",      // hammer/wrench head (steel)
+    h: "#666",      // steel shadow
+    L: "#ccc",      // steel highlight
+    B: "#8B4513",   // wood handle
+    b: "#5a2d0a",   // wood shadow
   };
+  // Left: hammer (head at top, vertical handle below)
+  // Right: wrench (open jaw at top, vertical handle below)
   const art = [
-    ".....KKKK.......",
-    ".K...KGGK....K..",
-    "KGK..KGGK..KGK..",
-    "KGKKKKGGKKKKGK..",
-    ".KGGGGGGGGGGGK..",
-    "..KGGLLLLGGGK...",
-    ".KGGLKKKKLGGGK..",
-    ".KGGLKHHKLGGgK..",
-    ".KGGLKHHKLGggK..",
-    ".KGGLKKKKLGggK..",
-    "..KGGLLLLGggK...",
-    ".KGGgGGgggggK...",
-    "KGKKKKggKKKKgK..",
-    "KGK..KggK..KgK..",
-    ".K...KggK....K..",
-    ".....KKKK.......",
+    "................",
+    ".KKKKK....KKKK..",
+    "KLHHHK...KLHKHK.",
+    "KHHHHK...KHKKHK.",
+    "KHHHHK...KHKKHK.",
+    "KKHHKK...KHHHHK.",
+    ".KBBK.....KHHK..",
+    ".KBBK.....KHHK..",
+    ".KBBK.....KHHK..",
+    ".KBBK.....KHHK..",
+    ".KBbK.....KHHK..",
+    ".KBbK.....KHHK..",
+    ".KBbK.....KHHK..",
+    ".KBbK.....KHHK..",
+    ".KKKK.....KKKK..",
+    "................",
   ];
   renderBitmap(ctx, 0, 0, art, map);
 });
