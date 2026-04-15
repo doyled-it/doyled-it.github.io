@@ -5,7 +5,8 @@
   if (themeName !== "baseball" && themeName !== "golf") return;
 
   const nsfFiles = {
-    baseball: { src: "/assets/audio/bases-loaded-2.nsf", track: 0 },
+    baseball: { src: "/assets/audio/bases-loaded-2.nsf", tracks: [0, 1] },
+    golf: { src: "/assets/audio/golf-grand-slam.nsf", tracks: [0, 1, 2, 3] },
   };
 
   let playing = false;
@@ -13,48 +14,8 @@
   let nsfCtx = null;
   let nsfLoaded = false;
 
-  // Golf fallback: Web Audio generated
-  let golfCtx = null;
-  let golfNodes = [];
-  let golfTimeout = null;
-  const N = {
-    C4: 261.63, D4: 293.66, E4: 329.63, F4: 349.23,
-    G4: 392.00, A4: 440.00, B4: 493.88,
-    C5: 523.25, D5: 587.33, R: 0,
-  };
-
-  function golfNote(freq, start, dur, type, gain) {
-    if (!freq) return;
-    const osc = golfCtx.createOscillator();
-    const vol = golfCtx.createGain();
-    osc.type = type;
-    osc.frequency.value = freq;
-    vol.gain.setValueAtTime(gain, start);
-    vol.gain.exponentialRampToValueAtTime(0.001, start + dur);
-    osc.connect(vol);
-    vol.connect(golfCtx.destination);
-    osc.start(start);
-    osc.stop(start + dur + 0.05);
-    golfNodes.push(osc, vol);
-  }
-
-  function playGolfLoop() {
-    const mel = ["E4","G4","A4","B4","R","B4","A4","G4","E4","D4","E4","G4","R","A4","G4","E4","C5","B4","A4","G4","R","A4","B4","C5","D5","C5","B4","A4","R","G4","A4","R"];
-    const bas = ["C4","C4","F4","F4","G4","G4","E4","E4","A4","A4","D4","D4","G4","G4","C4","C4","F4","F4","D4","D4","G4","G4","E4","E4","A4","A4","F4","F4","G4","G4","C4","C4"];
-    const b = 60 / 110;
-    const t = golfCtx.currentTime + 0.05;
-    mel.forEach((n, i) => golfNote(N[n], t + i * b, b * 0.75, "square", 0.05));
-    bas.forEach((n, i) => golfNote(N[n] / 2, t + i * b, b * 0.85, "triangle", 0.07));
-    golfTimeout = setTimeout(() => { if (playing) playGolfLoop(); }, mel.length * b * 1000);
-  }
-
-  function stopGolf() {
-    if (golfTimeout) clearTimeout(golfTimeout);
-    for (const n of golfNodes) {
-      try { n.disconnect(); } catch {}
-      try { if (n.stop) n.stop(0); } catch {}
-    }
-    golfNodes = [];
+  function pickRandom(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
   }
 
   function loadNsfScripts(cb) {
@@ -75,23 +36,17 @@
 
   function startMusic() {
     const nsf = nsfFiles[themeName];
-    if (nsf) {
-      loadNsfScripts(() => {
-        if (!nsfCtx) nsfCtx = new (window.AudioContext || window.webkitAudioContext)();
-        nsfCtx.resume();
-        nsfPlayer = createNsfPlayer(nsfCtx);
-        nsfPlayer.play(nsf.src, nsf.track);
-      });
-    } else {
-      if (!golfCtx) golfCtx = new (window.AudioContext || window.webkitAudioContext)();
-      golfCtx.resume();
-      playGolfLoop();
-    }
+    if (!nsf) return;
+    loadNsfScripts(() => {
+      if (!nsfCtx) nsfCtx = new (window.AudioContext || window.webkitAudioContext)();
+      nsfCtx.resume();
+      nsfPlayer = createNsfPlayer(nsfCtx);
+      nsfPlayer.play(nsf.src, pickRandom(nsf.tracks));
+    });
   }
 
   function stopMusic() {
     if (nsfPlayer) { try { nsfPlayer.stop(); } catch {} nsfPlayer = null; }
-    stopGolf();
   }
 
   // Build button
