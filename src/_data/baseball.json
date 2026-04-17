@@ -1,0 +1,636 @@
+{
+  "currentSeason": "fall2025",
+  "lastUpdated": "2026-04-13T05:50:49.683Z",
+  "seasons": {
+    "fall2025": {
+      "id": "fall2025",
+      "name": "Fall 2025",
+      "folder": "games/2025/fall",
+      "player": "Michael Doyle",
+      "team": "Happy Sox",
+      "position": "Utility (P/IF/OF)",
+      "stats": {
+        "hitting": {
+          "AB": 32,
+          "H": 13,
+          "2B": 1,
+          "3B": 0,
+          "HR": 1,
+          "RBI": 9,
+          "R": 10,
+          "BB": 4,
+          "K": 4,
+          "HBP": 1,
+          "SF": 0,
+          "SB": 3,
+          "CS": 2,
+          "RISP": 13,
+          "RISP_H": 5,
+          "hard_contact": 10,
+          "pitches_seen": 113
+        },
+        "fielding": {
+          "PO": 4,
+          "A": 2,
+          "E": 2,
+          "TC": 8,
+          "DP": 1
+        },
+        "pitching": {
+          "IP": 9.4,
+          "H_p": 17,
+          "R_p": 20,
+          "ER": 8,
+          "BB_p": 18,
+          "K_p": 6,
+          "HR_p": 0,
+          "BF": 59,
+          "PC": 210
+        },
+        "games": {
+          "total": 11,
+          "played": 8,
+          "wins": 5,
+          "losses": 6,
+          "ties": 0
+        },
+        "gamesList": [
+          {
+            "date": "2025-09-07",
+            "opponent": "San Diego Banditos",
+            "location": "Hilton Head",
+            "result": "W",
+            "score": "20-5",
+            "played": false,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2025-09-14",
+            "opponent": "SD Storm",
+            "location": "San Ysidro",
+            "result": "W",
+            "score": "13-18",
+            "played": true,
+            "rating": "6",
+            "notable": "Good 1-RBI double",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 2,
+                "2B": 1,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 1,
+                "R": 1,
+                "BB": 1,
+                "K": 1,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 1,
+                "CS": 2,
+                "RISP": 1,
+                "RISP_H": 1,
+                "hard_contact": 1,
+                "pitches_seen": 12
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 1,
+                "TC": 1,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0.5
+            }
+          },
+          {
+            "date": "2025-09-21",
+            "opponent": "Beavers",
+            "location": "\"@Hilton Head\"",
+            "result": "L",
+            "score": "7-10",
+            "played": true,
+            "rating": "8",
+            "notable": "Back heel slider swinging K",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 3,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 1,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 2,
+                "pitches_seen": 16
+              },
+              "fielding": {
+                "PO": 1,
+                "A": 1,
+                "E": 0,
+                "TC": 2,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 1,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 1,
+                "K_p": 1,
+                "HR_p": 0,
+                "BF": 4,
+                "PC": 18
+              },
+              "avg": 0.75
+            }
+          },
+          {
+            "date": "2025-09-28",
+            "opponent": "SD Rip City",
+            "location": "\"@Monte Vista\"",
+            "result": "W",
+            "score": "4-8",
+            "played": true,
+            "rating": "8",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 5,
+                "H": 2,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 1,
+                "R": 2,
+                "BB": 0,
+                "K": 1,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 1,
+                "RISP_H": 1,
+                "hard_contact": 2,
+                "pitches_seen": 18
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 1,
+                "TC": 1,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0.4
+            }
+          },
+          {
+            "date": "2025-09-28",
+            "opponent": "Diamond Dogs",
+            "location": "\"@Chollas\"",
+            "result": "L",
+            "score": "17-18",
+            "played": true,
+            "rating": "1",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 5,
+                "H": 2,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 2,
+                "R": 2,
+                "BB": 1,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 1,
+                "CS": 0,
+                "RISP": 4,
+                "RISP_H": 2,
+                "hard_contact": 2,
+                "pitches_seen": 16
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 4.2,
+                "H_p": 7,
+                "R_p": 12,
+                "ER": 5,
+                "BB_p": 9,
+                "K_p": 1,
+                "HR_p": 0,
+                "BF": 25,
+                "PC": 90
+              },
+              "avg": 0.4
+            }
+          },
+          {
+            "date": "2025-10-12",
+            "opponent": "Lemon Grove Athletics",
+            "location": "\"@Chollas\"",
+            "result": "L",
+            "score": "12-15",
+            "played": false,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2025-10-12",
+            "opponent": "Heroes",
+            "location": "Otay Ranch JV",
+            "result": "L",
+            "score": "12-6",
+            "played": true,
+            "rating": "7",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 1,
+                "R": 2,
+                "BB": 2,
+                "K": 1,
+                "HBP": 1,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 2,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 17
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2025-10-19",
+            "opponent": "Fighting Friars",
+            "location": "\"@McElroy\"",
+            "result": "W",
+            "score": "11-9",
+            "played": true,
+            "rating": "9",
+            "notable": "First ever home run",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 2,
+                "2B": 0,
+                "3B": 0,
+                "HR": 1,
+                "RBI": 3,
+                "R": 1,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 1,
+                "RISP_H": 1,
+                "hard_contact": 2,
+                "pitches_seen": 7
+              },
+              "fielding": {
+                "PO": 1,
+                "A": 1,
+                "E": 0,
+                "TC": 2,
+                "DP": 1
+              },
+              "pitching": {
+                "IP": 2.2,
+                "H_p": 2,
+                "R_p": 5,
+                "ER": 2,
+                "BB_p": 6,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 15,
+                "PC": 50
+              },
+              "avg": 0.6666666666666666
+            }
+          },
+          {
+            "date": "2025-11-07",
+            "opponent": "Reapers Baseball Club",
+            "location": "Hilton Head",
+            "result": "W",
+            "score": "7-14",
+            "played": false,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2025-11-23",
+            "opponent": "SD Rip City",
+            "location": "\"@Chollas\"",
+            "result": "L",
+            "score": "5-11",
+            "played": true,
+            "rating": "6",
+            "notable": "4 Ks in two IP",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 1,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 2,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 9
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 2,
+                "H_p": 8,
+                "R_p": 3,
+                "ER": 1,
+                "BB_p": 2,
+                "K_p": 4,
+                "HR_p": 0,
+                "BF": 15,
+                "PC": 52
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2025-11-07",
+            "opponent": "San Diego Banditos",
+            "location": "Monte Vista",
+            "result": "L",
+            "score": "8-7",
+            "played": true,
+            "rating": "6",
+            "notable": "Crushed a shot to left center",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 2,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 1,
+                "R": 1,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 1,
+                "CS": 0,
+                "RISP": 2,
+                "RISP_H": 0,
+                "hard_contact": 1,
+                "pitches_seen": 18
+              },
+              "fielding": {
+                "PO": 2,
+                "A": 0,
+                "E": 0,
+                "TC": 2,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0.5
+            }
+          }
+        ],
+        "calculated": {
+          "AVG": 0.40625,
+          "OBP": 0.4864864864864865,
+          "singles": 11,
+          "tb": 17,
+          "SLG": 0.53125,
+          "OPS": 1.0177364864864864,
+          "BABIP": 0.4444444444444444,
+          "ISO": 0.125,
+          "XBH": 2,
+          "XBH_pct": 0.15384615384615385,
+          "BB_pct": 0.10810810810810811,
+          "K_pct": 0.10810810810810811,
+          "clutch_avg": 0.38461538461538464,
+          "contact_quality": 0.3125,
+          "ERA": 7.659574468085106,
+          "WHIP": 3.723404255319149,
+          "K_BB": 0.3333333333333333,
+          "K9": 5.74468085106383,
+          "BB9": 17.23404255319149,
+          "fieldingPct": 0.75,
+          "rangeFactor": 0.75
+        }
+      },
+      "gamesProcessed": 11
+    }
+  }
+}
