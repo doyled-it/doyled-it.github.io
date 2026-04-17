@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="{{ site.locale | default('en_US') | replace('_', '-') }}" dir="ltr">
+<html lang="{{ site.locale | default('en_US') | replace('_', '-') }}" dir="ltr"{% if site.goatcounterCode %} data-goatcounter="{{ site.goatcounterCode }}"{% endif %}>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -44,6 +44,11 @@
     <script src="/assets/js/window-controls.js" defer></script>
     <script src="/assets/js/chiptune.js" defer></script>
     <script src="/assets/js/mobile-nav.js" defer></script>
+    <script src="/assets/js/visitor-counter.js" defer></script>
+    {% if site.goatcounterCode %}
+      <script data-goatcounter="https://{{ site.goatcounterCode }}.goatcounter.com/count"
+              async src="//gc.zgo.at/count.js"></script>
+    {% endif %}
     {% if extraJS %}
       {% for script in extraJS %}
         <script src="{{ script }}" defer></script>

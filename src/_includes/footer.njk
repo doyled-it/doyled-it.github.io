@@ -4,7 +4,7 @@
 {% set prev = cardList[(currentNum - 1 + total) % total] %}
 {% set next = cardList[(currentNum + 1) % total] %}
 <div class="card-footer">
-  <span class="counter">{{ site.counter }}</span>
+  <span class="counter" data-visitor-counter>{{ site.counter }}</span>
   <nav>
     <a href="{{ prev.url }}">◀ {{ prev.name }}</a>
     &nbsp;·&nbsp;
