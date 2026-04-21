@@ -46,6 +46,14 @@
         "Developed agentic LLM backend prototype for government sponsor application",
         "Directly deployed trained models on government sponsor systems"
       ]
+    },
+    {
+      "name": "Space Micro Inc.",
+      "position": "Firmware Engineering Intern",
+      "url": "https://www.spacemicro.com/",
+      "startDate": "2016-05",
+      "endDate": "2018-05",
+      "summary": "Wrote, simulated, synthesized, and implemented FPGA code in VHDL using ModelSim, Synplify Pro, Vivado, and Libero Designer. Designed PCBs in KiCAD and tested hardware."
     }
   ],
   "education": [
@@ -56,25 +64,109 @@
       "studyType": "BS/BA Dual Degrees",
       "startDate": "2013-09",
       "endDate": "2018-05",
-      "courses": ["Minors in Mathematics and Physics", "Magna Cum Laude"]
+      "courses": [
+        "Minors in Mathematics and Physics",
+        "Magna Cum Laude"
+      ]
     }
   ],
   "publications": [
+    {
+      "name": "Can LLMs Replace Humans During Code Chunking?",
+      "publisher": "ArXiv",
+      "releaseDate": "2025-06-24",
+      "url": "https://arxiv.org/abs/2506.19897",
+      "summary": "Investigates using LLMs to modernize legacy government code by focusing on code-chunking methods to overcome input limitations, showing that LLMs can effectively partition code and generate high-quality documentation.",
+      "authors": [
+        "Christopher Glasz",
+        "Emily Escamilla",
+        "Eric O. Scott",
+        "Anand Patel",
+        "Jacob Zimmer",
+        "Colin Diggs",
+        "Michael Doyle",
+        "Scott Rosen",
+        "Nitin Naik",
+        "Justin F. Brunelle",
+        "Samruddhi Thaker",
+        "Parthav Poudel",
+        "Arun Sridharan",
+        "Amit Madan",
+        "Doug Wendt",
+        "William Macke",
+        "Thomas Schill"
+      ]
+    },
+    {
+      "name": "Impact of Comments on LLM Comprehension of Legacy Code",
+      "publisher": "ArXiv",
+      "releaseDate": "2025-04-23",
+      "url": "https://arxiv.org/abs/2506.11007",
+      "summary": "Presents preliminary findings on the impact of documentation on LLM comprehension of legacy code, leveraging multiple-choice question answering (MCQA) for evaluation.",
+      "authors": [
+        "Rock Sabetto",
+        "Emily Escamilla",
+        "Devesh Agarwal",
+        "Sujay Kandwal",
+        "Justin F. Brunelle",
+        "Scott Rosen",
+        "Nitin Naik",
+        "Samruddhi Thaker",
+        "Eric O. Scott",
+        "Jacob Zimmer",
+        "Amit Madan",
+        "Arun Sridharan",
+        "Doug Wendt",
+        "Michael Doyle",
+        "Christopher Glasz",
+        "Jasper Phillips",
+        "William Macke",
+        "Colin Diggs",
+        "Michael Bartholf",
+        "Zachary Robin",
+        "Paul Ursino"
+      ]
+    },
+    {
+      "name": "Leveraging LLMs for Legacy Code Modernization: Challenges and Opportunities for LLM-Generated Documentation",
+      "publisher": "ArXiv",
+      "releaseDate": "2024-11-22",
+      "url": "https://arxiv.org/abs/2411.14971",
+      "summary": "Investigates using LLMs to generate documentation for legacy code in MUMPS and ALC, proposing a prompting strategy and evaluation rubric while highlighting the limitations of current automated metrics.",
+      "authors": [
+        "Colin Diggs",
+        "Michael Doyle",
+        "Amit Madan",
+        "Siggy Scott",
+        "Emily Escamilla",
+        "Jacob Zimmer",
+        "Naveed Nekoo",
+        "Paul Ursino",
+        "Michael Bartholf",
+        "Zachary Robin",
+        "Anand Patel",
+        "Chris Glasz",
+        "William Macke",
+        "Paul Kirk",
+        "Jasper Phillips",
+        "Arun Sridharan",
+        "Doug Wendt",
+        "Scott Rosen",
+        "Nitin Naik",
+        "Justin F. Brunelle",
+        "Samruddhi Thaker"
+      ]
+    },
     {
       "name": "Testing the Effect of Code Documentation on Large Language Model Code Understanding",
       "publisher": "North American Association for Computational Linguistics (NAACL)",
       "releaseDate": "2024-06",
       "url": "https://aclanthology.org/2024.findings-naacl.66/",
       "summary": "Empirically analyzes how code documentation quality impacts the code generation and understanding capabilities of Large Language Models (LLMs). It reveals that incorrect documentation significantly hinders LLMs' code comprehension, while incomplete or missing documentation has no significant impact.",
-      "authors": ["William Macke", "Michael Doyle"]
-    },
-    {
-      "name": "The vulnerability of UAVs: an adversarial machine learning perspective",
-      "publisher": "SPIE",
-      "releaseDate": "2021-04",
-      "url": "https://www.spiedigitallibrary.org/conference-proceedings-of-spie/11733/117330F/The-vulnerability-of-UAVs-an-adversarial-machine-learning-perspective/10.1117/12.2589538.short#_=_",
-      "summary": "Proposes a methodology to evaluate the vulnerability of unmanned aerial vehicles (UAVs) to adversarial machine learning attacks by analyzing potential attack vectors at each stage of UAV operation.",
-      "authors": ["Michael Doyle", "Josh Harguess", "Keith Manville", "Mikel Rodriguez"]
+      "authors": [
+        "William Macke",
+        "Michael Doyle"
+      ]
     },
     {
       "name": "Reinforcement Learning for Wildfire Mitigation in Simulated Disaster Environments",
@@ -99,29 +191,82 @@
       "releaseDate": "2022-09",
       "url": "https://aclanthology.org/2022.amta-research.17/",
       "summary": "Investigated the vulnerability of machine translation systems to adversarial attacks constructed with limited information. A novel attack method was proposed that generates perturbations using paraphrases and evaluates their impact on meaning preservation and translation degradation across various language pairs and systems.",
-      "authors": ["Elizabeth Merkhofer", "John Henderson", "Abigail Gertner", "Michael Doyle", "Lily Wong"]
+      "authors": [
+        "Elizabeth Merkhofer",
+        "John Henderson",
+        "Abigail Gertner",
+        "Michael Doyle",
+        "Lily Wong"
+      ]
+    },
+    {
+      "name": "The vulnerability of UAVs: an adversarial machine learning perspective",
+      "publisher": "SPIE",
+      "releaseDate": "2021-04",
+      "url": "https://www.spiedigitallibrary.org/conference-proceedings-of-spie/11733/117330F/The-vulnerability-of-UAVs-an-adversarial-machine-learning-perspective/10.1117/12.2589538.short#_=_",
+      "summary": "Proposes a methodology to evaluate the vulnerability of unmanned aerial vehicles (UAVs) to adversarial machine learning attacks by analyzing potential attack vectors at each stage of UAV operation.",
+      "authors": [
+        "Michael Doyle",
+        "Josh Harguess",
+        "Keith Manville",
+        "Mikel Rodriguez"
+      ]
     }
   ],
   "skills": [
     {
       "name": "Machine Learning",
       "icon": "fa-solid fa-hashtag",
-      "keywords": ["NLP", "LLMs", "Computer Vision", "Acoustics", "RL", "Simulation", "Adversarial"]
+      "keywords": [
+        "NLP",
+        "LLMs",
+        "Computer Vision",
+        "Acoustics",
+        "RL",
+        "Simulation",
+        "Adversarial"
+      ]
     },
     {
       "name": "Languages",
       "icon": "fa-solid fa-hashtag",
-      "keywords": ["Python", "Bash", "SQL", "LaTeX", "Vue.js", "JavaScript", "CSS", "MATLAB", "VHDL"]
+      "keywords": [
+        "Python",
+        "Bash",
+        "SQL",
+        "LaTeX",
+        "Vue.js",
+        "JavaScript",
+        "CSS",
+        "MATLAB",
+        "VHDL"
+      ]
     },
     {
       "name": "Libraries",
       "icon": "fa-solid fa-hashtag",
-      "keywords": ["NumPy", "SciPy", "PyTorch", "TensorFlow", "FastAPI", "Typer", "LangChain", "Chroma", "HuggingFace"]
+      "keywords": [
+        "NumPy",
+        "SciPy",
+        "PyTorch",
+        "TensorFlow",
+        "FastAPI",
+        "Typer",
+        "LangChain",
+        "Chroma",
+        "HuggingFace"
+      ]
     },
     {
       "name": "Technologies",
       "icon": "fa-solid fa-hashtag",
-      "keywords": ["Git", "Docker", "OpenShift", "GitLab CI", "GitHub Actions"]
+      "keywords": [
+        "Git",
+        "Docker",
+        "OpenShift",
+        "GitLab CI",
+        "GitHub Actions"
+      ]
     }
   ],
   "languages": [
@@ -143,13 +288,16 @@
   ],
   "projects": [
     {
-      "name": "SimFire",
-      "summary": "A wildfire simulator written in Python and meant for Reinforcement Learning research for wildfire mitigation.",
+      "name": "PFC-LLM",
+      "summary": "A CLI tool designed to classify documents with a political score according to the Left/Right, Libertarian/Authoritarian political compass, based on the Sapply test.",
       "highlights": [],
-      "startDate": "2019-09",
-      "description": "",
-      "roles": ["Lead Developer", "Maintainer"],
-      "url": "https://github.com/mitrefireline/simfire"
+      "startDate": "2024-08",
+      "endDate": "2024-08",
+      "roles": [
+        "Lead Developer",
+        "Maintainer"
+      ],
+      "url": "https://github.com/doyled-it/pfc-llm"
     },
     {
       "name": "Janus LLM",
@@ -157,8 +305,23 @@
       "highlights": [],
       "startDate": "2023-07",
       "description": "",
-      "roles": ["Lead Developer", "Maintainer"],
+      "roles": [
+        "Lead Developer",
+        "Maintainer"
+      ],
       "url": "https://github.com/janus-llm"
+    },
+    {
+      "name": "SimFire",
+      "summary": "A wildfire simulator written in Python and meant for Reinforcement Learning research for wildfire mitigation.",
+      "highlights": [],
+      "startDate": "2019-09",
+      "description": "",
+      "roles": [
+        "Lead Developer",
+        "Maintainer"
+      ],
+      "url": "https://github.com/mitrefireline/simfire"
     },
     {
       "name": "SimHarness",
@@ -166,7 +329,9 @@
       "highlights": [],
       "startDate": "2019-09",
       "description": "",
-      "roles": ["Developer"],
+      "roles": [
+        "Developer"
+      ],
       "url": "https://github.com/mitrefireline/simharness"
     }
   ]
