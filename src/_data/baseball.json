@@ -1,6 +1,6 @@
 {
-  "currentSeason": "fall2025",
-  "lastUpdated": "2026-04-13T05:50:49.683Z",
+  "currentSeason": "spring2026",
+  "lastUpdated": "2026-04-20T22:37:22.203Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -11,7 +11,7 @@
       "position": "Utility (P/IF/OF)",
       "stats": {
         "hitting": {
-          "AB": 32,
+          "AB": 27,
           "H": 13,
           "2B": 1,
           "3B": 0,
@@ -31,9 +31,9 @@
         },
         "fielding": {
           "PO": 4,
-          "A": 2,
+          "A": 3,
           "E": 2,
-          "TC": 8,
+          "TC": 9,
           "DP": 1
         },
         "pitching": {
@@ -116,7 +116,7 @@
             "notable": "Good 1-RBI double",
             "stats": {
               "hitting": {
-                "AB": 4,
+                "AB": 3,
                 "H": 2,
                 "2B": 1,
                 "3B": 0,
@@ -152,7 +152,7 @@
                 "BF": 0,
                 "PC": 0
               },
-              "avg": 0.5
+              "avg": 0.6666666666666666
             }
           },
           {
@@ -266,7 +266,7 @@
             "notable": "",
             "stats": {
               "hitting": {
-                "AB": 5,
+                "AB": 4,
                 "H": 2,
                 "2B": 0,
                 "3B": 0,
@@ -286,9 +286,9 @@
               },
               "fielding": {
                 "PO": 0,
-                "A": 0,
+                "A": 1,
                 "E": 0,
-                "TC": 0,
+                "TC": 1,
                 "DP": 0
               },
               "pitching": {
@@ -302,7 +302,7 @@
                 "BF": 25,
                 "PC": 90
               },
-              "avg": 0.4
+              "avg": 0.5
             }
           },
           {
@@ -366,7 +366,7 @@
             "notable": "",
             "stats": {
               "hitting": {
-                "AB": 4,
+                "AB": 1,
                 "H": 0,
                 "2B": 0,
                 "3B": 0,
@@ -607,30 +607,410 @@
           }
         ],
         "calculated": {
-          "AVG": 0.40625,
-          "OBP": 0.4864864864864865,
+          "AVG": 0.48148148148148145,
+          "OBP": 0.5625,
           "singles": 11,
           "tb": 17,
-          "SLG": 0.53125,
-          "OPS": 1.0177364864864864,
-          "BABIP": 0.4444444444444444,
-          "ISO": 0.125,
+          "SLG": 0.6296296296296297,
+          "OPS": 1.1921296296296298,
+          "BABIP": 0.5454545454545454,
+          "ISO": 0.1481481481481482,
           "XBH": 2,
           "XBH_pct": 0.15384615384615385,
-          "BB_pct": 0.10810810810810811,
-          "K_pct": 0.10810810810810811,
+          "BB_pct": 0.125,
+          "K_pct": 0.125,
           "clutch_avg": 0.38461538461538464,
-          "contact_quality": 0.3125,
+          "contact_quality": 0.37037037037037035,
           "ERA": 7.659574468085106,
           "WHIP": 3.723404255319149,
           "K_BB": 0.3333333333333333,
           "K9": 5.74468085106383,
           "BB9": 17.23404255319149,
-          "fieldingPct": 0.75,
-          "rangeFactor": 0.75
+          "fieldingPct": 0.7777777777777778,
+          "rangeFactor": 0.875
         }
       },
       "gamesProcessed": 11
+    },
+    "spring2026": {
+      "id": "spring2026",
+      "name": "Spring 2026",
+      "folder": "games/2026/spring",
+      "player": "Michael Doyle",
+      "team": "Happy Sox",
+      "position": "Utility (P/IF/OF)",
+      "stats": {
+        "hitting": {
+          "AB": 13,
+          "H": 5,
+          "2B": 0,
+          "3B": 0,
+          "HR": 0,
+          "RBI": 8,
+          "R": 4,
+          "BB": 1,
+          "K": 3,
+          "HBP": 0,
+          "SF": 0,
+          "SB": 5,
+          "CS": 0,
+          "RISP": 9,
+          "RISP_H": 5,
+          "hard_contact": 6,
+          "pitches_seen": 61
+        },
+        "fielding": {
+          "PO": 1,
+          "A": 2,
+          "E": 1,
+          "TC": 3,
+          "DP": 0
+        },
+        "pitching": {
+          "IP": 3,
+          "H_p": 4,
+          "R_p": 3,
+          "ER": 3,
+          "BB_p": 8,
+          "K_p": 4,
+          "HR_p": 0,
+          "BF": 16,
+          "PC": 72
+        },
+        "games": {
+          "total": 6,
+          "played": 4,
+          "wins": 3,
+          "losses": 3,
+          "ties": 0
+        },
+        "gamesList": [
+          {
+            "date": "2026-03-08",
+            "opponent": "San Diego Banditos",
+            "location": "Hilton Head",
+            "result": "L",
+            "score": "4-3",
+            "played": true,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 1,
+                "K": 2,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 1,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 14
+              },
+              "fielding": {
+                "PO": 1,
+                "A": 1,
+                "E": 0,
+                "TC": 1,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-03-22",
+            "opponent": "Reapers Baseball Club",
+            "location": "\"@Monte Vista HS\"",
+            "result": "L",
+            "score": "11-8",
+            "played": false,
+            "rating": "",
+            "notable": "DNP",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-03-22",
+            "opponent": "Reapers Baseball Club",
+            "location": "\"@Monte Vista HS\"",
+            "result": "W",
+            "score": "12-11",
+            "played": false,
+            "rating": "",
+            "notable": "DNP",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-03-29",
+            "opponent": "Bubblegum Boys",
+            "location": "\"@Monte Vista\"",
+            "result": "W",
+            "score": "16-8",
+            "played": true,
+            "rating": "8",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 1,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 2,
+                "R": 2,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 4,
+                "CS": 0,
+                "RISP": 2,
+                "RISP_H": 1,
+                "hard_contact": 3,
+                "pitches_seen": 20
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 2,
+                "H_p": 3,
+                "R_p": 3,
+                "ER": 3,
+                "BB_p": 7,
+                "K_p": 3,
+                "HR_p": 0,
+                "BF": 11,
+                "PC": 52
+              },
+              "avg": 0.25
+            }
+          },
+          {
+            "date": "2026-04-12",
+            "opponent": "The OG",
+            "location": "Chollas",
+            "result": "L",
+            "score": "12-6",
+            "played": true,
+            "rating": "4",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 1,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 1,
+                "R": 0,
+                "BB": 0,
+                "K": 1,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 3,
+                "RISP_H": 1,
+                "hard_contact": 1,
+                "pitches_seen": 15
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 1,
+                "E": 1,
+                "TC": 2,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0.3333333333333333
+            }
+          },
+          {
+            "date": "2026-04-19",
+            "opponent": "Lemon Grove Athletics",
+            "location": "\"@Chollas\"",
+            "result": "W",
+            "score": "14-1",
+            "played": true,
+            "rating": "9",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 3,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 5,
+                "R": 2,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 1,
+                "CS": 0,
+                "RISP": 3,
+                "RISP_H": 3,
+                "hard_contact": 2,
+                "pitches_seen": 12
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 1,
+                "H_p": 1,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 1,
+                "K_p": 1,
+                "HR_p": 0,
+                "BF": 5,
+                "PC": 20
+              },
+              "avg": 1
+            }
+          }
+        ],
+        "calculated": {
+          "AVG": 0.38461538461538464,
+          "OBP": 0.42857142857142855,
+          "singles": 5,
+          "tb": 5,
+          "SLG": 0.38461538461538464,
+          "OPS": 0.8131868131868132,
+          "BABIP": 0.5,
+          "ISO": 0,
+          "XBH": 0,
+          "XBH_pct": 0,
+          "BB_pct": 0.07142857142857142,
+          "K_pct": 0.21428571428571427,
+          "clutch_avg": 0.5555555555555556,
+          "contact_quality": 0.46153846153846156,
+          "ERA": 9,
+          "WHIP": 4,
+          "K_BB": 0.5,
+          "K9": 12,
+          "BB9": 24,
+          "fieldingPct": 1,
+          "rangeFactor": 0.75
+        }
+      },
+      "gamesProcessed": 6
     }
   }
 }

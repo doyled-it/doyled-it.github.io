@@ -1,0 +1,538 @@
+{% macro th(label, key) %}{% set k = key or label %}<th{% if baseballGlossary[k] %} data-tip="{{ baseballGlossary[k] }}"{% endif %}>{{ label }}</th>{% endmacro %}
+
+{% macro seasonPanel(season, id, active) %}
+{% set s = season.stats %}
+{% set h = s.hitting %}
+{% set f = s.fielding %}
+{% set p = s.pitching %}
+{% set g = s.games %}
+{% set c = s.calculated %}
+<section class="season-panel{% if active %} is-active{% endif %}" id="panel-{{ id }}" data-season="{{ id }}"{% if not active %} hidden{% endif %}>
+  <div class="baseball-header">
+    <span class="sprite-flag sprite-flag--left" aria-hidden="true"></span>
+    {% if season.leagueOnly %}
+    <h2>⚾ {{ season.name }} ⚾</h2>
+    <div class="player-info">League archive · did not play</div>
+    {% else %}
+    <h2>⚾ {{ season.player }} ⚾</h2>
+    <div class="player-info">{{ season.team }} · {{ season.position }} · {{ season.name }}</div>
+    <div class="player-info">{{ g.played }} GP · {{ g.wins }}-{{ g.losses }} W-L</div>
+    {% endif %}
+    <span class="sprite-flag sprite-flag--right" aria-hidden="true"></span>
+  </div>
+
+  {% if not season.leagueOnly %}
+
+  <div class="stat-block">
+    <h3>HITTING</h3>
+    <table class="stat-table">
+      <thead>
+        <tr>{{ th("AB") }}{{ th("H") }}{{ th("2B") }}{{ th("3B") }}{{ th("HR") }}{{ th("RBI") }}{{ th("R") }}{{ th("BB") }}{{ th("K") }}{{ th("SB") }}</tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ h.AB }}</td><td>{{ h.H }}</td><td>{{ h["2B"] }}</td><td>{{ h["3B"] }}</td>
+          <td>{{ h.HR }}</td><td>{{ h.RBI }}</td><td>{{ h.R }}</td><td>{{ h.BB }}</td>
+          <td>{{ h.K }}</td><td>{{ h.SB }}</td>
+        </tr>
+        <tr>
+          <th colspan="2" data-tip="{{ baseballGlossary.AVG }}">AVG</th><th colspan="2" data-tip="{{ baseballGlossary.OBP }}">OBP</th><th colspan="2" data-tip="{{ baseballGlossary.SLG }}">SLG</th><th colspan="2" data-tip="{{ baseballGlossary.OPS }}">OPS</th><th colspan="2" data-tip="{{ baseballGlossary.ISO }}">ISO</th>
+        </tr>
+        <tr class="stat-rate">
+          <td colspan="2" class="{{ c.AVG | statColor('avg') }}">{{ c.AVG | fmtRate }}</td>
+          <td colspan="2" class="{{ c.OBP | statColor('obp') }}">{{ c.OBP | fmtRate }}</td>
+          <td colspan="2" class="{{ c.SLG | statColor('slg') }}">{{ c.SLG | fmtRate }}</td>
+          <td colspan="2" class="{{ c.OPS | statColor('ops') }}">{{ c.OPS | fmtRate }}</td>
+          <td colspan="2" class="{{ c.ISO | statColor('iso') }}">{{ c.ISO | fmtRate }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <table class="stat-table stat-table--advanced">
+      <thead>
+        <tr>
+          {{ th("BABIP") }}{{ th("BB%") }}{{ th("K%") }}{{ th("XBH") }}{{ th("CLUTCH") }}{{ th("HARD%") }}
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="stat-rate">
+          <td class="{{ c.BABIP | statColor('babip') }}">{{ c.BABIP | fmtRate }}</td>
+          <td class="{{ c.BB_pct | statColor('bb_pct') }}">{{ c.BB_pct | fmtPct }}</td>
+          <td class="{{ c.K_pct | statColor('k_pct') }}">{{ c.K_pct | fmtPct }}</td>
+          <td>{{ c.XBH }}</td>
+          <td class="{{ c.clutch_avg | statColor('clutch_avg') }}">{{ c.clutch_avg | fmtRate }}</td>
+          <td class="{{ c.contact_quality | statColor('contact_quality') }}">{{ c.contact_quality | fmtPct }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="stat-block">
+    <h3>FIELDING</h3>
+    <table class="stat-table">
+      <thead>
+        <tr>{{ th("PO") }}{{ th("A") }}{{ th("E") }}{{ th("TC") }}{{ th("DP") }}{{ th("FLD%") }}{{ th("RF") }}</tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ f.PO }}</td><td>{{ f.A }}</td><td>{{ f.E }}</td>
+          <td>{{ f.TC }}</td><td>{{ f.DP }}</td>
+          <td class="stat-rate {{ c.fieldingPct | statColor('fielding_pct') }}">{{ c.fieldingPct | fmtRate }}</td>
+          <td class="stat-rate {{ c.rangeFactor | statColor('range_factor') }}">{{ c.rangeFactor | fmtRate(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="stat-block">
+    <h3>PITCHING</h3>
+    <table class="stat-table">
+      <thead>
+        <tr>{{ th("IP") }}{{ th("H") }}{{ th("ER") }}{{ th("BB") }}{{ th("K") }}{{ th("ERA") }}{{ th("WHIP") }}{{ th("K/9") }}{{ th("BB/9") }}{{ th("K/BB") }}</tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>{{ p.IP }}</td><td>{{ p.H_p }}</td><td>{{ p.ER }}</td>
+          <td>{{ p.BB_p }}</td><td>{{ p.K_p }}</td>
+          <td class="stat-rate {{ c.ERA | statColor('era') }}">{{ c.ERA | fmtRate(2) }}</td>
+          <td class="stat-rate {{ c.WHIP | statColor('whip') }}">{{ c.WHIP | fmtRate(2) }}</td>
+          <td class="stat-rate {{ c.K9 | statColor('k9') }}">{{ c.K9 | fmtRate(1) }}</td>
+          <td class="stat-rate">{{ c.BB9 | fmtRate(1) }}</td>
+          <td class="stat-rate {{ c.K_BB | statColor('k_bb') }}">{{ c.K_BB | fmtRate(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="game-log">
+    <h3>GAME LOG <span class="game-log-hint">(click a row for details)</span></h3>
+    <table class="game-log-table">
+      <thead>
+        <tr><th>Date</th><th>Opponent</th><th>Result</th><th>AB</th><th>H</th><th>RBI</th><th>R</th><th></th></tr>
+      </thead>
+      <tbody>
+        {% for game in s.gamesList | reverse %}
+          {% set gh = game.stats.hitting %}
+          {% set gf = game.stats.fielding %}
+          {% set gp = game.stats.pitching %}
+        <tr class="game-row{% if not game.played %} dnp{% endif %}"{% if game.played %} data-toggle-game tabindex="0" aria-expanded="false"{% endif %}>
+          <td>{{ game.date }}</td>
+          <td>{{ game.opponent }}</td>
+          <td>
+            {% if not game.played %}DNP
+            {% elif game.result == "W" %}<span class="win">W {{ game.score }}</span>
+            {% else %}<span class="loss">L {{ game.score }}</span>
+            {% endif %}
+          </td>
+          {% if game.played %}
+          <td>{{ gh.AB }}</td>
+          <td>{{ gh.H }}</td>
+          <td>{{ gh.RBI }}</td>
+          <td>{{ gh.R }}</td>
+          <td class="game-toggle" aria-hidden="true">▸</td>
+          {% else %}
+          <td>-</td><td>-</td><td>-</td><td>-</td><td></td>
+          {% endif %}
+        </tr>
+        {% if game.played %}
+        {% set gAVG = (gh.H / gh.AB) if gh.AB else 0 %}
+        {% set gOBP_den = (gh.AB + gh.BB + (gh.HBP or 0) + (gh.SF or 0)) %}
+        {% set gOBP = ((gh.H + gh.BB + (gh.HBP or 0)) / gOBP_den) if gOBP_den else 0 %}
+        {% set g_singles = (gh.H - gh["2B"] - gh["3B"] - gh.HR) if gh.H else 0 %}
+        {% set gSLG = ((g_singles + gh["2B"]*2 + gh["3B"]*3 + gh.HR*4) / gh.AB) if gh.AB else 0 %}
+        {% set gOPS = gOBP + gSLG %}
+        <tr class="game-detail" hidden>
+          <td colspan="8">
+            <div class="game-detail-wrap">
+              <div class="stat-block">
+                <h4>HITTING</h4>
+                <table class="stat-table">
+                  <thead>
+                    <tr>{{ th("AB") }}{{ th("H") }}{{ th("2B") }}{{ th("3B") }}{{ th("HR") }}{{ th("RBI") }}{{ th("R") }}{{ th("BB") }}{{ th("K") }}{{ th("HBP") }}{{ th("SB") }}{{ th("CS") }}</tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ gh.AB or 0 }}</td><td>{{ gh.H or 0 }}</td><td>{{ gh["2B"] or 0 }}</td><td>{{ gh["3B"] or 0 }}</td>
+                      <td>{{ gh.HR or 0 }}</td><td>{{ gh.RBI or 0 }}</td><td>{{ gh.R or 0 }}</td><td>{{ gh.BB or 0 }}</td>
+                      <td>{{ gh.K or 0 }}</td><td>{{ gh.HBP or 0 }}</td><td>{{ gh.SB or 0 }}</td><td>{{ gh.CS or 0 }}</td>
+                    </tr>
+                    <tr>
+                      <th colspan="3" data-tip="{{ baseballGlossary.AVG }}">AVG</th>
+                      <th colspan="3" data-tip="{{ baseballGlossary.OBP }}">OBP</th>
+                      <th colspan="3" data-tip="{{ baseballGlossary.SLG }}">SLG</th>
+                      <th colspan="3" data-tip="{{ baseballGlossary.OPS }}">OPS</th>
+                    </tr>
+                    <tr class="stat-rate">
+                      <td colspan="3" class="{{ gAVG | statColor('avg') }}">{{ gAVG | fmtRate }}</td>
+                      <td colspan="3" class="{{ gOBP | statColor('obp') }}">{{ gOBP | fmtRate }}</td>
+                      <td colspan="3" class="{{ gSLG | statColor('slg') }}">{{ gSLG | fmtRate }}</td>
+                      <td colspan="3" class="{{ gOPS | statColor('ops') }}">{{ gOPS | fmtRate }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <table class="stat-table stat-table--advanced">
+                  <thead>
+                    <tr>
+                      <th data-tip="Runners in scoring position — hits/attempts">RISP</th>
+                      <th data-tip="{{ baseballGlossary['HARD%'] }}">HARD</th>
+                      <th data-tip="Total pitches seen in this game">PIT</th>
+                      {{ th("SF") }}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ gh.RISP_H or 0 }}/{{ gh.RISP or 0 }}</td>
+                      <td>{{ gh.hard_contact or 0 }}</td>
+                      <td>{{ gh.pitches_seen or 0 }}</td>
+                      <td>{{ gh.SF or 0 }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {% if gf.TC or gf.PO or gf.A or gf.E %}
+              <div class="stat-block">
+                <h4>FIELDING</h4>
+                <table class="stat-table">
+                  <thead>
+                    <tr>{{ th("PO") }}{{ th("A") }}{{ th("E") }}{{ th("TC") }}{{ th("DP") }}</tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ gf.PO or 0 }}</td><td>{{ gf.A or 0 }}</td><td>{{ gf.E or 0 }}</td>
+                      <td>{{ gf.TC or 0 }}</td><td>{{ gf.DP or 0 }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+
+              {% if gp.IP %}
+              {% set gERA = (gp.ER * 9 / gp.IP) if gp.IP else 0 %}
+              {% set gWHIP = ((gp.H_p + gp.BB_p) / gp.IP) if gp.IP else 0 %}
+              <div class="stat-block">
+                <h4>PITCHING</h4>
+                <table class="stat-table">
+                  <thead>
+                    <tr>{{ th("IP") }}{{ th("H") }}{{ th("R") }}{{ th("ER") }}{{ th("BB") }}{{ th("K") }}{{ th("HR") }}<th data-tip="Batters Faced">BF</th><th data-tip="Pitch Count">PC</th>{{ th("ERA") }}{{ th("WHIP") }}</tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>{{ gp.IP }}</td><td>{{ gp.H_p or 0 }}</td><td>{{ gp.R_p or 0 }}</td><td>{{ gp.ER or 0 }}</td>
+                      <td>{{ gp.BB_p or 0 }}</td><td>{{ gp.K_p or 0 }}</td><td>{{ gp.HR_p or 0 }}</td>
+                      <td>{{ gp.BF or 0 }}</td><td>{{ gp.PC or 0 }}</td>
+                      <td class="stat-rate {{ gERA | statColor('era') }}">{{ gERA | fmtRate(2) }}</td>
+                      <td class="stat-rate {{ gWHIP | statColor('whip') }}">{{ gWHIP | fmtRate(2) }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              {% endif %}
+
+              {% if game.rating or game.notable or game.location %}
+              <div class="game-detail-meta">
+                {% if game.location %}<span class="meta-item"><b>Location:</b> {{ game.location }}</span>{% endif %}
+                {% if game.rating %}<span class="meta-item"><b>Rating:</b> {{ game.rating }}/10</span>{% endif %}
+                {% if game.notable %}<span class="meta-item"><b>Notable:</b> {{ game.notable }}</span>{% endif %}
+              </div>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  {% if season.league %}
+  {% set userTeams = season.league.userTeams or [] %}
+
+  {% if season.league.schedule and season.league.schedule.length %}
+  <div class="league-block">
+    <h3>UPCOMING SCHEDULE</h3>
+    {% if season.league.difficulty %}
+    <div class="sos-summary">
+      <div class="sos-label">REMAINING SCHEDULE</div>
+      <div class="sos-value {{ season.league.difficulty.css }}">{{ season.league.difficulty.label }}</div>
+      <div class="sos-detail">
+        {{ season.league.difficulty.games }} games · avg win prob
+        <b>{{ season.league.difficulty.avgWinProb | fmtPct(0) }}</b>
+      </div>
+    </div>
+    {% endif %}
+    <div class="schedule-list">
+      {% set lastDate = "" %}
+      {% for ev in season.league.schedule %}
+        {% if ev.date != lastDate %}
+        <div class="schedule-date">{{ ev.dow }} · {{ ev.date }}</div>
+        {% set lastDate = ev.date %}
+        {% endif %}
+        {% set awayMine = userTeams.includes(ev.away.team) %}
+        {% set homeMine = userTeams.includes(ev.home.team) %}
+        {% set mine = awayMine or homeMine %}
+      <div class="schedule-event{% if mine %} is-me{% endif %}">
+        <span class="schedule-time">{{ ev.time }}</span>
+        <span class="schedule-matchup">
+          <span class="team {% if awayMine %}is-me{% endif %}">{{ ev.away.team }}{% if ev.away.record %} <span class="rec">({{ ev.away.record }})</span>{% endif %}</span>
+          <span class="at">@</span>
+          <span class="team {% if homeMine %}is-me{% endif %}">{{ ev.home.team }}{% if ev.home.record %} <span class="rec">({{ ev.home.record }})</span>{% endif %}</span>
+          {% if mine and ev.userWinProb != null %}
+          <span class="win-prob {% if ev.userWinProb >= 0.65 %}stat-good{% elif ev.userWinProb >= 0.45 %}{% elif ev.userWinProb >= 0.30 %}stat-average{% else %}stat-poor{% endif %}" title="Pythagorean win probability for your team">
+            {{ ev.userWinProb | fmtPct(0) }} WIN
+          </span>
+          {% elif ev.homeWinProb != null %}
+          <span class="win-prob-muted" title="Home team win probability">
+            {{ ev.homeWinProb | fmtPct(0) }} H
+          </span>
+          {% endif %}
+        </span>
+        <span class="schedule-venue">{{ ev.venue }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="league-block">
+    <h3>LEAGUE STANDINGS <span class="league-sub">{{ season.league.divisionName }} · top {{ season.league.playoffSpots }} make playoffs</span></h3>
+    <table class="stat-table league-standings">
+      <thead>
+        <tr>
+          <th data-tip="Rank">#</th>
+          <th class="team-col">Team</th>
+          {{ th("W") }}{{ th("L") }}{{ th("T") }}
+          <th data-tip="Games Played">GP</th>
+          <th data-tip="Winning percentage">PCT</th>
+          <th data-tip="Runs For">RF</th>
+          <th data-tip="Runs Allowed">RA</th>
+          <th data-tip="Run differential (RF - RA)">DIFF</th>
+          <th data-tip="Pythagorean expected win% from RF²/(RF²+RA²) — baseball exponent 1.83">PYTH</th>
+          <th data-tip="Monte Carlo playoff odds: 1000 simulations of the remaining schedule using 70% Pythagorean + 30% actual win%">PLAYOFF%</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in season.league.standings %}
+          {% set isMine = userTeams.includes(t.team) %}
+          {% set diff = t.RF - t.RA %}
+        <tr{% if isMine %} class="is-me"{% endif %}>
+          <td>{{ t.rank }}</td>
+          <td class="team-col">{{ t.team }}{% if isMine %} <span class="me-badge">YOU</span>{% endif %}{% if t.clinched %} <span class="clinch-badge clinched" title="Clinched a playoff spot — even if they lose out, no one can pass them">CLINCHED</span>{% elif t.eliminated %} <span class="clinch-badge eliminated" title="Mathematically eliminated from playoffs — cannot reach the cutoff even by winning out">OUT</span>{% endif %}</td>
+          <td>{{ t.W }}</td>
+          <td>{{ t.L }}</td>
+          <td>{{ t.T }}</td>
+          <td>{{ t.GP }}</td>
+          <td class="stat-rate">{{ t.PCT | fmtRate }}</td>
+          <td>{{ t.RF }}</td>
+          <td>{{ t.RA }}</td>
+          <td class="stat-rate {% if diff > 0 %}stat-good{% elif diff < 0 %}stat-poor{% endif %}">{{ "+" if diff > 0 }}{{ diff }}</td>
+          <td class="stat-rate">{{ t.pyth | fmtRate }}</td>
+          <td class="stat-rate {% if t.playoffPct >= 0.75 %}stat-great{% elif t.playoffPct >= 0.40 %}stat-good{% elif t.playoffPct >= 0.15 %}stat-average{% else %}stat-poor{% endif %}">{{ t.playoffPct | fmtPct(0) }}</td>
+        </tr>
+        {% if loop.index == season.league.playoffSpots %}
+        <tr class="playoff-cutoff"><td colspan="12"></td></tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if season.league.allHistory and season.league.allHistory.length > 0 and season.league.history and season.league.history.length > 1 %}
+  {% set chartW = 760 %}
+  {% set chartH = 220 %}
+  {% set padL = 44 %}
+  {% set padR = 16 %}
+  {% set padT = 14 %}
+  {% set padB = 28 %}
+  {% set n = season.league.history.length %}
+  {% set plotW = chartW - padL - padR %}
+  {% set plotH = chartH - padT - padB %}
+  {% set palette = ["#c41e3a","#002d72","#228b22","#b26a00","#7a3ab2","#0b7a8a","#c0006e","#555","#8a6c00","#0f7a1e","#6a2a80"] %}
+  <div class="league-block">
+    <h3>PLAYOFF% HISTORY <span class="league-sub">click a team to toggle</span></h3>
+    <svg class="playoff-chart" viewBox="0 0 {{ chartW }} {{ chartH }}" role="img" aria-label="Playoff probability over time" data-chart-plot-left="{{ padL }}" data-chart-plot-top="{{ padT }}" data-chart-plot-w="{{ plotW }}" data-chart-plot-h="{{ plotH }}">
+      <rect x="{{ padL }}" y="{{ padT }}" width="{{ plotW }}" height="{{ plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+      {% for gridline in [0, 25, 50, 75, 100] %}
+        {% set gy = padT + (100 - gridline) * plotH / 100 %}
+      <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ gridline }}%</text>
+      {% endfor %}
+      {% for team in season.league.allHistory %}
+        {% set color = team.isMine and "#c0006e" or palette[loop.index0 % palette.length] %}
+        {% set sw = team.isMine and 3.5 or 2 %}
+        {% set teamClass = "team-line" + (team.isMine and " mine" or " hidden") %}
+        {% set path = "" %}
+        {% for p in team.points %}
+          {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
+          {% set y = padT + (1 - p.playoffPct) * plotH %}
+          {% set path = path + (" L " if loop.index0 else "M ") + x|string + " " + y|string %}
+        {% endfor %}
+      <path class="{{ teamClass }}" data-team="{{ team.team }}" d="{{ path }}" fill="none" stroke="{{ color }}" stroke-width="{{ sw }}" stroke-linejoin="round" stroke-linecap="round"/>
+        {% if team.isMine %}
+          {% for p in team.points %}
+            {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
+            {% set y = padT + (1 - p.playoffPct) * plotH %}
+      <circle class="{{ teamClass }}" data-team="{{ team.team }}" cx="{{ x }}" cy="{{ y }}" r="3.5" fill="{{ color }}" stroke="#000" stroke-width="1">
+        <title>{{ team.team }} · {{ p.date }} · {{ p.W }}-{{ p.L }}{% if p.T %}-{{ p.T }}{% endif %} · {{ p.playoffPct | fmtPct(0) }}</title>
+      </circle>
+          {% endfor %}
+        {% endif %}
+      {% endfor %}
+      {% for p in season.league.history %}
+        {% if loop.index == 1 or loop.index == n or loop.index0 % 2 == 0 %}
+        {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
+      <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date }}</text>
+        {% endif %}
+      {% endfor %}
+    </svg>
+    <div class="chart-legend" data-chart-legend>
+      {% for team in season.league.allHistory %}
+        {% set color = team.isMine and "#c0006e" or palette[loop.index0 % palette.length] %}
+      <button type="button" class="legend-item{% if team.isMine %} is-me{% endif %}" data-team="{{ team.team }}" aria-pressed="{{ 'true' if team.isMine else 'false' }}" style="--legend-color: {{ color }}">
+        <span class="legend-swatch"></span>{{ team.team }}
+      </button>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if season.league.bracket %}
+  {% set br = season.league.bracket %}
+  <div class="league-block">
+    <h3>PROJECTED BRACKET <span class="league-sub">as of current standings</span></h3>
+    <div class="bracket">
+      <div class="bracket-col col-qf">
+        <div class="bracket-round">Quarterfinals</div>
+        <div class="bracket-matchup slot-q1 bye-matchup">
+          <div class="seed-line"><span class="seed">1</span> <span class="t {% if userTeams.includes(br.top1.team) %}is-me{% endif %}">{{ br.top1.team }}</span> <span class="rec">{{ br.top1.W }}-{{ br.top1.L }}</span></div>
+          <div class="bye-label">FIRST-ROUND BYE</div>
+        </div>
+        <div class="bracket-matchup slot-q2">
+          <div class="seed-line"><span class="seed">3</span> <span class="t {% if userTeams.includes(br.qf1.high.team) %}is-me{% endif %}">{{ br.qf1.high.team }}</span> <span class="rec">{{ br.qf1.high.W }}-{{ br.qf1.high.L }}</span></div>
+          <div class="vs">vs</div>
+          <div class="seed-line"><span class="seed">6</span> <span class="t {% if userTeams.includes(br.qf1.low.team) %}is-me{% endif %}">{{ br.qf1.low.team }}</span> <span class="rec">{{ br.qf1.low.W }}-{{ br.qf1.low.L }}</span></div>
+          <div class="bracket-prob">{{ br.qf1.highWinProb | fmtPct(0) }} / {{ br.qf1.lowWinProb | fmtPct(0) }}</div>
+        </div>
+        <div class="bracket-matchup slot-q3">
+          <div class="seed-line"><span class="seed">4</span> <span class="t {% if userTeams.includes(br.qf2.high.team) %}is-me{% endif %}">{{ br.qf2.high.team }}</span> <span class="rec">{{ br.qf2.high.W }}-{{ br.qf2.high.L }}</span></div>
+          <div class="vs">vs</div>
+          <div class="seed-line"><span class="seed">5</span> <span class="t {% if userTeams.includes(br.qf2.low.team) %}is-me{% endif %}">{{ br.qf2.low.team }}</span> <span class="rec">{{ br.qf2.low.W }}-{{ br.qf2.low.L }}</span></div>
+          <div class="bracket-prob">{{ br.qf2.highWinProb | fmtPct(0) }} / {{ br.qf2.lowWinProb | fmtPct(0) }}</div>
+        </div>
+        <div class="bracket-matchup slot-q4 bye-matchup">
+          <div class="seed-line"><span class="seed">2</span> <span class="t {% if userTeams.includes(br.top2.team) %}is-me{% endif %}">{{ br.top2.team }}</span> <span class="rec">{{ br.top2.W }}-{{ br.top2.L }}</span></div>
+          <div class="bye-label">FIRST-ROUND BYE</div>
+        </div>
+      </div>
+
+      <div class="bracket-col col-sf">
+        <div class="bracket-round">Semifinals</div>
+        <div class="bracket-matchup slot-s1">
+          <div class="seed-line"><span class="seed">1</span> <span class="t {% if userTeams.includes(br.top1.team) %}is-me{% endif %}">{{ br.top1.team }}</span></div>
+          <div class="vs">vs</div>
+          <div class="seed-line"><span class="seed">?</span> <span class="t">QF1 Winner</span></div>
+        </div>
+        <div class="bracket-matchup slot-s2">
+          <div class="seed-line"><span class="seed">2</span> <span class="t {% if userTeams.includes(br.top2.team) %}is-me{% endif %}">{{ br.top2.team }}</span></div>
+          <div class="vs">vs</div>
+          <div class="seed-line"><span class="seed">?</span> <span class="t">QF2 Winner</span></div>
+        </div>
+      </div>
+
+      <div class="bracket-col col-final">
+        <div class="bracket-round">Championship</div>
+        <div class="bracket-matchup championship">
+          <div class="championship-tbd">SF1 Winner<br>vs<br>SF2 Winner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if season.league.evaluation and season.league.evaluation.metrics %}
+  {% set m = season.league.evaluation.metrics %}
+  <div class="league-block">
+    <h3>MODEL PERFORMANCE <span class="league-sub">how well our win-prob predictions have done</span></h3>
+    <div class="model-metrics">
+      <div class="model-metric">
+        <div class="mm-label">GAMES</div>
+        <div class="mm-value">{{ m.games }}</div>
+      </div>
+      <div class="model-metric">
+        <div class="mm-label" title="Brier score: mean squared error of probability predictions. Lower is better.">BRIER</div>
+        <div class="mm-value {% if m.brier < m.baselineBrier %}stat-good{% else %}stat-poor{% endif %}">{{ m.brier | fmtRate(3) }}</div>
+        <div class="mm-sub">baseline 50/50 = {{ m.baselineBrier | fmtRate(3) }}</div>
+      </div>
+      <div class="model-metric">
+        <div class="mm-label" title="How much better than always-guessing-50%. Positive = skill; negative = worse than coin flip.">SKILL</div>
+        <div class="mm-value {% if m.brierSkill > 0 %}stat-good{% else %}stat-poor{% endif %}">{{ "+" if m.brierSkill > 0 }}{{ m.brierSkill | fmtPct(0) }}</div>
+      </div>
+      <div class="model-metric">
+        <div class="mm-label" title="Percent of games where the favorite (predicted &gt; 50%) actually won.">ACC</div>
+        <div class="mm-value {% if m.accuracy > 0.55 %}stat-good{% elif m.accuracy > 0.5 %}stat-average{% else %}stat-poor{% endif %}">{{ m.accuracy | fmtPct(0) }}</div>
+      </div>
+    </div>
+    <table class="stat-table model-buckets">
+      <thead>
+        <tr>
+          <th>Predicted</th>
+          <th>Games</th>
+          <th>Avg Predicted</th>
+          <th>Actual Home Win%</th>
+          <th>Gap</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for b in m.buckets %}
+          {% if b.n > 0 %}
+          {% set gap = b.observed - b.predicted %}
+        <tr>
+          <td>{{ (b.lo * 100) | int }}-{{ (b.hi * 100) | int }}%</td>
+          <td>{{ b.n }}</td>
+          <td>{{ b.predicted | fmtPct(0) }}</td>
+          <td>{{ b.observed | fmtPct(0) }}</td>
+          <td class="{% if gap|abs < 0.1 %}stat-good{% elif gap|abs < 0.2 %}stat-average{% else %}stat-poor{% endif %}">{{ "+" if gap > 0 }}{{ gap | fmtPct(0) }}</td>
+        </tr>
+          {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <p class="model-caveat">A well-calibrated model has ≈0% gap in every row. Negative skill here means the Pythagorean formula is noisy at small sample sizes (most teams have played 6-7 games). Expect this to improve as the season progresses.</p>
+  </div>
+  {% endif %}
+
+  {% if season.league.results and season.league.results.length %}
+  <div class="league-block">
+    <h3>RESULTS <span class="league-sub">{{ season.league.results.length }} games played · most recent first</span></h3>
+    <div class="schedule-list">
+      {% set lastDate = "" %}
+      {% for ev in season.league.results | reverse %}
+        {% if ev.date != lastDate %}
+        <div class="schedule-date">{{ ev.dow }} · {{ ev.date }}</div>
+        {% set lastDate = ev.date %}
+        {% endif %}
+        {% set awayMine = userTeams.includes(ev.away.team) %}
+        {% set homeMine = userTeams.includes(ev.home.team) %}
+        {% set mine = awayMine or homeMine %}
+      <div class="schedule-event result{% if mine %} is-me{% endif %}">
+        <span class="schedule-time">{{ ev.time }}</span>
+        <span class="schedule-matchup">
+          <span class="team {% if awayMine %}is-me{% endif %}{% if ev.winner == 'away' %} winner{% endif %}">{{ ev.away.team }}</span>
+          <span class="score">{{ ev.away.score }} - {{ ev.home.score }}</span>
+          <span class="team {% if homeMine %}is-me{% endif %}{% if ev.winner == 'home' %} winner{% endif %}">{{ ev.home.team }}</span>
+          {% if ev.userResult %}
+          <span class="result-badge {% if ev.userResult == 'W' %}win{% elif ev.userResult == 'L' %}loss{% endif %}">{{ ev.userResult }}</span>
+          {% endif %}
+          {% if ev.recapUrl %}<a href="{{ ev.recapUrl }}" target="_blank" rel="noopener" class="recap-link">recap</a>{% endif %}
+        </span>
+        <span class="schedule-venue">{{ ev.venue }}</span>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {% endif %}
+</section>
+{% endmacro %}

@@ -9,6 +9,7 @@
     "build:eleventy": "eleventy",
     "build:resume-pdf": "node scripts/build-resume-pdf.mjs",
     "build:resume-pdf:new": "node scripts/build-resume-pdf-new.mjs",
+    "sync:stats": "node scripts/sync-stats.mjs",
     "test": "node --test 'tests/**/*.test.mjs'"
   },
   "devDependencies": {

@@ -3,6 +3,21 @@
    palette, reset, desktop background, card chassis, typography
    ============================================================ */
 
+@font-face {
+  font-family: 'Pixelify Sans';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/assets/fonts/pixelify-sans.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/assets/fonts/vt323.woff2') format('woff2');
+}
+
 :root {
   color-scheme: only light;
   --bg-desk: #bfe4ff;
@@ -493,4 +508,58 @@ a:visited { color: var(--accent-purple); }
 }
 @media (prefers-reduced-motion: reduce) {
   .chiptune-cd--spin { animation: none; }
+}
+
+/* ============================================================
+   Contact page — pixel-art logo tiles
+   ============================================================ */
+.contact-logos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: center;
+  margin: 24px 0 32px;
+}
+.contact-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 18px 16px 12px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  color: var(--ink);
+  text-decoration: none;
+  font-family: var(--font-display);
+  min-width: 164px;
+  transition: transform 80ms linear, box-shadow 80ms linear;
+}
+.contact-logo:visited { color: var(--ink); }
+.contact-logo:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 var(--ink);
+  background: var(--accent-yellow);
+}
+.contact-logo:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.contact-logo img {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  width: 128px;
+  height: 128px;
+  display: block;
+}
+.contact-logo-name {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1;
+}
+.contact-logo-handle {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: var(--accent-pink-dark);
+  line-height: 1;
 }

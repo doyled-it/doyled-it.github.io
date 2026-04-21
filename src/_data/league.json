@@ -1,0 +1,3294 @@
+{
+  "seasons": {
+    "spring2026": {
+      "updated": "2026-04-20T22:37:45.117Z",
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Banditos",
+          "W": 6,
+          "L": 0,
+          "T": 0,
+          "GP": 6,
+          "PCT": 1,
+          "GB": 0.5,
+          "RF": 86,
+          "RA": 37,
+          "diff": 49
+        },
+        {
+          "rank": 2,
+          "team": "Sandlot Athletics",
+          "W": 4,
+          "L": 2,
+          "T": 0,
+          "GP": 6,
+          "PCT": 0.667,
+          "GB": 2.5,
+          "RF": 55,
+          "RA": 33,
+          "diff": 22
+        },
+        {
+          "rank": 3,
+          "team": "Bubblegum Boys",
+          "W": 3,
+          "L": 2,
+          "T": 0,
+          "GP": 5,
+          "PCT": 0.6,
+          "GB": 3,
+          "RF": 69,
+          "RA": 34,
+          "diff": 35
+        },
+        {
+          "rank": 4,
+          "team": "Beavers",
+          "W": 4,
+          "L": 3,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.571,
+          "GB": 3,
+          "RF": 44,
+          "RA": 67,
+          "diff": -23
+        },
+        {
+          "rank": 4,
+          "team": "The OG",
+          "W": 4,
+          "L": 3,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.571,
+          "GB": 3,
+          "RF": 76,
+          "RA": 57,
+          "diff": 19
+        },
+        {
+          "rank": 4,
+          "team": "Reapers Baseball Club",
+          "W": 4,
+          "L": 3,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.571,
+          "GB": 3,
+          "RF": 79,
+          "RA": 65,
+          "diff": 14
+        },
+        {
+          "rank": 7,
+          "team": "Fighting Friars",
+          "W": 3,
+          "L": 4,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.429,
+          "GB": 4,
+          "RF": 59,
+          "RA": 65,
+          "diff": -6
+        },
+        {
+          "rank": 8,
+          "team": "San Diego Sox",
+          "W": 2,
+          "L": 4,
+          "T": 0,
+          "GP": 6,
+          "PCT": 0.333,
+          "GB": 4.5,
+          "RF": 50,
+          "RA": 56,
+          "diff": -6
+        },
+        {
+          "rank": 8,
+          "team": "Diamond Dogs",
+          "W": 2,
+          "L": 4,
+          "T": 0,
+          "GP": 6,
+          "PCT": 0.333,
+          "GB": 4.5,
+          "RF": 34,
+          "RA": 65,
+          "diff": -31
+        },
+        {
+          "rank": 10,
+          "team": "Lemon Grove Athletics 25A",
+          "W": 2,
+          "L": 5,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.286,
+          "GB": 5,
+          "RF": 48,
+          "RA": 89,
+          "diff": -41
+        },
+        {
+          "rank": 11,
+          "team": "SD Storm",
+          "W": 1,
+          "L": 6,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.143,
+          "GB": 6,
+          "RF": 52,
+          "RA": 104,
+          "diff": -52
+        }
+      ],
+      "schedule": [
+        {
+          "date": "Mar 1",
+          "dow": "Sun",
+          "time": "9:30 AM PST",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": 8
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": 6
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/28c7a990-14c9-40bc-a1c2-3df6a778e2fb"
+        },
+        {
+          "date": "Mar 1",
+          "dow": "Sun",
+          "time": "9:30 AM PST",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 3
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": 5
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/bcd26282-d00f-4fbc-b55e-5f9933bdf2be"
+        },
+        {
+          "date": "Mar 1",
+          "dow": "Sun",
+          "time": "1:30 PM PST",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 16
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 3
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/e3298b76-2887-4b20-9e2a-d4de10682931"
+        },
+        {
+          "date": "Mar 1",
+          "dow": "Sun",
+          "time": "1:30 PM PST",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 6
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 18
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/19b94350-1ac9-4cc7-8f71-44ddf8d16129"
+        },
+        {
+          "date": "Mar 1",
+          "dow": "Sun",
+          "time": "1:30 PM PST",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 13
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 0
+          },
+          "venue": "Santana HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/7170bbbd-550e-4b17-9832-9ddc959f67cf"
+        },
+        {
+          "date": "Mar 8",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": 3
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 5
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/fc7fbd4b-46b3-4289-9872-a4fcb46c8311"
+        },
+        {
+          "date": "Mar 8",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 14
+          },
+          "home": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 6
+          },
+          "venue": "Hilton Head \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/aa82f239-31d0-4221-8830-9d487fb2c12b"
+        },
+        {
+          "date": "Mar 8",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": 4
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 3
+          },
+          "venue": "Hilton Head \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/83ed82b7-2fbc-4fc0-b411-08ea669e2674"
+        },
+        {
+          "date": "Mar 8",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 0
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 16
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/05135f6e-ff41-43ea-af84-b1a10d61a8e8"
+        },
+        {
+          "date": "Mar 8",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 6
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 7
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/67696bfc-bfec-4534-9b5c-674e0f30efbf"
+        },
+        {
+          "date": "Mar 15",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 7
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 13
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/9feba43f-8e19-43c3-9d06-f5b584c0df41"
+        },
+        {
+          "date": "Mar 15",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": 4
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": 21
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/7ab84e01-2893-4f17-b2fc-538810076658"
+        },
+        {
+          "date": "Mar 15",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 0
+          },
+          "home": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 8
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/6660b8b3-fa86-43c3-bfbb-1e106a994228"
+        },
+        {
+          "date": "Mar 15",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 11
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 5
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/1af32860-b988-4388-a92e-525c2595f49d"
+        },
+        {
+          "date": "Mar 15",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 4
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": 21
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/ca79a638-ff35-4cca-9029-ba37ecebbb1d"
+        },
+        {
+          "date": "Mar 22",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": 16
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 1
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/bf2020bd-5377-4a9e-813f-7960e5684283"
+        },
+        {
+          "date": "Mar 22",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": 15
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 6
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/89751b41-56fc-4994-8da8-d85d3ccb4abc"
+        },
+        {
+          "date": "Mar 22",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 11
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 8
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/c16f5c39-06d8-403d-8ff8-60d6bbb7a393"
+        },
+        {
+          "date": "Mar 22",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 2
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 8
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/4dfca0c6-a1e1-4868-9140-2a964c380248"
+        },
+        {
+          "date": "Mar 22",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 12
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 11
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/b46a783d-5955-4d66-8672-29cbe51fbf87"
+        },
+        {
+          "date": "Mar 22",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": 6
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 1
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/546e1703-2d26-4b10-8b0f-5223383d258e"
+        },
+        {
+          "date": "Mar 29",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 18
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": 23
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/4578acc4-06e3-4e35-937c-f236d1703f90"
+        },
+        {
+          "date": "Mar 29",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 17
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 11
+          },
+          "venue": "Hilton Head \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/26d11858-e829-46d0-93af-8c8544d7b6b5"
+        },
+        {
+          "date": "Mar 29",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 2
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 29
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/27d347de-8959-4f42-ac65-1666f0643a53"
+        },
+        {
+          "date": "Mar 29",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 16
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": 8
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/4843aca6-9930-44f0-8881-a1726ad7f9d8"
+        },
+        {
+          "date": "Mar 29",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 4
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 17
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/54b50583-07be-4eb4-b0e3-7fdbbc2abaaf"
+        },
+        {
+          "date": "Apr 12",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 5
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": 24
+          },
+          "venue": "San Ysidro HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/1a7f4060-ddd1-411a-abae-fae77c54634b"
+        },
+        {
+          "date": "Apr 12",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 11
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 6
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/ce19aae3-2a5b-4d31-a2b3-d76e74aa88bb"
+        },
+        {
+          "date": "Apr 12",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 5
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": 18
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/43198a28-978c-4334-8abd-e17a11adb7c2"
+        },
+        {
+          "date": "Apr 12",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": 4
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 10
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/c405a8c0-7235-40a7-ba3d-b17a693b1d2e"
+        },
+        {
+          "date": "Apr 12",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 8
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 3
+          },
+          "venue": "Hilton Head \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/be16022b-53fd-4837-820a-7ce678d076f1"
+        },
+        {
+          "date": "Apr 12",
+          "dow": "Sun",
+          "time": "2:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 0
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 9
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/1e881aab-ebe4-451d-9d4c-64ce48410d69"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": 24
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": 2
+          },
+          "venue": "San Ysidro HS \u00b7 JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/0692a7b2-b6b8-43d2-a842-bbbae6153b55"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": 14
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": 1
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/1dd8dad9-acc9-48ff-ada4-9e898d3e6210"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": 16
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": 6
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/2d9bc536-d1a6-4fa2-a65c-053918d38895"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": 20
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": 5
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/025453e7-454b-44ad-b02d-12130291e6f9"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": 20
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": 3
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/49dd9a2b-d265-42d1-b97a-67bafddd8596"
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": null
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": null
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": null
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Monte Vista HS \u00b7 JV",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": null
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": null
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "San Ysidro HS \u00b7 JV",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": null
+          },
+          "venue": "Chollas \u00b7 Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Presidio \u00b7 Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "2:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": null
+          },
+          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "recapUrl": null
+        }
+      ],
+      "userTeams": [
+        "San Diego Sox",
+        "Happy Sox"
+      ],
+      "divisionName": "Sun 25A",
+      "playoffSpots": 6,
+      "totalGames": 13
+    },
+    "fall2025": {
+      "updated": "2026-04-21T00:12:50.196Z",
+      "divisionName": "Sun 25A",
+      "totalGames": 10,
+      "playoffSpots": 6,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Heroes",
+          "W": 7,
+          "L": 1,
+          "T": 0,
+          "GP": 8,
+          "PCT": 0.875,
+          "RF": 114,
+          "RA": 64,
+          "diff": 50
+        },
+        {
+          "rank": 2,
+          "team": "Beavers",
+          "W": 6,
+          "L": 1,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.857,
+          "RF": 66,
+          "RA": 49,
+          "diff": 17
+        },
+        {
+          "rank": 3,
+          "team": "Lemon Grove Athletics",
+          "W": 5,
+          "L": 1,
+          "T": 1,
+          "GP": 7,
+          "PCT": 0.786,
+          "RF": 86,
+          "RA": 49,
+          "diff": 37
+        },
+        {
+          "rank": 4,
+          "team": "SD Rip City",
+          "W": 5,
+          "L": 2,
+          "T": 0,
+          "GP": 7,
+          "PCT": 0.714,
+          "RF": 76,
+          "RA": 49,
+          "diff": 27
+        },
+        {
+          "rank": 5,
+          "team": "San Diego Banditos",
+          "W": 3,
+          "L": 3,
+          "T": 1,
+          "GP": 7,
+          "PCT": 0.5,
+          "RF": 81,
+          "RA": 64,
+          "diff": 17
+        },
+        {
+          "rank": 6,
+          "team": "Happy Sox",
+          "W": 4,
+          "L": 4,
+          "T": 0,
+          "GP": 8,
+          "PCT": 0.5,
+          "RF": 101,
+          "RA": 86,
+          "diff": 15
+        },
+        {
+          "rank": 7,
+          "team": "Fighting Friars",
+          "W": 3,
+          "L": 5,
+          "T": 0,
+          "GP": 8,
+          "PCT": 0.375,
+          "RF": 89,
+          "RA": 84,
+          "diff": 5
+        },
+        {
+          "rank": 8,
+          "team": "Diamond Dogs",
+          "W": 3,
+          "L": 5,
+          "T": 0,
+          "GP": 8,
+          "PCT": 0.375,
+          "RF": 94,
+          "RA": 126,
+          "diff": -32
+        },
+        {
+          "rank": 9,
+          "team": "Reapers Baseball Club",
+          "W": 0,
+          "L": 7,
+          "T": 1,
+          "GP": 8,
+          "PCT": 0.063,
+          "RF": 41,
+          "RA": 98,
+          "diff": -57
+        },
+        {
+          "rank": 10,
+          "team": "SD Storm",
+          "W": 0,
+          "L": 7,
+          "T": 1,
+          "GP": 8,
+          "PCT": 0.063,
+          "RF": 49,
+          "RA": 128,
+          "diff": -79
+        }
+      ],
+      "schedule": [
+        {
+          "date": "Sep 7",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 5
+          },
+          "home": {
+            "team": "Heroes",
+            "record": "",
+            "score": 21
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 7",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 7",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 5
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 10
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 7",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 8
+          },
+          "home": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 14
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 7",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 20
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 5
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 14",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Heroes",
+            "record": "",
+            "score": 22
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 1
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 14",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 14",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 12
+          },
+          "home": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 14",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 11
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 13
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 14",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 13
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 18
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Heroes",
+            "record": "",
+            "score": 13
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 8
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "",
+            "score": 10
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 19
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 14
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 6
+          },
+          "home": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 13
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 32
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 23
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 21",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 3
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 4
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 11
+          },
+          "home": {
+            "team": "Heroes",
+            "record": "",
+            "score": 12
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "",
+            "score": 13
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 2
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 8
+          },
+          "home": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 4
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 15
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 17
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 18
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 28",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 17
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 12
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 5",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "Heroes",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 5",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Beavers",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 5
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 5",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 12
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 15
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 5",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 19
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 5",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 22
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 2
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 12",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Heroes",
+            "record": "",
+            "score": 12
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 7
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 12",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Rip City",
+            "record": "",
+            "score": 6
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "",
+            "score": 4
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 12",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 5
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 17
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 12",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 17
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 12",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 3
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 15
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 19",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "Heroes",
+            "record": "",
+            "score": 10
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 19",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Heroes",
+            "record": "",
+            "score": 16
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "",
+            "score": 17
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 19",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 9
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 11
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 19",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "",
+            "score": 7
+          },
+          "venue": "",
+          "recapUrl": null
+        }
+      ],
+      "userTeams": [
+        "Happy Sox"
+      ]
+    },
+    "spring2025": {
+      "updated": "2026-04-21T00:12:50.258Z",
+      "divisionName": "Sun 25A",
+      "totalGames": 13,
+      "playoffSpots": 6,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Blue Mountains",
+          "W": 12,
+          "L": 1,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.923,
+          "RF": 201,
+          "RA": 62,
+          "diff": 139
+        },
+        {
+          "rank": 2,
+          "team": "Happy Sox",
+          "W": 11,
+          "L": 2,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.846,
+          "RF": 202,
+          "RA": 80,
+          "diff": 122
+        },
+        {
+          "rank": 3,
+          "team": "Lemon Grove Athletics",
+          "W": 8,
+          "L": 4,
+          "T": 1,
+          "GP": 13,
+          "PCT": 0.654,
+          "RF": 125,
+          "RA": 87,
+          "diff": 38
+        },
+        {
+          "rank": 4,
+          "team": "San Diego Banditos",
+          "W": 8,
+          "L": 5,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.615,
+          "RF": 129,
+          "RA": 104,
+          "diff": 25
+        },
+        {
+          "rank": 5,
+          "team": "Players",
+          "W": 7,
+          "L": 5,
+          "T": 1,
+          "GP": 13,
+          "PCT": 0.577,
+          "RF": 169,
+          "RA": 125,
+          "diff": 44
+        },
+        {
+          "rank": 6,
+          "team": "Bubblegum Boys",
+          "W": 7,
+          "L": 6,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.538,
+          "RF": 171,
+          "RA": 136,
+          "diff": 35
+        },
+        {
+          "rank": 7,
+          "team": "Fighting Friars",
+          "W": 7,
+          "L": 6,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.538,
+          "RF": 197,
+          "RA": 178,
+          "diff": 19
+        },
+        {
+          "rank": 8,
+          "team": "Diamond Dogs",
+          "W": 3,
+          "L": 10,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.231,
+          "RF": 115,
+          "RA": 203,
+          "diff": -88
+        },
+        {
+          "rank": 9,
+          "team": "Reapers Baseball Club",
+          "W": 1,
+          "L": 12,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0.077,
+          "RF": 75,
+          "RA": 249,
+          "diff": -174
+        },
+        {
+          "rank": 10,
+          "team": "San diego storm",
+          "W": 0,
+          "L": 13,
+          "T": 0,
+          "GP": 13,
+          "PCT": 0,
+          "RF": 82,
+          "RA": 242,
+          "diff": -160
+        }
+      ],
+      "schedule": [
+        {
+          "date": "Mar 2",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 24
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 2
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 9",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 26
+          },
+          "home": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 1
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 9",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 3
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 22
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 9",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 8
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 9",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 12
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 23
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 23",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Players",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 12
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 23",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 14
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 2
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 23",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 14
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 12
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 23",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 18
+          },
+          "home": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 11
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 23",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 20
+          },
+          "home": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 23",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 13
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 10
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 30",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 11
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 3
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 30",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 22
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 3
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 30",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 10
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 13
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 30",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 25
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Mar 30",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 24
+          },
+          "home": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 5
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 6",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 3
+          },
+          "home": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 15
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 6",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 6
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 16
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 6",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 11
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 6",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 19
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 7
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 6",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 4
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 16
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 13",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 0
+          },
+          "home": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 7
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 13",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 24
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 13",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 10
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 13",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 17
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 13",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 23
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 11
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 27",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 6
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 27",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 5
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 4
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 27",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Players",
+            "record": "",
+            "score": 16
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 12
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 27",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 1
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 16
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "May 18",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 9
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "May 18",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 23
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 4
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "May 18",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 13
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "May 18",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Players",
+            "record": "",
+            "score": 17
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 13
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "May 18",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 11
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 12
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 11
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 17
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 3
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 11
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 7
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 15
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 14
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Players",
+            "record": "",
+            "score": 28
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 17
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 1",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 22
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 8",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 1
+          },
+          "home": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 8",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Players",
+            "record": "",
+            "score": 6
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 10
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 8",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 1
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 8",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 4
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 24
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 8",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 13
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 18
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 15",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 28
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 15",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 4
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 16
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 15",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 0
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 15",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 13
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 15",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 29
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 22",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 3
+          },
+          "home": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 8
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 22",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 34
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 15
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 22",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 27
+          },
+          "home": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 6
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 22",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 8
+          },
+          "home": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 9
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 22",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Players",
+            "record": "",
+            "score": 4
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 7
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 22",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 22
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 7
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 29",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Blue Mountains",
+            "record": "",
+            "score": 10
+          },
+          "home": {
+            "team": "Happy Sox",
+            "record": "",
+            "score": 11
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 29",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Lemon Grove Athletics",
+            "record": "",
+            "score": 14
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 2
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 29",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "",
+            "score": 4
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 21
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 29",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "",
+            "score": 2
+          },
+          "home": {
+            "team": "San Diego Banditos",
+            "record": "",
+            "score": 17
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 29",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "",
+            "score": 10
+          },
+          "home": {
+            "team": "Players",
+            "record": "",
+            "score": 18
+          },
+          "venue": "",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 29",
+          "dow": "Sun",
+          "time": "",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "",
+            "score": 24
+          },
+          "home": {
+            "team": "San diego storm",
+            "record": "",
+            "score": 13
+          },
+          "venue": "",
+          "recapUrl": null
+        }
+      ],
+      "userTeams": []
+    }
+  }
+}
