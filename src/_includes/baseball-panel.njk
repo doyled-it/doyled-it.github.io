@@ -10,12 +10,14 @@
 <section class="season-panel{% if active %} is-active{% endif %}" id="panel-{{ id }}" data-season="{{ id }}"{% if not active %} hidden{% endif %}>
   <div class="baseball-header">
     <span class="sprite-flag sprite-flag--left" aria-hidden="true"></span>
+    <h2><img src="/assets/sprites/scenes/ball-header.png" class="pixel-baseball" alt="" aria-hidden="true"> {{ season.name }} <img src="/assets/sprites/scenes/ball-header.png" class="pixel-baseball" alt="" aria-hidden="true"></h2>
     {% if season.leagueOnly %}
-    <h2>⚾ {{ season.name }} ⚾</h2>
     <div class="player-info">League archive · did not play</div>
+    {% elif season.player %}
+    <div class="player-info">{{ season.player }} · {{ season.team }} · {{ season.position }}</div>
+    <div class="player-info">{{ g.played }} GP · {{ g.wins }}-{{ g.losses }} W-L</div>
     {% else %}
-    <h2>⚾ {{ season.player }} ⚾</h2>
-    <div class="player-info">{{ season.team }} · {{ season.position }} · {{ season.name }}</div>
+    <div class="player-info">Career totals across every season</div>
     <div class="player-info">{{ g.played }} GP · {{ g.wins }}-{{ g.losses }} W-L</div>
     {% endif %}
     <span class="sprite-flag sprite-flag--right" aria-hidden="true"></span>
@@ -247,6 +249,190 @@
   </div>
   {% endif %}
 
+  {% if season.careerAnalytics %}
+  {% set ca = season.careerAnalytics %}
+
+  <div class="league-block">
+    <h3>SEASON BY SEASON</h3>
+    <table class="stat-table">
+      <thead>
+        <tr>
+          <th>Season</th>{{ th("GP") }}<th>W-L</th>
+          {{ th("AVG") }}{{ th("OBP") }}{{ th("SLG") }}{{ th("OPS") }}
+          {{ th("HR") }}{{ th("RBI") }}{{ th("IP") }}{{ th("ERA") }}
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in ca.seasonsSummary %}
+        <tr>
+          <td class="team-col">{{ s.name }}{% if s.team %} <span class="rec">({{ s.team }})</span>{% endif %}</td>
+          <td>{{ s.GP }}</td>
+          <td>{{ s.W }}-{{ s.L }}</td>
+          <td class="stat-rate {{ s.AVG | statColor('avg') }}">{{ s.AVG | fmtRate }}</td>
+          <td class="stat-rate {{ s.OBP | statColor('obp') }}">{{ s.OBP | fmtRate }}</td>
+          <td class="stat-rate {{ s.SLG | statColor('slg') }}">{{ s.SLG | fmtRate }}</td>
+          <td class="stat-rate {{ s.OPS | statColor('ops') }}">{{ s.OPS | fmtRate }}</td>
+          <td>{{ s.HR }}</td>
+          <td>{{ s.RBI }}</td>
+          <td>{{ s.IP }}</td>
+          <td class="stat-rate {% if s.IP > 0 %}{{ s.ERA | statColor('era') }}{% endif %}">{% if s.IP > 0 %}{{ s.ERA | fmtRate(2) }}{% else %}—{% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% if ca.trend and ca.trend.length > 1 %}
+  {% set chartW = 760 %}
+  {% set chartH = 200 %}
+  {% set padL = 44 %}
+  {% set padR = 16 %}
+  {% set padT = 14 %}
+  {% set padB = 28 %}
+  {% set n = ca.trend.length %}
+  {% set plotW = chartW - padL - padR %}
+  {% set plotH = chartH - padT - padB %}
+  <div class="league-block">
+    <h3>CAREER TREND <span class="league-sub">cumulative OPS after each played game</span></h3>
+    <svg class="playoff-chart" viewBox="0 0 {{ chartW }} {{ chartH }}" role="img" aria-label="OPS over games played">
+      <rect x="{{ padL }}" y="{{ padT }}" width="{{ plotW }}" height="{{ plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+      {% for ops in [0, 0.5, 1.0, 1.5, 2.0] %}
+        {% set gy = padT + (2.0 - ops) * plotH / 2.0 %}
+      <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ ops | fmtRate(1) }}</text>
+      {% endfor %}
+      {% set path = "" %}
+      {% for p in ca.trend %}
+        {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
+        {% set y = padT + (1 - (p.OPS / 2.0)) * plotH %}
+        {% set path = path + (" L " if loop.index0 else "M ") + x|string + " " + y|string %}
+      {% endfor %}
+      <path d="{{ path }}" fill="none" stroke="#c0006e" stroke-width="2.5" stroke-linejoin="round"/>
+      {% for p in ca.trend %}
+        {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
+        {% set y = padT + (1 - (p.OPS / 2.0)) * plotH %}
+      <circle cx="{{ x }}" cy="{{ y }}" r="3" fill="#c0006e" stroke="#000" stroke-width="1">
+        <title>{{ p.season }} · {{ p.date }} vs {{ p.opponent }}: AVG {{ p.AVG | fmtRate }} · OPS {{ p.OPS | fmtRate }}</title>
+      </circle>
+      {% endfor %}
+    </svg>
+  </div>
+  {% endif %}
+
+  <div class="league-block">
+    <h3>STREAKS</h3>
+    <div class="streak-grid">
+      <div class="streak-card">
+        <div class="streak-label">LONGEST HIT STREAK</div>
+        <div class="streak-value stat-great">{{ ca.streaks.longestHit }}</div>
+        <div class="streak-sub">games with at least one hit</div>
+      </div>
+      <div class="streak-card">
+        <div class="streak-label">ACTIVE HIT STREAK</div>
+        <div class="streak-value {% if ca.streaks.activeHit > 0 %}stat-good{% endif %}">{{ ca.streaks.activeHit }}</div>
+        <div class="streak-sub">{% if ca.streaks.activeHit > 0 %}still alive{% else %}ended{% endif %}</div>
+      </div>
+      <div class="streak-card">
+        <div class="streak-label">LONGEST ON-BASE STREAK</div>
+        <div class="streak-value stat-great">{{ ca.streaks.longestOnBase }}</div>
+        <div class="streak-sub">games reaching base (H, BB, or HBP)</div>
+      </div>
+      <div class="streak-card">
+        <div class="streak-label">ACTIVE ON-BASE STREAK</div>
+        <div class="streak-value {% if ca.streaks.activeOnBase > 0 %}stat-good{% endif %}">{{ ca.streaks.activeOnBase }}</div>
+        <div class="streak-sub">{% if ca.streaks.activeOnBase > 0 %}still alive{% else %}ended{% endif %}</div>
+      </div>
+    </div>
+  </div>
+
+  {% if ca.bestByRating.length or ca.bestByBatting.length or ca.bestByPitching.length %}
+  <div class="league-block">
+    <h3>CAREER HIGHLIGHTS</h3>
+    <div class="highlights-grid">
+      {% if ca.bestByRating.length %}
+      <div class="highlight-group">
+        <h4>TOP-RATED GAMES</h4>
+        <ul class="highlight-list">
+          {% for g in ca.bestByRating %}
+          <li><span class="hl-badge">{{ g.rating }}/10</span> <b>{{ g.date }}</b> vs {{ g.opponent }}{% if g.score %} · {{ g.result }} {{ g.score }}{% endif %} · {{ g.seasonName }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if ca.bestByBatting.length %}
+      <div class="highlight-group">
+        <h4>BIGGEST BATTING GAMES</h4>
+        <ul class="highlight-list">
+          {% for g in ca.bestByBatting %}
+          <li><span class="hl-badge">{{ g.stats.hitting.H }}/{{ g.stats.hitting.AB }} · {{ g.stats.hitting.RBI }} RBI</span> <b>{{ g.date }}</b> vs {{ g.opponent }} · {{ g.seasonName }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+      {% if ca.bestByPitching.length %}
+      <div class="highlight-group">
+        <h4>BEST PITCHING OUTINGS</h4>
+        <ul class="highlight-list">
+          {% for g in ca.bestByPitching %}
+          {% set gERA = (g.stats.pitching.ER * 9 / g.stats.pitching.IP) if g.stats.pitching.IP else 0 %}
+          <li><span class="hl-badge">{{ g.stats.pitching.IP }} IP · {{ g.stats.pitching.ER }} ER · {{ gERA | fmtRate(2) }} ERA</span> <b>{{ g.date }}</b> vs {{ g.opponent }} · {{ g.seasonName }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  {% if ca.opponentSplits.length %}
+  <div class="league-block">
+    <h3>VS OPPONENT</h3>
+    <table class="stat-table">
+      <thead>
+        <tr>
+          <th class="team-col">Opponent</th>
+          {{ th("GP") }}<th>W-L</th>{{ th("AB") }}{{ th("H") }}{{ th("HR") }}{{ th("RBI") }}
+          {{ th("AVG") }}{{ th("OBP") }}{{ th("SLG") }}{{ th("OPS") }}
+        </tr>
+      </thead>
+      <tbody>
+        {% for o in ca.opponentSplits %}
+        <tr>
+          <td class="team-col">{{ o.opponent }}</td>
+          <td>{{ o.GP }}</td>
+          <td>{{ o.W }}-{{ o.L }}</td>
+          <td>{{ o.AB }}</td>
+          <td>{{ o.H }}</td>
+          <td>{{ o.HR }}</td>
+          <td>{{ o.RBI }}</td>
+          <td class="stat-rate {{ o.AVG | statColor('avg') }}">{{ o.AVG | fmtRate }}</td>
+          <td class="stat-rate {{ o.OBP | statColor('obp') }}">{{ o.OBP | fmtRate }}</td>
+          <td class="stat-rate {{ o.SLG | statColor('slg') }}">{{ o.SLG | fmtRate }}</td>
+          <td class="stat-rate {{ o.OPS | statColor('ops') }}">{{ o.OPS | fmtRate }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endif %}
+
+  {% if ca.notable.length %}
+  <div class="league-block">
+    <h3>NOTABLE MOMENTS</h3>
+    <ul class="notable-list">
+      {% for n in ca.notable %}
+      <li>
+        <span class="n-date">{{ n.date }}</span>
+        <span class="n-season">{{ n.season }}</span>
+        <span class="n-opp">vs {{ n.opponent }}</span>
+        <span class="n-note">{{ n.note }}</span>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+  {% endif %}
+
   {% if season.league %}
   {% set userTeams = season.league.userTeams or [] %}
 
@@ -280,11 +466,11 @@
           <span class="at">@</span>
           <span class="team {% if homeMine %}is-me{% endif %}">{{ ev.home.team }}{% if ev.home.record %} <span class="rec">({{ ev.home.record }})</span>{% endif %}</span>
           {% if mine and ev.userWinProb != null %}
-          <span class="win-prob {% if ev.userWinProb >= 0.65 %}stat-good{% elif ev.userWinProb >= 0.45 %}{% elif ev.userWinProb >= 0.30 %}stat-average{% else %}stat-poor{% endif %}" title="Pythagorean win probability for your team">
+          <span class="win-prob {% if ev.userWinProb >= 0.65 %}stat-good{% elif ev.userWinProb >= 0.45 %}{% elif ev.userWinProb >= 0.30 %}stat-average{% else %}stat-poor{% endif %}" data-tip="Pythagorean win probability for your team">
             {{ ev.userWinProb | fmtPct(0) }} WIN
           </span>
           {% elif ev.homeWinProb != null %}
-          <span class="win-prob-muted" title="Home team win probability">
+          <span class="win-prob-muted" data-tip="Home team win probability">
             {{ ev.homeWinProb | fmtPct(0) }} H
           </span>
           {% endif %}
@@ -319,7 +505,7 @@
           {% set diff = t.RF - t.RA %}
         <tr{% if isMine %} class="is-me"{% endif %}>
           <td>{{ t.rank }}</td>
-          <td class="team-col">{{ t.team }}{% if isMine %} <span class="me-badge">YOU</span>{% endif %}{% if t.clinched %} <span class="clinch-badge clinched" title="Clinched a playoff spot — even if they lose out, no one can pass them">CLINCHED</span>{% elif t.eliminated %} <span class="clinch-badge eliminated" title="Mathematically eliminated from playoffs — cannot reach the cutoff even by winning out">OUT</span>{% endif %}</td>
+          <td class="team-col">{{ t.team }}{% if isMine %} <span class="me-badge">YOU</span>{% endif %}{% if t.clinched %} <span class="clinch-badge clinched" data-tip="Clinched a playoff spot — even if they lose out, no one can pass them">CLINCHED</span>{% elif t.eliminated %} <span class="clinch-badge eliminated" data-tip="Mathematically eliminated from playoffs — cannot reach the cutoff even by winning out">OUT</span>{% endif %}</td>
           <td>{{ t.W }}</td>
           <td>{{ t.L }}</td>
           <td>{{ t.T }}</td>
@@ -398,7 +584,65 @@
   </div>
   {% endif %}
 
-  {% if season.league.bracket %}
+  {% if season.league.playoffBracket and season.league.playoffBracket.qf1 %}
+  {% set pb = season.league.playoffBracket %}
+  <div class="league-block">
+    <h3>PLAYOFF BRACKET <span class="league-sub">final results</span></h3>
+    <div class="bracket">
+      <div class="bracket-col col-qf">
+        <div class="bracket-round">Quarterfinals</div>
+        <div class="bracket-matchup slot-q1 bye-matchup">
+          <div class="seed-line"><span class="seed">1</span> <span class="t {% if userTeams.includes(pb.s1.team) %}is-me{% endif %}">{{ pb.s1.team }}</span> <span class="rec">{{ pb.s1.W }}-{{ pb.s1.L }}</span></div>
+          <div class="bye-label">FIRST-ROUND BYE</div>
+        </div>
+        <div class="bracket-matchup slot-q2">
+          <div class="seed-line{% if pb.qf1.aWon %} winner{% else %} loser{% endif %}"><span class="seed">3</span> <span class="t {% if userTeams.includes(pb.s3.team) %}is-me{% endif %}">{{ pb.s3.team }}</span> {% if pb.qf1.aScore != null %}<span class="br-score">{{ pb.qf1.aScore }}</span>{% elif pb.qf1.aWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+          <div class="vs">{{ pb.qf1.date }}</div>
+          <div class="seed-line{% if pb.qf1.bWon %} winner{% else %} loser{% endif %}"><span class="seed">6</span> <span class="t {% if userTeams.includes(pb.s6.team) %}is-me{% endif %}">{{ pb.s6.team }}</span> {% if pb.qf1.bScore != null %}<span class="br-score">{{ pb.qf1.bScore }}</span>{% elif pb.qf1.bWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+        </div>
+        <div class="bracket-matchup slot-q3">
+          <div class="seed-line{% if pb.qf2.aWon %} winner{% else %} loser{% endif %}"><span class="seed">4</span> <span class="t {% if userTeams.includes(pb.s4.team) %}is-me{% endif %}">{{ pb.s4.team }}</span> {% if pb.qf2.aScore != null %}<span class="br-score">{{ pb.qf2.aScore }}</span>{% elif pb.qf2.aWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+          <div class="vs">{{ pb.qf2.date }}</div>
+          <div class="seed-line{% if pb.qf2.bWon %} winner{% else %} loser{% endif %}"><span class="seed">5</span> <span class="t {% if userTeams.includes(pb.s5.team) %}is-me{% endif %}">{{ pb.s5.team }}</span> {% if pb.qf2.bScore != null %}<span class="br-score">{{ pb.qf2.bScore }}</span>{% elif pb.qf2.bWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+        </div>
+        <div class="bracket-matchup slot-q4 bye-matchup">
+          <div class="seed-line"><span class="seed">2</span> <span class="t {% if userTeams.includes(pb.s2.team) %}is-me{% endif %}">{{ pb.s2.team }}</span> <span class="rec">{{ pb.s2.W }}-{{ pb.s2.L }}</span></div>
+          <div class="bye-label">FIRST-ROUND BYE</div>
+        </div>
+      </div>
+
+      <div class="bracket-col col-sf">
+        <div class="bracket-round">Semifinals</div>
+        {% if pb.sf1 %}
+        <div class="bracket-matchup slot-s1">
+          <div class="seed-line{% if pb.sf1.aWon %} winner{% else %} loser{% endif %}"><span class="seed">1</span> <span class="t {% if userTeams.includes(pb.sf1.teamA) %}is-me{% endif %}">{{ pb.sf1.teamA }}</span> {% if pb.sf1.aScore != null %}<span class="br-score">{{ pb.sf1.aScore }}</span>{% elif pb.sf1.aWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+          <div class="vs">{{ pb.sf1.date }}</div>
+          <div class="seed-line{% if pb.sf1.bWon %} winner{% else %} loser{% endif %}"><span class="t {% if userTeams.includes(pb.sf1.teamB) %}is-me{% endif %}">{{ pb.sf1.teamB }}</span> {% if pb.sf1.bScore != null %}<span class="br-score">{{ pb.sf1.bScore }}</span>{% elif pb.sf1.bWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+        </div>
+        {% endif %}
+        {% if pb.sf2 %}
+        <div class="bracket-matchup slot-s2">
+          <div class="seed-line{% if pb.sf2.aWon %} winner{% else %} loser{% endif %}"><span class="seed">2</span> <span class="t {% if userTeams.includes(pb.sf2.teamA) %}is-me{% endif %}">{{ pb.sf2.teamA }}</span> {% if pb.sf2.aScore != null %}<span class="br-score">{{ pb.sf2.aScore }}</span>{% elif pb.sf2.aWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+          <div class="vs">{{ pb.sf2.date }}</div>
+          <div class="seed-line{% if pb.sf2.bWon %} winner{% else %} loser{% endif %}"><span class="t {% if userTeams.includes(pb.sf2.teamB) %}is-me{% endif %}">{{ pb.sf2.teamB }}</span> {% if pb.sf2.bScore != null %}<span class="br-score">{{ pb.sf2.bScore }}</span>{% elif pb.sf2.bWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+        </div>
+        {% endif %}
+      </div>
+
+      <div class="bracket-col col-final">
+        <div class="bracket-round">Championship</div>
+        {% if pb.champ %}
+        <div class="bracket-matchup championship">
+          <div class="seed-line{% if pb.champ.aWon %} winner{% else %} loser{% endif %}"><span class="t {% if userTeams.includes(pb.champ.teamA) %}is-me{% endif %}">{{ pb.champ.teamA }}</span> {% if pb.champ.aScore != null %}<span class="br-score">{{ pb.champ.aScore }}</span>{% elif pb.champ.aWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+          <div class="vs">{{ pb.champ.date }}</div>
+          <div class="seed-line{% if pb.champ.bWon %} winner{% else %} loser{% endif %}"><span class="t {% if userTeams.includes(pb.champ.teamB) %}is-me{% endif %}">{{ pb.champ.teamB }}</span> {% if pb.champ.bScore != null %}<span class="br-score">{{ pb.champ.bScore }}</span>{% elif pb.champ.bWon %}<span class="br-badge">W</span>{% else %}<span class="br-badge">L</span>{% endif %}</div>
+          <div class="champion-label">🏆 {{ pb.champ.winner }}</div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% elif season.league.bracket %}
   {% set br = season.league.bracket %}
   <div class="league-block">
     <h3>PROJECTED BRACKET <span class="league-sub">as of current standings</span></h3>
@@ -461,16 +705,16 @@
         <div class="mm-value">{{ m.games }}</div>
       </div>
       <div class="model-metric">
-        <div class="mm-label" title="Brier score: mean squared error of probability predictions. Lower is better.">BRIER</div>
+        <div class="mm-label" data-tip="Brier score: mean squared error of probability predictions. Lower is better.">BRIER</div>
         <div class="mm-value {% if m.brier < m.baselineBrier %}stat-good{% else %}stat-poor{% endif %}">{{ m.brier | fmtRate(3) }}</div>
         <div class="mm-sub">baseline 50/50 = {{ m.baselineBrier | fmtRate(3) }}</div>
       </div>
       <div class="model-metric">
-        <div class="mm-label" title="How much better than always-guessing-50%. Positive = skill; negative = worse than coin flip.">SKILL</div>
+        <div class="mm-label" data-tip="How much better than always-guessing-50%. Positive = skill; negative = worse than coin flip.">SKILL</div>
         <div class="mm-value {% if m.brierSkill > 0 %}stat-good{% else %}stat-poor{% endif %}">{{ "+" if m.brierSkill > 0 }}{{ m.brierSkill | fmtPct(0) }}</div>
       </div>
       <div class="model-metric">
-        <div class="mm-label" title="Percent of games where the favorite (predicted &gt; 50%) actually won.">ACC</div>
+        <div class="mm-label" data-tip="Percent of games where the favorite (predicted &gt; 50%) actually won.">ACC</div>
         <div class="mm-value {% if m.accuracy > 0.55 %}stat-good{% elif m.accuracy > 0.5 %}stat-average{% else %}stat-poor{% endif %}">{{ m.accuracy | fmtPct(0) }}</div>
       </div>
     </div>
@@ -499,7 +743,22 @@
         {% endfor %}
       </tbody>
     </table>
-    <p class="model-caveat">A well-calibrated model has ≈0% gap in every row. Negative skill here means the Pythagorean formula is noisy at small sample sizes (most teams have played 6-7 games). Expect this to improve as the season progresses.</p>
+    <p class="model-caveat">
+      A well-calibrated model has ≈0% gap in every row.
+      {% if m.brierSkill < 0 %}
+      Negative skill means the Pythagorean formula is still noisy — most teams
+      haven't played enough games for run differential to be reliable. Expect
+      this to improve as the season progresses.
+      {% elif m.brierSkill < 0.15 %}
+      Marginally better than a coin flip — the model is starting to pick up
+      signal but {{ m.games }} games isn't enough to separate real skill from
+      noise.
+      {% else %}
+      Predicted probabilities track actual outcomes closely across
+      {{ m.games }} games — the Pythagorean + record blend works in this
+      league once teams have a meaningful sample.
+      {% endif %}
+    </p>
   </div>
   {% endif %}
 

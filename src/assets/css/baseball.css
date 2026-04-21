@@ -61,11 +61,23 @@
   .sprite-flag--right { right: 8px; }
 }
 .baseball-header h2 {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   color: #c41e3a;
-  font-size: 24px;
+  font-size: 34px;
+  font-weight: 400;
   margin: 0 0 4px;
-  letter-spacing: 0.08em;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.pixel-baseball {
+  width: 40px;
+  height: 40px;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+  vertical-align: middle;
 }
 .baseball-header .player-info {
   font-family: var(--font-mono);
@@ -262,14 +274,16 @@ tr.game-detail > td {
 }
 .game-detail-meta b { color: var(--accent-pink-dark); }
 
-/* Tooltips on stat headers */
-th[data-tip] {
+/* Pixel-card tooltips — applied to any element with data-tip */
+[data-tip] {
   position: relative;
   cursor: help;
+}
+th[data-tip] {
   text-decoration: underline dotted var(--ink);
   text-underline-offset: 2px;
 }
-th[data-tip]::after {
+[data-tip]::after {
   content: attr(data-tip);
   position: absolute;
   left: 50%;
@@ -295,7 +309,7 @@ th[data-tip]::after {
   transition: opacity 100ms linear;
   z-index: 50;
 }
-th[data-tip]::before {
+[data-tip]::before {
   content: "";
   position: absolute;
   left: 50%;
@@ -308,10 +322,10 @@ th[data-tip]::before {
   transition: opacity 100ms linear;
   z-index: 51;
 }
-th[data-tip]:hover::after,
-th[data-tip]:focus::after,
-th[data-tip]:hover::before,
-th[data-tip]:focus::before { opacity: 1; }
+[data-tip]:hover::after,
+[data-tip]:focus::after,
+[data-tip]:hover::before,
+[data-tip]:focus::before { opacity: 1; }
 
 /* League block (standings + schedule) */
 .league-block { margin-top: 28px; }
@@ -730,4 +744,142 @@ tr.playoff-cutoff > td {
   color: #555;
   margin-top: 10px;
   line-height: 1.5;
+}
+
+/* Actual-results playoff bracket */
+.bracket-matchup .seed-line.winner { font-weight: 700; }
+.bracket-matchup .seed-line.winner .t { color: #0a8a0a; }
+.bracket-matchup .seed-line.loser .t { color: #888; text-decoration: line-through; }
+.bracket-matchup .br-score {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  font-weight: 700;
+  padding: 1px 8px;
+  background: var(--ink);
+  color: #fff;
+  letter-spacing: 1px;
+}
+.bracket-matchup .seed-line.winner .br-score { background: #0a8a0a; }
+.bracket-matchup .champion-label {
+  margin-top: 8px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  color: #0a8a0a;
+  letter-spacing: 1px;
+  border-top: 2px dashed var(--ink);
+  padding-top: 6px;
+}
+
+.bracket-matchup .br-badge {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  padding: 1px 8px;
+  border: 2px solid var(--ink);
+  letter-spacing: 1px;
+  background: var(--card-body);
+}
+.bracket-matchup .seed-line.winner .br-badge { background: var(--accent-green); }
+.bracket-matchup .seed-line.loser .br-badge { background: #ffc6d0; color: #8a0020; }
+
+/* Career analytics — All Time tab */
+.streak-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+@media (max-width: 720px) {
+  .streak-grid { grid-template-columns: repeat(2, 1fr); }
+}
+.streak-card {
+  padding: 14px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  text-align: center;
+}
+.streak-label {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 1px;
+  color: var(--accent-pink-dark);
+}
+.streak-value {
+  font-family: var(--font-mono);
+  font-size: 42px;
+  line-height: 1;
+  margin: 6px 0;
+}
+.streak-sub {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #555;
+}
+
+.highlights-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+}
+.highlight-group {
+  padding: 12px 14px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.highlight-group h4 {
+  margin: 0 0 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--accent-pink-dark);
+}
+.highlight-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.highlight-list li { padding: 3px 0; }
+.hl-badge {
+  display: inline-block;
+  margin-right: 6px;
+  padding: 1px 6px;
+  background: var(--accent-yellow);
+  border: 1px solid var(--ink);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.notable-list {
+  list-style: none;
+  padding: 10px 14px;
+  margin: 0;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.notable-list li {
+  display: grid;
+  grid-template-columns: 60px 90px 1fr 2fr;
+  gap: 10px;
+  padding: 5px 0;
+  border-bottom: 1px dashed #ccc;
+}
+.notable-list li:last-child { border-bottom: 0; }
+.notable-list .n-date { color: var(--accent-pink-dark); font-weight: 700; }
+.notable-list .n-season { color: #666; font-size: 12px; }
+.notable-list .n-opp { color: #444; }
+.notable-list .n-note { color: var(--ink); }
+
+@media (max-width: 720px) {
+  .notable-list li { grid-template-columns: 1fr; gap: 2px; }
 }

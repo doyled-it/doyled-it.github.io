@@ -35,7 +35,7 @@ const S = "#ccc";
 // Stitches curve outward at top/bottom like a real baseball
 const ballPixels = [
   "....KKKKKK....",
-  "..KKWrWWrWKK..",
+  "..KKWWWWWWKK..",
   ".KWrWWWWWWrWK.",
   ".KWrWWWWWWrWK.",
   "KWWrWWWWWWrWWK",
@@ -46,14 +46,14 @@ const ballPixels = [
   "KWWrWWWWWWrWWK",
   ".KWrWWWWWWrWK.",
   ".KWrWWWWWWrWK.",
-  "..KKWrWWrWKK..",
+  "..KKWWWWWWKK..",
   "....KKKKKK....",
 ];
 
 // Slightly shifted stitching for animation frame 2
 const ballPixels2 = [
   "....KKKKKK....",
-  "..KKrWWWWrKK..",
+  "..KKWWWWWWKK..",
   ".KWWrWWWWrWWK.",
   ".KWWrWWWWrWWK.",
   "KWWWrWWWWrWWWK",
@@ -64,7 +64,7 @@ const ballPixels2 = [
   "KWWWrWWWWrWWWK",
   ".KWWrWWWWrWWK.",
   ".KWWrWWWWrWWK.",
-  "..KKrWWWWrKK..",
+  "..KKWWWWWWKK..",
   "....KKKKKK....",
 ];
 

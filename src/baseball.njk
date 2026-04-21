@@ -10,12 +10,34 @@ extraJS:
   - /assets/js/baseball-tabs.js
 ---
 {% from "baseball-panel.njk" import seasonPanel with context %}
-{% set current = baseballView.currentSeason %}
-{% set currentName = baseballView.seasons[current].name %}
+{% set currentSeason = baseballView.currentSeasonView %}
+{% set career = baseballView.allTime.stats %}
+{% set careerCalc = career.calculated %}
+{% set careerGames = career.games %}
+{% set careerAnalytics = baseballView.allTime.careerAnalytics %}
+{% set nextGame = currentSeason.league.nextUserGame if currentSeason.league %}
+{% set userTeam = currentSeason.league.userTeam if currentSeason.league %}
 <main class="card baseball-card" id="main">
   {% include "titlebar.njk" %}
   <div class="card-marquee" aria-hidden="true">
-    <span>⚾ now batting... michael doyle... utility... happy sox... {{ currentName | lower }} ⚾</span>
+    <span>
+      career · {{ careerGames.played }} GP · {{ careerGames.wins }}-{{ careerGames.losses }} w-l
+      · AVG {{ careerCalc.AVG | fmtRate }}
+      · OBP {{ careerCalc.OBP | fmtRate }}
+      · SLG {{ careerCalc.SLG | fmtRate }}
+      · OPS {{ careerCalc.OPS | fmtRate }}
+      · {{ career.hitting.H }}H · {{ career.hitting.HR }}HR · {{ career.hitting.RBI }}RBI
+      {% if careerAnalytics.streaks.activeHit > 0 %}
+      · {{ careerAnalytics.streaks.activeHit }}-game hit streak
+      {% endif %}
+      {% if nextGame %}
+      · next: {{ nextGame.dow }} {{ nextGame.date }} {{ nextGame.time }}
+        {%- if nextGame.home.team == userTeam %} vs {{ nextGame.away.team }}
+        {%- else %} @ {{ nextGame.home.team }}
+        {%- endif %}
+      {% endif %}
+      ·····
+    </span>
   </div>
   <div class="card-body">
     <div class="season-tabs" role="tablist" aria-label="Season">
