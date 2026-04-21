@@ -10,6 +10,7 @@
     "build:resume-pdf": "node scripts/build-resume-pdf.mjs",
     "build:resume-pdf:new": "node scripts/build-resume-pdf-new.mjs",
     "sync:stats": "node scripts/sync-stats.mjs",
+    "fetch:golf": "node scripts/fetch-golf.mjs",
     "test": "node --test 'tests/**/*.test.mjs'"
   },
   "devDependencies": {
@@ -23,6 +24,8 @@
     "puppeteer": "^24.40.0"
   },
   "dependencies": {
+    "dotenv": "^17.4.2",
+    "ghin": "github:doyled-it/ghin#doyled-it-patches",
     "nsf-player": "^1.2.0"
   }
 }

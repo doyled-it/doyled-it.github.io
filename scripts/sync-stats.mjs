@@ -46,35 +46,21 @@ for (const src of sources) {
   console.log(`✅ ${src.name}: copied → ${src.siteFile}\n`);
 }
 
-// Golf: the GHIN API is behind Cloudflare, which blocks datacenter IPs —
-// GitHub Actions can't run the fetcher directly. From a residential IP (your
-// laptop) it still works. Run the golf-stats repo's `npm run update` which
-// fetches, commits, and pushes; then copy the resulting ghin-data.json over.
-const golfRepo = join(home, "projects/golf-stats");
-const golfSite = join(repoRoot, "src/_data/golf.json");
+// Golf: GHIN's API is behind Cloudflare and blocks datacenter IPs, so this
+// must run from a residential IP (your laptop, not CI). Hit the API directly
+// via the doyled-it/ghin fork — no sibling repo hop needed.
 const skipGolfFetch = process.argv.includes("--skip-golf-fetch");
-if (existsSync(golfRepo)) {
-  if (!skipGolfFetch) {
-    console.log(`🔄 golf: pulling + fetching fresh GHIN data...`);
-    try {
-      execSync("git pull --ff-only", { cwd: golfRepo, stdio: "inherit" });
-      execSync("npm run update", { cwd: golfRepo, stdio: "inherit" });
-    } catch {
-      console.warn(
-        `⚠️  golf: fetch failed (Cloudflare captcha, no new rounds, or network) — continuing with last known data`,
-      );
-    }
-  } else {
-    console.log(`⏩ golf: --skip-golf-fetch passed, pulling latest local only`);
-    try { execSync("git pull --ff-only", { cwd: golfRepo, stdio: "inherit" }); } catch {}
+if (!skipGolfFetch) {
+  console.log(`🏌️  golf: pulling fresh GHIN data...`);
+  try {
+    execSync("node scripts/fetch-golf.mjs", { cwd: repoRoot, stdio: "inherit" });
+  } catch {
+    console.warn(
+      `⚠️  golf: fetch failed (Cloudflare captcha, no creds, or network) — keeping existing src/_data/golf.json`,
+    );
   }
-  const from = join(golfRepo, "ghin-data.json");
-  if (existsSync(from)) {
-    copyFileSync(from, golfSite);
-    console.log(`✅ golf: copied → ${golfSite}\n`);
-  } else {
-    console.warn(`⚠️  golf: ${from} not found — skipping copy`);
-  }
+} else {
+  console.log(`⏩ golf: --skip-golf-fetch passed, leaving src/_data/golf.json as-is`);
 }
 
 // Refresh SDABL league data.
