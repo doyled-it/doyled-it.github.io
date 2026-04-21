@@ -30,7 +30,10 @@ const outPath = join(outDir, `${seasonId}.html`);
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 console.log(`🌐 launching headless browser...`);
-const browser = await puppeteer.launch({ headless: "new" });
+const browser = await puppeteer.launch({
+  headless: "new",
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
+});
 const page = await browser.newPage();
 await page.setViewport({ width: 1400, height: 2200 });
 page.setDefaultTimeout(60000);

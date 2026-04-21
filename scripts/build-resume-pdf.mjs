@@ -35,7 +35,13 @@ try {
 
   fs.mkdirSync(siteDir, { recursive: true });
 
-  const browser = await puppeteer.launch({ headless: true });
+  // --no-sandbox is required on GitHub Actions runners (Ubuntu disables
+  // unprivileged user namespaces so Chrome's default sandbox fails at
+  // startup). Safe here because we're only loading our own generated HTML.
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ["--no-sandbox", "--disable-setuid-sandbox"],
+  });
   try {
     const page = await browser.newPage();
     await page.goto(`file://${tmpHtml}`, { waitUntil: "networkidle0" });

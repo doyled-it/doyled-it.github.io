@@ -13,7 +13,10 @@ if (!fs.existsSync(printHtml)) {
   process.exit(1);
 }
 
-const browser = await puppeteer.launch({ headless: true });
+const browser = await puppeteer.launch({
+  headless: true,
+  args: ["--no-sandbox", "--disable-setuid-sandbox"],
+});
 try {
   const page = await browser.newPage();
   await page.goto(`file://${printHtml}`, { waitUntil: "networkidle0" });
