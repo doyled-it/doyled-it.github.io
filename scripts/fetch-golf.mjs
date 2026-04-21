@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Pull the latest GHIN data directly into src/_data/golf.json using the
+// Pull the latest GHIN data directly into src/_data/golf-raw.json using the
 // doyled-it fork of the `ghin` library (which accepts GHIN's current
 // response shape: NaN stat percents + "Temporary" score status).
 //
@@ -13,7 +13,7 @@ import { fileURLToPath } from "node:url";
 import { GhinClient } from "ghin";
 
 const repoRoot = join(dirname(fileURLToPath(import.meta.url)), "..");
-const out = join(repoRoot, "src/_data/golf.json");
+const out = join(repoRoot, "src/_data/golf-raw.json");
 
 const username = process.env.GHIN_USERNAME;
 const password = process.env.GHIN_PASSWORD;

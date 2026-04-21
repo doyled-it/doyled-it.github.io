@@ -563,3 +563,59 @@ a:visited { color: var(--accent-purple); }
   color: var(--accent-pink-dark);
   line-height: 1;
 }
+
+/* =========================================================================
+   Pixel-card tooltips — applied to any element with [data-tip].
+   Lives in main.css so it's available on every page.
+   ========================================================================= */
+[data-tip] {
+  position: relative;
+  cursor: help;
+}
+th[data-tip] {
+  text-decoration: underline dotted var(--ink);
+  text-underline-offset: 2px;
+}
+[data-tip]::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 8px);
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2px;
+  line-height: 1.35;
+  padding: 8px 10px;
+  width: max-content;
+  max-width: 260px;
+  white-space: normal;
+  text-align: left;
+  text-transform: none;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--accent-pink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms linear;
+  z-index: 50;
+}
+[data-tip]::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 2px);
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--ink);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 100ms linear;
+  z-index: 51;
+}
+[data-tip]:hover::after,
+[data-tip]:focus::after,
+[data-tip]:hover::before,
+[data-tip]:focus::before { opacity: 1; }

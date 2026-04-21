@@ -56,11 +56,11 @@ if (!skipGolfFetch) {
     execSync("node scripts/fetch-golf.mjs", { cwd: repoRoot, stdio: "inherit" });
   } catch {
     console.warn(
-      `⚠️  golf: fetch failed (Cloudflare captcha, no creds, or network) — keeping existing src/_data/golf.json`,
+      `⚠️  golf: fetch failed (Cloudflare captcha, no creds, or network) — keeping existing src/_data/golf-raw.json`,
     );
   }
 } else {
-  console.log(`⏩ golf: --skip-golf-fetch passed, leaving src/_data/golf.json as-is`);
+  console.log(`⏩ golf: --skip-golf-fetch passed, leaving src/_data/golf-raw.json as-is`);
 }
 
 // Refresh SDABL league data.

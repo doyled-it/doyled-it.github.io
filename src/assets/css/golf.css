@@ -138,33 +138,40 @@
 .score-over { color: #228b22; }
 .score-even { color: #666; }
 
-/* Scoring distribution bars */
-.scoring-dist { display: flex; flex-direction: column; gap: 4px; }
-.dist-bar {
+/* Scoring distribution bars — bar widths are relative to the largest bucket
+   so they use the available section width instead of hugging 0% on the left */
+.scoring-dist {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 6px;
-  height: 22px;
+  padding: 12px 14px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.dist-bar {
+  display: grid;
+  grid-template-columns: 72px 1fr 46px;
+  align-items: center;
+  gap: 10px;
+  height: 26px;
 }
 .dist-label {
-  width: 60px;
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   text-align: right;
-  flex-shrink: 0;
 }
 .dist-fill {
-  height: 16px;
-  min-width: 2px;
-  border-radius: 2px;
+  height: 22px;
+  min-width: 4px;
+  border: 2px solid var(--ink);
   transition: width 0.3s;
 }
 .dist-pct {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: 700;
   color: #333;
-  flex-shrink: 0;
-  width: 36px;
+  text-align: left;
 }
 .dist-birdie { background: #228b22; }
 .dist-par { background: #4caf50; }
@@ -196,3 +203,281 @@
   .golf-stat-box { padding: 6px; }
   .golf-stat-box .stat-value { font-size: 20px; }
 }
+
+/* --- Sub-labels on section headers --- */
+.golf-sub {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 400;
+  color: #ffd9a5;
+  margin-left: 10px;
+  letter-spacing: 0.5px;
+}
+
+/* --- SVG line charts (handicap trend, score-to-par trend) --- */
+.golf-chart {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  height: auto;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 6px;
+  box-sizing: border-box;
+  image-rendering: pixelated;
+}
+.chart-legend {
+  display: flex;
+  gap: 14px;
+  margin-top: 8px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+.legend-chip { display: inline-flex; align-items: center; gap: 6px; }
+.chip-swatch {
+  display: inline-block;
+  width: 14px; height: 4px;
+  border: 1px solid var(--ink);
+}
+
+/* --- Approach miss dispersion (compass-around-pin layout) --- */
+.miss-dispersion {
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 20px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.miss-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.miss-row-top { margin-bottom: 8px; }
+.miss-row-bot { margin-top: 8px; }
+.miss-row-mid {
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.miss-cell { flex: 1; text-align: center; }
+.miss-target {
+  font-size: 36px;
+  line-height: 1;
+}
+.miss-label {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 1px;
+  color: var(--accent-pink-dark);
+}
+.miss-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* --- Hole difficulty grid --- */
+.hole-diff-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  gap: 6px;
+}
+.hole-diff-cell {
+  padding: 6px 4px;
+  text-align: center;
+  border: 2px solid var(--ink);
+  background: var(--card-body);
+  font-family: var(--font-mono);
+}
+.hole-diff-cell.diff-easy { background: #d6f5d6; }
+.hole-diff-cell.diff-mid  { background: #fff4c2; }
+.hole-diff-cell.diff-hard { background: #ffd7d7; }
+.hd-rank {
+  font-size: 12px;
+  color: var(--accent-pink-dark);
+}
+.hd-value {
+  font-size: 20px;
+  font-weight: 700;
+}
+.hd-sub { font-size: 11px; color: #666; }
+
+/* --- Histograms (diff distribution + monthly) --- */
+.hist {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 160px;
+  padding: 10px 12px 0;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.hist-bar {
+  flex: 1;
+  min-width: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  height: 100%;
+}
+.hist-fill {
+  width: 100%;
+  background: var(--accent-pink);
+  border: 2px solid var(--ink);
+  border-bottom: 0;
+  min-height: 8px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 2px;
+}
+.hist-fill.hist-fill-month { background: var(--accent-cyan); }
+.hist-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.hist-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #555;
+  margin-top: 3px;
+  text-align: center;
+  word-break: break-word;
+}
+
+/* --- "Used in HI" row highlight --- */
+.scorecard-table tr.used-in-hi { background: #fff4c2; }
+.hi-star {
+  color: #b38600;
+  font-weight: 700;
+  cursor: help;
+}
+
+/* Green-themed tooltip box-shadow on the golf card */
+.golf-card [data-tip]::after {
+  box-shadow: 3px 3px 0 #228b22;
+}
+
+/* --- Goals --- */
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 12px;
+}
+.goal-card {
+  padding: 14px 16px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+}
+.goal-card.goal-hit {
+  background: #d6f5d6;
+}
+.goal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.goal-label {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+}
+.goal-deadline {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #228b22;
+  letter-spacing: 0.5px;
+}
+.goal-values {
+  font-family: var(--font-mono);
+  font-size: 28px;
+  text-align: center;
+  margin-bottom: 6px;
+}
+.goal-current { color: #c41e3a; font-weight: 700; }
+.goal-arrow { color: #666; margin: 0 10px; }
+.goal-target { color: #228b22; font-weight: 700; }
+.goal-track {
+  position: relative;
+  height: 22px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  margin: 6px 0;
+  overflow: hidden;
+}
+.goal-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50 0%, #228b22 100%);
+  transition: width 0.4s ease;
+}
+.goal-pct {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  text-shadow: 0 0 2px #fff;
+}
+.goal-gap {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #444;
+  text-align: center;
+}
+
+/* Refreshed goal card: bigger, richer summary + trendline */
+.goal-section .goal-card { padding: 18px 20px; }
+.goal-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 14px;
+}
+@media (max-width: 640px) {
+  .goal-summary { grid-template-columns: repeat(2, 1fr); }
+}
+.goal-summary-metric {
+  padding: 8px 10px;
+  background: #fff;
+  border: 2px solid var(--ink);
+  text-align: center;
+}
+.goal-summary-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 1px;
+  color: var(--accent-pink-dark);
+}
+.goal-summary-value {
+  font-family: var(--font-mono);
+  font-size: 22px;
+  font-weight: 700;
+  margin-top: 2px;
+}
+.goal-on-pace  { color: #0a8a0a; }
+.goal-off-pace { color: #c41e3a; }
+.goal-pace-note {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 14px;
+  padding: 10px 12px;
+  background: #fff9d6;
+  border-left: 4px solid var(--accent-pink-dark);
+}
+.goal-chart { margin-top: 4px; }
