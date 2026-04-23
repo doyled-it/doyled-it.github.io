@@ -585,8 +585,27 @@ tr.playoff-cutoff > td {
   line-height: 1.4;
 }
 @media (max-width: 720px) {
-  .bracket { flex-direction: column; }
-  .bracket-col { min-width: 0; }
+  .bracket {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 12px;
+  }
+  .bracket-col {
+    grid-template-rows: none;
+    grid-auto-rows: auto;
+    gap: 8px;
+  }
+  .col-qf .slot-q1,
+  .col-qf .slot-q2,
+  .col-qf .slot-q3,
+  .col-qf .slot-q4,
+  .col-sf .slot-s1,
+  .col-sf .slot-s2,
+  .col-final .championship {
+    grid-row: auto;
+    align-self: stretch;
+  }
+  .bracket-matchup.championship { min-height: 0; padding: 12px; }
 }
 
 /* Clinching / elimination badges */

@@ -1,7 +1,7 @@
 {
   "seasons": {
     "spring2026": {
-      "updated": "2026-04-20T22:37:45.117Z",
+      "updated": "2026-04-23T01:45:40.567Z",
       "standings": [
         {
           "rank": 1,
@@ -164,7 +164,7 @@
             "record": "3 - 2",
             "score": 6
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/28c7a990-14c9-40bc-a1c2-3df6a778e2fb"
         },
         {
@@ -183,7 +183,7 @@
             "record": "2 - 4",
             "score": 5
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/bcd26282-d00f-4fbc-b55e-5f9933bdf2be"
         },
         {
@@ -202,7 +202,7 @@
             "record": "1 - 6",
             "score": 3
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/e3298b76-2887-4b20-9e2a-d4de10682931"
         },
         {
@@ -221,7 +221,7 @@
             "record": "4 - 2",
             "score": 18
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/19b94350-1ac9-4cc7-8f71-44ddf8d16129"
         },
         {
@@ -240,7 +240,7 @@
             "record": "4 - 3",
             "score": 0
           },
-          "venue": "Santana HS \u00b7 Varsity",
+          "venue": "Santana HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/7170bbbd-550e-4b17-9832-9ddc959f67cf"
         },
         {
@@ -259,7 +259,7 @@
             "record": "4 - 3",
             "score": 5
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/fc7fbd4b-46b3-4289-9872-a4fcb46c8311"
         },
         {
@@ -278,7 +278,7 @@
             "record": "4 - 3",
             "score": 6
           },
-          "venue": "Hilton Head \u00b7 Field",
+          "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/aa82f239-31d0-4221-8830-9d487fb2c12b"
         },
         {
@@ -297,7 +297,7 @@
             "record": "2 - 4",
             "score": 3
           },
-          "venue": "Hilton Head \u00b7 Field",
+          "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/83ed82b7-2fbc-4fc0-b411-08ea669e2674"
         },
         {
@@ -316,7 +316,7 @@
             "record": "4 - 2",
             "score": 16
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/05135f6e-ff41-43ea-af84-b1a10d61a8e8"
         },
         {
@@ -335,7 +335,7 @@
             "record": "4 - 3",
             "score": 7
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/67696bfc-bfec-4534-9b5c-674e0f30efbf"
         },
         {
@@ -354,7 +354,7 @@
             "record": "2 - 5",
             "score": 13
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/9feba43f-8e19-43c3-9d06-f5b584c0df41"
         },
         {
@@ -373,7 +373,7 @@
             "record": "6 - 0",
             "score": 21
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/7ab84e01-2893-4f17-b2fc-538810076658"
         },
         {
@@ -392,7 +392,7 @@
             "record": "4 - 3",
             "score": 8
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/6660b8b3-fa86-43c3-bfbb-1e106a994228"
         },
         {
@@ -411,7 +411,7 @@
             "record": "2 - 4",
             "score": 5
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/1af32860-b988-4388-a92e-525c2595f49d"
         },
         {
@@ -430,7 +430,7 @@
             "record": "3 - 2",
             "score": 21
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/ca79a638-ff35-4cca-9029-ba37ecebbb1d"
         },
         {
@@ -449,7 +449,7 @@
             "record": "2 - 5",
             "score": 1
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/bf2020bd-5377-4a9e-813f-7960e5684283"
         },
         {
@@ -468,7 +468,7 @@
             "record": "1 - 6",
             "score": 6
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/89751b41-56fc-4994-8da8-d85d3ccb4abc"
         },
         {
@@ -487,7 +487,7 @@
             "record": "2 - 4",
             "score": 8
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/c16f5c39-06d8-403d-8ff8-60d6bbb7a393"
         },
         {
@@ -506,7 +506,7 @@
             "record": "4 - 2",
             "score": 8
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/4dfca0c6-a1e1-4868-9140-2a964c380248"
         },
         {
@@ -525,7 +525,7 @@
             "record": "4 - 3",
             "score": 11
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/b46a783d-5955-4d66-8672-29cbe51fbf87"
         },
         {
@@ -544,7 +544,7 @@
             "record": "3 - 4",
             "score": 1
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/546e1703-2d26-4b10-8b0f-5223383d258e"
         },
         {
@@ -563,7 +563,7 @@
             "record": "6 - 0",
             "score": 23
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/4578acc4-06e3-4e35-937c-f236d1703f90"
         },
         {
@@ -582,7 +582,7 @@
             "record": "2 - 5",
             "score": 11
           },
-          "venue": "Hilton Head \u00b7 Field",
+          "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/26d11858-e829-46d0-93af-8c8544d7b6b5"
         },
         {
@@ -601,7 +601,7 @@
             "record": "1 - 6",
             "score": 29
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/27d347de-8959-4f42-ac65-1666f0643a53"
         },
         {
@@ -620,7 +620,7 @@
             "record": "3 - 2",
             "score": 8
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/4843aca6-9930-44f0-8881-a1726ad7f9d8"
         },
         {
@@ -639,7 +639,7 @@
             "record": "3 - 4",
             "score": 17
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/54b50583-07be-4eb4-b0e3-7fdbbc2abaaf"
         },
         {
@@ -658,7 +658,7 @@
             "record": "6 - 0",
             "score": 24
           },
-          "venue": "San Ysidro HS \u00b7 JV",
+          "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/1a7f4060-ddd1-411a-abae-fae77c54634b"
         },
         {
@@ -677,7 +677,7 @@
             "record": "2 - 4",
             "score": 6
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/ce19aae3-2a5b-4d31-a2b3-d76e74aa88bb"
         },
         {
@@ -696,7 +696,7 @@
             "record": "3 - 2",
             "score": 18
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/43198a28-978c-4334-8abd-e17a11adb7c2"
         },
         {
@@ -715,7 +715,7 @@
             "record": "3 - 4",
             "score": 10
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/c405a8c0-7235-40a7-ba3d-b17a693b1d2e"
         },
         {
@@ -734,7 +734,7 @@
             "record": "4 - 3",
             "score": 3
           },
-          "venue": "Hilton Head \u00b7 Field",
+          "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/be16022b-53fd-4837-820a-7ce678d076f1"
         },
         {
@@ -753,7 +753,7 @@
             "record": "4 - 2",
             "score": 9
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/1e881aab-ebe4-451d-9d4c-64ce48410d69"
         },
         {
@@ -772,7 +772,7 @@
             "record": "1 - 6",
             "score": 2
           },
-          "venue": "San Ysidro HS \u00b7 JV",
+          "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/0692a7b2-b6b8-43d2-a842-bbbae6153b55"
         },
         {
@@ -791,7 +791,7 @@
             "record": "2 - 5",
             "score": 1
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/1dd8dad9-acc9-48ff-ada4-9e898d3e6210"
         },
         {
@@ -810,7 +810,7 @@
             "record": "3 - 2",
             "score": 6
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/2d9bc536-d1a6-4fa2-a65c-053918d38895"
         },
         {
@@ -829,7 +829,7 @@
             "record": "3 - 4",
             "score": 5
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/025453e7-454b-44ad-b02d-12130291e6f9"
         },
         {
@@ -848,7 +848,7 @@
             "record": "2 - 4",
             "score": 3
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/49dd9a2b-d265-42d1-b97a-67bafddd8596"
         },
         {
@@ -867,7 +867,7 @@
             "record": "4 - 3",
             "score": null
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": null
         },
         {
@@ -886,7 +886,7 @@
             "record": "4 - 3",
             "score": null
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": null
         },
         {
@@ -905,7 +905,7 @@
             "record": "4 - 2",
             "score": null
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
           "recapUrl": null
         },
         {
@@ -924,7 +924,7 @@
             "record": "2 - 4",
             "score": null
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": null
         },
         {
@@ -943,7 +943,7 @@
             "record": "4 - 3",
             "score": null
           },
-          "venue": "Monte Vista HS \u00b7 JV",
+          "venue": "Monte Vista HS · JV",
           "recapUrl": null
         },
         {
@@ -962,7 +962,7 @@
             "record": "1 - 6",
             "score": null
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": null
         },
         {
@@ -981,7 +981,7 @@
             "record": "4 - 3",
             "score": null
           },
-          "venue": "San Ysidro HS \u00b7 JV",
+          "venue": "San Ysidro HS · JV",
           "recapUrl": null
         },
         {
@@ -1000,7 +1000,7 @@
             "record": "4 - 3",
             "score": null
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": null
         },
         {
@@ -1019,7 +1019,7 @@
             "record": "2 - 4",
             "score": null
           },
-          "venue": "Chollas \u00b7 Field",
+          "venue": "Chollas · Field",
           "recapUrl": null
         },
         {
@@ -1038,7 +1038,7 @@
             "record": "4 - 3",
             "score": null
           },
-          "venue": "Presidio \u00b7 Field",
+          "venue": "Presidio · Field",
           "recapUrl": null
         },
         {
@@ -1057,7 +1057,387 @@
             "record": "4 - 2",
             "score": null
           },
-          "venue": "Mt Miguel HS \u00b7 Varsity",
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": null
+          },
+          "venue": "Montgomery HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": null
+          },
+          "venue": "Otay Ranch HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": null
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Beavers",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "2 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "2 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 0",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "4 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 6",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "The OG",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "3 - 4",
+            "score": null
+          },
+          "venue": "Presidio · Field",
           "recapUrl": null
         }
       ],

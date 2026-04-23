@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-04-20T22:37:22.203Z",
+  "lastUpdated": "2026-04-23T01:45:10.602Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -678,7 +678,7 @@
           "PC": 72
         },
         "games": {
-          "total": 6,
+          "total": 7,
           "played": 4,
           "wins": 3,
           "losses": 3,
@@ -738,7 +738,7 @@
           {
             "date": "2026-03-22",
             "opponent": "Reapers Baseball Club",
-            "location": "\"@Monte Vista HS\"",
+            "location": "Monte Vista HS",
             "result": "L",
             "score": "11-8",
             "played": false,
@@ -943,7 +943,7 @@
             "score": "14-1",
             "played": true,
             "rating": "9",
-            "notable": "",
+            "notable": "5 RBIs on 3 singles and pitched a scoreless inning",
             "stats": {
               "hitting": {
                 "AB": 3,
@@ -984,6 +984,55 @@
               },
               "avg": 1
             }
+          },
+          {
+            "date": "2026-04-26",
+            "opponent": "Fighting Friars",
+            "location": "Presidio",
+            "result": "W/L",
+            "played": false,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
           }
         ],
         "calculated": {
@@ -1010,7 +1059,7 @@
           "rangeFactor": 0.75
         }
       },
-      "gamesProcessed": 6
+      "gamesProcessed": 7
     }
   }
 }
