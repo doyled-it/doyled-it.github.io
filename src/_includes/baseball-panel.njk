@@ -436,7 +436,7 @@
   {% if season.league %}
   {% set userTeams = season.league.userTeams or [] %}
 
-  {% if season.league.schedule and season.league.schedule.length %}
+  {% if (season.league.schedule and season.league.schedule.length) or season.league.unscheduledCount %}
   <div class="league-block">
     <h3>UPCOMING SCHEDULE</h3>
     {% if season.league.difficulty %}
@@ -478,6 +478,11 @@
         <span class="schedule-venue">{{ ev.venue }}</span>
       </div>
       {% endfor %}
+      {% if season.league.unscheduledCount %}
+      <div class="schedule-unscheduled" data-tip="Remaining games in the season that the league hasn't slotted into a date/time yet">
+        + {{ season.league.unscheduledCount }} unscheduled game{% if season.league.unscheduledCount != 1 %}s{% endif %}
+      </div>
+      {% endif %}
     </div>
   </div>
   {% endif %}

@@ -446,9 +446,23 @@ function enrichLeague(league) {
     playoffBracket = { s1, s2, s3, s4, s5, s6, qf1, qf2, sf1, sf2, champ };
   }
 
+  // Unscheduled count = games the user's team has left on their slate that the league
+  // hasn't placed on a specific date yet. (totalGames is per-team.)
+  const unscheduledCount =
+    totalGames && mine
+      ? Math.max(
+          0,
+          totalGames -
+            allEvents.filter(
+              (ev) => ev.home.team === mine.team || ev.away.team === mine.team,
+            ).length,
+        )
+      : 0;
+
   return {
     ...league,
     playoffSpots,
+    unscheduledCount,
     standings: standingsEnriched,
     schedule: upcomingEnriched,
     results: resultsEnriched,
