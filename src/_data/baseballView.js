@@ -490,11 +490,20 @@ export default function () {
   const seasonIds = [
     ...new Set([...Object.keys(raw.seasons), ...Object.keys(league)]),
   ].sort((a, b) => orderKey(a) - orderKey(b));
+  const todayISO = new Date().toISOString().slice(0, 10);
   const seasons = seasonIds.map((id) => {
     const personal = raw.seasons[id];
     const leagueData = league[id];
     if (personal) {
-      return { ...personal, league: enrichLeague(leagueData) };
+      // Hide future not-yet-played games from the game log — they still live in
+      // Obsidian as prep notes but don't belong in a results table yet.
+      const stats = personal.stats;
+      if (stats?.gamesList) {
+        stats.gamesList = stats.gamesList.filter(
+          (g) => g.played || !g.date || g.date <= todayISO,
+        );
+      }
+      return { ...personal, stats, league: enrichLeague(leagueData) };
     }
     // League-only season (no personal stats). Construct a placeholder so the
     // tab can render the league block without breaking the stat-block macros.
