@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-04-26T06:37:00.446Z",
+  "lastUpdated": "2026-04-27T01:10:43.139Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -641,29 +641,29 @@
       "position": "Utility (P/IF/OF)",
       "stats": {
         "hitting": {
-          "AB": 13,
-          "H": 5,
+          "AB": 16,
+          "H": 7,
           "2B": 0,
           "3B": 0,
           "HR": 0,
-          "RBI": 8,
-          "R": 4,
+          "RBI": 9,
+          "R": 6,
           "BB": 1,
-          "K": 3,
+          "K": 4,
           "HBP": 0,
           "SF": 0,
           "SB": 5,
           "CS": 0,
-          "RISP": 9,
-          "RISP_H": 5,
+          "RISP": 10,
+          "RISP_H": 6,
           "hard_contact": 6,
-          "pitches_seen": 61
+          "pitches_seen": 76
         },
         "fielding": {
-          "PO": 1,
+          "PO": 2,
           "A": 2,
           "E": 1,
-          "TC": 3,
+          "TC": 4,
           "DP": 0
         },
         "pitching": {
@@ -679,8 +679,8 @@
         },
         "games": {
           "total": 7,
-          "played": 4,
-          "wins": 3,
+          "played": 5,
+          "wins": 4,
           "losses": 3,
           "ties": 0
         },
@@ -989,35 +989,36 @@
             "date": "2026-04-26",
             "opponent": "Fighting Friars",
             "location": "Presidio",
-            "result": "W/L",
-            "played": false,
+            "result": "W",
+            "score": "7-13",
+            "played": true,
             "rating": "",
-            "notable": "",
+            "notable": "Tracked a windy fly ball well",
             "stats": {
               "hitting": {
-                "AB": 0,
-                "H": 0,
+                "AB": 3,
+                "H": 2,
                 "2B": 0,
                 "3B": 0,
                 "HR": 0,
-                "RBI": 0,
-                "R": 0,
+                "RBI": 1,
+                "R": 2,
                 "BB": 0,
-                "K": 0,
+                "K": 1,
                 "HBP": 0,
                 "SF": 0,
                 "SB": 0,
                 "CS": 0,
-                "RISP": 0,
-                "RISP_H": 0,
+                "RISP": 1,
+                "RISP_H": 1,
                 "hard_contact": 0,
-                "pitches_seen": 0
+                "pitches_seen": 15
               },
               "fielding": {
-                "PO": 0,
+                "PO": 1,
                 "A": 0,
                 "E": 0,
-                "TC": 0,
+                "TC": 1,
                 "DP": 0
               },
               "pitching": {
@@ -1031,32 +1032,32 @@
                 "BF": 0,
                 "PC": 0
               },
-              "avg": 0
+              "avg": 0.6666666666666666
             }
           }
         ],
         "calculated": {
-          "AVG": 0.38461538461538464,
-          "OBP": 0.42857142857142855,
-          "singles": 5,
-          "tb": 5,
-          "SLG": 0.38461538461538464,
-          "OPS": 0.8131868131868132,
-          "BABIP": 0.5,
+          "AVG": 0.4375,
+          "OBP": 0.47058823529411764,
+          "singles": 7,
+          "tb": 7,
+          "SLG": 0.4375,
+          "OPS": 0.9080882352941176,
+          "BABIP": 0.5833333333333334,
           "ISO": 0,
           "XBH": 0,
           "XBH_pct": 0,
-          "BB_pct": 0.07142857142857142,
-          "K_pct": 0.21428571428571427,
-          "clutch_avg": 0.5555555555555556,
-          "contact_quality": 0.46153846153846156,
+          "BB_pct": 0.058823529411764705,
+          "K_pct": 0.23529411764705882,
+          "clutch_avg": 0.6,
+          "contact_quality": 0.375,
           "ERA": 9,
           "WHIP": 4,
           "K_BB": 0.5,
           "K9": 12,
           "BB9": 24,
           "fieldingPct": 1,
-          "rangeFactor": 0.75
+          "rangeFactor": 0.8
         }
       },
       "gamesProcessed": 7
