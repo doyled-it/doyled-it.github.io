@@ -1,0 +1,22 @@
+---
+pagination:
+  data: redirects
+  size: 1
+  alias: r
+permalink: "/{{ r.slug }}/index.html"
+eleventyExcludeFromCollections: true
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Redirecting…</title>
+<meta name="robots" content="noindex">
+<meta http-equiv="refresh" content="0; url={{ r.url | safe }}">
+<link rel="canonical" href="{{ r.url | safe }}">
+</head>
+<body>
+<p>Redirecting to <a href="{{ r.url | safe }}">{{ r.url }}</a>…</p>
+<script>location.replace({{ r.url | dump | safe }});</script>
+</body>
+</html>

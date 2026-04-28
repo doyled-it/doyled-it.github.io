@@ -1,0 +1,10 @@
+[
+  { "slug": "m",   "url": "mailto:michael@doyled-it.com" },
+  { "slug": "cal", "url": "https://cal.com/doyled-it" },
+  { "slug": "gh",  "url": "https://github.com/doyled-it" },
+  { "slug": "p",   "url": "tel:+17754506522" },
+  { "slug": "li",  "url": "https://linkedin.com/in/michaeldoyleml" },
+  { "slug": "s",   "url": "https://scholar.google.com/citations?hl=en&user=LWscs78AAAAJ" },
+  { "slug": "c",   "url": "https://doyled-it.com/card" },
+  { "slug": "w",   "url": "mailto:michael@doyled-it.com" }
+]
