@@ -93,6 +93,9 @@ eleventyExcludeFromCollections: true
   <button type="submit" id="chat-send">send</button>
 </form>
 
+<div id="cf-turnstile" data-sitekey="{{ site.turnstileSiteKey }}" data-size="invisible" data-callback="onTurnstile" style="margin-top: 8px;"></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
 <script>
   (function () {
     const log = document.getElementById("chat-log");
@@ -114,17 +117,34 @@ eleventyExcludeFromCollections: true
       return p;
     }
 
+    function getTurnstileToken() {
+      if (typeof window.turnstile === "undefined") return "";
+      try { return window.turnstile.getResponse() || ""; } catch (e) { return ""; }
+    }
+
+    function resetTurnstile() {
+      if (typeof window.turnstile === "undefined") return;
+      try { window.turnstile.reset(); } catch (e) {}
+    }
+
     async function ask(message) {
       append("you", message);
       const placeholder = append("bot", "thinking…");
       send.disabled = true;
       input.disabled = true;
       try {
+        const turnstileToken = getTurnstileToken();
+        if (!turnstileToken) {
+          placeholder.remove();
+          append("err", "still verifying you're human — give it a sec and try again");
+          return;
+        }
         const resp = await fetch("/card/chat", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ message: message }),
+          body: JSON.stringify({ message: message, turnstileToken: turnstileToken }),
         });
+        resetTurnstile();
         const data = await resp.json().catch(function () { return {}; });
         if (!resp.ok) {
           placeholder.remove();

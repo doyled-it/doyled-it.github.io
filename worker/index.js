@@ -48,6 +48,14 @@ async function handleChat(request, env) {
   if (message.length > 1000) return json({ error: "message too long (1000 char max)" }, 400);
 
   const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
+
+  // Skip Turnstile if the secret isn't configured (local dev).
+  if (env.TURNSTILE_SECRET_KEY) {
+    const token = typeof body?.turnstileToken === "string" ? body.turnstileToken : "";
+    const ok = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, token, ip);
+    if (!ok) return json({ error: "turnstile verification failed — refresh and try again" }, 403);
+  }
+
   const overLimit = await checkRateLimit(env.RATE_LIMIT, ip);
   if (overLimit) {
     return json({ error: "rate limit reached for today — try again tomorrow or email michael@doyled-it.com" }, 429);
@@ -83,6 +91,21 @@ async function handleChat(request, env) {
       return json({ error: `chat error: ${err.message}` }, 502);
     }
     return json({ error: "chat failed unexpectedly" }, 500);
+  }
+}
+
+async function verifyTurnstile(secret, token, ip) {
+  if (!token) return false;
+  try {
+    const resp = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
+      method: "POST",
+      headers: { "content-type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({ secret, response: token, remoteip: ip }),
+    });
+    const data = await resp.json();
+    return Boolean(data?.success);
+  } catch {
+    return false;
   }
 }
 
