@@ -1,6 +1,7 @@
 name = "doyled-it"
 main = "worker/index.js"
 compatibility_date = "2026-04-29"
+compatibility_flags = [ "nodejs_compat" ]
 
 [assets]
 directory = "./_site"
@@ -9,3 +10,9 @@ run_worker_first = [ "/card/chat" ]
 
 [vars]
 CARD_CHAT_DISABLED = "false"
+
+# Uncomment after creating the KV namespace and pasting the id:
+#   npx wrangler kv namespace create RATE_LIMIT
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "<paste-id-here>"

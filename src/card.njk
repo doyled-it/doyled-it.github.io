@@ -1,0 +1,161 @@
+---
+layout: layouts/card-page.njk
+title: ask me
+cardNum: 9
+cardTitle: ask.exe
+eleventyExcludeFromCollections: true
+---
+<style>
+  .chat-intro { font-size: 14px; line-height: 1.5; margin: 0 0 14px; }
+  .chat-intro code { background: rgba(0,0,0,.06); padding: 1px 4px; border-radius: 3px; }
+
+  .chat-log {
+    border: 2px solid #000;
+    background: #fff;
+    padding: 10px;
+    height: 320px;
+    overflow-y: auto;
+    font-family: "VT323", monospace;
+    font-size: 17px;
+    line-height: 1.35;
+    margin-bottom: 10px;
+  }
+  .chat-msg { margin: 0 0 10px; word-wrap: break-word; }
+  .chat-msg:last-child { margin-bottom: 0; }
+  .chat-msg .who {
+    display: inline-block;
+    font-weight: 700;
+    margin-right: 6px;
+  }
+  .chat-msg.you .who { color: #c14b8c; }
+  .chat-msg.bot .who { color: #2f7a4d; }
+  .chat-msg.err .who { color: #b53b3b; }
+
+  .chat-form { display: flex; gap: 8px; }
+  .chat-form input {
+    flex: 1;
+    border: 2px solid #000;
+    background: #fff;
+    padding: 8px 10px;
+    font-family: "VT323", monospace;
+    font-size: 17px;
+  }
+  .chat-form input:focus { outline: 2px solid #f9c845; outline-offset: -2px; }
+  .chat-form button {
+    border: 2px solid #000;
+    background: #f9c845;
+    padding: 8px 14px;
+    font-family: "Pixelify Sans", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 #000;
+  }
+  .chat-form button:active { transform: translate(1px,1px); box-shadow: 1px 1px 0 #000; }
+  .chat-form button:disabled { opacity: .5; cursor: wait; }
+
+  .chat-suggest {
+    margin: 0 0 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .chat-suggest button {
+    border: 1px dashed #000;
+    background: transparent;
+    padding: 4px 8px;
+    font-family: "VT323", monospace;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .chat-suggest button:hover { background: rgba(0,0,0,.05); }
+</style>
+
+<h2>★ ASK ME ★</h2>
+<p class="chat-intro">
+  This is a tiny chatbot that knows about Michael — work, hobbies, the usual.
+  Powered by Claude Haiku 4.5. Ask anything (within reason — for off-topic
+  questions or anything substantive, email <code>michael@doyled-it.com</code>).
+</p>
+
+<div class="chat-suggest" id="chat-suggest">
+  <button type="button" data-q="What does Michael do for work?">what does he do?</button>
+  <button type="button" data-q="What hobbies is Michael into?">hobbies?</button>
+  <button type="button" data-q="What's Michael's golf handicap?">golf handicap?</button>
+  <button type="button" data-q="How can I get in touch with Michael?">how to reach him?</button>
+</div>
+
+<div class="chat-log" id="chat-log" aria-live="polite" aria-label="Chat conversation">
+  <p class="chat-msg bot"><span class="who">bot&gt;</span>hi! ask me about michael.</p>
+</div>
+
+<form class="chat-form" id="chat-form">
+  <input type="text" id="chat-input" name="message" placeholder="ask a question…" autocomplete="off" maxlength="1000" required>
+  <button type="submit" id="chat-send">send</button>
+</form>
+
+<script>
+  (function () {
+    const log = document.getElementById("chat-log");
+    const form = document.getElementById("chat-form");
+    const input = document.getElementById("chat-input");
+    const send = document.getElementById("chat-send");
+    const suggest = document.getElementById("chat-suggest");
+
+    function append(kind, text) {
+      const p = document.createElement("p");
+      p.className = "chat-msg " + kind;
+      const who = document.createElement("span");
+      who.className = "who";
+      who.textContent = kind === "you" ? "you>" : kind === "bot" ? "bot>" : "err>";
+      p.appendChild(who);
+      p.appendChild(document.createTextNode(text));
+      log.appendChild(p);
+      log.scrollTop = log.scrollHeight;
+      return p;
+    }
+
+    async function ask(message) {
+      append("you", message);
+      const placeholder = append("bot", "thinking…");
+      send.disabled = true;
+      input.disabled = true;
+      try {
+        const resp = await fetch("/card/chat", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ message: message }),
+        });
+        const data = await resp.json().catch(function () { return {}; });
+        if (!resp.ok) {
+          placeholder.remove();
+          append("err", data.error || ("request failed (" + resp.status + ")"));
+          return;
+        }
+        placeholder.remove();
+        append("bot", (data.reply || "").trim() || "(no reply)");
+      } catch (e) {
+        placeholder.remove();
+        append("err", "network error — try again in a sec");
+      } finally {
+        send.disabled = false;
+        input.disabled = false;
+        input.focus();
+      }
+    }
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      const msg = input.value.trim();
+      if (!msg) return;
+      input.value = "";
+      ask(msg);
+    });
+
+    suggest.addEventListener("click", function (e) {
+      const btn = e.target.closest("button[data-q]");
+      if (!btn) return;
+      const q = btn.getAttribute("data-q");
+      ask(q);
+    });
+  })();
+</script>

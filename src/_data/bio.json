@@ -1,0 +1,42 @@
+{
+  "name": "Michael Doyle",
+  "location": "San Diego, California",
+  "current_role": {
+    "title": "Lead AI Research Engineer",
+    "employer": "The MITRE Corporation",
+    "since": "2018",
+    "summary": "Michael leads applied research and prototyping at MITRE, with a focus on natural language processing and large language models. Recent work spans LLMs for IT modernization and code understanding, training object detectors for neuromorphic cameras, and reinforcement learning for wildfire mitigation."
+  },
+  "background": {
+    "education": "BS/BA dual degrees in Electrical Engineering from the University of San Diego (2016).",
+    "publications": "Has published research at NAACL, NeurIPS, AMTA, and SPIE — primarily on NLP, machine translation, and applied ML.",
+    "open_source": "Maintains open-source ML tooling, including SimFire (a wildfire simulator built for RL research at MITRE)."
+  },
+  "expertise": [
+    "natural language processing",
+    "large language models",
+    "computer vision",
+    "reinforcement learning",
+    "applied machine learning",
+    "Python, PyTorch, and modern ML tooling"
+  ],
+  "hobbies": {
+    "drums": "Plays drums.",
+    "baseball": "Plays adult-league baseball — see the /baseball card on the site for current season stats, league context, and historical performance.",
+    "golf": "Active golfer — see the /golf card for current handicap, recent rounds, and stats pulled from GHIN.",
+    "archery": "Does archery.",
+    "bowling": "Bowls. Highest game to date: 234.",
+    "movies": "Watches a lot of movies — keeps a Letterboxd at https://letterboxd.com/doyled_it/.",
+    "music": "Listens to a wide range of music — see the /music card for recent and top tracks pulled from Last.fm."
+  },
+  "links": {
+    "site": "https://doyled-it.com",
+    "github": "https://github.com/doyled-it",
+    "linkedin": "https://linkedin.com/in/michaeldoyleml",
+    "scholar": "https://scholar.google.com/citations?hl=en&user=LWscs78AAAAJ",
+    "letterboxd": "https://letterboxd.com/doyled_it/",
+    "email": "michael@doyled-it.com",
+    "scheduling": "https://cal.com/doyled-it"
+  },
+  "voice_guide": "Michael's site has a HyperCard / cracktro aesthetic. Mirror that in tone: warm, terse, slightly playful, never corporate. Talk about him in third person ('Michael does X'). If asked about something not in this bio, say so honestly and point to email (michael@doyled-it.com) for anything substantive."
+}
