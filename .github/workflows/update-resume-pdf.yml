@@ -1,0 +1,43 @@
+name: Update Resume PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/_data/resume.json"
+      - "scripts/build-resume-pdf.mjs"
+      - "vendor/jsonresume-theme-full-of-it/**"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build resume PDF
+        run: npm run build:resume-pdf
+
+      - name: Commit if changed
+        run: |
+          if git diff --quiet src/resume.pdf; then
+            echo "PDF unchanged — nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/resume.pdf
+          git commit -m "chore: rebuild resume.pdf"
+          git push

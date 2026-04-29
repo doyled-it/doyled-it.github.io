@@ -34,7 +34,7 @@ jobs:
         env:
           LASTFM_USER: ${{ secrets.LASTFM_USER }}
           LASTFM_API_KEY: ${{ secrets.LASTFM_API_KEY }}
-        run: npm run build
+        run: npm run build:eleventy
 
       - uses: actions/upload-pages-artifact@v3
         with:

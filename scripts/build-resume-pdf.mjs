@@ -9,6 +9,10 @@ const projectRoot = path.dirname(fileURLToPath(import.meta.url)).replace(/\/scri
 const resumeJson = path.join(projectRoot, "src", "_data", "resume.json");
 const themeDir = path.join(projectRoot, "node_modules", "jsonresume-theme-full-of-it");
 const siteDir = path.join(projectRoot, "_site");
+// Canonical (committed) PDF lives in src/. Eleventy's passthrough copies it
+// into _site/ on every build, so deploys (CF Workers, etc.) don't need
+// Puppeteer/Chrome installed in the build env.
+const committedPdf = path.join(projectRoot, "src", "resume.pdf");
 const outputPdf = path.join(siteDir, "resume.pdf");
 
 if (!fs.existsSync(resumeJson)) {
@@ -45,13 +49,14 @@ try {
   try {
     const page = await browser.newPage();
     await page.goto(`file://${tmpHtml}`, { waitUntil: "networkidle0" });
-    await page.pdf({
-      path: outputPdf,
+    const pdfBuffer = await page.pdf({
       format: "letter",
       printBackground: true,
       margin: { top: "0.4in", right: "0.5in", bottom: "0.4in", left: "0.5in" },
     });
-    console.log(`wrote ${outputPdf}`);
+    fs.writeFileSync(committedPdf, pdfBuffer);
+    fs.writeFileSync(outputPdf, pdfBuffer);
+    console.log(`wrote ${committedPdf} and ${outputPdf}`);
   } finally {
     await browser.close();
   }

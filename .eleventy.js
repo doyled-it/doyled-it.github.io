@@ -11,6 +11,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy({ "src/resume.pdf": "resume.pdf" });
 
   eleventyConfig.addWatchTarget("src/_data/baseball.json");
   eleventyConfig.addWatchTarget("src/_data/league.json");
