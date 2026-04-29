@@ -1,6 +1,7 @@
 # build
 _site/
 .cache/
+.wrangler/
 
 # dependencies
 node_modules/
