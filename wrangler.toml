@@ -1,0 +1,11 @@
+name = "doyled-it"
+main = "worker/index.js"
+compatibility_date = "2026-04-29"
+
+[assets]
+directory = "./_site"
+binding = "ASSETS"
+run_worker_first = [ "/card/chat" ]
+
+[vars]
+CARD_CHAT_DISABLED = "false"
