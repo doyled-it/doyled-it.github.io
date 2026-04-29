@@ -11,8 +11,6 @@ run_worker_first = [ "/card/chat" ]
 [vars]
 CARD_CHAT_DISABLED = "false"
 
-# Uncomment after creating the KV namespace and pasting the id:
-#   npx wrangler kv namespace create RATE_LIMIT
-# [[kv_namespaces]]
-# binding = "RATE_LIMIT"
-# id = "<paste-id-here>"
+[[kv_namespaces]]
+binding = "RATE_LIMIT"
+id = "c407eee5592549e194ad8c2b4ee04698"
