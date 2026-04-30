@@ -155,3 +155,47 @@ test("computeTrendByWeek builds 12 weekly buckets, oldest first", () => {
   // Last bucket (most recent week) should have count = 2
   assert.equal(trend[trend.length - 1].count, 2);
 });
+
+import { buildMovieData } from "../lib/letterboxd-core.mjs";
+
+test("buildMovieData returns full data shape from RSS", async () => {
+  const fakeFetch = async () => ({
+    ok: true,
+    text: async () => fixture,
+  });
+  const fakeNow = () => new Date(2026, 3, 30).getTime(); // 2026-04-30
+
+  const data = await buildMovieData({
+    user: "test",
+    cachePath: "/tmp/letterboxd-test-cache.json",
+    fetchImpl: fakeFetch,
+    now: fakeNow,
+    ttlMs: 0, // disable cache freshness — always fetch
+  });
+
+  assert.equal(data.user, "test");
+  assert.equal(data.profileUrl, "https://letterboxd.com/test/");
+  assert.equal(data.films.length, 4);
+  assert.equal(data.hero.latest.title, "The Room");
+  assert.equal(data.hero.favoriteRecent.title, "Parasite"); // 5★
+  assert.equal(data.stats.totalInWindow, 4);
+  assert.equal(data.stats.fiveStarThisYear, 1);
+  assert.equal(data.stats.topDecade, "2010s"); // 2019 + 2015 + 2010 vs 2003
+  assert.equal(data.ratingHistogram.length, 10);
+  assert.equal(data.calendar.length, 26 * 7);
+  assert.equal(data.trendByWeek.length, 12);
+  assert.equal(data.error, null);
+});
+
+test("buildMovieData returns stale stub on fetch failure", async () => {
+  const fakeFetch = async () => { throw new Error("network down"); };
+  const data = await buildMovieData({
+    user: "test",
+    cachePath: "/tmp/letterboxd-nonexistent-cache.json",
+    fetchImpl: fakeFetch,
+    ttlMs: 0,
+  });
+  assert.equal(data.stale, true);
+  assert.equal(data.films.length, 0);
+  assert.ok(data.error);
+});
