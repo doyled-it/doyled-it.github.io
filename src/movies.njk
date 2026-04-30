@@ -143,3 +143,30 @@ extraCSS:
   <div class="movies-stat"><span class="movies-stat-num">{{ letterboxd.stats.topDecade or "—" }}</span><span class="movies-stat-label">top decade</span></div>
 </div>
 {% endif %}
+
+{# ── RECENT WATCHES POSTER WALL ───────────────────────────────────── #}
+{% if letterboxd.films and letterboxd.films.length %}
+<div class="movies-section">
+  <h3>◆ Recently Watched</h3>
+  <ul class="movies-grid-posters">
+    {% for f in letterboxd.films %}
+    <li>
+      <a class="movies-poster" href="{{ f.letterboxdUrl }}" title="{{ f.title }} ({{ f.year if f.year else '?' }})">
+        {% if f.posterUrl %}
+          <img src="{{ f.posterUrl }}" alt="" loading="lazy">
+        {% else %}
+          <span class="movies-poster-placeholder">🎞</span>
+        {% endif %}
+        {% if f.rating %}
+          <span class="movies-poster-rating">{% for i in range(0, f.rating | int) %}★{% endfor %}{% if (f.rating * 2) % 2 == 1 %}½{% endif %}</span>
+        {% endif %}
+        {% if f.liked %}<span class="movies-poster-flag movies-poster-flag--like">♥</span>{% endif %}
+        {% if f.rewatch %}<span class="movies-poster-flag movies-poster-flag--rewatch">↻</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<p class="movies-footer"><a href="{{ letterboxd.profileUrl }}">letterboxd.com/{{ letterboxd.user }} →</a></p>
