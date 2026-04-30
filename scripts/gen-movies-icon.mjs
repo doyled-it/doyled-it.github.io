@@ -28,19 +28,24 @@ const COLORS = {
 // 16×16 film reel: circular reel face with 5 visible spoke holes,
 // black outline, hub, and a few film perforations along the bottom edge
 // to suggest the strip continuing.
+// 13×13 film reel centered in cols 1-13, rows 0-12. Outer black ring,
+// dark-teal face, 4 transparent spoke "windows" (NW/NE/SW/SE) carved
+// out around a "+" of dark-teal spokes, single purple-grey hub pixel
+// at the geometric center. Rows 14-15 are the film strip with
+// sprocket-tooth perforations.
 const BITMAP = [
   "....KKKKKK......",
-  "..KKddrrddKK....",
-  ".KdrrddddrrdK...",
-  "KdrK..ld..KrdK..",
-  "KrdK.l.l.KdrdK..",
-  "KrdK.....KdrdK..",
-  "Kdrd..K..drrdK..",
-  "KrdK.....KdrdK..",
-  "KrdK.l.l.KdrdK..",
-  "KdrK..ld..KrdK..",
-  ".KdrrddddrrdK...",
-  "..KKddrrddKK....",
+  "..KKddddddKK....",
+  ".KddddddddddK...",
+  ".Kdd..dd..ddK...",
+  "Kdd...dd...ddK..",
+  "Kd....dd....dK..",
+  "KdddddrrdddddK..",
+  "Kd....dd....dK..",
+  "Kdd...dd...ddK..",
+  ".Kdd..dd..ddK...",
+  ".KddddddddddK...",
+  "..KKddddddKK....",
   "....KKKKKK......",
   "................",
   "KKKKKKKKKKKKKKKK",
