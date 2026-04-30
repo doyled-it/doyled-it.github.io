@@ -102,8 +102,10 @@ eleventyExcludeFromCollections: true
   window.onloadTurnstileCallback = function () {
     window.turnstileWidgetId = window.turnstile.render("#cf-turnstile", {
       sitekey: "{{ site.turnstileSiteKey }}",
-      // Managed widget: solves silently when it can, shows a visible
-      // checkbox when an interactive challenge is needed (e.g. behind a VPN).
+      // Invisible widget: solves silently for most visitors. When an
+      // interactive challenge is required (e.g. behind a VPN), Turnstile
+      // pops up its own overlay modal automatically.
+      size: "invisible",
       callback: function (token) { window.turnstileToken = token; },
       "error-callback": function () { window.turnstileToken = ""; },
       "expired-callback": function () { window.turnstileToken = ""; },
@@ -137,18 +139,17 @@ eleventyExcludeFromCollections: true
       if (typeof window.turnstile === "undefined" || window.turnstileWidgetId === null) {
         throw new Error("turnstile not loaded yet");
       }
-      // Wait for the widget to produce a token (it solves on render and
-      // re-solves automatically after the token is consumed by reset()).
+      // Invisible widgets only solve when explicitly executed.
+      window.turnstileToken = "";
+      window.turnstile.execute(window.turnstileWidgetId);
+      // Generous timeout: if Turnstile decides an interactive challenge is
+      // needed it pops its own modal, and the user may take a few seconds.
       const start = Date.now();
       while (!window.turnstileToken) {
-        if (Date.now() - start > 30000) throw new Error("turnstile timed out");
+        if (Date.now() - start > 60000) throw new Error("turnstile timed out");
         await new Promise(function (r) { setTimeout(r, 100); });
       }
-      const token = window.turnstileToken;
-      // Tokens are single-use; reset to start preparing the next one.
-      window.turnstileToken = "";
-      try { window.turnstile.reset(window.turnstileWidgetId); } catch (e) {}
-      return token;
+      return window.turnstileToken;
     }
 
     async function ask(message) {
