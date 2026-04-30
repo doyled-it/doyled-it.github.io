@@ -162,7 +162,7 @@ extraCSS:
   <ul class="movies-grid-posters">
     {% for f in letterboxd.films %}
     <li>
-      <a class="movies-poster" href="{{ f.letterboxdUrl }}" title="{{ f.title }} ({{ f.year if f.year else '?' }})">
+      <a class="movies-poster" href="{{ f.letterboxdUrl }}" data-tip="{{ f.title }} ({{ f.year if f.year else '?' }})">
         {% if f.posterUrl %}
           <img src="{{ f.posterUrl }}" alt="" loading="lazy">
         {% else %}

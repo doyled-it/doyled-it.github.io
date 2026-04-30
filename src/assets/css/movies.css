@@ -294,7 +294,6 @@
   aspect-ratio: 2 / 3;
   border: 2px solid #000;
   background: #fff;
-  overflow: hidden;
   text-decoration: none;
   color: inherit;
   transition: transform 100ms ease;
