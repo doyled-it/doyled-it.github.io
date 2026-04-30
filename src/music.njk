@@ -7,15 +7,160 @@ extraCSS:
   - /assets/css/music.css
 ---
 <h2>◆ Music ◆</h2>
-{% if lastfm.topGenre %}
-<p class="music-genre">Currently vibing: <strong>{{ lastfm.topGenre }}</strong></p>
-{% endif %}
 {% if lastfm.error %}
   <p><em>Music data unavailable. Set <code>LASTFM_USER</code> and <code>LASTFM_API_KEY</code> env vars and rebuild.</em></p>
 {% elif lastfm.stale %}
   <p><em>Showing cached data.</em></p>
 {% endif %}
 
+{# ── HERO ROW: top song + top album + tag cloud ──────────────────────── #}
+{% if lastfm.topTracks and lastfm.topTracks.length %}
+{% set top1 = lastfm.topTracks[0] %}
+{% set topAlb = lastfm.topAlbums[0] if lastfm.topAlbums and lastfm.topAlbums.length else none %}
+<div class="music-hero">
+  <div class="music-hero-card">
+    <div class="music-hero-label music-hero-label--obsession">★ obsession · past month</div>
+    {% if top1.image %}
+      <img class="music-hero-art" src="{{ top1.image }}" alt="" width="96" height="96" loading="lazy">
+    {% else %}
+      <div class="music-hero-art music-hero-art--placeholder">♪</div>
+    {% endif %}
+    <div class="music-hero-info">
+      <div class="music-hero-name">{{ top1.name }}</div>
+      <div class="music-hero-artist">by {{ top1.artist }}</div>
+      <div class="music-hero-plays">{{ top1.plays }} plays</div>
+      <div class="music-hero-links">
+        {% if top1.url %}<a class="music-link music-link--lfm" href="{{ top1.url }}" data-tip="open on last.fm">lfm</a>{% endif %}
+        {% if top1.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ top1.appleMusicUrl }}" data-tip="open in apple music">apl</a>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if topAlb %}
+  <div class="music-hero-card">
+    <div class="music-hero-label music-hero-label--album">♫ on rotation · past year</div>
+    {% if topAlb.image %}
+      <img class="music-hero-art" src="{{ topAlb.image }}" alt="" width="96" height="96" loading="lazy">
+    {% else %}
+      <div class="music-hero-art music-hero-art--placeholder">♪</div>
+    {% endif %}
+    <div class="music-hero-info">
+      <div class="music-hero-name">{{ topAlb.name }}</div>
+      <div class="music-hero-artist">by {{ topAlb.artist }}</div>
+      <div class="music-hero-plays">{{ topAlb.plays }} plays</div>
+      <div class="music-hero-links">
+        {% if topAlb.url %}<a class="music-link music-link--lfm" href="{{ topAlb.url }}" data-tip="open on last.fm">lfm</a>{% endif %}
+        {% if topAlb.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ topAlb.appleMusicUrl }}" data-tip="open in apple music">apl</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if lastfm.tagCloud and lastfm.tagCloud.length %}
+  {% set maxTag = lastfm.tagCloud[0].count %}
+  <div class="music-tags">
+    <div class="music-tags-title">▍ genre cloud · all time</div>
+    <ul class="music-tags-list">
+      {% for t in lastfm.tagCloud %}
+        {% set scale = (t.count / maxTag) %}
+        {% set fontSize = (11 + (scale * 14)) | round %}
+        <li class="music-tag" style="font-size: {{ fontSize }}px;">{{ t.name }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{# ── ACTIVITY HEATMAP + 12-WEEK TREND ────────────────────────────────── #}
+{% if lastfm.activityHeatmap and lastfm.activityHeatmap[0] %}
+{% set heatMax = lastfm.heatMax or 0 %}
+<div class="music-grid">
+  <div class="music-panel">
+    <div class="music-panel-title">▍ when does michael listen · past 90 days</div>
+    {% set days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] %}
+    <div class="music-heatmap">
+      <div class="music-heatmap-corner"></div>
+      {% for h in range(0, 24) %}
+        {% if h % 3 == 0 %}<div class="music-heatmap-hour-label">{{ h }}</div>{% else %}<div></div>{% endif %}
+      {% endfor %}
+      {% for row in lastfm.activityHeatmap %}
+        {% set dayIdx = loop.index0 %}
+        <div class="music-heatmap-day-label">{{ days[dayIdx] }}</div>
+        {% for v in row %}
+          {% set intensity = (v / heatMax * 4) | round if heatMax > 0 else 0 %}
+          <div class="music-heatmap-cell music-heatmap-cell--{{ intensity }}"{% if v > 0 %} data-tip="{{ days[dayIdx] }} {{ loop.index0 }}:00 PT · {{ v }} {{ 'play' if v == 1 else 'plays' }}"{% endif %}></div>
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if lastfm.trendByWeek and lastfm.trendByWeek.length %}
+  {% set trendMax = lastfm.trendMax or 0 %}
+  <div class="music-panel">
+    <div class="music-panel-title">▍ weekly listening · past 12 weeks</div>
+    <div class="music-trend">
+      {% for w in lastfm.trendByWeek %}
+        {% set h = (w.count / trendMax * 100) | round if trendMax > 0 else 0 %}
+        <div class="music-trend-col" data-tip="{{ w.count }} {{ 'play' if w.count == 1 else 'plays' }}">
+          <div class="music-trend-bar" style="height: {{ h }}%;"></div>
+        </div>
+      {% endfor %}
+    </div>
+    <div class="music-trend-axis">
+      <span>12wk ago</span><span>now</span>
+    </div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{# ── BIG STATS STRIP ─────────────────────────────────────────────────── #}
+{% if lastfm.stats and lastfm.stats.totalScrobbles %}
+<div class="music-stats">
+  <div class="music-stat">
+    <span class="music-stat-num">{{ lastfm.stats.totalScrobbles | number }}</span>
+    <span class="music-stat-label">songs played</span>
+  </div>
+  <div class="music-stat">
+    <span class="music-stat-num">{{ lastfm.stats.listeningHours | number }}</span>
+    <span class="music-stat-label">hrs listened (~)</span>
+  </div>
+  <div class="music-stat">
+    <span class="music-stat-num">{{ lastfm.stats.avgPerDay }}</span>
+    <span class="music-stat-label">songs/day avg</span>
+  </div>
+  <div class="music-stat">
+    <span class="music-stat-num">{{ lastfm.stats.discoveryRatePct }}%</span>
+    <span class="music-stat-label">new artists this mo</span>
+  </div>
+</div>
+{% endif %}
+
+{# ── TOP ARTISTS BAR CHART ───────────────────────────────────────────── #}
+{% if lastfm.topArtists and lastfm.topArtists.length %}
+{% set maxPlays = lastfm.topArtists[0].plays | int %}
+<div class="music-chart">
+  <div class="music-chart-title">▍ top artists · past month</div>
+  <ol class="music-chart-bars">
+    {% for a in lastfm.topArtists %}
+      {% set pct = ((a.plays | int) / maxPlays * 100) | round %}
+      <li class="music-chart-row">
+        <span class="music-chart-rank">#{{ loop.index }}</span>
+        <span class="music-chart-name">{{ a.name }}</span>
+        <span class="music-chart-bar"><span class="music-chart-bar-fill" style="width: {{ pct }}%"></span></span>
+        <span class="music-chart-plays">{{ a.plays }}</span>
+        <span class="music-chart-links">
+          {% if a.url %}<a class="music-link music-link--lfm" href="{{ a.url }}" title="last.fm">lfm</a>{% endif %}
+          {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+        </span>
+      </li>
+    {% endfor %}
+  </ol>
+</div>
+{% endif %}
+
+{# ── RECENTLY PLAYED ─────────────────────────────────────────────────── #}
 {% if lastfm.recent and lastfm.recent.length %}
 <div class="music-section">
   <h3>◆ Recently Played</h3>
@@ -29,21 +174,25 @@ extraCSS:
       {% endif %}
       <div class="music-item-info">
         <span class="music-item-name">
-          {% if t.nowPlaying %}<span class="now-playing-dot" title="Now playing"></span>{% endif %}
+          {% if t.nowPlaying %}<span class="now-playing-dot" data-tip="now playing"></span>{% endif %}
           {{ t.name }}
         </span>
         <span class="music-item-artist">{{ t.artist }}</span>
       </div>
       <span class="music-item-stat">{{ t.date }}</span>
+      <span class="music-item-links">
+        {% if t.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ t.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+      </span>
     </li>
     {% endfor %}
   </ul>
 </div>
 {% endif %}
 
+{# ── TOP SONGS THIS MONTH ────────────────────────────────────────────── #}
 {% if lastfm.topTracks and lastfm.topTracks.length %}
 <div class="music-section">
-  <h3>◆ Top Songs This Week</h3>
+  <h3>◆ Top Songs This Month</h3>
   <ul class="music-items">
     {% for t in lastfm.topTracks %}
     <li class="music-item">
@@ -53,37 +202,21 @@ extraCSS:
         <span class="music-item-art music-item-art--placeholder">♪</span>
       {% endif %}
       <div class="music-item-info">
-        <span class="music-item-name">{% if t.url %}<a href="{{ t.url }}">{{ t.name }}</a>{% else %}{{ t.name }}{% endif %}</span>
+        <span class="music-item-name">{{ t.name }}</span>
         <span class="music-item-artist">{{ t.artist }}</span>
       </div>
       <span class="music-item-stat">{{ t.plays }} plays</span>
+      <span class="music-item-links">
+        {% if t.url %}<a class="music-link music-link--lfm" href="{{ t.url }}" title="last.fm">lfm</a>{% endif %}
+        {% if t.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ t.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+      </span>
     </li>
     {% endfor %}
   </ul>
 </div>
 {% endif %}
 
-{% if lastfm.topArtists and lastfm.topArtists.length %}
-<div class="music-section">
-  <h3>◆ Top Artists This Month</h3>
-  <ul class="music-items">
-    {% for a in lastfm.topArtists %}
-    <li class="music-item">
-      {% if a.image %}
-        <img class="music-item-art" src="{{ a.image }}" alt="" loading="lazy" width="48" height="48">
-      {% else %}
-        <span class="music-item-art music-item-art--placeholder">♪</span>
-      {% endif %}
-      <div class="music-item-info">
-        <span class="music-item-name">{% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}</span>
-      </div>
-      <span class="music-item-stat">{{ a.plays }} plays</span>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
-
+{# ── TOP ALBUMS THIS YEAR ────────────────────────────────────────────── #}
 {% if lastfm.topAlbums and lastfm.topAlbums.length %}
 <div class="music-section">
   <h3>◆ Top Albums This Year</h3>
@@ -96,10 +229,14 @@ extraCSS:
         <span class="music-item-art music-item-art--placeholder">♪</span>
       {% endif %}
       <div class="music-item-info">
-        <span class="music-item-name">{% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}</span>
+        <span class="music-item-name">{{ a.name }}</span>
         <span class="music-item-artist">{{ a.artist }}</span>
       </div>
       <span class="music-item-stat">{{ a.plays }} plays</span>
+      <span class="music-item-links">
+        {% if a.url %}<a class="music-link music-link--lfm" href="{{ a.url }}" title="last.fm">lfm</a>{% endif %}
+        {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+      </span>
     </li>
     {% endfor %}
   </ul>

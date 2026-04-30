@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "eleventy --serve --quiet",
-    "build": "eleventy && npm run build:resume-pdf",
-    "build:eleventy": "eleventy",
+    "build": "npm run compile:bio && eleventy && npm run build:resume-pdf",
+    "build:eleventy": "npm run compile:bio && eleventy",
+    "compile:bio": "node scripts/compile-bio.mjs",
     "build:resume-pdf": "node scripts/build-resume-pdf.mjs",
     "build:resume-pdf:new": "node scripts/build-resume-pdf-new.mjs",
     "sync:stats": "node scripts/sync-stats.mjs",
@@ -25,6 +26,7 @@
     "wrangler": "^4.86.0"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.91.1",
     "dotenv": "^17.4.2",
     "ghin": "github:doyled-it/ghin#doyled-it-patches",
     "nsf-player": "^1.2.0"
