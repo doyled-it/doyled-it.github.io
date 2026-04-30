@@ -110,12 +110,12 @@
   .music-items { grid-template-columns: 1fr; }
 }
 
-/* hero "now obsessed with" card + horizontal bar chart for top artists */
+/* hero "now obsessed with" card + tag cloud */
 .music-hero {
   display: grid;
-  grid-template-columns: minmax(220px, 1fr) 2fr;
+  grid-template-columns: minmax(260px, 1fr) 1fr;
   gap: 12px;
-  margin: 0 0 12px;
+  margin: 0 0 14px;
 }
 
 .music-hero-card {
@@ -160,26 +160,24 @@
 .music-hero-info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
 .music-hero-name {
   font-family: var(--font-display);
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: 0.02em;
-  line-height: 1.1;
+  line-height: 1.15;
   word-wrap: break-word;
 }
-.music-hero-name a { color: inherit; text-decoration: none; }
-.music-hero-name a:hover { color: #c14b8c; }
-.music-hero-plays {
+.music-hero-artist {
   font-family: var(--font-mono);
   font-size: 13px;
-  color: #555;
-  margin-top: 4px;
+  color: #444;
+  margin-top: 2px;
 }
-.music-hero-genre {
+.music-hero-plays {
   font-family: var(--font-mono);
   font-size: 12px;
   color: #555;
   margin-top: 6px;
 }
-.music-hero-genre strong { color: #2f7a4d; }
+.music-hero-links { margin-top: 8px; display: flex; gap: 6px; }
 
 .music-chart {
   padding: 12px 14px;
@@ -205,7 +203,7 @@
 }
 .music-chart-row {
   display: grid;
-  grid-template-columns: 28px minmax(0, 90px) 1fr 38px;
+  grid-template-columns: 28px minmax(0, 90px) 1fr 38px auto;
   align-items: center;
   gap: 6px;
   font-family: var(--font-mono);
@@ -276,4 +274,151 @@
 @media (max-width: 540px) {
   .music-stats { grid-template-columns: repeat(2, 1fr); }
   .music-stat-num { font-size: 17px; }
+}
+
+/* tag cloud */
+.music-tags {
+  padding: 12px 14px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+}
+.music-tags-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c14b8c;
+  margin-bottom: 8px;
+}
+.music-tags-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: baseline;
+}
+.music-tag {
+  font-family: var(--font-mono);
+  color: #2f7a4d;
+  line-height: 1.2;
+}
+.music-tag:nth-child(3n) { color: #c14b8c; }
+.music-tag:nth-child(5n) { color: #b58b00; }
+
+/* heatmap + trend grid */
+.music-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 12px;
+  margin: 14px 0;
+}
+.music-panel {
+  padding: 12px 14px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+  min-width: 0;
+}
+.music-panel-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c14b8c;
+  margin-bottom: 10px;
+}
+
+/* heatmap: 25-column grid (1 day-label col + 24 hour cols), 8 rows
+   (1 hour-label row + 7 day rows) */
+.music-heatmap {
+  display: grid;
+  grid-template-columns: 28px repeat(24, 1fr);
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+.music-heatmap-corner { }
+.music-heatmap-hour-label,
+.music-heatmap-day-label {
+  font-size: 9px;
+  color: #888;
+  letter-spacing: 0.05em;
+}
+.music-heatmap-hour-label { text-align: center; }
+.music-heatmap-day-label { padding-right: 4px; align-self: center; text-align: right; }
+.music-heatmap-cell {
+  aspect-ratio: 1;
+  background: #f0ecdf;
+  border-radius: 2px;
+}
+.music-heatmap-cell--1 { background: #f6cfdc; }
+.music-heatmap-cell--2 { background: #ec9bbf; }
+.music-heatmap-cell--3 { background: #d76aa1; }
+.music-heatmap-cell--4 { background: #c14b8c; }
+
+/* trend: column of vertical bars */
+.music-trend {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 90px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+}
+.music-trend-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.music-trend-bar {
+  width: 100%;
+  background: repeating-linear-gradient(
+    180deg,
+    #c14b8c 0 4px,
+    #d76aa1 4px 8px
+  );
+  border: 1px solid #000;
+  min-height: 2px;
+}
+.music-trend-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* per-item link badges (lfm/apl) */
+.music-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  text-decoration: none;
+  border: 1px solid #000;
+  padding: 1px 5px;
+  background: #fff;
+  color: #000;
+}
+.music-link:hover { background: #f9c845; }
+.music-link--lfm { color: #c14b8c; border-color: #c14b8c; }
+.music-link--lfm:hover { background: #c14b8c; color: #fff; }
+.music-link--apl { color: #2f7a4d; border-color: #2f7a4d; }
+.music-link--apl:hover { background: #2f7a4d; color: #fff; }
+.music-item-links { display: flex; gap: 4px; margin-left: 4px; flex-shrink: 0; }
+.music-chart-links { display: flex; gap: 3px; padding-left: 4px; }
+
+@media (max-width: 720px) {
+  .music-grid { grid-template-columns: 1fr; }
+  .music-tags-list { gap: 4px 8px; }
+  .music-tag { font-size: 12px !important; }
+  .music-heatmap { grid-template-columns: 22px repeat(24, 1fr); }
+  .music-heatmap-hour-label { font-size: 7px; }
+  .music-heatmap-day-label { font-size: 8px; }
 }
