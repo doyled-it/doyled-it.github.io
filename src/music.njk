@@ -7,7 +7,14 @@ extraCSS:
   - /assets/css/music.css
 ---
 <h2>◆ Music ◆</h2>
-{% if lastfm.topGenre %}
+{% if lastfm.stats and lastfm.stats.totalScrobbles %}
+<div class="music-stats">
+  <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.totalScrobbles | number }}</span><span class="music-stat-label">total scrobbles</span></div>
+  <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.avgPerDay }}</span><span class="music-stat-label">avg / day</span></div>
+  <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.avgPerWeek }}</span><span class="music-stat-label">avg / week</span></div>
+  {% if lastfm.topGenre %}<div class="music-stat"><span class="music-stat-num">{{ lastfm.topGenre }}</span><span class="music-stat-label">top genre</span></div>{% endif %}
+</div>
+{% elif lastfm.topGenre %}
 <p class="music-genre">Currently vibing: <strong>{{ lastfm.topGenre }}</strong></p>
 {% endif %}
 {% if lastfm.error %}
@@ -43,7 +50,7 @@ extraCSS:
 
 {% if lastfm.topTracks and lastfm.topTracks.length %}
 <div class="music-section">
-  <h3>◆ Top Songs This Week</h3>
+  <h3>◆ Top Songs This Month</h3>
   <ul class="music-items">
     {% for t in lastfm.topTracks %}
     <li class="music-item">

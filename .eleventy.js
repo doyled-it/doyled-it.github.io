@@ -44,6 +44,11 @@ export default function (eleventyConfig) {
     if (!Number.isFinite(n)) return "—";
     return (n * 100).toFixed(places) + "%";
   });
+  eleventyConfig.addFilter("number", (v) => {
+    const n = Number(v);
+    if (!Number.isFinite(n)) return "—";
+    return n.toLocaleString("en-US");
+  });
 
   eleventyConfig.addCollection("words", (collection) =>
     collection
