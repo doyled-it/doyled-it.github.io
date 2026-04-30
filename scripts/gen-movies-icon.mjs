@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Generate the /movies nav icon — a 16×16 pixel-art film reel.
+// Generate the /movies nav icon — a 16×16 pixel-art old-timey film projector.
 // Mirrors scripts/gen-nav-icons.mjs conventions.
 
 import { createCanvas } from "canvas";
@@ -11,45 +11,46 @@ const c = createCanvas(SIZE, SIZE);
 const ctx = c.getContext("2d");
 ctx.imageSmoothingEnabled = false;
 
-// Color palette — chosen to sit visually with existing nav icons:
-//   K = black outline / sprockets
-//   r = reel rim (warm purple-grey)
-//   d = reel face (dark teal)
-//   l = highlight (light teal)
+// Color palette:
+//   K = black outline / hub / spokes
+//   B = projector body (dark warm grey)
+//   b = body vents / shadow
+//   r = reel face (cream)
+//   L = lens glass (light teal)
 //   . = transparent
 const COLORS = {
   K: "#1a1a1a",
-  r: "#5e4b66",
-  d: "#2d4a4d",
-  l: "#7fb3a8",
+  B: "#5a4a52",
+  b: "#3a2e34",
+  r: "#f4e8c8",
+  L: "#7fb3a8",
   ".": null,
 };
 
-// 16×16 film reel: circular reel face with 5 visible spoke holes,
-// black outline, hub, and a few film perforations along the bottom edge
-// to suggest the strip continuing.
-// 13×13 film reel centered in cols 1-13, rows 0-12. Outer black ring,
-// dark-teal face, 4 transparent spoke "windows" (NW/NE/SW/SE) carved
-// out around a "+" of dark-teal spokes, single purple-grey hub pixel
-// at the geometric center. Rows 14-15 are the film strip with
-// sprocket-tooth perforations.
+// Side-view classroom film projector silhouette:
+//  - Large top-mounted reel (9px diameter) on the left half — iconic
+//    cream circle with a black hub/cross of spokes
+//  - Reel arm/post connecting reel to body
+//  - Rectangular body (rows 9-13) running full width
+//  - Trapezoidal lens horn flaring outward to the right (rows 10-12)
+//  - Two short feet at the bottom
 const BITMAP = [
-  "....KKKKKK......",
-  "..KKddddddKK....",
-  ".KddddddddddK...",
-  ".Kdd..dd..ddK...",
-  "Kdd...dd...ddK..",
-  "Kd....dd....dK..",
-  "KdddddrrdddddK..",
-  "Kd....dd....dK..",
-  "Kdd...dd...ddK..",
-  ".Kdd..dd..ddK...",
-  ".KddddddddddK...",
-  "..KKddddddKK....",
-  "....KKKKKK......",
-  "................",
-  "KKKKKKKKKKKKKKKK",
-  "K..KK..KK..KK..K",
+  "...KKKKK........",
+  "..KrrrrrK.......",
+  ".KrrrKrrrK......",
+  ".KrKKKKKrK......",
+  ".KrrrKrrrK......",
+  "..KrrrrrK.......",
+  "...KKKKK........",
+  "....KKK.........",
+  ".KKKKKKKKKKK....",
+  ".KBBBBBBBBBK....",
+  ".KBbbbbbbbBKKK..",
+  ".KBbBBBBBbBLLLK.",
+  ".KBbbbbbbbBKKK..",
+  ".KBBBBBBBBBK....",
+  ".KKKKKKKKKKK....",
+  "..KK.....KK.....",
 ];
 
 for (let y = 0; y < BITMAP.length; y++) {
