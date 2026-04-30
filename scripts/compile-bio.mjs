@@ -9,6 +9,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { enrichScores, computeStats } from "../lib/golf-transform.mjs";
+import { buildMusicData } from "../lib/lastfm-core.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), "utf8"));
@@ -141,6 +142,26 @@ async function githubSummary() {
 }
 
 // ---- last.fm listening summary ------------------------------------------
+// Reuses the same buildMusicData the music card uses, so the chatbot's
+// view of Michael's listening matches the page exactly. We then trim
+// the rich data down to chatbot-friendly fields (no album art URLs etc.).
+
+const DAY_NAMES = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+
+function describePeak(heatmap) {
+  if (!heatmap?.length) return null;
+  // Most active hour-of-day (summed across days)
+  const hourTotals = new Array(24).fill(0);
+  for (const row of heatmap) for (let h = 0; h < 24; h++) hourTotals[h] += row[h];
+  const peakHour = hourTotals.indexOf(Math.max(...hourTotals));
+  // Most active day-of-week (summed across hours)
+  const dayTotals = heatmap.map((row) => row.reduce((a, b) => a + b, 0));
+  const peakDay = dayTotals.indexOf(Math.max(...dayTotals));
+  return {
+    peak_hour_pt: `${peakHour}:00`,
+    peak_day: DAY_NAMES[peakDay],
+  };
+}
 
 async function lastfmSummary() {
   if (!LASTFM_USER || !LASTFM_API_KEY) {
@@ -148,50 +169,52 @@ async function lastfmSummary() {
     return null;
   }
   try {
-    const base = `https://ws.audioscrobbler.com/2.0/?user=${encodeURIComponent(LASTFM_USER)}&api_key=${LASTFM_API_KEY}&format=json`;
-    const urls = [
-      `${base}&method=user.getinfo`,
-      `${base}&method=user.gettoptracks&period=1month&limit=10`,
-      `${base}&method=user.gettopartists&period=1month&limit=10`,
-      `${base}&method=user.gettopalbums&period=12month&limit=10`,
-      `${base}&method=user.gettoptags&limit=8`,
-      `${base}&method=user.getrecenttracks&limit=5`,
-    ];
-    const [info, tracks, artists, albums, tags, recent] = await Promise.all(
-      urls.map((u) => fetch(u).then((r) => r.json()))
-    );
-    const u = info?.user ?? {};
-    const totalScrobbles = parseInt(u.playcount ?? "0", 10);
-    const days = u.registered?.unixtime
-      ? Math.max(1, Math.floor((Date.now() / 1000 - parseInt(u.registered.unixtime, 10)) / 86400))
-      : 0;
+    const m = await buildMusicData({
+      user: LASTFM_USER,
+      apiKey: LASTFM_API_KEY,
+      cachePath: path.join(root, ".cache/lastfm.json"),
+    });
+    if (m.error) throw new Error(m.error);
+    const peak = describePeak(m.activityHeatmap);
     return {
       lastfm_user: LASTFM_USER,
       profile_url: `https://www.last.fm/user/${LASTFM_USER}`,
-      total_scrobbles: totalScrobbles,
-      days_scrobbling: days,
-      avg_per_day: days ? Math.round(totalScrobbles / days) : 0,
-      top_genres: (tags?.toptags?.tag ?? []).slice(0, 5).map((t) => t.name),
-      top_tracks_past_month: (tracks?.toptracks?.track ?? []).map((t) => ({
+      total_scrobbles: m.stats?.totalScrobbles,
+      days_scrobbling: m.stats?.daysScrobbling,
+      avg_songs_per_day: m.stats?.avgPerDay,
+      avg_songs_per_week: m.stats?.avgPerWeek,
+      estimated_listening_hours: m.stats?.listeningHours,
+      discovery_rate_pct: m.stats?.discoveryRatePct,
+      new_artists_this_month: m.stats?.newArtistsThisMonth,
+      ...(peak ?? {}),
+      top_genres: (m.tagCloud ?? []).slice(0, 8).map((t) => t.name),
+      top_tracks_past_month: (m.topTracks ?? []).map((t) => ({
         name: t.name,
-        artist: t.artist?.name ?? t.artist?.["#text"],
-        plays: parseInt(t.playcount ?? "0", 10),
+        artist: t.artist,
+        plays: parseInt(t.plays ?? "0", 10),
+        lastfm_url: t.url,
+        apple_music_url: t.appleMusicUrl,
       })),
-      top_artists_past_month: (artists?.topartists?.artist ?? []).map((a) => ({
+      top_artists_past_month: (m.topArtists ?? []).map((a) => ({
         name: a.name,
-        plays: parseInt(a.playcount ?? "0", 10),
+        plays: parseInt(a.plays ?? "0", 10),
+        lastfm_url: a.url,
+        apple_music_url: a.appleMusicUrl,
       })),
-      top_albums_past_year: (albums?.topalbums?.album ?? []).map((a) => ({
+      top_albums_past_year: (m.topAlbums ?? []).map((a) => ({
         name: a.name,
-        artist: a.artist?.name ?? a.artist?.["#text"],
-        plays: parseInt(a.playcount ?? "0", 10),
+        artist: a.artist,
+        plays: parseInt(a.plays ?? "0", 10),
+        lastfm_url: a.url,
+        apple_music_url: a.appleMusicUrl,
       })),
-      recently_played: (recent?.recenttracks?.track ?? []).map((t) => ({
+      recently_played: (m.recent ?? []).map((t) => ({
         name: t.name,
-        artist: t.artist?.["#text"] ?? t.artist?.name,
-        played_at: t.date?.["#text"] ?? (t["@attr"]?.nowplaying === "true" ? "now playing" : null),
+        artist: t.artist,
+        played_at: t.date,
+        now_playing: t.nowPlaying ?? false,
       })),
-      note: "Pulled from Last.fm. Full breakdown at /music.",
+      note: "Pulled from Last.fm at build time. Full breakdown at /music.",
     };
   } catch (err) {
     console.warn(`compile-bio: lastfm fetch failed (${err.message}) — bundle will omit music_listening`);
