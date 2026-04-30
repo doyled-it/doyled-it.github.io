@@ -216,13 +216,12 @@ extraCSS:
 </div>
 {% endif %}
 
-{# ── TOP ALBUMS (skip #1 — already in hero card) ─────────────────────── #}
-{% if lastfm.topAlbums and lastfm.topAlbums.length > 1 %}
+{# ── TOP ALBUMS THIS YEAR ────────────────────────────────────────────── #}
+{% if lastfm.topAlbums and lastfm.topAlbums.length %}
 <div class="music-section">
-  <h3>◆ More Albums On Rotation</h3>
+  <h3>◆ Top Albums This Year</h3>
   <ul class="music-items">
     {% for a in lastfm.topAlbums %}
-    {% if not loop.first %}
     <li class="music-item">
       {% if a.image %}
         <img class="music-item-art" src="{{ a.image }}" alt="" loading="lazy" width="48" height="48">
@@ -239,7 +238,6 @@ extraCSS:
         {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
       </span>
     </li>
-    {% endif %}
     {% endfor %}
   </ul>
 </div>
