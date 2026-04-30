@@ -260,7 +260,7 @@ async function letterboxdSummary() {
       latest_watch: trimFilm(m.hero.latest),
       favorite_recent: trimFilm(m.hero.favoriteRecent),
       recent_watches: m.films.slice(0, 20).map(trimFilm),
-      note: "Pulled from Letterboxd RSS at build time. Full grid at /movies.",
+      note: "Pulled from Letterboxd RSS at build time. The feed caps at ~50 most-recent watches — this is NOT Michael's lifetime film count, just a recent-activity window. Full grid at /movies.",
     };
   } catch (err) {
     console.warn(`compile-bio: letterboxd fetch failed (${err.message})`);

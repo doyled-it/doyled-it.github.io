@@ -176,7 +176,7 @@ function buildSystemPrompt(bio) {
     "- publications: papers Michael authored or co-authored, with summaries.",
     "- github_activity: public GitHub repos, top languages, follower count. May be null if the build couldn't reach GitHub.",
     "- music_listening: Last.fm scrobble totals + top tracks/artists/albums + recently played. May be null if Last.fm credentials weren't available at build time.",
-    "- movie_watching: Letterboxd-pulled film history. Last ~50 watches with title/year/rating/date, plus aggregate stats (films this year, top decade, avg rating). May be null if RSS fetch failed.",
+    "- movie_watching: Letterboxd RSS feed — capped at ~50 most-recent watches (NOT Michael's lifetime film count). Each entry has title/year/rating/date. Aggregate stats (films_this_year, top_decade, avg_rating) are computed across this window only. Don't claim he's only seen N films total — the feed just shows recent activity. May be null if RSS fetch failed.",
     "",
     "Tone:",
     bio.voice_guide,
