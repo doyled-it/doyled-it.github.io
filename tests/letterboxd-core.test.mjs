@@ -166,11 +166,13 @@ const SAMPLE_PROFILE_HTML = `
 <h4 class="profile-statistic statistic"><a href="/doyled_it/followers/"><span class="value">60</span><span class="definition title-all-caps -small">Followers</span></a></h4>
 `;
 
-test("parseProfileStats extracts all 3 fields from sample HTML", () => {
+test("parseProfileStats extracts all 5 fields from sample HTML", () => {
   const s = parseProfileStats(SAMPLE_PROFILE_HTML);
   assert.equal(s.filmsTotal, 854);
   assert.equal(s.thisYear, 32);
   assert.equal(s.lists, 33);
+  assert.equal(s.following, 69);
+  assert.equal(s.followers, 60);
 });
 
 test("parseProfileStats returns nulls for missing fields", () => {
@@ -179,6 +181,8 @@ test("parseProfileStats returns nulls for missing fields", () => {
   assert.equal(s.filmsTotal, 100);
   assert.equal(s.thisYear, null);
   assert.equal(s.lists, null);
+  assert.equal(s.following, null);
+  assert.equal(s.followers, null);
 });
 
 test("parseProfileStats returns null on empty / non-string input", () => {
@@ -193,7 +197,9 @@ import { buildMovieData } from "../lib/letterboxd-core.mjs";
 test("buildMovieData returns full data shape from RSS", async () => {
   const profileStub = `<span class="value">777</span><span class="definition title-all-caps -small">Films</span>
 <span class="value">12</span><span class="definition title-all-caps -small">This year</span>
-<span class="value">5</span><span class="definition title-all-caps -small">Lists</span>`;
+<span class="value">5</span><span class="definition title-all-caps -small">Lists</span>
+<span class="value">42</span><span class="definition title-all-caps -small">Following</span>
+<span class="value">99</span><span class="definition title-all-caps -small">Followers</span>`;
   const fakeFetch = async (url) => {
     if (url.endsWith("/rss/")) {
       return { ok: true, text: async () => fixture };
@@ -225,6 +231,8 @@ test("buildMovieData returns full data shape from RSS", async () => {
   assert.equal(data.profileStats.filmsTotal, 777);
   assert.equal(data.profileStats.thisYear, 12);
   assert.equal(data.profileStats.lists, 5);
+  assert.equal(data.profileStats.following, 42);
+  assert.equal(data.profileStats.followers, 99);
 });
 
 test("buildMovieData returns stale stub on fetch failure", async () => {

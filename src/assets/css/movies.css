@@ -255,7 +255,7 @@
   font-family: var(--font-mono);
 }
 .movies-stat-num {
-  font-family: var(--font-display);
+  font-family: var(--font-mono);
   font-size: 20px;
   letter-spacing: 0.03em;
   color: #c14b8c;
@@ -279,11 +279,14 @@
 }
 .movies-grid-posters {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 8px;
   list-style: none;
   padding: 0;
   margin: 0;
+}
+@media (max-width: 600px) {
+  .movies-grid-posters { grid-template-columns: repeat(2, 1fr); }
 }
 .movies-poster {
   position: relative;
