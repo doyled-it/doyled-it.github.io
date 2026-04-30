@@ -154,31 +154,43 @@ eleventyExcludeFromCollections: true
       return token;
     }
 
+    let sessionToken = "";
+
     async function ask(message) {
       append("you", message);
       const placeholder = append("bot", "thinking…");
       send.disabled = true;
       input.disabled = true;
       try {
-        let turnstileToken;
-        try {
-          turnstileToken = await getFreshTurnstileToken();
-        } catch (e) {
-          placeholder.remove();
-          append("err", "couldn't verify you're human — refresh the page and try again");
-          return;
+        // Reuse the session token if we have one; only solve Turnstile when
+        // we don't (first message of the session, or after expiry).
+        const body = { message: message };
+        if (sessionToken) {
+          body.sessionToken = sessionToken;
+        } else {
+          try {
+            body.turnstileToken = await getFreshTurnstileToken();
+          } catch (e) {
+            placeholder.remove();
+            append("err", "couldn't verify you're human — refresh the page and try again");
+            return;
+          }
         }
         const resp = await fetch("/card/chat", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ message: message, turnstileToken: turnstileToken }),
+          body: JSON.stringify(body),
         });
         const data = await resp.json().catch(function () { return {}; });
         if (!resp.ok) {
+          // Server told us our session expired — drop it so the next send
+          // will solve Turnstile again.
+          if (resp.status === 403) sessionToken = "";
           placeholder.remove();
           append("err", data.error || ("request failed (" + resp.status + ")"));
           return;
         }
+        if (data.sessionToken) sessionToken = data.sessionToken;
         placeholder.remove();
         append("bot", (data.reply || "").trim() || "(no reply)");
       } catch (e) {

@@ -49,11 +49,21 @@ async function handleChat(request, env) {
 
   const ip = request.headers.get("cf-connecting-ip") ?? "unknown";
 
-  // Skip Turnstile if the secret isn't configured (local dev).
+  // Two ways in: a fresh Turnstile token (first message), or a session
+  // token issued after an earlier successful Turnstile check. Session
+  // tokens let the user keep chatting without re-verifying every send.
+  let sessionToken = typeof body?.sessionToken === "string" ? body.sessionToken : "";
+
   if (env.TURNSTILE_SECRET_KEY) {
-    const token = typeof body?.turnstileToken === "string" ? body.turnstileToken : "";
-    const ok = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, token, ip);
-    if (!ok) return json({ error: "turnstile verification failed — refresh and try again" }, 403);
+    if (sessionToken && env.RATE_LIMIT) {
+      const valid = await sessionExists(env.RATE_LIMIT, sessionToken);
+      if (!valid) return json({ error: "session expired — refresh the page and verify again" }, 403);
+    } else {
+      const turnstileToken = typeof body?.turnstileToken === "string" ? body.turnstileToken : "";
+      const ok = await verifyTurnstile(env.TURNSTILE_SECRET_KEY, turnstileToken, ip);
+      if (!ok) return json({ error: "turnstile verification failed — refresh and try again" }, 403);
+      sessionToken = await issueSession(env.RATE_LIMIT);
+    }
   }
 
   const overLimit = await checkRateLimit(env.RATE_LIMIT, ip);
@@ -80,6 +90,7 @@ async function handleChat(request, env) {
 
     return json({
       reply: text,
+      sessionToken,
       stop_reason: response.stop_reason,
       usage: response.usage,
     });
@@ -107,6 +118,20 @@ async function verifyTurnstile(secret, token, ip) {
   } catch {
     return false;
   }
+}
+
+// Session tokens — issued after Turnstile verify, valid for 1 hour. KV-backed.
+async function issueSession(kv) {
+  if (!kv) return "";
+  const token = crypto.randomUUID();
+  await kv.put(`sess:${token}`, "1", { expirationTtl: 60 * 60 });
+  return token;
+}
+
+async function sessionExists(kv, token) {
+  if (!kv || !token) return false;
+  const v = await kv.get(`sess:${token}`);
+  return Boolean(v);
 }
 
 // 5 messages per IP per day. Best-effort; no-op if KV isn't bound (local dev).
