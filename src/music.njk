@@ -102,7 +102,7 @@ extraCSS:
     <div class="music-trend">
       {% for w in lastfm.trendByWeek %}
         {% set h = (w.count / trendMax * 100) | round if trendMax > 0 else 0 %}
-        <div class="music-trend-col" data-tip="{{ w.count }} {{ 'play' if w.count == 1 else 'plays' }} · week of {{ (w.startUts * 1000) | dateToISOString | slice(0, 10) }}">
+        <div class="music-trend-col" data-tip="{{ w.count }} {{ 'play' if w.count == 1 else 'plays' }}">
           <div class="music-trend-bar" style="height: {{ h }}%;"></div>
         </div>
       {% endfor %}
