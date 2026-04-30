@@ -18,7 +18,7 @@ import bio from "../src/_data/bio-bundle.json";
 
 const MODEL = "claude-haiku-4-5";
 const MAX_TOKENS = 600;
-const RATE_LIMIT_PER_DAY = 5;
+const RATE_LIMIT_PER_DAY = 50;
 const SYSTEM_PROMPT = buildSystemPrompt(bio);
 
 export default {
