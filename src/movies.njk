@@ -1,0 +1,183 @@
+---
+layout: layouts/card-page.njk
+title: movies
+cardNum: 10
+cardTitle: movies
+extraCSS:
+  - /assets/css/movies.css
+---
+{% set days = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"] %}
+{% set monthNames = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"] %}
+
+<h2>◆ Movies ◆</h2>
+{% if letterboxd.error %}
+  <p><em>Movie data unavailable. Letterboxd RSS failed at build time.</em></p>
+{% elif letterboxd.stale %}
+  <p><em>Showing cached data.</em></p>
+{% endif %}
+
+{# ── HERO ROW ─────────────────────────────────────────────────────── #}
+{% set latest = letterboxd.hero.latest %}
+{% set fav = letterboxd.hero.favoriteRecent %}
+{% if latest %}
+<div class="movies-hero">
+  <div class="movies-hero-card">
+    <div class="movies-hero-label">★ latest watch</div>
+    {% if latest.posterUrl %}
+      <img class="movies-hero-art" src="{{ latest.posterUrl }}" alt="" width="96" height="144" loading="lazy">
+    {% else %}
+      <div class="movies-hero-art movies-hero-art--placeholder">🎞</div>
+    {% endif %}
+    <div class="movies-hero-info">
+      <div class="movies-hero-name">{{ latest.title }}</div>
+      <div class="movies-hero-meta">{{ latest.year if latest.year else "" }}</div>
+      <div class="movies-hero-stars">
+        {% if latest.rating %}
+          {% for i in range(0, latest.rating | int) %}★{% endfor %}{% if (latest.rating * 2) % 2 == 1 %}½{% endif %}
+        {% else %}
+          <span style="color:#888">unrated</span>
+        {% endif %}
+        {% if latest.liked %} <span class="heart">♥</span>{% endif %}
+        {% if latest.rewatch %} <span class="rewatch">↻</span>{% endif %}
+      </div>
+      <div class="movies-hero-date">watched {{ latest.watchedDate }}</div>
+      <div class="movies-hero-links">
+        {% if latest.letterboxdUrl %}<a class="movies-link" href="{{ latest.letterboxdUrl }}" data-tip="open on letterboxd">lfm</a>{% endif %}
+      </div>
+    </div>
+  </div>
+
+  {% if fav %}
+  <div class="movies-hero-card">
+    <div class="movies-hero-label movies-hero-label--favorite">♥ favorite recent</div>
+    {% if fav.posterUrl %}
+      <img class="movies-hero-art" src="{{ fav.posterUrl }}" alt="" width="96" height="144" loading="lazy">
+    {% else %}
+      <div class="movies-hero-art movies-hero-art--placeholder">🎞</div>
+    {% endif %}
+    <div class="movies-hero-info">
+      <div class="movies-hero-name">{{ fav.title }}</div>
+      <div class="movies-hero-meta">{{ fav.year if fav.year else "" }}</div>
+      <div class="movies-hero-stars">
+        {% for i in range(0, fav.rating | int) %}★{% endfor %}{% if (fav.rating * 2) % 2 == 1 %}½{% endif %}
+        {% if fav.liked %} <span class="heart">♥</span>{% endif %}
+        {% if fav.rewatch %} <span class="rewatch">↻</span>{% endif %}
+      </div>
+      <div class="movies-hero-date">watched {{ fav.watchedDate }}</div>
+      <div class="movies-hero-links">
+        {% if fav.letterboxdUrl %}<a class="movies-link" href="{{ fav.letterboxdUrl }}" data-tip="open on letterboxd">lfm</a>{% endif %}
+      </div>
+    </div>
+  </div>
+  {% endif %}
+
+  {% if letterboxd.ratingHistogram and letterboxd.ratingHistogram.length and letterboxd.histMax %}
+  <div class="movies-hist">
+    <div class="movies-hero-label movies-hero-label--hist">▍ rating distribution</div>
+    <div class="movies-hist-bars">
+      {% for b in letterboxd.ratingHistogram %}
+        {% set h = (b.count / letterboxd.histMax * 100) | round if letterboxd.histMax else 0 %}
+        <div class="movies-hist-col">
+          {% if b.count > 0 %}
+            <div class="movies-hist-bar" style="height: {{ h }}%;" data-tip="{{ b.count }} {{ 'film' if b.count == 1 else 'films' }} at {{ b.rating }}★"></div>
+          {% else %}
+            <div class="movies-hist-bar" style="height: 0;"></div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="movies-hist-axis"><span>½★</span><span>5★</span></div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{# ── CALENDAR + WEEKLY TREND ──────────────────────────────────────── #}
+{% if letterboxd.calendar and letterboxd.calendar.length %}
+<div class="movies-grid">
+  <div class="movies-panel">
+    <div class="movies-panel-title">▍ when does michael watch · past 6 months</div>
+    <div class="movies-cal">
+      {% for dayIdx in range(0, 7) %}
+        <div class="movies-cal-day-label">{{ days[dayIdx] }}</div>
+        {% for weekIdx in range(0, 26) %}
+          {% set idx = weekIdx * 7 + dayIdx %}
+          {% set cell = letterboxd.calendar[idx] %}
+          {% if cell %}
+            {% set intensity = (cell.count / letterboxd.calendarMax * 4) | round if letterboxd.calendarMax > 0 else 0 %}
+            <div class="movies-cal-cell movies-cal-cell--{{ intensity }}"{% if cell.count > 0 %} data-tip="{{ cell.date }} · {{ cell.count }} {{ 'film' if cell.count == 1 else 'films' }}"{% endif %}></div>
+          {% endif %}
+        {% endfor %}
+      {% endfor %}
+    </div>
+  </div>
+
+  {% if letterboxd.trendByWeek and letterboxd.trendByWeek.length %}
+  <div class="movies-panel">
+    <div class="movies-panel-title">▍ weekly viewing · past 12 weeks</div>
+    <div class="movies-trend">
+      {% for w in letterboxd.trendByWeek %}
+        {% set h = (w.count / letterboxd.trendMax * 100) | round if letterboxd.trendMax > 0 else 0 %}
+        <div class="movies-trend-col">
+          {% if w.count > 0 %}
+            <div class="movies-trend-bar" style="height: {{ h }}%;" data-tip="{{ w.count }} {{ 'film' if w.count == 1 else 'films' }}"></div>
+          {% else %}
+            <div class="movies-trend-bar" style="height: 0;"></div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <div class="movies-trend-axis"><span>12wk ago</span><span>now</span></div>
+  </div>
+  {% endif %}
+</div>
+{% endif %}
+
+{# ── STATS STRIP ──────────────────────────────────────────────────── #}
+{% if letterboxd.profileStats %}
+<div class="movies-stats">
+  <div class="movies-stat">
+    <span class="movies-stat-num">{{ letterboxd.profileStats.filmsTotal or "—" }}</span>
+    <span class="movies-stat-label">films watched</span>
+  </div>
+  <div class="movies-stat">
+    <span class="movies-stat-num">{{ letterboxd.profileStats.thisYear or "—" }}</span>
+    <span class="movies-stat-label">this year</span>
+  </div>
+  <div class="movies-stat">
+    <span class="movies-stat-num">{{ letterboxd.profileStats.lists or "—" }}</span>
+    <span class="movies-stat-label">lists</span>
+  </div>
+  <div class="movies-stat">
+    <span class="movies-stat-num">{{ letterboxd.profileStats.followers or "—" }}</span>
+    <span class="movies-stat-label">followers</span>
+  </div>
+</div>
+{% endif %}
+
+{# ── RECENT WATCHES POSTER WALL ───────────────────────────────────── #}
+{% if letterboxd.films and letterboxd.films.length %}
+<div class="movies-section">
+  <h3>◆ Recently Watched</h3>
+  <ul class="movies-grid-posters">
+    {% for f in letterboxd.films %}
+    <li>
+      <a class="movies-poster" href="{{ f.letterboxdUrl }}" data-tip="{{ f.title }} ({{ f.year if f.year else '?' }})">
+        {% if f.posterUrl %}
+          <img src="{{ f.posterUrl }}" alt="" loading="lazy">
+        {% else %}
+          <span class="movies-poster-placeholder">🎞</span>
+        {% endif %}
+        {% if f.rating %}
+          <span class="movies-poster-rating">{% for i in range(0, f.rating | int) %}★{% endfor %}{% if (f.rating * 2) % 2 == 1 %}½{% endif %}</span>
+        {% endif %}
+        {% if f.liked %}<span class="movies-poster-flag movies-poster-flag--like">♥</span>{% endif %}
+        {% if f.rewatch %}<span class="movies-poster-flag movies-poster-flag--rewatch">↻</span>{% endif %}
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
+
+<p class="movies-footer"><a href="{{ letterboxd.profileUrl }}">letterboxd.com/{{ letterboxd.user }} →</a></p>

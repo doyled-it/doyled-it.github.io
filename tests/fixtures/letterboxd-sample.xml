@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:letterboxd="https://letterboxd.com" xmlns:tmdb="https://themoviedb.org">
+	<channel>
+		<title>Letterboxd - Test User</title>
+		<link>https://letterboxd.com/test/</link>
+		<description>Letterboxd - Test User</description>
+		<atom:link rel="self" href="https://letterboxd.com/test/rss/" type="application/rss+xml"/>
+
+		<item>
+			<title>The Room, 2003 - ½</title>
+			<link>https://letterboxd.com/test/film/the-room/</link>
+			<guid isPermaLink="false">letterboxd-review-1</guid>
+			<pubDate>Tue, 21 Apr 2026 15:13:26 +1200</pubDate>
+			<letterboxd:watchedDate>2026-04-18</letterboxd:watchedDate>
+			<letterboxd:rewatch>Yes</letterboxd:rewatch>
+			<letterboxd:filmTitle>The Room</letterboxd:filmTitle>
+			<letterboxd:filmYear>2003</letterboxd:filmYear>
+			<letterboxd:memberRating>0.5</letterboxd:memberRating>
+			<letterboxd:memberLike>Yes</letterboxd:memberLike>
+			<tmdb:movieId>17473</tmdb:movieId>
+			<description><![CDATA[ <p><img src="https://example.com/posters/the-room.jpg"/></p> <p>Some review text we should not extract.</p> ]]></description>
+			<dc:creator>Test User</dc:creator>
+		</item>
+
+		<item>
+			<title>Parasite, 2019 - ★★★★★</title>
+			<link>https://letterboxd.com/test/film/parasite-2019/</link>
+			<guid isPermaLink="false">letterboxd-review-2</guid>
+			<pubDate>Wed, 15 Apr 2026 21:00:00 +0000</pubDate>
+			<letterboxd:watchedDate>2026-04-15</letterboxd:watchedDate>
+			<letterboxd:filmTitle>Parasite</letterboxd:filmTitle>
+			<letterboxd:filmYear>2019</letterboxd:filmYear>
+			<letterboxd:memberRating>5.0</letterboxd:memberRating>
+			<letterboxd:memberLike>Yes</letterboxd:memberLike>
+			<tmdb:movieId>496243</tmdb:movieId>
+			<description><![CDATA[ <p><img src="https://example.com/posters/parasite.jpg"/></p> ]]></description>
+			<dc:creator>Test User</dc:creator>
+		</item>
+
+		<item>
+			<title>Some Unrated Film, 2015</title>
+			<link>https://letterboxd.com/test/film/unrated/</link>
+			<guid isPermaLink="false">letterboxd-review-3</guid>
+			<pubDate>Sun, 12 Apr 2026 10:00:00 +0000</pubDate>
+			<letterboxd:watchedDate>2026-04-10</letterboxd:watchedDate>
+			<letterboxd:filmTitle>Some Unrated Film</letterboxd:filmTitle>
+			<letterboxd:filmYear>2015</letterboxd:filmYear>
+			<tmdb:movieId>99999</tmdb:movieId>
+			<description><![CDATA[ <p>No poster img and no rating.</p> ]]></description>
+			<dc:creator>Test User</dc:creator>
+		</item>
+
+		<item>
+			<title>Amp;Ersand &amp; Friends, 2010 - ★★★½</title>
+			<link>https://letterboxd.com/test/film/ampersand/</link>
+			<guid isPermaLink="false">letterboxd-review-4</guid>
+			<pubDate>Mon, 02 Mar 2026 22:00:00 +0000</pubDate>
+			<letterboxd:watchedDate>2026-03-02</letterboxd:watchedDate>
+			<letterboxd:filmTitle>Amp;Ersand &amp; Friends</letterboxd:filmTitle>
+			<letterboxd:filmYear>2010</letterboxd:filmYear>
+			<letterboxd:memberRating>3.5</letterboxd:memberRating>
+			<tmdb:movieId>12345</tmdb:movieId>
+			<description><![CDATA[ <p><img src="https://example.com/posters/ampersand.jpg"/></p> ]]></description>
+			<dc:creator>Test User</dc:creator>
+		</item>
+
+	</channel>
+</rss>

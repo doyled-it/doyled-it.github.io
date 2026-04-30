@@ -151,8 +151,8 @@ extraCSS:
         <span class="music-chart-bar"><span class="music-chart-bar-fill" style="width: {{ pct }}%"></span></span>
         <span class="music-chart-plays">{{ a.plays }}</span>
         <span class="music-chart-links">
-          {% if a.url %}<a class="music-link music-link--lfm" href="{{ a.url }}" title="last.fm">lfm</a>{% endif %}
-          {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+          {% if a.url %}<a class="music-link music-link--lfm" href="{{ a.url }}" data-tip="open on last.fm">lfm</a>{% endif %}
+          {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" data-tip="open in apple music">apl</a>{% endif %}
         </span>
       </li>
     {% endfor %}
@@ -181,7 +181,7 @@ extraCSS:
       </div>
       <span class="music-item-stat">{{ t.date }}</span>
       <span class="music-item-links">
-        {% if t.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ t.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+        {% if t.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ t.appleMusicUrl }}" data-tip="open in apple music">apl</a>{% endif %}
       </span>
     </li>
     {% endfor %}
@@ -207,8 +207,8 @@ extraCSS:
       </div>
       <span class="music-item-stat">{{ t.plays }} plays</span>
       <span class="music-item-links">
-        {% if t.url %}<a class="music-link music-link--lfm" href="{{ t.url }}" title="last.fm">lfm</a>{% endif %}
-        {% if t.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ t.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+        {% if t.url %}<a class="music-link music-link--lfm" href="{{ t.url }}" data-tip="open on last.fm">lfm</a>{% endif %}
+        {% if t.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ t.appleMusicUrl }}" data-tip="open in apple music">apl</a>{% endif %}
       </span>
     </li>
     {% endfor %}
@@ -234,8 +234,8 @@ extraCSS:
       </div>
       <span class="music-item-stat">{{ a.plays }} plays</span>
       <span class="music-item-links">
-        {% if a.url %}<a class="music-link music-link--lfm" href="{{ a.url }}" title="last.fm">lfm</a>{% endif %}
-        {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" title="apple music">apl</a>{% endif %}
+        {% if a.url %}<a class="music-link music-link--lfm" href="{{ a.url }}" data-tip="open on last.fm">lfm</a>{% endif %}
+        {% if a.appleMusicUrl %}<a class="music-link music-link--apl" href="{{ a.appleMusicUrl }}" data-tip="open in apple music">apl</a>{% endif %}
       </span>
     </li>
     {% endfor %}

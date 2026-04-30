@@ -10,6 +10,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { enrichScores, computeStats } from "../lib/golf-transform.mjs";
 import { buildMusicData } from "../lib/lastfm-core.mjs";
+import { buildMovieData } from "../lib/letterboxd-core.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => JSON.parse(fs.readFileSync(path.join(root, p), "utf8"));
@@ -22,6 +23,7 @@ const resume = read("src/_data/resume.json");
 const GITHUB_USER = "doyled-it";
 const LASTFM_USER = process.env.LASTFM_USER;
 const LASTFM_API_KEY = process.env.LASTFM_API_KEY;
+const LETTERBOXD_USER = "doyled_it";
 
 // ---- baseball summary ---------------------------------------------------
 
@@ -222,9 +224,60 @@ async function lastfmSummary() {
   }
 }
 
+// ---- letterboxd watching summary ----------------------------------------
+
+function trimFilm(f) {
+  if (!f) return null;
+  return {
+    title: f.title,
+    year: f.year,
+    rating: f.rating,
+    liked: f.liked,
+    rewatch: f.rewatch,
+    watched_date: f.watchedDate,
+    letterboxd_url: f.letterboxdUrl,
+  };
+}
+
+async function letterboxdSummary() {
+  try {
+    const m = await buildMovieData({
+      user: LETTERBOXD_USER,
+      cachePath: path.join(root, ".cache/letterboxd.json"),
+    });
+    if (m.error) throw new Error(m.error);
+    return {
+      letterboxd_user: LETTERBOXD_USER,
+      profile_url: m.profileUrl,
+      profile_stats: m.profileStats || null,
+      films_total: m.profileStats?.filmsTotal ?? null,
+      this_year_total: m.profileStats?.thisYear ?? null,
+      films_in_window: m.stats.totalInWindow,
+      films_this_year: m.stats.thisYear,
+      films_this_month: m.stats.thisMonth,
+      five_star_this_year: m.stats.fiveStarThisYear,
+      top_decade: m.stats.topDecade,
+      avg_rating: m.stats.avgRating,
+      liked_count: m.stats.likedCount,
+      rewatch_count: m.stats.rewatchCount,
+      latest_watch: trimFilm(m.hero.latest),
+      favorite_recent: trimFilm(m.hero.favoriteRecent),
+      recent_watches: m.films.slice(0, 20).map(trimFilm),
+      note: "Pulled at build time. profile_stats has lifetime totals from letterboxd.com/<user>/. The other fields (films_in_window, recent_watches, etc.) come from the RSS feed which caps at ~50 most-recent watches. Use profile_stats.films_total when asked about lifetime total. Full grid at /movies.",
+    };
+  } catch (err) {
+    console.warn(`compile-bio: letterboxd fetch failed (${err.message})`);
+    return null;
+  }
+}
+
 // ---- assemble + write ---------------------------------------------------
 
-const [github_activity, music_listening] = await Promise.all([githubSummary(), lastfmSummary()]);
+const [github_activity, music_listening, movie_watching] = await Promise.all([
+  githubSummary(),
+  lastfmSummary(),
+  letterboxdSummary(),
+]);
 
 const bundle = {
   ...bio,
@@ -233,6 +286,7 @@ const bundle = {
   publications: publications(),
   github_activity,
   music_listening,
+  movie_watching,
 };
 
 const outPath = path.join(root, "src/_data/bio-bundle.json");

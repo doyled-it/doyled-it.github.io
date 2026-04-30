@@ -1,0 +1,341 @@
+/*
+ * /movies card styling. Mirrors the visual idiom of music.css with
+ * .movies-* selectors (no shared classes — clean separation).
+ */
+
+/* ─── HERO ROW ─────────────────────────────────────────────────────── */
+.movies-hero {
+  display: grid;
+  grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr) minmax(220px, 1fr);
+  gap: 12px;
+  margin: 0 0 14px;
+}
+@media (max-width: 960px) {
+  .movies-hero { grid-template-columns: 1fr 1fr; }
+  .movies-hero > .movies-hist { grid-column: 1 / -1; }
+}
+@media (max-width: 600px) {
+  .movies-hero { grid-template-columns: 1fr; }
+}
+
+.movies-hero-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  padding: 14px;
+  background: linear-gradient(135deg, #fff 0%, #fff5e0 100%);
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.movies-hero-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: #f9c845;
+  border: 2px solid #000;
+  font-family: var(--font-display);
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  padding: 1px 6px;
+  text-transform: uppercase;
+  color: #000;
+}
+.movies-hero-label--favorite { background: #ffc8d6; }
+.movies-hero-label--hist     { background: #c8e0ff; }
+
+.movies-hero-art {
+  width: 96px;
+  height: 144px;
+  object-fit: cover;
+  border: 2px solid #000;
+  background: #fff;
+  image-rendering: pixelated;
+}
+.movies-hero-art--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: #c14b8c;
+}
+
+.movies-hero-info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.movies-hero-name {
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+  word-wrap: break-word;
+}
+.movies-hero-meta {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #444;
+  margin-top: 2px;
+}
+.movies-hero-stars {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #c14b8c;
+  margin-top: 6px;
+  letter-spacing: 0.04em;
+}
+.movies-hero-stars .heart  { color: #c14b8c; }
+.movies-hero-stars .rewatch { color: #2f7a4d; }
+.movies-hero-date {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #555;
+  margin-top: 4px;
+}
+.movies-hero-links { margin-top: 8px; display: flex; gap: 6px; }
+
+/* ─── RATING HISTOGRAM (hero subcard 3) ───────────────────────────── */
+.movies-hist {
+  position: relative;
+  padding: 14px;
+  background: #fff;
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+}
+.movies-hist-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 110px;
+  border-bottom: 1px solid #000;
+  padding-top: 18px;
+}
+.movies-hist-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.movies-hist-bar {
+  width: 100%;
+  background: repeating-linear-gradient(
+    180deg,
+    #c14b8c 0 4px,
+    #d76aa1 4px 8px
+  );
+  border: 1px solid #000;
+  min-height: 2px;
+}
+.movies-hist-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ─── PER-ITEM LINK BADGES (lfm) ──────────────────────────────────── */
+.movies-link {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+  text-decoration: none;
+  border: 1px solid #c14b8c;
+  padding: 1px 5px;
+  background: #fff;
+  color: #c14b8c;
+}
+.movies-link:hover { background: #c14b8c; color: #fff; }
+/* ─── CALENDAR + TREND GRID ───────────────────────────────────────── */
+.movies-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: 12px;
+  margin: 14px 0;
+}
+@media (max-width: 720px) { .movies-grid { grid-template-columns: 1fr; } }
+
+.movies-panel {
+  padding: 12px 14px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+  min-width: 0;
+  overflow-x: auto;
+}
+.movies-panel-title {
+  font-family: var(--font-display);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c14b8c;
+  margin-bottom: 10px;
+}
+
+/* 26-week calendar: 27-col grid (1 day-label + 26 week cols) × 7 rows */
+.movies-cal {
+  display: grid;
+  grid-template-columns: 28px repeat(26, 1fr);
+  gap: 2px;
+  font-family: var(--font-mono);
+}
+.movies-cal-corner {}
+.movies-cal-day-label {
+  font-size: 9px;
+  color: #888;
+  letter-spacing: 0.05em;
+  align-self: center;
+  text-align: right;
+  padding-right: 4px;
+}
+.movies-cal-cell {
+  aspect-ratio: 1;
+  background: #f0ecdf;
+  border-radius: 2px;
+}
+.movies-cal-cell--1 { background: #f6cfdc; }
+.movies-cal-cell--2 { background: #ec9bbf; }
+.movies-cal-cell--3 { background: #d76aa1; }
+.movies-cal-cell--4 { background: #c14b8c; }
+
+/* Weekly trend — same shape as music card's */
+.movies-trend {
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  height: 90px;
+  border-bottom: 1px solid #000;
+  padding-bottom: 2px;
+}
+.movies-trend-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+}
+.movies-trend-bar {
+  width: 100%;
+  background: repeating-linear-gradient(
+    180deg,
+    #c14b8c 0 4px,
+    #d76aa1 4px 8px
+  );
+  border: 1px solid #000;
+  min-height: 2px;
+}
+.movies-trend-axis {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #888;
+  margin-top: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ─── STATS STRIP (single row of 5) ────────────────────────────────── */
+.movies-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 8px;
+  margin: 0 0 16px;
+  padding: 10px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 3px 3px 0 #000;
+}
+.movies-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+.movies-stat-num {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  letter-spacing: 0.03em;
+  color: #c14b8c;
+  line-height: 1.1;
+}
+.movies-stat-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #555;
+  margin-top: 2px;
+}
+
+/* ─── POSTER WALL ─────────────────────────────────────────────────── */
+.movies-section { margin-bottom: 16px; }
+.movies-section h3 {
+  font-family: var(--font-display);
+  font-size: 14px;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+.movies-grid-posters {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (max-width: 600px) {
+  .movies-grid-posters { grid-template-columns: repeat(2, 1fr); }
+}
+.movies-poster {
+  position: relative;
+  display: block;
+  aspect-ratio: 2 / 3;
+  border: 2px solid #000;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 100ms ease;
+}
+.movies-poster:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0 #000;
+}
+.movies-poster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.movies-poster-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 28px;
+  color: #c14b8c;
+  background: #fff5e0;
+}
+.movies-poster-rating,
+.movies-poster-flag {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding: 1px 4px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  border: 1px solid #000;
+  letter-spacing: 0.04em;
+}
+.movies-poster-rating { bottom: 4px; left: 4px; }
+.movies-poster-flag--like   { top: 4px; left: 4px; color: #ffb6cf; }
+.movies-poster-flag--rewatch { top: 4px; right: 4px; color: #b8e0c0; }
+
+/* ─── FOOTER LINK ──────────────────────────────────────────────────── */
+.movies-footer {
+  margin-top: 16px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+}
