@@ -93,8 +93,23 @@ eleventyExcludeFromCollections: true
   <button type="submit" id="chat-send">send</button>
 </form>
 
-<div id="cf-turnstile" data-sitekey="{{ site.turnstileSiteKey }}" data-size="invisible" data-callback="onTurnstile" style="margin-top: 8px;"></div>
-<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<div id="cf-turnstile" style="margin-top: 8px;"></div>
+<script>
+  // Explicit-render mode: we need the widget id so we can call execute()
+  // on every submit (invisible widgets only auto-solve once per render).
+  window.turnstileToken = "";
+  window.turnstileWidgetId = null;
+  window.onloadTurnstileCallback = function () {
+    window.turnstileWidgetId = window.turnstile.render("#cf-turnstile", {
+      sitekey: "{{ site.turnstileSiteKey }}",
+      size: "invisible",
+      callback: function (token) { window.turnstileToken = token; },
+      "error-callback": function () { window.turnstileToken = ""; },
+      "expired-callback": function () { window.turnstileToken = ""; },
+    });
+  };
+</script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" async defer></script>
 
 <script>
   (function () {
@@ -117,14 +132,20 @@ eleventyExcludeFromCollections: true
       return p;
     }
 
-    function getTurnstileToken() {
-      if (typeof window.turnstile === "undefined") return "";
-      try { return window.turnstile.getResponse() || ""; } catch (e) { return ""; }
-    }
-
-    function resetTurnstile() {
-      if (typeof window.turnstile === "undefined") return;
-      try { window.turnstile.reset(); } catch (e) {}
+    async function getFreshTurnstileToken() {
+      if (typeof window.turnstile === "undefined" || window.turnstileWidgetId === null) {
+        throw new Error("turnstile not loaded yet");
+      }
+      // Always ask for a fresh challenge — the previous token was either
+      // already consumed or may have expired.
+      window.turnstileToken = "";
+      window.turnstile.execute(window.turnstileWidgetId);
+      const start = Date.now();
+      while (!window.turnstileToken) {
+        if (Date.now() - start > 10000) throw new Error("turnstile timed out");
+        await new Promise(function (r) { setTimeout(r, 100); });
+      }
+      return window.turnstileToken;
     }
 
     async function ask(message) {
@@ -133,10 +154,12 @@ eleventyExcludeFromCollections: true
       send.disabled = true;
       input.disabled = true;
       try {
-        const turnstileToken = getTurnstileToken();
-        if (!turnstileToken) {
+        let turnstileToken;
+        try {
+          turnstileToken = await getFreshTurnstileToken();
+        } catch (e) {
           placeholder.remove();
-          append("err", "still verifying you're human — give it a sec and try again");
+          append("err", "couldn't verify you're human — refresh the page and try again");
           return;
         }
         const resp = await fetch("/card/chat", {
@@ -144,7 +167,6 @@ eleventyExcludeFromCollections: true
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ message: message, turnstileToken: turnstileToken }),
         });
-        resetTurnstile();
         const data = await resp.json().catch(function () { return {}; });
         if (!resp.ok) {
           placeholder.remove();
