@@ -89,7 +89,7 @@ extraCSS:
         <div class="music-heatmap-day-label">{{ days[dayIdx] }}</div>
         {% for v in row %}
           {% set intensity = (v / heatMax * 4) | round if heatMax > 0 else 0 %}
-          <div class="music-heatmap-cell music-heatmap-cell--{{ intensity }}" data-tip="{{ days[dayIdx] }} {{ loop.index0 }}:00 PT · {{ v }} {{ 'play' if v == 1 else 'plays' }}"></div>
+          <div class="music-heatmap-cell music-heatmap-cell--{{ intensity }}"{% if v > 0 %} data-tip="{{ days[dayIdx] }} {{ loop.index0 }}:00 PT · {{ v }} {{ 'play' if v == 1 else 'plays' }}"{% endif %}></div>
         {% endfor %}
       {% endfor %}
     </div>
