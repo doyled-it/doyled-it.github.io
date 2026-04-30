@@ -102,7 +102,8 @@ eleventyExcludeFromCollections: true
   window.onloadTurnstileCallback = function () {
     window.turnstileWidgetId = window.turnstile.render("#cf-turnstile", {
       sitekey: "{{ site.turnstileSiteKey }}",
-      size: "invisible",
+      // Managed widget: solves silently when it can, shows a visible
+      // checkbox when an interactive challenge is needed (e.g. behind a VPN).
       callback: function (token) { window.turnstileToken = token; },
       "error-callback": function () { window.turnstileToken = ""; },
       "expired-callback": function () { window.turnstileToken = ""; },
@@ -136,16 +137,18 @@ eleventyExcludeFromCollections: true
       if (typeof window.turnstile === "undefined" || window.turnstileWidgetId === null) {
         throw new Error("turnstile not loaded yet");
       }
-      // Always ask for a fresh challenge — the previous token was either
-      // already consumed or may have expired.
-      window.turnstileToken = "";
-      window.turnstile.execute(window.turnstileWidgetId);
+      // Wait for the widget to produce a token (it solves on render and
+      // re-solves automatically after the token is consumed by reset()).
       const start = Date.now();
       while (!window.turnstileToken) {
-        if (Date.now() - start > 10000) throw new Error("turnstile timed out");
+        if (Date.now() - start > 30000) throw new Error("turnstile timed out");
         await new Promise(function (r) { setTimeout(r, 100); });
       }
-      return window.turnstileToken;
+      const token = window.turnstileToken;
+      // Tokens are single-use; reset to start preparing the next one.
+      window.turnstileToken = "";
+      try { window.turnstile.reset(window.turnstileWidgetId); } catch (e) {}
+      return token;
     }
 
     async function ask(message) {
