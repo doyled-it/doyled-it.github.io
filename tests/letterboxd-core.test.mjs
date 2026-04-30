@@ -107,3 +107,51 @@ test("computeRatingHistogram returns 10 buckets from 0.5 to 5.0", () => {
   assert.equal(hist[9].count, 2);
   assert.equal(hist[1].count, 0); // 1.0 bucket empty
 });
+
+import {
+  computeCalendar,
+  computeTrendByWeek,
+} from "../lib/letterboxd-core.mjs";
+
+test("computeCalendar builds 26-week × 7-day grid ending today", () => {
+  // Mock now = 2026-04-30 (Thu)
+  const now = new Date(2026, 3, 30);
+  const films = [
+    { watchedDate: "2026-04-18" },  // recent — should land in calendar
+    { watchedDate: "2026-04-18" },  // same day, count = 2
+    { watchedDate: "2026-04-15" },  // recent
+    { watchedDate: "2025-09-01" },  // outside 26-week window — excluded
+  ];
+  const cal = computeCalendar(films, now);
+  assert.equal(cal.length, 26 * 7);
+  // Find the cell for 2026-04-18
+  const cell = cal.find((c) => c.date === "2026-04-18");
+  assert.ok(cell, "expected 2026-04-18 cell to exist");
+  assert.equal(cell.count, 2);
+  // Find the cell for 2026-04-15
+  const cell2 = cal.find((c) => c.date === "2026-04-15");
+  assert.ok(cell2);
+  assert.equal(cell2.count, 1);
+});
+
+test("computeCalendar excludes films with null watchedDate", () => {
+  const now = new Date(2026, 3, 30);
+  const films = [{ watchedDate: null }, { watchedDate: "2026-04-15" }];
+  const cal = computeCalendar(films, now);
+  const cell = cal.find((c) => c.date === "2026-04-15");
+  assert.equal(cell.count, 1);
+});
+
+test("computeTrendByWeek builds 12 weekly buckets, oldest first", () => {
+  const now = new Date(2026, 3, 30);
+  const films = [
+    { watchedDate: "2026-04-29" }, // this week
+    { watchedDate: "2026-04-28" }, // this week
+    { watchedDate: "2026-04-15" }, // 2 weeks ago
+    { watchedDate: "2025-12-01" }, // outside 12 weeks — excluded
+  ];
+  const trend = computeTrendByWeek(films, now);
+  assert.equal(trend.length, 12);
+  // Last bucket (most recent week) should have count = 2
+  assert.equal(trend[trend.length - 1].count, 2);
+});
