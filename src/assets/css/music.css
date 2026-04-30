@@ -110,6 +110,138 @@
   .music-items { grid-template-columns: 1fr; }
 }
 
+/* hero "now obsessed with" card + horizontal bar chart for top artists */
+.music-hero {
+  display: grid;
+  grid-template-columns: minmax(220px, 1fr) 2fr;
+  gap: 12px;
+  margin: 0 0 12px;
+}
+
+.music-hero-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 12px;
+  padding: 14px;
+  background: linear-gradient(135deg, #fff 0%, #fff5e0 100%);
+  border: 2px solid #000;
+  box-shadow: 4px 4px 0 #000;
+}
+.music-hero-label {
+  position: absolute;
+  top: -10px;
+  left: 10px;
+  background: #f9c845;
+  border: 2px solid #000;
+  font-family: var(--font-display);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  padding: 1px 6px;
+  text-transform: uppercase;
+  color: #000;
+}
+.music-hero-art {
+  width: 96px;
+  height: 96px;
+  object-fit: cover;
+  border: 2px solid #000;
+  background: #fff;
+  image-rendering: pixelated;
+}
+.music-hero-art--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-size: 36px;
+  color: #c14b8c;
+}
+.music-hero-info { display: flex; flex-direction: column; justify-content: center; min-width: 0; }
+.music-hero-name {
+  font-family: var(--font-display);
+  font-size: 20px;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+  word-wrap: break-word;
+}
+.music-hero-name a { color: inherit; text-decoration: none; }
+.music-hero-name a:hover { color: #c14b8c; }
+.music-hero-plays {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #555;
+  margin-top: 4px;
+}
+.music-hero-genre {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: #555;
+  margin-top: 6px;
+}
+.music-hero-genre strong { color: #2f7a4d; }
+
+.music-chart {
+  padding: 12px 14px;
+  border: 2px solid #000;
+  background: #fff;
+  box-shadow: 4px 4px 0 #000;
+}
+.music-chart-title {
+  font-family: var(--font-display);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #c14b8c;
+  margin-bottom: 8px;
+}
+.music-chart-bars {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.music-chart-row {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 90px) 1fr 38px;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 13px;
+}
+.music-chart-rank { color: #999; }
+.music-chart-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.music-chart-name a { color: inherit; text-decoration: none; }
+.music-chart-name a:hover { color: #c14b8c; }
+.music-chart-bar {
+  position: relative;
+  height: 14px;
+  background: #f4f1ea;
+  border: 1px solid #000;
+  overflow: hidden;
+}
+.music-chart-bar-fill {
+  display: block;
+  height: 100%;
+  background: repeating-linear-gradient(
+    90deg,
+    #c14b8c 0 4px,
+    #d76aa1 4px 8px
+  );
+  border-right: 1px solid #000;
+}
+.music-chart-plays { text-align: right; color: #555; }
+
+@media (max-width: 720px) {
+  .music-hero { grid-template-columns: 1fr; }
+  .music-hero-card { grid-template-columns: 64px 1fr; padding: 12px; }
+  .music-hero-art { width: 64px; height: 64px; }
+  .music-hero-name { font-size: 16px; }
+  .music-chart-row { grid-template-columns: 24px minmax(0, 80px) 1fr 32px; font-size: 11px; }
+}
+
 .music-stats {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));

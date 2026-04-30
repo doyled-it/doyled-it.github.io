@@ -7,12 +7,48 @@ extraCSS:
   - /assets/css/music.css
 ---
 <h2>◆ Music ◆</h2>
+
+{% if lastfm.topArtists and lastfm.topArtists.length %}
+{% set top1 = lastfm.topArtists[0] %}
+{% set maxPlays = lastfm.topArtists[0].plays | int %}
+<div class="music-hero">
+  <div class="music-hero-card">
+    <div class="music-hero-label">★ now obsessed with</div>
+    {% if top1.image %}
+      <img class="music-hero-art" src="{{ top1.image }}" alt="" width="96" height="96" loading="lazy">
+    {% else %}
+      <div class="music-hero-art music-hero-art--placeholder">♪</div>
+    {% endif %}
+    <div class="music-hero-info">
+      <div class="music-hero-name">{% if top1.url %}<a href="{{ top1.url }}">{{ top1.name }}</a>{% else %}{{ top1.name }}{% endif %}</div>
+      <div class="music-hero-plays">{{ top1.plays }} plays · past month</div>
+      {% if lastfm.topGenre %}<div class="music-hero-genre">vibe: <strong>{{ lastfm.topGenre }}</strong></div>{% endif %}
+    </div>
+  </div>
+
+  <div class="music-chart">
+    <div class="music-chart-title">▍ top artists · past month</div>
+    <ol class="music-chart-bars">
+      {% for a in lastfm.topArtists %}
+        {% set pct = ((a.plays | int) / maxPlays * 100) | round %}
+        <li class="music-chart-row">
+          <span class="music-chart-rank">#{{ loop.index }}</span>
+          <span class="music-chart-name">{% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}</span>
+          <span class="music-chart-bar"><span class="music-chart-bar-fill" style="width: {{ pct }}%"></span></span>
+          <span class="music-chart-plays">{{ a.plays }}</span>
+        </li>
+      {% endfor %}
+    </ol>
+  </div>
+</div>
+{% endif %}
+
 {% if lastfm.stats and lastfm.stats.totalScrobbles %}
 <div class="music-stats">
-  <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.totalScrobbles | number }}</span><span class="music-stat-label">total scrobbles</span></div>
+  <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.totalScrobbles | number }}</span><span class="music-stat-label">scrobbles all-time</span></div>
+  <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.daysScrobbling | number }}</span><span class="music-stat-label">days on last.fm</span></div>
   <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.avgPerDay }}</span><span class="music-stat-label">avg / day</span></div>
   <div class="music-stat"><span class="music-stat-num">{{ lastfm.stats.avgPerWeek }}</span><span class="music-stat-label">avg / week</span></div>
-  {% if lastfm.topGenre %}<div class="music-stat"><span class="music-stat-num">{{ lastfm.topGenre }}</span><span class="music-stat-label">top genre</span></div>{% endif %}
 </div>
 {% elif lastfm.topGenre %}
 <p class="music-genre">Currently vibing: <strong>{{ lastfm.topGenre }}</strong></p>
@@ -64,27 +100,6 @@ extraCSS:
         <span class="music-item-artist">{{ t.artist }}</span>
       </div>
       <span class="music-item-stat">{{ t.plays }} plays</span>
-    </li>
-    {% endfor %}
-  </ul>
-</div>
-{% endif %}
-
-{% if lastfm.topArtists and lastfm.topArtists.length %}
-<div class="music-section">
-  <h3>◆ Top Artists This Month</h3>
-  <ul class="music-items">
-    {% for a in lastfm.topArtists %}
-    <li class="music-item">
-      {% if a.image %}
-        <img class="music-item-art" src="{{ a.image }}" alt="" loading="lazy" width="48" height="48">
-      {% else %}
-        <span class="music-item-art music-item-art--placeholder">♪</span>
-      {% endif %}
-      <div class="music-item-info">
-        <span class="music-item-name">{% if a.url %}<a href="{{ a.url }}">{{ a.name }}</a>{% else %}{{ a.name }}{% endif %}</span>
-      </div>
-      <span class="music-item-stat">{{ a.plays }} plays</span>
     </li>
     {% endfor %}
   </ul>
