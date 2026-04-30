@@ -93,20 +93,25 @@ eleventyExcludeFromCollections: true
   <button type="submit" id="chat-send">send</button>
 </form>
 
-<div id="cf-turnstile" style="margin-top: 8px;"></div>
+<div id="cf-turnstile-wrap" style="margin-top: 8px;">
+  <div id="cf-turnstile"></div>
+</div>
 <script>
-  // Explicit-render mode: we need the widget id so we can call execute()
-  // on every submit (invisible widgets only auto-solve once per render).
+  // Explicit-render so we get the widget id (needed for reset on session
+  // expiry). Managed widget: solves silently when it can, shows a visible
+  // checkbox for harder cases (VPN traffic etc.).
   window.turnstileToken = "";
   window.turnstileWidgetId = null;
   window.onloadTurnstileCallback = function () {
     window.turnstileWidgetId = window.turnstile.render("#cf-turnstile", {
       sitekey: "{{ site.turnstileSiteKey }}",
-      // Managed widget: solves silently when it can (small green check),
-      // falls back to a visible checkbox when interactive challenge needed.
-      // We tried `size: "invisible"`, but that fails silently behind VPNs
-      // when an interactive challenge is required.
-      callback: function (token) { window.turnstileToken = token; },
+      callback: function (token) {
+        window.turnstileToken = token;
+        // Hide the widget as soon as we have a token — we only need to
+        // solve once per session, so the box just clutters the chat.
+        const wrap = document.getElementById("cf-turnstile-wrap");
+        if (wrap) wrap.style.display = "none";
+      },
       "error-callback": function () { window.turnstileToken = ""; },
       "expired-callback": function () { window.turnstileToken = ""; },
     });
@@ -183,9 +188,14 @@ eleventyExcludeFromCollections: true
         });
         const data = await resp.json().catch(function () { return {}; });
         if (!resp.ok) {
-          // Server told us our session expired — drop it so the next send
-          // will solve Turnstile again.
-          if (resp.status === 403) sessionToken = "";
+          // Server told us our session expired — drop it and re-show the
+          // Turnstile widget so the next send can solve a new challenge.
+          if (resp.status === 403) {
+            sessionToken = "";
+            const wrap = document.getElementById("cf-turnstile-wrap");
+            if (wrap) wrap.style.display = "";
+            try { window.turnstile.reset(window.turnstileWidgetId); } catch (e) {}
+          }
           placeholder.remove();
           append("err", data.error || ("request failed (" + resp.status + ")"));
           return;
