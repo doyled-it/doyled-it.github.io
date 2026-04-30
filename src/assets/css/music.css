@@ -110,12 +110,16 @@
   .music-items { grid-template-columns: 1fr; }
 }
 
-/* hero "now obsessed with" card + tag cloud */
+/* hero row: top song + top album + tag cloud */
 .music-hero {
   display: grid;
-  grid-template-columns: minmax(260px, 1fr) 1fr;
+  grid-template-columns: minmax(240px, 1fr) minmax(240px, 1fr) minmax(220px, 1fr);
   gap: 12px;
   margin: 0 0 14px;
+}
+@media (max-width: 960px) {
+  .music-hero { grid-template-columns: 1fr 1fr; }
+  .music-hero > .music-tags { grid-column: 1 / -1; }
 }
 
 .music-hero-card {
@@ -135,12 +139,14 @@
   background: #f9c845;
   border: 2px solid #000;
   font-family: var(--font-display);
-  font-size: 11px;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  letter-spacing: 0.06em;
   padding: 1px 6px;
   text-transform: uppercase;
   color: #000;
 }
+.music-hero-label--album { background: #c8e0ff; }
+.music-hero-label--obsession { background: #f9c845; }
 .music-hero-art {
   width: 96px;
   height: 96px;
