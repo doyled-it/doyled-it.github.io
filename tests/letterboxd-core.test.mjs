@@ -156,13 +156,50 @@ test("computeTrendByWeek builds 12 weekly buckets, oldest first", () => {
   assert.equal(trend[trend.length - 1].count, 2);
 });
 
+import { parseProfileStats } from "../lib/letterboxd-core.mjs";
+
+const SAMPLE_PROFILE_HTML = `
+<h4 class="profile-statistic statistic"><a href="/doyled_it/films/"><span class="value">854</span><span class="definition title-all-caps -small">Films</span></a></h4>
+<h4 class="profile-statistic statistic"><a href="/doyled_it/diary/for/2026/"><span class="value">32</span><span class="definition title-all-caps -small">This year</span></a></h4>
+<h4 class="profile-statistic statistic"><a href="/doyled_it/lists/"><span class="value">33</span><span class="definition title-all-caps -small">Lists</span></a></h4>
+<h4 class="profile-statistic statistic"><a href="/doyled_it/following/"><span class="value">69</span><span class="definition title-all-caps -small">Following</span></a></h4>
+<h4 class="profile-statistic statistic"><a href="/doyled_it/followers/"><span class="value">60</span><span class="definition title-all-caps -small">Followers</span></a></h4>
+`;
+
+test("parseProfileStats extracts all 3 fields from sample HTML", () => {
+  const s = parseProfileStats(SAMPLE_PROFILE_HTML);
+  assert.equal(s.filmsTotal, 854);
+  assert.equal(s.thisYear, 32);
+  assert.equal(s.lists, 33);
+});
+
+test("parseProfileStats returns nulls for missing fields", () => {
+  const partial = `<h4 class="profile-statistic statistic"><span class="value">100</span><span class="definition title-all-caps -small">Films</span></h4>`;
+  const s = parseProfileStats(partial);
+  assert.equal(s.filmsTotal, 100);
+  assert.equal(s.thisYear, null);
+  assert.equal(s.lists, null);
+});
+
+test("parseProfileStats returns null on empty / non-string input", () => {
+  assert.equal(parseProfileStats(""), null);
+  assert.equal(parseProfileStats(null), null);
+  assert.equal(parseProfileStats(undefined), null);
+  assert.equal(parseProfileStats(42), null);
+});
+
 import { buildMovieData } from "../lib/letterboxd-core.mjs";
 
 test("buildMovieData returns full data shape from RSS", async () => {
-  const fakeFetch = async () => ({
-    ok: true,
-    text: async () => fixture,
-  });
+  const profileStub = `<span class="value">777</span><span class="definition title-all-caps -small">Films</span>
+<span class="value">12</span><span class="definition title-all-caps -small">This year</span>
+<span class="value">5</span><span class="definition title-all-caps -small">Lists</span>`;
+  const fakeFetch = async (url) => {
+    if (url.endsWith("/rss/")) {
+      return { ok: true, text: async () => fixture };
+    }
+    return { ok: true, text: async () => profileStub };
+  };
   const fakeNow = () => new Date(2026, 3, 30).getTime(); // 2026-04-30
 
   const data = await buildMovieData({
@@ -185,6 +222,9 @@ test("buildMovieData returns full data shape from RSS", async () => {
   assert.equal(data.calendar.length, 26 * 7);
   assert.equal(data.trendByWeek.length, 12);
   assert.equal(data.error, null);
+  assert.equal(data.profileStats.filmsTotal, 777);
+  assert.equal(data.profileStats.thisYear, 12);
+  assert.equal(data.profileStats.lists, 5);
 });
 
 test("buildMovieData returns stale stub on fetch failure", async () => {

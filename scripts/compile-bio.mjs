@@ -249,6 +249,9 @@ async function letterboxdSummary() {
     return {
       letterboxd_user: LETTERBOXD_USER,
       profile_url: m.profileUrl,
+      profile_stats: m.profileStats || null,
+      films_total: m.profileStats?.filmsTotal ?? null,
+      this_year_total: m.profileStats?.thisYear ?? null,
       films_in_window: m.stats.totalInWindow,
       films_this_year: m.stats.thisYear,
       films_this_month: m.stats.thisMonth,
@@ -260,7 +263,7 @@ async function letterboxdSummary() {
       latest_watch: trimFilm(m.hero.latest),
       favorite_recent: trimFilm(m.hero.favoriteRecent),
       recent_watches: m.films.slice(0, 20).map(trimFilm),
-      note: "Pulled from Letterboxd RSS at build time. The feed caps at ~50 most-recent watches — this is NOT Michael's lifetime film count, just a recent-activity window. Full grid at /movies.",
+      note: "Pulled at build time. profile_stats has lifetime totals from letterboxd.com/<user>/. The other fields (films_in_window, recent_watches, etc.) come from the RSS feed which caps at ~50 most-recent watches. Use profile_stats.films_total when asked about lifetime total. Full grid at /movies.",
     };
   } catch (err) {
     console.warn(`compile-bio: letterboxd fetch failed (${err.message})`);
