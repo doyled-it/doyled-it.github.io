@@ -10,7 +10,7 @@
     return s.length < 5 ? s.padStart(5, "0") : s;
   }
 
-  fetch(`https://${code}.goatcounter.com/counter//TOTAL.json`, { mode: "cors" })
+  fetch(`https://${code}.goatcounter.com/counter/TOTAL.json`, { mode: "cors" })
     .then((r) => r.json())
     .then((data) => {
       const raw = (data.count || "").replace(/[^\d]/g, "");
