@@ -59,3 +59,51 @@ test("parseLetterboxdRss returns empty array on empty/invalid input", () => {
   assert.deepEqual(parseLetterboxdRss(""), []);
   assert.deepEqual(parseLetterboxdRss("<rss></rss>"), []);
 });
+
+import {
+  parsePacificDate,
+  computeTopDecade,
+  computeRatingHistogram,
+} from "../lib/letterboxd-core.mjs";
+
+test("parsePacificDate returns Pacific-local date (no UTC midnight bug)", () => {
+  // "2026-04-18" should be April 18 in Pacific, not Apr 17
+  const d = parsePacificDate("2026-04-18");
+  assert.equal(d.getFullYear(), 2026);
+  assert.equal(d.getMonth(), 3); // April = 3 (0-indexed)
+  assert.equal(d.getDate(), 18);
+});
+
+test("parsePacificDate returns null on invalid input", () => {
+  assert.equal(parsePacificDate(""), null);
+  assert.equal(parsePacificDate(null), null);
+  assert.equal(parsePacificDate("not-a-date"), null);
+});
+
+test("computeTopDecade returns mode of decades", () => {
+  assert.equal(computeTopDecade([2003, 2015, 2018, 1999]), "2010s");
+  assert.equal(computeTopDecade([1985, 1988]), "1980s");
+  assert.equal(computeTopDecade([null, 2010, null]), "2010s"); // skips nulls
+  assert.equal(computeTopDecade([]), null);
+  assert.equal(computeTopDecade([null, null]), null);
+});
+
+test("computeRatingHistogram returns 10 buckets from 0.5 to 5.0", () => {
+  const films = [
+    { rating: 0.5 },
+    { rating: 5.0 },
+    { rating: 5.0 },
+    { rating: 3.5 },
+    { rating: null }, // ignored
+    { rating: 3.5 },
+  ];
+  const hist = computeRatingHistogram(films);
+  assert.equal(hist.length, 10);
+  assert.equal(hist[0].rating, 0.5);
+  assert.equal(hist[0].count, 1);
+  assert.equal(hist[6].rating, 3.5);
+  assert.equal(hist[6].count, 2);
+  assert.equal(hist[9].rating, 5.0);
+  assert.equal(hist[9].count, 2);
+  assert.equal(hist[1].count, 0); // 1.0 bucket empty
+});
