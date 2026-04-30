@@ -127,6 +127,34 @@ eleventyExcludeFromCollections: true
     const send = document.getElementById("chat-send");
     const suggest = document.getElementById("chat-suggest");
 
+    // Render `[label](url)` markdown links as <a> nodes; everything else is
+    // a plain text node (no innerHTML, so no XSS risk from the LLM output).
+    // URLs must start with http(s):// or /, mailto:, or tel: — anything else
+    // is left as literal text.
+    const URL_OK = /^(https?:\/\/|\/|mailto:|tel:)/i;
+    function appendInlineMarkdown(parent, text) {
+      const re = /\[([^\]]+)\]\(([^)\s]+)\)/g;
+      let last = 0;
+      let m;
+      while ((m = re.exec(text)) !== null) {
+        if (m.index > last) parent.appendChild(document.createTextNode(text.slice(last, m.index)));
+        if (URL_OK.test(m[2])) {
+          const a = document.createElement("a");
+          a.href = m[2];
+          a.textContent = m[1];
+          if (/^https?:\/\//i.test(m[2])) {
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+          }
+          parent.appendChild(a);
+        } else {
+          parent.appendChild(document.createTextNode(m[0]));
+        }
+        last = m.index + m[0].length;
+      }
+      if (last < text.length) parent.appendChild(document.createTextNode(text.slice(last)));
+    }
+
     function append(kind, text) {
       const p = document.createElement("p");
       p.className = "chat-msg " + kind;
@@ -134,7 +162,8 @@ eleventyExcludeFromCollections: true
       who.className = "who";
       who.textContent = kind === "you" ? "you>" : kind === "bot" ? "bot>" : "err>";
       p.appendChild(who);
-      p.appendChild(document.createTextNode(text));
+      if (kind === "bot") appendInlineMarkdown(p, text);
+      else p.appendChild(document.createTextNode(text));
       log.appendChild(p);
       log.scrollTop = log.scrollHeight;
       return p;
