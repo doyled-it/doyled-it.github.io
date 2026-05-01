@@ -81,7 +81,7 @@
 }
 .baseball-header .player-info {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   color: #444;
 }
 
@@ -91,7 +91,7 @@
 }
 .stat-block h3 {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 0 6px;
   padding: 2px 6px;
   background: #002d72;
@@ -103,7 +103,7 @@
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 17px;
 }
 .stat-table th {
   background: #c41e3a;
@@ -111,7 +111,7 @@
   padding: 4px 8px;
   text-align: center;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 0.05em;
 }
 .stat-table td {
@@ -133,7 +133,7 @@
 .game-log { margin-top: 16px; }
 .game-log h3 {
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 0 6px;
   padding: 2px 6px;
   background: #002d72;
@@ -145,14 +145,14 @@
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
 }
 .game-log-table th {
   background: #444;
   color: #fff;
   padding: 4px 6px;
   text-align: left;
-  font-size: 12px;
+  font-size: 16px;
 }
 .game-log-table td {
   padding: 4px 6px;
@@ -164,12 +164,12 @@
 
 /* Responsive */
 @media (max-width: 720px) {
-  .stat-table { font-size: 11px; }
+  .stat-table { font-size: 14px; }
   .stat-table th, .stat-table td { padding: 2px 3px; }
-  .stat-table th { font-size: 10px; }
-  .game-log-table { font-size: 11px; }
+  .stat-table th { font-size: 14px; }
+  .game-log-table { font-size: 14px; }
   .game-log-table th, .game-log-table td { padding: 2px 3px; }
-  .game-log-table th { font-size: 10px; }
+  .game-log-table th { font-size: 14px; }
 }
 @media (max-width: 480px) {
   .baseball-header h2 { font-size: 20px; }
@@ -223,7 +223,7 @@
 /* Expandable game rows */
 .game-log-hint {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 400;
   color: var(--accent-pink-dark);
   margin-left: 8px;
@@ -254,19 +254,19 @@ tr.game-detail > td {
 .game-detail-wrap .stat-block h4 {
   margin: 0 0 8px;
   font-family: var(--font-display);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
 }
-.game-detail-wrap .stat-table { font-size: 13px; }
+.game-detail-wrap .stat-table { font-size: 16px; }
 .game-detail-wrap .stat-table--advanced { max-width: 360px; }
 .game-detail-meta {
   display: flex;
   flex-wrap: wrap;
   gap: 6px 18px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   padding: 10px 12px;
   background: var(--card-body);
   border: 2px solid var(--ink);
@@ -291,7 +291,7 @@ tr.game-detail > td {
 }
 .league-block h3 .league-sub {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   margin-left: 10px;
   color: #ffd9ec;
@@ -307,7 +307,7 @@ tr.game-detail > td {
 }
 .league-standings .me-badge {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 14px;
   font-weight: 700;
   background: var(--ink);
   color: #fff;
@@ -323,12 +323,12 @@ tr.game-detail > td {
   background: var(--card-body);
   padding: 10px 14px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
 }
 .schedule-date {
   font-family: var(--font-mono);
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
   margin: 10px 0 4px;
@@ -342,7 +342,7 @@ tr.game-detail > td {
   border: 2px dashed var(--ink);
   background: repeating-linear-gradient(45deg, #fffbe6, #fffbe6 8px, #fff4c2 8px, #fff4c2 16px);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   color: #6a5a00;
   text-align: center;
   letter-spacing: 1px;
@@ -368,13 +368,13 @@ tr.game-detail > td {
   margin: 0 8px;
   font-family: var(--font-display);
   color: #888;
-  font-size: 12px;
+  font-size: 16px;
 }
 .schedule-matchup .rec {
   color: #666;
-  font-size: 12px;
+  font-size: 16px;
 }
-.schedule-venue { color: #555; font-size: 12px; text-align: right; }
+.schedule-venue { color: #555; font-size: 16px; text-align: right; }
 
 @media (max-width: 640px) {
   .schedule-event {
@@ -401,7 +401,7 @@ tr.game-detail > td {
   font-family: var(--font-display);
   font-weight: 700;
   letter-spacing: 1px;
-  font-size: 13px;
+  font-size: 16px;
 }
 .sos-value {
   font-family: var(--font-display);
@@ -411,7 +411,7 @@ tr.game-detail > td {
 }
 .sos-detail {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   color: #555;
   margin-left: auto;
 }
@@ -423,7 +423,7 @@ tr.game-detail > td {
   margin-left: 10px;
   padding: 1px 8px;
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 400;
   letter-spacing: 1px;
   border: 2px solid var(--ink);
@@ -433,7 +433,7 @@ tr.game-detail > td {
 .schedule-matchup .win-prob-muted {
   color: #777;
   border-color: #bbb;
-  font-size: 14px;
+  font-size: 17px;
 }
 
 /* Results (completed games) */
@@ -446,7 +446,7 @@ tr.game-detail > td {
   color: #fff;
   font-family: var(--font-mono);
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   line-height: 1.1;
 }
@@ -457,7 +457,7 @@ tr.game-detail > td {
   border: 2px solid var(--ink);
   font-family: var(--font-mono);
   font-weight: 400;
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   line-height: 1.1;
 }
@@ -465,7 +465,7 @@ tr.game-detail > td {
 .schedule-matchup .result-badge.loss { background: var(--accent-pink); color: var(--ink); }
 .schedule-matchup .recap-link {
   margin-left: 10px;
-  font-size: 11px;
+  font-size: 14px;
   color: var(--accent-pink-dark);
   text-decoration: underline;
 }
@@ -525,12 +525,12 @@ tr.playoff-cutoff > td {
 }
 .bracket-matchup.bye-matchup .bye-label {
   margin-top: 4px;
-  font-size: 11px;
+  font-size: 14px;
   color: #8a6400;
 }
 .bracket-round {
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   padding: 2px 8px;
   background: var(--ink);
@@ -542,7 +542,7 @@ tr.playoff-cutoff > td {
   background: #fff;
   padding: 8px 10px;
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -555,28 +555,28 @@ tr.playoff-cutoff > td {
   font-weight: 700;
   background: var(--accent-yellow);
   border: 1px solid var(--ink);
-  font-size: 14px;
+  font-size: 17px;
 }
 .bracket-matchup .t { flex: 1; }
 .bracket-matchup .t.is-me { font-weight: 700; background: var(--accent-yellow); padding: 0 4px; }
-.bracket-matchup .rec { color: #666; font-size: 14px; }
+.bracket-matchup .rec { color: #666; font-size: 17px; }
 .bracket-matchup .vs {
   text-align: center;
   font-family: var(--font-display);
   color: var(--accent-pink-dark);
-  font-size: 12px;
+  font-size: 16px;
 }
 .bracket-matchup .bracket-prob {
   text-align: center;
   color: #555;
-  font-size: 13px;
+  font-size: 16px;
   border-top: 1px dashed #ccc;
   padding-top: 3px;
 }
 .bracket-matchup.bye { background: #fff9d6; }
 .bracket-matchup .bye-label {
   text-align: center;
-  font-size: 12px;
+  font-size: 16px;
   color: var(--accent-pink-dark);
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -591,7 +591,7 @@ tr.playoff-cutoff > td {
 .bracket-matchup .championship-tbd {
   text-align: center;
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 20px;
   letter-spacing: 1px;
   line-height: 1.4;
 }
@@ -623,7 +623,7 @@ tr.playoff-cutoff > td {
 .clinch-badge {
   display: inline-block;
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
   padding: 1px 5px;
   margin-left: 6px;
@@ -663,7 +663,7 @@ tr.playoff-cutoff > td {
   gap: 6px;
   padding: 3px 10px;
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 17px;
   background: var(--card-body);
   border: 2px solid var(--ink);
   cursor: pointer;
@@ -704,7 +704,7 @@ tr.playoff-cutoff > td {
 }
 .mm-label {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
   cursor: help;
@@ -715,11 +715,11 @@ tr.playoff-cutoff > td {
   line-height: 1.1;
   margin: 4px 0 2px;
 }
-.mm-sub { font-family: var(--font-mono); font-size: 12px; color: #666; }
-.model-buckets { max-width: 640px; font-size: 14px; }
+.mm-sub { font-family: var(--font-mono); font-size: 16px; color: #666; }
+.model-buckets { max-width: 640px; font-size: 17px; }
 .model-caveat {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   color: #555;
   margin-top: 10px;
   line-height: 1.5;
@@ -732,7 +732,7 @@ tr.playoff-cutoff > td {
 .bracket-matchup .br-score {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 18px;
+  font-size: 20px;
   font-weight: 700;
   padding: 1px 8px;
   background: var(--ink);
@@ -755,7 +755,7 @@ tr.playoff-cutoff > td {
 .bracket-matchup .br-badge {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
   padding: 1px 8px;
   border: 2px solid var(--ink);
@@ -783,7 +783,7 @@ tr.playoff-cutoff > td {
 }
 .streak-label {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
 }
@@ -795,13 +795,13 @@ tr.playoff-cutoff > td {
 }
 .streak-sub {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   color: #555;
 }
 
 .highlights-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   gap: 14px;
 }
 .highlight-group {
@@ -813,7 +813,7 @@ tr.playoff-cutoff > td {
 .highlight-group h4 {
   margin: 0 0 8px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
 }
@@ -822,7 +822,7 @@ tr.playoff-cutoff > td {
   padding: 0;
   margin: 0;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.5;
 }
 .highlight-list li { padding: 3px 0; }
@@ -832,7 +832,7 @@ tr.playoff-cutoff > td {
   padding: 1px 6px;
   background: var(--accent-yellow);
   border: 1px solid var(--ink);
-  font-size: 12px;
+  font-size: 16px;
   font-weight: 700;
 }
 
@@ -844,18 +844,18 @@ tr.playoff-cutoff > td {
   border: 2px solid var(--ink);
   box-shadow: 3px 3px 0 var(--ink);
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
 }
 .notable-list li {
   display: grid;
-  grid-template-columns: 60px 90px 1fr 2fr;
+  grid-template-columns: 100px 110px 1fr 2fr;
   gap: 10px;
   padding: 5px 0;
   border-bottom: 1px dashed #ccc;
 }
 .notable-list li:last-child { border-bottom: 0; }
 .notable-list .n-date { color: var(--accent-pink-dark); font-weight: 700; }
-.notable-list .n-season { color: #666; font-size: 12px; }
+.notable-list .n-season { color: #666; font-size: 16px; }
 .notable-list .n-opp { color: #444; }
 .notable-list .n-note { color: var(--ink); }
 

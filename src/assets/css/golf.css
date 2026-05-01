@@ -67,7 +67,7 @@
 }
 .golf-header .golfer-info {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   color: #444;
 }
 
@@ -87,7 +87,7 @@
 }
 .golf-stat-box .stat-label {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   color: #444;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -104,7 +104,7 @@
 }
 .golf-section h3 {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   margin: 0 0 6px;
   padding: 2px 6px;
   background: #228b22;
@@ -116,14 +116,14 @@
   width: 100%;
   border-collapse: collapse;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
 }
 .scorecard-table th {
   background: #2d5a2d;
   color: #fff;
   padding: 3px 4px;
   text-align: center;
-  font-size: 10px;
+  font-size: 14px;
 }
 .scorecard-table td {
   padding: 3px 4px;
@@ -157,7 +157,7 @@
   height: 26px;
 }
 .dist-label {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   text-align: right;
 }
@@ -168,7 +168,7 @@
   transition: width 0.3s;
 }
 .dist-pct {
-  font-size: 15px;
+  font-size: 17px;
   font-weight: 700;
   color: #333;
   text-align: left;
@@ -180,19 +180,19 @@
 .dist-triple { background: #b71c1c; }
 
 /* Golfer info size bump */
-.golf-header .golfer-info { font-size: 14px; }
+.golf-header .golfer-info { font-size: 17px; }
 
 /* Table size bump */
-.scorecard-table { font-size: 13px; }
-.scorecard-table th { font-size: 12px; padding: 4px 6px; }
+.scorecard-table { font-size: 16px; }
+.scorecard-table th { font-size: 16px; padding: 4px 6px; }
 .scorecard-table td { padding: 4px 6px; }
 
 @media (max-width: 720px) {
   .golf-stats-grid { grid-template-columns: repeat(2, 1fr); }
-  .scorecard-table { font-size: 11px; }
-  .scorecard-table th { font-size: 10px; padding: 2px 3px; }
+  .scorecard-table { font-size: 14px; }
+  .scorecard-table th { font-size: 14px; padding: 2px 3px; }
   .scorecard-table td { padding: 2px 3px; }
-  .dist-label { width: 52px; font-size: 11px; }
+  .dist-label { width: 52px; font-size: 14px; }
 }
 @media (max-width: 480px) {
   .golf-header h2 { font-size: 20px; }
@@ -207,7 +207,7 @@
 /* --- Sub-labels on section headers --- */
 .golf-sub {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 400;
   color: #ffd9a5;
   margin-left: 10px;
@@ -232,7 +232,7 @@
   gap: 14px;
   margin-top: 8px;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
 }
 .legend-chip { display: inline-flex; align-items: center; gap: 6px; }
 .chip-swatch {
@@ -270,7 +270,7 @@
 }
 .miss-label {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
 }
@@ -297,14 +297,14 @@
 .hole-diff-cell.diff-mid  { background: #fff4c2; }
 .hole-diff-cell.diff-hard { background: #ffd7d7; }
 .hd-rank {
-  font-size: 12px;
+  font-size: 16px;
   color: var(--accent-pink-dark);
 }
 .hd-value {
   font-size: 20px;
   font-weight: 700;
 }
-.hd-sub { font-size: 11px; color: #666; }
+.hd-sub { font-size: 14px; color: #666; }
 
 /* --- Histograms (diff distribution + monthly) --- */
 .hist {
@@ -340,13 +340,13 @@
 .hist-fill.hist-fill-month { background: var(--accent-cyan); }
 .hist-count {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--ink);
 }
 .hist-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   color: #555;
   margin-top: 3px;
   text-align: center;
@@ -390,12 +390,12 @@
 }
 .goal-label {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 700;
 }
 .goal-deadline {
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: 16px;
   color: #228b22;
   letter-spacing: 0.5px;
 }
@@ -428,14 +428,14 @@
   align-items: center;
   justify-content: center;
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--ink);
   text-shadow: 0 0 2px #fff;
 }
 .goal-gap {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 16px;
   color: #444;
   text-align: center;
 }
@@ -459,7 +459,7 @@
 }
 .goal-summary-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 14px;
   letter-spacing: 1px;
   color: var(--accent-pink-dark);
 }
@@ -473,7 +473,7 @@
 .goal-off-pace { color: #c41e3a; }
 .goal-pace-note {
   font-family: var(--font-mono);
-  font-size: 14px;
+  font-size: 17px;
   line-height: 1.5;
   margin-bottom: 14px;
   padding: 10px 12px;

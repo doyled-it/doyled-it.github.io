@@ -299,7 +299,7 @@
       {% for ops in [0, 0.5, 1.0, 1.5, 2.0] %}
         {% set gy = padT + (2.0 - ops) * plotH / 2.0 %}
       <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-      <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ ops | fmtRate(1) }}</text>
+      <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ ops | fmtRate(1) }}</text>
       {% endfor %}
       {% set path = "" %}
       {% for p in ca.trend %}
@@ -548,7 +548,7 @@
       {% for gridline in [0, 25, 50, 75, 100] %}
         {% set gy = padT + (100 - gridline) * plotH / 100 %}
       <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-      <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ gridline }}%</text>
+      <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ gridline }}%</text>
       {% endfor %}
       {% for team in season.league.allHistory %}
         {% set color = team.isMine and "#c0006e" or palette[loop.index0 % palette.length] %}
@@ -574,7 +574,7 @@
       {% for p in season.league.history %}
         {% if loop.index == 1 or loop.index == n or loop.index0 % 2 == 0 %}
         {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
-      <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date }}</text>
+      <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date }}</text>
         {% endif %}
       {% endfor %}
     </svg>

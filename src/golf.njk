@@ -167,8 +167,11 @@ extraCSS:
     {% set padL = 44 %}{% set padR = 16 %}{% set padT = 14 %}{% set padB = 28 %}
     {% set plotW = chartW - padL - padR %}
     {% set plotH = chartH - padT - padB %}
-    {% set hiMin = st.handicapTrend.min %}
-    {% set hiMax = st.handicapTrend.max %}
+    {% set hiMinRaw = st.handicapTrend.min %}
+    {% set hiMaxRaw = st.handicapTrend.max %}
+    {% set hiPad = ((hiMaxRaw - hiMinRaw) or 1) * 0.1 %}
+    {% set hiMin = hiMinRaw - hiPad %}
+    {% set hiMax = hiMaxRaw + hiPad %}
     {% set hiRange = (hiMax - hiMin) or 1 %}
     {% set n = st.handicapTrend.length %}
     <div class="golf-section">
@@ -179,7 +182,7 @@ extraCSS:
           {% set gy = padT + p * plotH %}
           {% set val = hiMax - p * hiRange %}
         <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-        <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
+        <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
         {% endfor %}
         {% set path = "" %}
         {% for p in st.handicapTrend %}
@@ -196,7 +199,7 @@ extraCSS:
         {% for idx in [0, (n / 2) | int, n - 1] %}
           {% set p = st.handicapTrend[idx] %}
           {% set x = padL + (idx * plotW / (n - 1)) %}
-        <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
+        <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
         {% endfor %}
       </svg>
     </div>
@@ -208,8 +211,11 @@ extraCSS:
     {% set padL2 = 44 %}{% set padR2 = 16 %}{% set padT2 = 14 %}{% set padB2 = 28 %}
     {% set plotW2 = chartW2 - padL2 - padR2 %}
     {% set plotH2 = chartH2 - padT2 - padB2 %}
-    {% set tpMin = st.scoreTrend.min %}
-    {% set tpMax = st.scoreTrend.max %}
+    {% set tpMinRaw = st.scoreTrend.min %}
+    {% set tpMaxRaw = st.scoreTrend.max %}
+    {% set tpPad = ((tpMaxRaw - tpMinRaw) or 1) * 0.1 %}
+    {% set tpMin = tpMinRaw - tpPad %}
+    {% set tpMax = tpMaxRaw + tpPad %}
     {% set tpRange = (tpMax - tpMin) or 1 %}
     {% set n2 = st.scoreTrend.length %}
     <div class="golf-section">
@@ -220,7 +226,7 @@ extraCSS:
           {% set gy = padT2 + p * plotH2 %}
           {% set val = tpMax - p * tpRange %}
         <line x1="{{ padL2 }}" y1="{{ gy }}" x2="{{ padL2 + plotW2 }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-        <text x="{{ padL2 - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{% if val > 0 %}+{% endif %}{{ val | round(0) }}</text>
+        <text x="{{ padL2 - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{% if val > 0 %}+{% endif %}{{ val | round(0) }}</text>
         {% endfor %}
         {% set rawPath = "" %}
         {% set rollPath = "" %}
@@ -241,7 +247,7 @@ extraCSS:
         {% for idx in [0, (n2 / 2) | int, n2 - 1] %}
           {% set p = st.scoreTrend[idx] %}
           {% set x = padL2 + (idx * plotW2 / (n2 - 1)) %}
-        <text x="{{ x }}" y="{{ chartH2 - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
+        <text x="{{ x }}" y="{{ chartH2 - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
         {% endfor %}
       </svg>
       <div class="chart-legend">
@@ -507,12 +513,12 @@ extraCSS:
             {% set gy = padT + p * plotH %}
             {% set val = hiMax - p * hiRange %}
           <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-          <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
+          <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
           {% endfor %}
           {# Target line #}
           {% set ty = padT + ((hiMax - goal.target) / hiRange) * plotH %}
           <line x1="{{ padL }}" y1="{{ ty }}" x2="{{ padL + plotW }}" y2="{{ ty }}" stroke="#c41e3a" stroke-width="2" stroke-dasharray="6 4"/>
-          <text x="{{ padL + 4 }}" y="{{ ty - 4 }}" font-size="11" font-family="VT323, monospace" text-anchor="start" fill="#c41e3a">target {{ goal.target }}</text>
+          <text x="{{ padL + 4 }}" y="{{ ty - 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#c41e3a">target {{ goal.target }}</text>
           {# Actual history line (occupies left 75% of x-axis to leave room for projection) #}
           {% set histEndX = padL + plotW * 0.75 %}
           {% set histPath = "" %}
@@ -536,10 +542,10 @@ extraCSS:
           <circle cx="{{ endX }}" cy="{{ endY }}" r="5" fill="#c41e3a" stroke="#000" stroke-width="1"/>
           {# X-axis labels #}
           {% if hist[0] %}
-          <text x="{{ padL }}" y="{{ chartH - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="start" fill="#555">{{ hist[0].date | readableDate }}</text>
+          <text x="{{ padL }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#555">{{ hist[0].date | readableDate }}</text>
           {% endif %}
-          <text x="{{ histEndX }}" y="{{ chartH - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="middle" fill="#555">today</text>
-          <text x="{{ endX }}" y="{{ chartH - 8 }}" font-size="10" font-family="VT323, monospace" text-anchor="end" fill="#c41e3a">{{ deadlineDate | readableDate }}</text>
+          <text x="{{ histEndX }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">today</text>
+          <text x="{{ endX }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#c41e3a">{{ deadlineDate | readableDate }}</text>
         </svg>
         <div class="chart-legend">
           <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Actual HI</span>
