@@ -5,13 +5,19 @@
   "type": "module",
   "scripts": {
     "dev": "eleventy --serve --quiet",
-    "build": "npm run compile:bio && eleventy && npm run build:resume-pdf",
-    "build:eleventy": "npm run compile:bio && eleventy",
-    "compile:bio": "node scripts/compile-bio.mjs",
-    "build:resume-pdf": "node scripts/build-resume-pdf.mjs",
-    "build:resume-pdf:new": "node scripts/build-resume-pdf-new.mjs",
-    "sync:stats": "node scripts/sync-stats.mjs",
-    "fetch:golf": "node scripts/fetch-golf.mjs",
+
+    "build": "npm run build:bio && npm run build:site && npm run build:resume",
+    "build:bio": "node scripts/compile-bio.mjs",
+    "build:site": "eleventy",
+    "build:resume": "node scripts/build-resume-pdf.mjs",
+    "build:resume:wip": "node scripts/build-resume-pdf-new.mjs",
+
+    "build:eleventy": "npm run build:bio && npm run build:site",
+
+    "update:stats": "npm run update:baseball && npm run update:golf",
+    "update:baseball": "node scripts/sync-stats.mjs --skip-golf-fetch",
+    "update:golf": "node scripts/fetch-golf.mjs",
+
     "test": "node --test 'tests/**/*.test.mjs'"
   },
   "devDependencies": {

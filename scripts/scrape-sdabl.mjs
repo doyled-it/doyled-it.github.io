@@ -119,6 +119,12 @@ async function collectScheduleEvents() {
   // the window does not scroll; that element has its own scrollTop. Step through
   // it in small increments and harvest every event (with its date header) as they
   // enter the DOM, deduping by time+away+home.
+  //
+  // The virtual scroller's scrollHeight grows as items lazy-load, so a naive
+  // "reached the bottom" exit fires too early and misses upcoming games. We
+  // keep going until seen.size is stable across many consecutive passes AND
+  // we've nudged the bottom (scroll-up-then-down) to force any tail items
+  // into the DOM. Logs per-pass progress so flakiness is visible.
   return await page.evaluate(async () => {
     const scroller = document.querySelector("sm-season") || document.scrollingElement;
     const seen = new Map();
@@ -147,27 +153,64 @@ async function collectScheduleEvents() {
     }
 
     const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+    const trace = [];
     scroller.scrollTop = 0;
-    await sleep(300);
-    const step = 400;
+    await sleep(400);
+
+    const step = 300;
+    const STABLE_REQUIRED = 12;
+    const MAX_PASSES = 600;
     let stableLoops = 0;
     let lastSize = 0;
-    for (let pass = 0; pass < 200; pass++) {
+    let nudged = false;
+
+    for (let pass = 0; pass < MAX_PASSES; pass++) {
       harvest();
-      if (seen.size === lastSize) stableLoops++;
-      else {
+      if (seen.size === lastSize) {
+        stableLoops++;
+      } else {
         stableLoops = 0;
         lastSize = seen.size;
       }
-      const reachedBottom =
+      if (pass % 20 === 0) {
+        trace.push(
+          `pass=${pass} top=${Math.round(scroller.scrollTop)} h=${scroller.scrollHeight} seen=${seen.size} stable=${stableLoops}`,
+        );
+      }
+
+      const atBottom =
         scroller.scrollTop + scroller.clientHeight >= scroller.scrollHeight - 4;
-      if (reachedBottom && stableLoops >= 6) break;
+
+      if (atBottom && stableLoops >= STABLE_REQUIRED) {
+        if (!nudged) {
+          // Nudge: jump up, then back down. Forces virtual-scroll to remount
+          // the tail so any lazy-loaded upcoming games actually appear.
+          scroller.scrollTop = Math.max(0, scroller.scrollHeight - 1500);
+          await sleep(400);
+          harvest();
+          scroller.scrollTop = scroller.scrollHeight;
+          await sleep(500);
+          harvest();
+          nudged = true;
+          stableLoops = 0;
+          continue;
+        }
+        break;
+      }
+
+      if (atBottom) {
+        // Already at bottom but not stable yet — wait for more lazy loads.
+        await sleep(250);
+        continue;
+      }
+
       scroller.scrollTop += step;
-      await sleep(160);
+      await sleep(180);
     }
     scroller.scrollTop = 0;
-    await sleep(200);
+    await sleep(250);
     harvest();
+    trace.push(`final seen=${seen.size}`);
 
     let html = "";
     let lastHeaderHTML = "";
@@ -178,7 +221,7 @@ async function collectScheduleEvents() {
       }
       html += evH;
     }
-    return { count: seen.size, html };
+    return { count: seen.size, html, trace };
   });
 }
 
@@ -187,7 +230,8 @@ console.log(`📅 schedule tab → Season Start`);
 await clickTab("schedule-tab");
 await waitForData();
 await pickSeasonStart();
-const { count: evCount, html: scheduleEvents } = await collectScheduleEvents();
+const { count: evCount, html: scheduleEvents, trace } = await collectScheduleEvents();
+for (const line of trace) console.log(`   • ${line}`);
 console.log(`   collected ${evCount} unique events during scroll`);
 const scheduleHtml = `<sm-schedule2>${scheduleEvents}</sm-schedule2>`;
 

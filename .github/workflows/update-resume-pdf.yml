@@ -28,7 +28,7 @@ jobs:
       - run: npm ci
 
       - name: Build resume PDF
-        run: npm run build:resume-pdf
+        run: npm run build:resume
 
       - name: Commit if changed
         run: |

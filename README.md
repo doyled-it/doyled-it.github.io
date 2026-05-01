@@ -37,7 +37,18 @@ Produces `_site/` including:
 - `resume.pdf` — copied from the committed `src/resume.pdf` (regenerated
   on `resume.json` changes via the `update-resume-pdf` workflow)
 
-For static-only iteration, `npm run build:eleventy` skips the resume PDF.
+Individual steps (chained by `npm run build`):
+
+| Script | What it does |
+|---|---|
+| `npm run build:bio` | Bundle `src/_data/bio-bundle.json` for the chatbot |
+| `npm run build:site` | Run Eleventy → `_site/` |
+| `npm run build:resume` | Regenerate `src/resume.pdf` (Puppeteer) |
+
+For static-only iteration, `npm run build:eleventy` runs `build:bio` +
+`build:site` (skips the resume PDF). This is also what Cloudflare runs on
+deploy — Puppeteer can't run there, so the committed `src/resume.pdf` is
+passthrough-copied.
 
 ## Hosting
 
@@ -84,30 +95,21 @@ npm run build
 
 Without credentials the build succeeds and the card shows a stub.
 
-### Baseball card
+### Refreshing hobby stats
 
-`src/_data/baseball.json` and `league.json` drive the baseball card
-(season stats, career analytics, playoff brackets, league context).
-Refresh from a local Obsidian vault with:
+All stats refresh scripts run **locally** (GHIN blocks datacenter IPs;
+baseball pulls from a local Obsidian vault). Commit the resulting JSON
+diff under `src/_data/`.
 
-```sh
-npm run sync:stats
-```
+| Script | What it refreshes |
+|---|---|
+| `npm run update:stats` | Both — `update:baseball` + `update:golf` |
+| `npm run update:baseball` | `src/_data/baseball.json` from `~/vaults/baseball` + SDABL league snapshots |
+| `npm run update:golf` | `src/_data/golf-raw.json` from GHIN (needs `GHIN_USERNAME` + `GHIN_PASSWORD` in `.env`) |
 
-CI also refreshes the JSON weekly via `.github/workflows/update-stats.yml`.
-
-### Golf card
-
-`src/_data/golf-raw.json` (raw GHIN payload) feeds `src/_data/golf.js`,
-which derives stats, goals, and a view-model. Refresh GHIN data locally:
-
-```sh
-# .env must contain GHIN_USERNAME + GHIN_PASSWORD
-npm run fetch:golf
-```
-
-The fetch uses the `doyled-it/ghin` fork (pinned in `package.json`) which
-tolerates GHIN's current response shape.
+`update:golf` uses the `doyled-it/ghin` fork (pinned in `package.json`)
+which tolerates GHIN's current response shape. Baseball also has a CI
+fallback in `.github/workflows/update-stats.yml`.
 
 ## /card chatbot
 
@@ -144,8 +146,8 @@ lib/                          # pure modules with unit tests
 scripts/
   build-resume-pdf.mjs        # hackmyresume → puppeteer pipeline
   compile-bio.mjs             # builds bio-bundle.json for the chatbot
-  sync-stats.mjs              # baseball stats from local vault
-  fetch-golf.mjs              # GHIN golf data → golf-raw.json
+  sync-stats.mjs              # update:baseball — pull baseball + SDABL
+  fetch-golf.mjs              # update:golf — pull GHIN → golf-raw.json
   gen-*.mjs                   # node-canvas pixel-art generators
 src/
   _data/                      # site constants, cards, résumé, hobby JSON

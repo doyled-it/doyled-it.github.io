@@ -1,7 +1,7 @@
 {
   "seasons": {
     "spring2026": {
-      "updated": "2026-04-30T23:26:18.539Z",
+      "updated": "2026-05-01T02:32:29.449Z",
       "standings": [
         {
           "rank": 1,
@@ -812,6 +812,652 @@
           },
           "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/2d9bc536-d1a6-4fa2-a65c-053918d38895"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": 20
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "2 - 6",
+            "score": 5
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/025453e7-454b-44ad-b02d-12130291e6f9"
+        },
+        {
+          "date": "Apr 19",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": 20
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": 3
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/49dd9a2b-d265-42d1-b97a-67bafddd8596"
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 1",
+            "score": 10
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "5 - 3",
+            "score": 11
+          },
+          "venue": "Monte Vista HS · JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/9616cf22-b8a1-44a1-af9e-fc16356535df"
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": 11
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 4",
+            "score": 5
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/5b49c458-31c8-42fc-a8e9-0cff62951597"
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Postponed",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 7",
+            "score": 4
+          },
+          "home": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": 23
+          },
+          "venue": "Monte Vista HS · JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/c6347b86-1674-4ca4-8333-7321a7c8f6bb"
+        },
+        {
+          "date": "Apr 26",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "2 - 6",
+            "score": 7
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "4 - 4",
+            "score": 13
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/c6c1a548-2012-462f-a186-16cdcb054adf"
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 7",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Banditos",
+            "record": "6 - 1",
+            "score": null
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 4",
+            "score": null
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "4 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "2 - 6",
+            "score": null
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "5 - 3",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 3",
+          "dow": "Sun",
+          "time": "2:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "record": "2 - 6",
+            "score": null
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 7",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Montgomery HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 17",
+          "dow": "Sun",
+          "time": "2:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "4 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "home": {
+            "team": "Beavers",
+            "record": "5 - 3",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "May 31",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "4 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 7",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Beavers",
+            "record": "5 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": null
+          },
+          "venue": "Otay Ranch HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "record": "3 - 2",
+            "score": null
+          },
+          "home": {
+            "team": "San Diego Sox",
+            "record": "4 - 4",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 7",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "SD Storm",
+            "record": "1 - 7",
+            "score": null
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "2 - 6",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Beavers",
+            "record": "5 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Diamond Dogs",
+            "record": "3 - 4",
+            "score": null
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "9:30 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "San Diego Sox",
+            "record": "4 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Banditos",
+            "record": "6 - 1",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Sandlot Athletics",
+            "record": "6 - 1",
+            "score": null
+          },
+          "home": {
+            "team": "SD Storm",
+            "record": "1 - 7",
+            "score": null
+          },
+          "venue": "Mt Miguel HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "The OG",
+            "record": "5 - 3",
+            "score": null
+          },
+          "home": {
+            "team": "Lemon Grove Athletics 25A",
+            "record": "2 - 5",
+            "score": null
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Jun 14",
+          "dow": "Sun",
+          "time": "1:30 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "record": "4 - 4",
+            "score": null
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "record": "2 - 6",
+            "score": null
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
         }
       ],
       "userTeams": [
