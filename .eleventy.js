@@ -1,11 +1,13 @@
 import { dateRange, yearOf } from "./lib/resume-filters.mjs";
 import { statColor } from "./lib/baseball-filters.mjs";
+import pluginRss from "@11ty/eleventy-plugin-rss";
 
 export default function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
   eleventyConfig.setOutputDirectory("_site");
   eleventyConfig.setIncludesDirectory("_includes");
   eleventyConfig.setDataDirectory("_data");
+  eleventyConfig.addPlugin(pluginRss);
 
   eleventyConfig.addPassthroughCopy({ "src/assets": "assets" });
   eleventyConfig.addPassthroughCopy("CNAME");
