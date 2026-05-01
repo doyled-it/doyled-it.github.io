@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-04-30T23:25:55.643Z",
+  "lastUpdated": "2026-05-01T03:07:35.595Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -663,7 +663,7 @@
           "PO": 2,
           "A": 2,
           "E": 1,
-          "TC": 4,
+          "TC": 5,
           "DP": 0
         },
         "pitching": {
@@ -918,7 +918,7 @@
                 "PO": 0,
                 "A": 1,
                 "E": 1,
-                "TC": 2,
+                "TC": 3,
                 "DP": 0
               },
               "pitching": {
@@ -1056,7 +1056,7 @@
           "K_BB": 0.5,
           "K9": 12,
           "BB9": 24,
-          "fieldingPct": 1,
+          "fieldingPct": 0.8,
           "rangeFactor": 0.8
         }
       },
