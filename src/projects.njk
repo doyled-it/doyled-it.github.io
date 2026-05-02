@@ -5,95 +5,132 @@ cardNum: 2
 cardTitle: projects
 ---
 <h2>◆ Projects ◆</h2>
-<p>Things I've built, maintained, or contributed to.</p>
+<p class="projects-intro">Public open-source things I've built or contributed to.</p>
 
-<h3><a href="https://github.com/janus-llm">Janus LLM</a></h3>
-<p>
-  A library for IT modernization using large language models, RAG, and
-  intelligent code chunking. Built for government sponsors at MITRE.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/agent-view.png" alt="" class="projects-section-icon">
+    <h3>Tools &amp; AI</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/doyled-it/agent-view"><strong>agent-view</strong></a>
+      &mdash; OpenTUI-based terminal interface for managing and monitoring AI coding agent sessions. Currently being ported to Rust.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/claude-vault-skills"><strong>claude-vault-skills</strong></a>
+      &mdash; Claude Code skill suite for managing an Obsidian vault as a productivity system. Daily briefings, dashboards, autonomous issue implementation.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/obsidian-plugin-dev-skill"><strong>obsidian-plugin-dev-skill</strong></a>
+      &mdash; Claude Code skill for Obsidian community plugin development. Build, test, publish workflow.
+    </li>
+  </ul>
+</section>
 
-<h3><a href="https://github.com/mitrefireline/simfire">SimFire</a></h3>
-<p>
-  A wildfire simulator written in Python, designed for reinforcement learning
-  research. Used alongside SimHarness for wildfire mitigation experiments.
-  Published at NeurIPS 2023.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/vault.png" alt="" class="projects-section-icon">
+    <h3>Obsidian</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/doyled-it/obsidian-tag-filter"><strong>obsidian-tag-filter</strong></a>
+      &mdash; Community plugin for filtering notes by tags.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/obsidian-baseball"><strong>obsidian-baseball</strong></a>
+      &mdash; My rec-league baseball stats tracked in Obsidian with Dataview queries. Hitting, fielding, pitching, calculated rates, game logs.
+    </li>
+  </ul>
+</section>
 
-<h3><a href="https://github.com/mitrefireline/simharness">SimHarness</a></h3>
-<p>
-  The RL training harness that pairs with SimFire. Handles agent training,
-  reward shaping, and experiment management for wildfire mitigation research.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/baseball.png" alt="" class="projects-section-icon">
+    <h3>Baseball</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/doyled-it/sdabl-leaderboard"><strong>SDABL leaderboard</strong></a>
+      &mdash; A leaderboard site for the San Diego Adult Baseball League. Standings, stats, player rankings.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/dbags"><strong>dbags</strong></a>
+      &mdash; Homepage for Danny's Big Ass Glove softball team.
+    </li>
+  </ul>
+</section>
 
-<h3><a href="https://github.com/doyled-it/complicit.work">complicit.work</a></h3>
-<p>
-  A moral culpability calculator for occupations. Enter your job title and
-  employer, get a transparent ethical evaluation with a numerical score,
-  reasoning for every variable, a "Moral Price Tag" showing the dollar value
-  of your ethical compromise, and real job market alternatives. Built with
-  Next.js, Tailwind, and the Anthropic API.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/golf-bag.png" alt="" class="projects-section-icon">
+    <h3>Golf</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/doyled-it/golf-stats"><strong>golf-stats</strong></a>
+      &mdash; Personal golf stats dashboard pulling from GHIN. Handicap, scoring trends, shot stats, course performance.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/practice-playbook"><strong>practice-playbook</strong></a>
+      &mdash; Golf practice playbook website.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/ghin"><strong>ghin</strong></a>
+      &mdash; Fork of an unofficial GHIN API wrapper, patched for current response quirks.
+    </li>
+  </ul>
+</section>
 
-<h3><a href="https://github.com/doyled-it/agent-view">agent-view</a></h3>
-<p>
-  An OpenTUI-based terminal interface for managing and monitoring AI coding
-  agent sessions. Forked and improved from the original, currently being
-  ported to Rust.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/vinyl.png" alt="" class="projects-section-icon">
+    <h3>Music &amp; culture</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/doyled-it/theneedlepoint"><strong>theneedlepoint</strong></a>
+      &mdash; Visualizes data from The Needle Drop reviews. Companion scraper at
+      <a href="https://github.com/doyled-it/theneedlescrape">theneedlescrape</a>.
+    </li>
+    <li>
+      <a href="https://github.com/doyled-it/like-to-discover"><strong>like-to-discover</strong></a>
+      &mdash; Spotify Heroku app that archives every Discover Weekly like into a long-running playlist.
+    </li>
+  </ul>
+</section>
 
-<h3><a href="https://github.com/doyled-it/claude-vault-skills">claude-vault-skills</a></h3>
-<p>
-  A Claude Code skill suite for managing an Obsidian vault as a productivity
-  system. Automates todos from email, Teams, meetings, and GitLab. Handles
-  daily briefings, dashboards, meeting notes, and autonomous issue
-  implementation.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/janus.png" alt="" class="projects-section-icon">
+    <h3>Research / MITRE OSS</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/janus-llm/janus-llm"><strong>janus-llm</strong></a>
+      &mdash; LLM-powered code modernization via chunking, iterative prompting, and RAG.
+    </li>
+    <li>
+      <a href="https://github.com/mitrefireline/simfire"><strong>SimFire</strong></a>
+      &mdash; Open-source wildfire simulator for training reinforcement learning agents. Published at NeurIPS 2023.
+    </li>
+    <li>
+      <a href="https://github.com/mitrefireline/simharness"><strong>SimHarness</strong></a>
+      &mdash; The RL training harness paired with SimFire. Agent training, reward shaping, experiment management.
+    </li>
+  </ul>
+</section>
 
-<h3><a href="https://github.com/doyled-it/obsidian-tag-filter">obsidian-tag-filter</a></h3>
-<p>
-  An Obsidian community plugin for filtering notes by tags.
-</p>
-
-<h3><a href="https://github.com/doyled-it/obsidian-plugin-dev-skill">obsidian-plugin-dev-skill</a></h3>
-<p>
-  A Claude Code skill for Obsidian community plugin development. Streamlines
-  the build, test, and publish workflow.
-</p>
-
-<h3><a href="https://github.com/doyled-it/sdabl-leaderboard">SDABL leaderboard</a></h3>
-<p>
-  A leaderboard site for the San Diego Adult Baseball League. Tracks standings,
-  stats, and player rankings.
-</p>
-
-<h3><a href="https://github.com/doyled-it/pfc-llm">pfc-llm</a></h3>
-<p>
-  Political Filing Clerk powered by large language models. Automates the
-  parsing and classification of political filings.
-</p>
-
-<h3><a href="https://github.com/doyled-it/theneedlepoint">the needlepoint</a></h3>
-<p>
-  A website that visualizes data from The Needle Drop reviews on YouTube.
-  Companion scraper at
-  <a href="https://github.com/doyled-it/theneedlescrape">theneedlescrape</a>.
-</p>
-
-<h3><a href="https://github.com/doyled-it/doyled-it.github.io">this site</a></h3>
-<p>
-  The one you're looking at. Built with 11ty, a pastel HyperCard aesthetic,
-  CRT animations, cursor buddies, and Last.fm integration. Retro on purpose.
-</p>
-
-<h3><a href="https://github.com/doyled-it/golf-stats">golf stats tracker</a></h3>
-<p>
-  A personal golf stats dashboard pulling data from GHIN. Tracks handicap,
-  scoring trends, shot statistics, and course performance.
-</p>
-
-<h3><a href="https://github.com/doyled-it/obsidian-baseball">baseball stats tracker</a></h3>
-<p>
-  Rec league baseball stats tracked in Obsidian with Dataview queries. Hitting,
-  fielding, and pitching stats with calculated rates and game logs.
-</p>
+<section class="projects-section">
+  <header class="projects-section-head">
+    <img src="/assets/sprites/projects/mac.png" alt="" class="projects-section-icon">
+    <h3>This site</h3>
+  </header>
+  <ul class="projects-list">
+    <li>
+      <a href="https://github.com/doyled-it/doyled-it.github.io"><strong>doyled-it.com</strong></a>
+      &mdash; The one you're looking at. 11ty static build, Cloudflare Worker for the chat endpoint, pastel HyperCard aesthetic, cursor buddies, Last.fm integration.
+    </li>
+  </ul>
+</section>
