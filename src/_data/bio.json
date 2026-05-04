@@ -8,7 +8,7 @@
     "summary": "Michael leads applied research and prototyping at MITRE, with a focus on natural language processing and large language models. Recent work spans LLMs for IT modernization and code understanding, training object detectors for neuromorphic cameras, and reinforcement learning for wildfire mitigation."
   },
   "background": {
-    "education": "BS/BA dual degrees in Electrical Engineering from the University of San Diego (2016).",
+    "education": "BS/BA dual degrees in Electrical Engineering from the University of San Diego (2018).",
     "publications": "Has published research at NAACL, NeurIPS, AMTA, and SPIE — primarily on NLP, machine translation, and applied ML.",
     "open_source": "Maintains open-source ML tooling, including SimFire (a wildfire simulator built for RL research at MITRE)."
   },
