@@ -14,6 +14,9 @@ const CONFIG = {
 
 const URL_OK = /^(https?:\/\/|\/|mailto:|tel:)/i;
 
+let sessionToken = "";
+let turnstileReady = null;
+
 const els = {
   botty: document.getElementById("botty"),
   bubble: document.getElementById("botty-bubble"),
@@ -155,9 +158,6 @@ function detectBrowser() {
   return "Other";
 }
 
-let sessionToken = "";
-let turnstileReady = null;
-
 // Load Turnstile, render invisibly, return the solve token. Resolves null
 // if the script can't load or the widget can't solve in time — callers
 // must handle that as "skip the LLM, fall back to canned bank."
@@ -177,7 +177,7 @@ function ensureTurnstileToken(siteKey, timeoutMs = 8000) {
       try {
         window.turnstile.render("#botty-turnstile", {
           sitekey: siteKey,
-          size: "invisible",
+          appearance: "interaction-only",
           callback: (t) => { clearTimeout(timer); finish(t); },
           "error-callback": () => { clearTimeout(timer); finish(null); },
           "timeout-callback": () => { clearTimeout(timer); finish(null); },

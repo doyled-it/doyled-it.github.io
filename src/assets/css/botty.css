@@ -64,6 +64,8 @@
   display: flex;
   flex-direction: column;
 }
+.botty-panel[hidden] { display: none; }
+.botty-bubble[hidden] { display: none; }
 .botty-panel-head {
   background: var(--accent-pink, #ff6fb3);
   border-bottom: 3px solid #000;
