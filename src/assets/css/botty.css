@@ -3,12 +3,10 @@
   bottom: 16px;
   right: 16px;
   display: grid;
-  grid-template-columns: auto auto;
-  grid-template-rows: auto auto;
-  align-items: end;
+  grid-template-columns: auto;
+  grid-template-rows: auto auto auto;
   justify-items: end;
-  column-gap: 8px;
-  row-gap: 10px;
+  row-gap: 8px;
   z-index: 9999;
   pointer-events: none;
 }
@@ -16,14 +14,11 @@
 
 .botty > * { pointer-events: auto; }
 
-/* Panel sits across the full width above the sprite + bubble row. */
-.botty-panel { grid-column: 1 / span 2; grid-row: 1; }
-/* Bubble: row 2 left col, top-aligned with sprite top. */
-.botty-bubble { grid-column: 1; grid-row: 2; align-self: start; }
-/* Sprite: row 2 right col, anchored bottom-right of the widget. */
-.botty-sprite { grid-column: 2; grid-row: 2; }
-/* Turnstile mount lives outside layout. */
-.botty-turnstile-mount { grid-column: 1 / span 2; grid-row: 2; }
+/* Panel above the bubble; bubble above the sprite; sprite anchored bottom. */
+.botty-panel  { grid-row: 1; }
+.botty-bubble { grid-row: 2; }
+.botty-sprite { grid-row: 3; }
+.botty-turnstile-mount { grid-row: 3; }
 
 .botty-sprite {
   width: 56px;
@@ -66,7 +61,7 @@
   box-shadow: 2px 2px 0 #000;
   animation: botty-bubble-in 280ms cubic-bezier(.2,.8,.4,1.2) both;
 }
-/* Tail points right, off the bottom-right edge of the bubble, into the sprite. */
+/* Tail drops off the bottom of the bubble, pointing down at the sprite. */
 .botty-bubble::after,
 .botty-bubble::before {
   content: "";
@@ -74,17 +69,17 @@
   width: 0;
   height: 0;
   border-style: solid;
-  bottom: 8px;
+  right: 14px;
 }
 .botty-bubble::before {
-  right: -10px;
-  border-width: 8px 0 0 10px;
-  border-color: transparent transparent transparent #000;
+  bottom: -10px;
+  border-width: 10px 8px 0 0;
+  border-color: #000 transparent transparent transparent;
 }
 .botty-bubble::after {
-  right: -7px;
-  border-width: 6px 0 0 8px;
-  border-color: transparent transparent transparent #fff;
+  bottom: -7px;
+  border-width: 8px 6px 0 0;
+  border-color: #fff transparent transparent transparent;
 }
 @keyframes botty-bubble-in {
   from { transform: translateY(4px) scale(.94); opacity: 0; }
