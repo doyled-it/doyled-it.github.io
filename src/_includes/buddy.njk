@@ -1,0 +1,25 @@
+<div class="buddy" id="buddy" data-state="hidden" aria-hidden="true">
+  <div class="buddy-bubble" id="buddy-bubble" hidden></div>
+  <button class="buddy-sprite" id="buddy-sprite" type="button"
+          aria-label="open chat with the card">
+    {# Placeholder pixel face — replaced with sprite in Phase 2 #}
+  </button>
+
+  <div class="buddy-panel" id="buddy-panel" hidden>
+    <div class="buddy-panel-head">
+      <span>★ ask the card ★</span>
+      <button type="button" class="buddy-panel-close" id="buddy-panel-close"
+              aria-label="close">×</button>
+    </div>
+    <div class="buddy-panel-log" id="buddy-panel-log" aria-live="polite"></div>
+    <form class="buddy-panel-form" id="buddy-panel-form">
+      <input type="text" id="buddy-panel-input" name="message"
+             placeholder="ask a question…" autocomplete="off"
+             maxlength="1000" required>
+      <button type="submit" id="buddy-panel-send">send</button>
+    </form>
+    <div id="buddy-turnstile-wrap" class="buddy-turnstile">
+      <div id="buddy-turnstile"></div>
+    </div>
+  </div>
+</div>
