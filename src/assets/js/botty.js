@@ -36,26 +36,26 @@ const els = {
 // state; ms controls how long it's held before reverting to resting.
 const EXPRESSIONS = {
   resting:  { weight: 0,  ms: 0,    parts: { eyes: "open" } },
-  blink:    { weight: 18, ms: 140,  parts: { eyes: "closed" } },
-  glanceL:  { weight: 6,  ms: 900,  parts: { eyes: "glance-l" } },
-  glanceR:  { weight: 6,  ms: 900,  parts: { eyes: "glance-r" } },
-  glanceUp: { weight: 4,  ms: 800,  parts: { eyes: "glance-up" } },
-  smile:    { weight: 7,  ms: 1500, parts: { eyes: "open", mouth: "smile" } },
-  bigSmile: { weight: 3,  ms: 1400, parts: { eyes: "closed", mouth: "big-smile" } },
-  smirk:    { weight: 5,  ms: 1300, parts: { eyes: "open", mouth: "smirk", brows: "smug" } },
-  surprise: { weight: 4,  ms: 700,  parts: { eyes: "big",  mouth: "oh", brows: "up" } },
-  ooh:      { weight: 3,  ms: 800,  parts: { eyes: "big",  mouth: "ooh", brows: "up" } },
-  winkL:    { weight: 4,  ms: 500,  parts: { eyes: "wink-l", mouth: "smile" } },
-  winkR:    { weight: 4,  ms: 500,  parts: { eyes: "wink-r", mouth: "smile" } },
-  browUp:   { weight: 5,  ms: 900,  parts: { eyes: "open", brows: "up" } },
-  sleepy:   { weight: 3,  ms: 1600, parts: { eyes: "sleepy", mouth: "flat" } },
-  zzz:      { weight: 1,  ms: 1800, parts: { eyes: "closed", mouth: "flat", accent: "zzz" } },
-  frown:    { weight: 2,  ms: 1100, parts: { eyes: "open", mouth: "frown", brows: "worried" } },
-  blush:    { weight: 2,  ms: 1700, parts: { eyes: "open", mouth: "smile", blush: "on" } },
-  hearts:   { weight: 1,  ms: 1500, parts: { eyes: "hearts", mouth: "smile", blush: "on" } },
-  cross:    { weight: 1,  ms: 900,  parts: { eyes: "cross", mouth: "zigzag" } },
-  tongue:   { weight: 2,  ms: 1100, parts: { eyes: "wink-l", mouth: "tongue" } },
-  sweat:    { weight: 2,  ms: 1100, parts: { eyes: "open", mouth: "flat", brows: "worried", accent: "sweat" } },
+  blink:    { weight: 18, ms: 180,  parts: { eyes: "closed" } },
+  glanceL:  { weight: 6,  ms: 2400, parts: { eyes: "glance-l" } },
+  glanceR:  { weight: 6,  ms: 2400, parts: { eyes: "glance-r" } },
+  glanceUp: { weight: 4,  ms: 2000, parts: { eyes: "glance-up" } },
+  smile:    { weight: 7,  ms: 4200, parts: { eyes: "open", mouth: "smile" } },
+  bigSmile: { weight: 3,  ms: 3600, parts: { eyes: "closed", mouth: "big-smile" } },
+  smirk:    { weight: 5,  ms: 3600, parts: { eyes: "open", mouth: "smirk", brows: "smug" } },
+  surprise: { weight: 4,  ms: 1800, parts: { eyes: "big",  mouth: "oh", brows: "up" } },
+  ooh:      { weight: 3,  ms: 2200, parts: { eyes: "big",  mouth: "ooh", brows: "up" } },
+  winkL:    { weight: 4,  ms: 1400, parts: { eyes: "wink-l", mouth: "smile" } },
+  winkR:    { weight: 4,  ms: 1400, parts: { eyes: "wink-r", mouth: "smile" } },
+  browUp:   { weight: 5,  ms: 2600, parts: { eyes: "open", brows: "up" } },
+  sleepy:   { weight: 3,  ms: 4000, parts: { eyes: "sleepy", mouth: "flat" } },
+  zzz:      { weight: 1,  ms: 4400, parts: { eyes: "closed", mouth: "flat", accent: "zzz" } },
+  frown:    { weight: 2,  ms: 2800, parts: { eyes: "open", mouth: "frown", brows: "worried" } },
+  blush:    { weight: 2,  ms: 4200, parts: { eyes: "open", mouth: "smile", blush: "on" } },
+  hearts:   { weight: 1,  ms: 3800, parts: { eyes: "hearts", mouth: "smile", blush: "on" } },
+  cross:    { weight: 1,  ms: 2400, parts: { eyes: "cross", mouth: "zigzag" } },
+  tongue:   { weight: 2,  ms: 2800, parts: { eyes: "wink-l", mouth: "tongue" } },
+  sweat:    { weight: 2,  ms: 2800, parts: { eyes: "open", mouth: "flat", brows: "worried", accent: "sweat" } },
 };
 
 // Anything an expression doesn't override falls back to these neutrals so
@@ -91,7 +91,7 @@ function startFaceLoop() {
 
   function schedule() {
     // Stay resting for a random idle stretch — feels alive, not metronomic.
-    const idleMs = 2200 + Math.random() * 4200;
+    const idleMs = 3500 + Math.random() * 5500;
     setTimeout(() => {
       const [, expr] = pickAccent();
       applyFace(Object.keys(EXPRESSIONS).find((k) => EXPRESSIONS[k] === expr));
