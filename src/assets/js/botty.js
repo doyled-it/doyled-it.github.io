@@ -11,6 +11,8 @@ const CONFIG = {
   prefetchQuip: true,
   fallbackOnly: false,
   invitePromptDelayMs: 22000,
+  spontaneousMinMs: 70000,
+  spontaneousMaxMs: 180000,
 };
 
 const URL_OK = /^(https?:\/\/|\/|mailto:|tel:)/i;
@@ -21,6 +23,7 @@ let turnstileReady = null;
 const els = {
   botty: document.getElementById("botty"),
   bubble: document.getElementById("botty-bubble"),
+  bubbleText: document.getElementById("botty-bubble-text"),
   sprite: document.getElementById("botty-sprite"),
   face: document.getElementById("botty-face"),
   panel: document.getElementById("botty-panel"),
@@ -138,6 +141,23 @@ const PAGE_INVITES = {
   "/movies/":   "want to know what michael's been watching lately? ask me.",
 };
 
+// Periodic spontaneous quips from the local bank — bounded random window,
+// suppressed while the panel is open or while a bubble is already up.
+function startSpontaneousQuips(signals) {
+  function schedule() {
+    const span = CONFIG.spontaneousMaxMs - CONFIG.spontaneousMinMs;
+    const wait = CONFIG.spontaneousMinMs + Math.random() * span;
+    setTimeout(async () => {
+      if (panelEverOpened && !els.panel.hidden) { schedule(); return; }
+      if (!els.bubble.hidden) { schedule(); return; }
+      const text = await fallbackQuip(signals);
+      if (text) showBubble(text, false);
+      schedule();
+    }, wait);
+  }
+  schedule();
+}
+
 function inviteForPath(pathname) {
   if (PAGE_INVITES[pathname]) return PAGE_INVITES[pathname];
   // Match by prefix (e.g. /words/some-post/) — fall back to homepage line.
@@ -206,6 +226,7 @@ async function init() {
 
   startFaceLoop();
   startFaceSwim();
+  startSpontaneousQuips(signals);
 
   // After a longer dwell, push a curated, page-specific invite — but only
   // once per session (don't badger across pageviews) and not if the user
@@ -405,7 +426,7 @@ function revealSprite() {
 
 function showBubble(text, sticky) {
   revealSprite();
-  els.bubble.textContent = text;
+  els.bubbleText.textContent = text;
   els.bubble.hidden = false;
   if (!sticky && CONFIG.bubbleAutoHideMs > 0) {
     setTimeout(() => { els.bubble.hidden = true; }, CONFIG.bubbleAutoHideMs);

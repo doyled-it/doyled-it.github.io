@@ -1,6 +1,12 @@
 <div class="botty" id="botty" data-state="hidden" aria-hidden="true"
      data-turnstile-site-key="{{ site.turnstileSiteKey }}">
-  <div class="botty-bubble" id="botty-bubble" hidden></div>
+  <div class="botty-bubble" id="botty-bubble" hidden>
+    <span class="botty-bubble-text" id="botty-bubble-text"></span>
+    <svg class="botty-bubble-tail" viewBox="0 0 22 16" aria-hidden="true">
+      <polygon points="0,0 14,0 20,16" fill="#000"/>
+      <polygon points="2.5,0 12,0 16.6,12.5" fill="#fff"/>
+    </svg>
+  </div>
   <button class="botty-sprite" id="botty-sprite" type="button"
           aria-label="open chat with botty">
     <svg class="botty-face" id="botty-face" viewBox="0 0 36 36" aria-hidden="true">

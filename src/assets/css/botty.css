@@ -66,27 +66,19 @@
   box-shadow: 2px 2px 0 #000;
   animation: botty-bubble-in 280ms cubic-bezier(.2,.8,.4,1.2) both;
 }
-/* Tail drops off the bubble's bottom-right area, slanting down-right toward
-   the sprite (right edge vertical, hypotenuse from top-left down to tip). */
-.botty-bubble::after,
-.botty-bubble::before {
-  content: "";
+/* SVG tail: base sits on the bubble's bottom edge, tip slants down-right
+   toward the sprite. Two polygons (black outer + white inner) form the
+   border. */
+.botty-bubble-tail {
   position: absolute;
-  width: 0;
-  height: 0;
-  border-style: solid;
-}
-.botty-bubble::before {
-  right: 6px;
-  bottom: -14px;
-  border-width: 0 0 14px 16px;
-  border-color: transparent transparent #000 transparent;
-}
-.botty-bubble::after {
   right: 8px;
-  bottom: -12px;
-  border-width: 0 0 12px 14px;
-  border-color: transparent transparent #fff transparent;
+  top: 100%;
+  width: 22px;
+  height: 16px;
+  /* Pull up 2px so the white polygon's flat top hides the bubble's border line. */
+  margin-top: -2px;
+  pointer-events: none;
+  display: block;
 }
 @keyframes botty-bubble-in {
   from { transform: translateY(4px) scale(.94); opacity: 0; }
