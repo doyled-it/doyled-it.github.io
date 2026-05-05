@@ -143,5 +143,45 @@
   { "trigger": "*", "template": "the resume pdf is one click away." },
   { "trigger": "*", "template": "yes i can render markdown links." },
   { "trigger": "*", "template": "ask about a paper. there's a list." },
-  { "trigger": "*", "template": "ask about the league standings. very specific." }
+  { "trigger": "*", "template": "ask about the league standings. very specific." },
+
+  { "trigger": { "battery_charging": false, "battery_level_lte": 0.15 }, "weight": 8, "template": "low battery and you're still here. brave." },
+  { "trigger": { "battery_charging": false, "battery_level_lte": 0.10 }, "weight": 10, "template": "you're at like 10%. plug in. for me." },
+  { "trigger": { "battery_charging": false, "battery_level_lte": 0.05 }, "weight": 12, "template": "5% battery. living a fast life." },
+  { "trigger": { "battery_charging": true, "battery_level_lte": 0.30 }, "weight": 6, "template": "charging up. wise choice." },
+  { "trigger": { "battery_charging": true, "battery_level_gte": 0.99 }, "weight": 5, "template": "fully charged AND plugged in. unplug, your battery has feelings." },
+
+  { "trigger": { "conn_type": "slow-2g" }, "weight": 12, "template": "on slow-2g and still here. cathedral patience." },
+  { "trigger": { "conn_type": "2g" }, "weight": 10, "template": "2g connection. respect the load times." },
+  { "trigger": { "conn_type": "3g" }, "weight": 6, "template": "3g out here. retro." },
+  { "trigger": { "save_data": true }, "weight": 7, "template": "data-saver mode. the responsible setting." },
+  { "trigger": { "downlink_mbps_gte": 100 }, "weight": 5, "template": "100+ mbps. fiber, then. we don't deserve this." },
+
+  { "trigger": { "high_refresh": true }, "weight": 9, "template": "120hz panel for a static page. flex." },
+  { "trigger": { "ultrawide": true }, "weight": 9, "template": "ultrawide monitor. unhinged. complimentary." },
+  { "trigger": { "vertical_monitor": true }, "weight": 10, "template": "vertical monitor. dev energy detected." },
+  { "trigger": { "dpr_gte": 2 }, "weight": 3, "template": "retina-class screen. lucky pixels." },
+  { "trigger": { "dpr_gte": 3 }, "weight": 5, "template": "3x density display. that's a phone or a very expensive laptop." },
+
+  { "trigger": { "standalone_pwa": true }, "weight": 12, "template": "you installed this site as an app? bold move." },
+  { "trigger": { "touch_on_desktop": true }, "weight": 10, "template": "touchscreen on a desktop browser. surface or wacom?" },
+  { "trigger": { "webgpu": true, "ua_browser": "Chrome" }, "weight": 6, "template": "webgpu enabled. bleeding edge." },
+
+  { "trigger": { "cores_gte": 16 }, "weight": 5, "template": "{{cores}} cores for one chat widget. flex." },
+  { "trigger": { "cores_lte": 2 }, "weight": 4, "template": "two cores. holding the line." },
+  { "trigger": { "ram_gb_gte": 32 }, "weight": 5, "template": "{{ram_gb}}gb of ram. for this? truly." },
+  { "trigger": { "ram_gb_lte": 2 }, "weight": 4, "template": "{{ram_gb}}gb device. lean." },
+
+  { "trigger": { "dark_mode": true }, "weight": 3, "template": "dark mode warrior. the site doesn't care, fwiw." },
+  { "trigger": { "reduced_motion": true }, "weight": 4, "template": "reduced motion respected. botty calms down for you." },
+  { "trigger": { "gpc": true }, "weight": 7, "template": "GPC sent. respected." },
+  { "trigger": { "dnt": true }, "weight": 6, "template": "DNT enabled. old-school." },
+
+  { "trigger": { "nav_type": "back_forward" }, "weight": 6, "template": "back-button arrival. classic." },
+  { "trigger": { "nav_type": "reload" }, "weight": 4, "template": "refresh. something not right?" },
+  { "trigger": { "reload_count_gte": 3 }, "weight": 9, "template": "{{reload_count}}rd refresh. is the site broken or are you?" },
+
+  { "trigger": { "tz_lang_mismatch": true }, "weight": 8, "template": "english browser, {{tz}} timezone. interesting combo." },
+
+  { "trigger": { "storage_quota_gb_gte": 50 }, "weight": 3, "template": "you've got {{storage_quota_gb}}gb of browser storage free. tidy." }
 ]

@@ -186,6 +186,7 @@ async function init() {
 
   const signals = collectSignals(isQr, isMobile, params);
   trackSessionPath();
+  enrichSignalsAsync(signals, isMobile);
 
   // If botty already showed up earlier in this session, reveal the sprite
   // right away on subsequent navigations — no second wait-for-engagement.
@@ -302,6 +303,25 @@ function collectSignals(isQr, isMobile, params) {
 
   const uaPlatform = navigator.userAgentData?.platform || navigator.platform || "";
   const isMac = /Mac/i.test(uaPlatform);
+  const conn = navigator.connection || {};
+  const screenAspect = screen && screen.width && screen.height
+    ? screen.width / screen.height
+    : null;
+  let reloadCount = 0;
+  try {
+    reloadCount = parseInt(sessionStorage.getItem("dit.reload_count") || "0", 10) || 0;
+    const navType = performance.getEntriesByType?.("navigation")?.[0]?.type;
+    if (navType === "reload") sessionStorage.setItem("dit.reload_count", String(reloadCount + 1));
+  } catch (_) {}
+  const tzLang = (navigator.language || "").slice(0, 2).toLowerCase();
+  const tzCountryGuess = tz.split("/")[0]; // crude — "America", "Asia", "Europe"
+  const tzMismatch = !!tzLang && !!tzCountryGuess && (
+    (tzLang === "en" && /Asia|Africa/.test(tzCountryGuess)) ||
+    (tzLang === "ja" && tzCountryGuess !== "Asia") ||
+    (tzLang === "de" && tzCountryGuess !== "Europe") ||
+    (tzLang === "fr" && tzCountryGuess !== "Europe" && tzCountryGuess !== "Africa")
+  );
+
   return {
     via: isQr ? "card" : null,
     path: location.pathname,
@@ -310,6 +330,7 @@ function collectSignals(isQr, isMobile, params) {
     lang: navigator.language || "",
     tz,
     tz_hour: Number.isFinite(tzHour) ? tzHour : 0,
+    tz_lang_mismatch: tzMismatch,
     ua_platform: uaPlatform,
     ua_browser: detectBrowser(),
     mac_chip: isMac && !isMobile ? detectMacChip() : null,
@@ -317,7 +338,73 @@ function collectSignals(isQr, isMobile, params) {
     returning,
     visit_count: visitCount,
     session_paths: sessionPaths,
+    // New "cool" signals — battery resolves async and gets patched in later.
+    cores: navigator.hardwareConcurrency || null,
+    ram_gb: navigator.deviceMemory || null,
+    conn_type: conn.effectiveType || null,
+    save_data: !!conn.saveData,
+    downlink_mbps: typeof conn.downlink === "number" ? conn.downlink : null,
+    dpr: window.devicePixelRatio || 1,
+    screen_w: screen?.width || null,
+    screen_h: screen?.height || null,
+    screen_aspect: screenAspect,
+    ultrawide: screenAspect ? screenAspect >= 2.3 : false,
+    vertical_monitor: screenAspect ? screenAspect < 0.85 : false,
+    high_refresh: false, // patched after rAF probe
+    dark_mode: window.matchMedia?.("(prefers-color-scheme: dark)").matches || false,
+    reduced_motion: window.matchMedia?.("(prefers-reduced-motion: reduce)").matches || false,
+    standalone_pwa: window.matchMedia?.("(display-mode: standalone)").matches
+      || window.navigator.standalone === true,
+    touch_capable: navigator.maxTouchPoints > 0,
+    touch_on_desktop: !isMobile && navigator.maxTouchPoints > 0,
+    webgpu: "gpu" in navigator,
+    gpc: !!navigator.globalPrivacyControl,
+    dnt: navigator.doNotTrack === "1" || window.doNotTrack === "1",
+    nav_type: performance.getEntriesByType?.("navigation")?.[0]?.type || null,
+    reload_count: reloadCount,
+    storage_quota_gb: null, // patched after async storage estimate
+    battery_level: null,    // 0..1, patched after navigator.getBattery()
+    battery_charging: null, // patched
   };
+}
+
+// Mutate the signals object in place as async values resolve. Safe because
+// fallbackQuip / pickQuip read it fresh on each fire — once a signal fills
+// in, future quips can match on it.
+function enrichSignalsAsync(signals, isMobile) {
+  if (typeof navigator.getBattery === "function") {
+    navigator.getBattery().then((b) => {
+      signals.battery_level = b.level;
+      signals.battery_charging = b.charging;
+      b.addEventListener?.("levelchange", () => { signals.battery_level = b.level; });
+      b.addEventListener?.("chargingchange", () => { signals.battery_charging = b.charging; });
+    }).catch(() => {});
+  }
+  if (navigator.storage?.estimate) {
+    navigator.storage.estimate().then((est) => {
+      if (typeof est.quota === "number") signals.storage_quota_gb = Math.round(est.quota / 1e9);
+    }).catch(() => {});
+  }
+  if (!isMobile) probeHighRefresh(signals);
+}
+
+// Sample a few requestAnimationFrame deltas; if median < ~12ms, the panel
+// is rendering at >80Hz. Cheap, runs once.
+function probeHighRefresh(signals) {
+  const deltas = [];
+  let last = 0, count = 0;
+  function tick(t) {
+    if (last) deltas.push(t - last);
+    last = t;
+    count++;
+    if (count < 16) requestAnimationFrame(tick);
+    else {
+      const sorted = [...deltas].sort((a, b) => a - b);
+      const median = sorted[Math.floor(sorted.length / 2)];
+      signals.high_refresh = median < 12;
+    }
+  }
+  requestAnimationFrame(tick);
 }
 
 // Best-effort Apple Silicon vs Intel detection via the WebGL renderer
