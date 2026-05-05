@@ -2,10 +2,13 @@
   position: fixed;
   bottom: 16px;
   right: 16px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-rows: auto auto;
+  align-items: end;
+  justify-items: end;
+  column-gap: 8px;
+  row-gap: 10px;
   z-index: 9999;
   pointer-events: none;
 }
@@ -13,9 +16,16 @@
 
 .botty > * { pointer-events: auto; }
 
-/* Sprite — always sits at the bottom of the stack */
+/* Panel sits across the full width above the sprite + bubble row. */
+.botty-panel { grid-column: 1 / span 2; grid-row: 1; }
+/* Bubble: row 2 left col, top-aligned with sprite top. */
+.botty-bubble { grid-column: 1; grid-row: 2; align-self: start; }
+/* Sprite: row 2 right col, anchored bottom-right of the widget. */
+.botty-sprite { grid-column: 2; grid-row: 2; }
+/* Turnstile mount lives outside layout. */
+.botty-turnstile-mount { grid-column: 1 / span 2; grid-row: 2; }
+
 .botty-sprite {
-  order: 99;
   width: 56px;
   height: 56px;
   background: var(--card-body, #fffbe6);
@@ -24,84 +34,26 @@
   cursor: pointer;
   padding: 0;
   position: relative;
+  display: block;
 }
-.botty-sprite::before {
-  content: "";
-  position: absolute;
-  inset: 12px;
-  background:
-    radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
-    radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
-    linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  animation: botty-face 9s steps(1, end) infinite, botty-shift 4.1s ease-in-out infinite;
-}
-.botty-sprite:hover::before { animation-play-state: paused; }
 .botty-sprite:active {
   transform: translate(2px, 2px);
   box-shadow: 2px 2px 0 #000;
 }
-/* Whole face drifts a pixel to feel alive, independent of the sprite tile. */
-@keyframes botty-shift {
-  0%, 100% { transform: translate(0, 0); }
-  25%      { transform: translate(1px, -1px); }
-  60%      { transform: translate(-1px, 0); }
-}
-/* Cycle through resting → blink → side-glance → smirk → raised-brow. */
-@keyframes botty-face {
-  /* default: open eyes, neutral mouth */
-  0%, 28% {
-    background:
-      radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
-      radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
-      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  }
-  /* blink */
-  29%, 32% {
-    background:
-      linear-gradient(#000, #000) 18% 38% / 14% 2px no-repeat,
-      linear-gradient(#000, #000) 68% 38% / 14% 2px no-repeat,
-      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  }
-  /* side-glance: pupils shifted right */
-  33%, 50% {
-    background:
-      radial-gradient(circle at 38% 38%, #000 0 3px, transparent 4px),
-      radial-gradient(circle at 82% 38%, #000 0 3px, transparent 4px),
-      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  }
-  /* smirk: mouth lifts on the right side */
-  51%, 70% {
-    background:
-      radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
-      radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
-      linear-gradient(#000, #000) 25% 72% / 30% 3px no-repeat,
-      linear-gradient(#000, #000) 55% 64% / 22% 3px no-repeat;
-  }
-  /* raised brow: short bars above eyes */
-  71%, 90% {
-    background:
-      linear-gradient(#000, #000) 18% 22% / 22% 2px no-repeat,
-      linear-gradient(#000, #000) 60% 22% / 22% 2px no-repeat,
-      radial-gradient(circle at 28% 42%, #000 0 3px, transparent 4px),
-      radial-gradient(circle at 72% 42%, #000 0 3px, transparent 4px),
-      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  }
-  /* second blink before resetting */
-  91%, 94% {
-    background:
-      linear-gradient(#000, #000) 18% 38% / 14% 2px no-repeat,
-      linear-gradient(#000, #000) 68% 38% / 14% 2px no-repeat,
-      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  }
-  95%, 100% {
-    background:
-      radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
-      radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
-      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  }
-}
 
-/* Speech bubble */
+/* SVG face fills the inner sprite area (10px inset, leaving 36x36). */
+.botty-face {
+  position: absolute;
+  inset: 7px;
+  width: calc(100% - 14px);
+  height: calc(100% - 14px);
+  fill: #000;
+  pointer-events: none;
+}
+/* Hide every part-group by default. JS toggles which one is visible. */
+.botty-face g[data-part] { display: none; }
+
+/* Speech bubble — top-aligned with the sprite's face. */
 .botty-bubble {
   position: relative;
   background: #fff;
@@ -113,30 +65,29 @@
   max-width: 240px;
   box-shadow: 2px 2px 0 #000;
   animation: botty-bubble-in 280ms cubic-bezier(.2,.8,.4,1.2) both;
-  margin-right: 6px;
 }
-/* Triangle tail pointing down-right toward the sprite. */
+/* Tail points right, off the bottom-right edge of the bubble, into the sprite. */
 .botty-bubble::after,
 .botty-bubble::before {
   content: "";
   position: absolute;
-  right: 14px;
   width: 0;
   height: 0;
   border-style: solid;
+  bottom: 8px;
 }
 .botty-bubble::before {
-  bottom: -10px;
-  border-width: 10px 0 0 8px;
-  border-color: #000 transparent transparent transparent;
+  right: -10px;
+  border-width: 8px 0 0 10px;
+  border-color: transparent transparent transparent #000;
 }
 .botty-bubble::after {
-  bottom: -7px;
-  border-width: 8px 0 0 6px;
-  border-color: #fff transparent transparent transparent;
+  right: -7px;
+  border-width: 6px 0 0 8px;
+  border-color: transparent transparent transparent #fff;
 }
 @keyframes botty-bubble-in {
-  from { transform: translateY(8px) scale(.92); opacity: 0; }
+  from { transform: translateY(4px) scale(.94); opacity: 0; }
   to   { transform: translateY(0) scale(1);     opacity: 1; }
 }
 
@@ -218,8 +169,7 @@
 
 /* Mobile takeover */
 @media (max-width: 540px) {
-  .botty { bottom: 12px; right: 12px; left: 12px; align-items: stretch; }
+  .botty { bottom: 12px; right: 12px; left: 12px; }
   .botty-panel { width: auto; max-height: 60vh; }
   .botty-bubble { max-width: 100%; }
-  .botty-sprite { align-self: flex-end; }
 }

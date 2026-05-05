@@ -2,8 +2,114 @@
      data-turnstile-site-key="{{ site.turnstileSiteKey }}">
   <div class="botty-bubble" id="botty-bubble" hidden></div>
   <button class="botty-sprite" id="botty-sprite" type="button"
-          aria-label="open chat with the card">
-    {# Placeholder pixel face — replaced with sprite in Phase 2 #}
+          aria-label="open chat with botty">
+    <svg class="botty-face" id="botty-face" viewBox="0 0 36 36" aria-hidden="true">
+      {# brows #}
+      <g data-part="brows" data-variant="up">
+        <rect x="7"  y="9"  width="8" height="1.4" rx="0.5"/>
+        <rect x="21" y="9"  width="8" height="1.4" rx="0.5"/>
+      </g>
+      <g data-part="brows" data-variant="down">
+        <rect x="7"  y="11" width="8" height="1.4" rx="0.5" transform="rotate(-12 11 11.5)"/>
+        <rect x="21" y="11" width="8" height="1.4" rx="0.5" transform="rotate(12 25 11.5)"/>
+      </g>
+      <g data-part="brows" data-variant="smug">
+        <rect x="7"  y="11" width="8" height="1.4" rx="0.5"/>
+        <rect x="21" y="9"  width="8" height="1.4" rx="0.5"/>
+      </g>
+      <g data-part="brows" data-variant="worried">
+        <rect x="7"  y="9"  width="8" height="1.4" rx="0.5" transform="rotate(8 11 9.7)"/>
+        <rect x="21" y="9"  width="8" height="1.4" rx="0.5" transform="rotate(-8 25 9.7)"/>
+      </g>
+      {# eyes #}
+      <g data-part="eyes" data-variant="open">
+        <circle cx="11" cy="16" r="2"/>
+        <circle cx="25" cy="16" r="2"/>
+      </g>
+      <g data-part="eyes" data-variant="big">
+        <circle cx="11" cy="16" r="3" fill="white" stroke="black" stroke-width="1.2"/>
+        <circle cx="25" cy="16" r="3" fill="white" stroke="black" stroke-width="1.2"/>
+        <circle cx="11.5" cy="16.3" r="1.4"/>
+        <circle cx="25.5" cy="16.3" r="1.4"/>
+      </g>
+      <g data-part="eyes" data-variant="closed">
+        <rect x="8.5"  y="15.4" width="5" height="1.4" rx="0.6"/>
+        <rect x="22.5" y="15.4" width="5" height="1.4" rx="0.6"/>
+      </g>
+      <g data-part="eyes" data-variant="sleepy">
+        <path d="M8.5 16.3 Q11 14.6 13.5 16.3" fill="none" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M22.5 16.3 Q25 14.6 27.5 16.3" fill="none" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <g data-part="eyes" data-variant="glance-l">
+        <circle cx="9.5"  cy="16" r="2"/>
+        <circle cx="23.5" cy="16" r="2"/>
+      </g>
+      <g data-part="eyes" data-variant="glance-r">
+        <circle cx="12.5" cy="16" r="2"/>
+        <circle cx="26.5" cy="16" r="2"/>
+      </g>
+      <g data-part="eyes" data-variant="glance-up">
+        <circle cx="11" cy="14.5" r="2"/>
+        <circle cx="25" cy="14.5" r="2"/>
+      </g>
+      <g data-part="eyes" data-variant="wink-l">
+        <rect x="8.5"  y="15.4" width="5" height="1.4" rx="0.6"/>
+        <circle cx="25" cy="16" r="2"/>
+      </g>
+      <g data-part="eyes" data-variant="wink-r">
+        <circle cx="11" cy="16" r="2"/>
+        <rect x="22.5" y="15.4" width="5" height="1.4" rx="0.6"/>
+      </g>
+      <g data-part="eyes" data-variant="cross">
+        <path d="M9 14 L13 18 M13 14 L9 18"  stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M23 14 L27 18 M27 14 L23 18" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      <g data-part="eyes" data-variant="hearts">
+        <path d="M9 16 q-1.4 -2 -2.4 0 q0 1.6 2.4 3 q2.4 -1.4 2.4 -3 q-1 -2 -2.4 0 z" fill="#e63b8a"/>
+        <path d="M25 16 q-1.4 -2 -2.4 0 q0 1.6 2.4 3 q2.4 -1.4 2.4 -3 q-1 -2 -2.4 0 z" fill="#e63b8a"/>
+      </g>
+      {# mouth #}
+      <g data-part="mouth" data-variant="flat">
+        <rect x="11" y="24" width="14" height="1.6" rx="0.6"/>
+      </g>
+      <g data-part="mouth" data-variant="smile">
+        <path d="M11 24 Q18 28 25 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <g data-part="mouth" data-variant="big-smile">
+        <path d="M10 24 Q18 30 26 24 Q18 26 10 24 Z"/>
+      </g>
+      <g data-part="mouth" data-variant="smirk">
+        <path d="M11 25 Q15 25 18 24.4 Q21 23.7 23 22.7" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <g data-part="mouth" data-variant="frown">
+        <path d="M11 26 Q18 22 25 26" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round"/>
+      </g>
+      <g data-part="mouth" data-variant="oh">
+        <circle cx="18" cy="25" r="1.8" fill="none" stroke="black" stroke-width="1.4"/>
+      </g>
+      <g data-part="mouth" data-variant="ooh">
+        <ellipse cx="18" cy="25" rx="1.4" ry="2.2" fill="none" stroke="black" stroke-width="1.4"/>
+      </g>
+      <g data-part="mouth" data-variant="tongue">
+        <path d="M11 24 Q18 28 25 24" fill="none" stroke="black" stroke-width="1.6" stroke-linecap="round"/>
+        <path d="M16.5 26 Q18 28.6 19.5 26 Z" fill="#e63b8a"/>
+      </g>
+      <g data-part="mouth" data-variant="zigzag">
+        <path d="M11 25 L14 24 L17 25 L20 24 L23 25 L25 24" fill="none" stroke="black" stroke-width="1.4" stroke-linecap="round"/>
+      </g>
+      {# blush #}
+      <g data-part="blush" data-variant="on">
+        <ellipse cx="6.5"  cy="20" rx="2.2" ry="1.2" fill="#ff8fb1" opacity="0.85"/>
+        <ellipse cx="29.5" cy="20" rx="2.2" ry="1.2" fill="#ff8fb1" opacity="0.85"/>
+      </g>
+      {# sweat drop accent #}
+      <g data-part="accent" data-variant="sweat">
+        <path d="M30 7 q1.4 2 1.4 3 a1.6 1.6 0 1 1 -2.8 0 q0 -1 1.4 -3 z" fill="#5fb1ff" stroke="black" stroke-width="0.6"/>
+      </g>
+      <g data-part="accent" data-variant="zzz">
+        <text x="28" y="9" font-family="VT323, monospace" font-size="6" fill="black">z</text>
+      </g>
+    </svg>
   </button>
 
   <div class="botty-panel" id="botty-panel" hidden>

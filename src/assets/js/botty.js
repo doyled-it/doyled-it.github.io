@@ -10,6 +10,7 @@ const CONFIG = {
   qrArrivalDelayMs: 1000,
   prefetchQuip: true,
   fallbackOnly: false,
+  invitePromptDelayMs: 22000,
 };
 
 const URL_OK = /^(https?:\/\/|\/|mailto:|tel:)/i;
@@ -21,6 +22,7 @@ const els = {
   botty: document.getElementById("botty"),
   bubble: document.getElementById("botty-bubble"),
   sprite: document.getElementById("botty-sprite"),
+  face: document.getElementById("botty-face"),
   panel: document.getElementById("botty-panel"),
   panelClose: document.getElementById("botty-panel-close"),
   panelLog: document.getElementById("botty-panel-log"),
@@ -28,6 +30,93 @@ const els = {
   panelInput: document.getElementById("botty-panel-input"),
   panelSend: document.getElementById("botty-panel-send"),
 };
+
+// Each expression names a variant per part-group. Anything omitted → that
+// part stays hidden. Weight controls how often it's picked from the resting
+// state; ms controls how long it's held before reverting to resting.
+const EXPRESSIONS = {
+  resting:  { weight: 0,  ms: 0,    parts: { eyes: "open" } },
+  blink:    { weight: 18, ms: 140,  parts: { eyes: "closed" } },
+  glanceL:  { weight: 6,  ms: 900,  parts: { eyes: "glance-l" } },
+  glanceR:  { weight: 6,  ms: 900,  parts: { eyes: "glance-r" } },
+  glanceUp: { weight: 4,  ms: 800,  parts: { eyes: "glance-up" } },
+  smile:    { weight: 7,  ms: 1500, parts: { eyes: "open", mouth: "smile" } },
+  bigSmile: { weight: 3,  ms: 1400, parts: { eyes: "closed", mouth: "big-smile" } },
+  smirk:    { weight: 5,  ms: 1300, parts: { eyes: "open", mouth: "smirk", brows: "smug" } },
+  surprise: { weight: 4,  ms: 700,  parts: { eyes: "big",  mouth: "oh", brows: "up" } },
+  ooh:      { weight: 3,  ms: 800,  parts: { eyes: "big",  mouth: "ooh", brows: "up" } },
+  winkL:    { weight: 4,  ms: 500,  parts: { eyes: "wink-l", mouth: "smile" } },
+  winkR:    { weight: 4,  ms: 500,  parts: { eyes: "wink-r", mouth: "smile" } },
+  browUp:   { weight: 5,  ms: 900,  parts: { eyes: "open", brows: "up" } },
+  sleepy:   { weight: 3,  ms: 1600, parts: { eyes: "sleepy", mouth: "flat" } },
+  zzz:      { weight: 1,  ms: 1800, parts: { eyes: "closed", mouth: "flat", accent: "zzz" } },
+  frown:    { weight: 2,  ms: 1100, parts: { eyes: "open", mouth: "frown", brows: "worried" } },
+  blush:    { weight: 2,  ms: 1700, parts: { eyes: "open", mouth: "smile", blush: "on" } },
+  hearts:   { weight: 1,  ms: 1500, parts: { eyes: "hearts", mouth: "smile", blush: "on" } },
+  cross:    { weight: 1,  ms: 900,  parts: { eyes: "cross", mouth: "zigzag" } },
+  tongue:   { weight: 2,  ms: 1100, parts: { eyes: "wink-l", mouth: "tongue" } },
+  sweat:    { weight: 2,  ms: 1100, parts: { eyes: "open", mouth: "flat", brows: "worried", accent: "sweat" } },
+};
+
+function applyFace(name) {
+  const expr = EXPRESSIONS[name] || EXPRESSIONS.resting;
+  const groups = els.face.querySelectorAll("g[data-part]");
+  groups.forEach((g) => {
+    const part = g.dataset.part;
+    const variant = g.dataset.variant;
+    g.style.display = expr.parts[part] === variant ? "block" : "none";
+  });
+}
+
+function startFaceLoop() {
+  applyFace("resting");
+  const accents = Object.entries(EXPRESSIONS).filter(([k]) => k !== "resting");
+  const totalWeight = accents.reduce((s, [, e]) => s + e.weight, 0);
+  let lastPick = null;
+
+  function pickAccent() {
+    let r = Math.random() * totalWeight;
+    for (const [name, expr] of accents) {
+      r -= expr.weight;
+      if (r <= 0 && name !== lastPick) { lastPick = name; return [name, expr]; }
+    }
+    const [name, expr] = accents[accents.length - 1];
+    lastPick = name;
+    return [name, expr];
+  }
+
+  function schedule() {
+    // Stay resting for a random idle stretch — feels alive, not metronomic.
+    const idleMs = 2200 + Math.random() * 4200;
+    setTimeout(() => {
+      const [, expr] = pickAccent();
+      applyFace(Object.keys(EXPRESSIONS).find((k) => EXPRESSIONS[k] === expr));
+      setTimeout(() => { applyFace("resting"); schedule(); }, expr.ms);
+    }, idleMs);
+  }
+  schedule();
+}
+
+const PAGE_INVITES = {
+  "/":          "want to know more about michael? ask me a question.",
+  "/baseball/": "curious how michael's been hitting this season? ask me.",
+  "/golf/":     "want to know what michael's handicap is doing? go on, ask.",
+  "/music/":    "want a peek at what michael's been spinning lately? ask me.",
+  "/words/":    "looking for a specific post? i can point you at the right one.",
+  "/projects/": "want context on what michael's built? ask away.",
+  "/resume/":   "questions about michael's experience? ask me.",
+  "/contact/":  "trying to reach michael? i can help with that — ask.",
+  "/movies/":   "want to know what michael's been watching lately? ask me.",
+};
+
+function inviteForPath(pathname) {
+  if (PAGE_INVITES[pathname]) return PAGE_INVITES[pathname];
+  // Match by prefix (e.g. /words/some-post/) — fall back to homepage line.
+  for (const key of Object.keys(PAGE_INVITES)) {
+    if (key !== "/" && pathname.startsWith(key)) return PAGE_INVITES[key];
+  }
+  return PAGE_INVITES["/"];
+}
 
 if (!els.botty) {
   console.warn("botty: markup not found, skipping init");
@@ -85,6 +174,22 @@ async function init() {
       quipPromise = CONFIG.fallbackOnly ? null : fetchQuip(signals).catch(() => null);
     }
   }, 750);
+
+  startFaceLoop();
+
+  // After a longer dwell, push a curated, page-specific invite — but only
+  // once per session (don't badger across pageviews) and not if the user
+  // has already opened the panel.
+  let invited = false;
+  try { invited = sessionStorage.getItem("dit.botty_invited") === "1"; } catch (_) {}
+  if (!invited) {
+    setTimeout(() => {
+      if (panelEverOpened) return;
+      const text = inviteForPath(location.pathname);
+      showBubble(text, true);
+      try { sessionStorage.setItem("dit.botty_invited", "1"); } catch (_) {}
+    }, CONFIG.invitePromptDelayMs);
+  }
 
   els.sprite.addEventListener("click", openPanel);
   els.panelClose.addEventListener("click", closePanel);
@@ -277,9 +382,13 @@ function showBubble(text, sticky) {
   }
 }
 
+let panelEverOpened = false;
 function openPanel() {
+  panelEverOpened = true;
   els.panel.hidden = false;
+  els.bubble.hidden = true;
   els.panelInput.focus();
+  try { sessionStorage.setItem("dit.botty_invited", "1"); } catch (_) {}
 }
 function closePanel() {
   els.panel.hidden = true;
