@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/crt.css">
     <link rel="stylesheet" href="/assets/css/buddy-select.css">
+    <link rel="stylesheet" href="/assets/css/botty.css">
     {% if extraCSS %}
       {% for sheet in extraCSS %}
         <link rel="stylesheet" href="{{ sheet }}">
@@ -39,7 +40,9 @@
         <div class="buddy-grid" id="buddy-grid"></div>
       </div>
     </div>
+    {% include "botty.njk" %}
     <script type="module" src="/assets/js/buddies.js"></script>
+    <script type="module" src="/assets/js/botty.js"></script>
     <script src="/assets/js/keyboard-nav.js" defer></script>
     <script src="/assets/js/window-controls.js" defer></script>
     <script src="/assets/js/chiptune.js" defer></script>

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { createEngagement } from "../lib/buddy-engagement.mjs";
+import { createEngagement } from "../lib/botty-engagement.mjs";
 
 const CFG = {
   triggerTimeMs: 4000,

@@ -1,0 +1,25 @@
+<div class="botty" id="botty" data-state="hidden" aria-hidden="true">
+  <div class="botty-bubble" id="botty-bubble" hidden></div>
+  <button class="botty-sprite" id="botty-sprite" type="button"
+          aria-label="open chat with the card">
+    {# Placeholder pixel face — replaced with sprite in Phase 2 #}
+  </button>
+
+  <div class="botty-panel" id="botty-panel" hidden>
+    <div class="botty-panel-head">
+      <span>★ ask the card ★</span>
+      <button type="button" class="botty-panel-close" id="botty-panel-close"
+              aria-label="close">×</button>
+    </div>
+    <div class="botty-panel-log" id="botty-panel-log" aria-live="polite"></div>
+    <form class="botty-panel-form" id="botty-panel-form">
+      <input type="text" id="botty-panel-input" name="message"
+             placeholder="ask a question…" autocomplete="off"
+             maxlength="1000" required>
+      <button type="submit" id="botty-panel-send">send</button>
+    </form>
+    <div id="botty-turnstile-wrap" class="botty-turnstile">
+      <div id="botty-turnstile"></div>
+    </div>
+  </div>
+</div>

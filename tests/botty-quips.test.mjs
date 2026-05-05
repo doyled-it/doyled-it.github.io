@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { matchPredicate, fillSlots, pickQuip } from "../lib/buddy-quips.mjs";
+import { matchPredicate, fillSlots, pickQuip } from "../lib/botty-quips.mjs";
 
 test("matchPredicate: wildcard matches anything", () => {
   assert.equal(matchPredicate("*", {}), true);

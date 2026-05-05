@@ -15,7 +15,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy({ "src/resume.pdf": "resume.pdf" });
   eleventyConfig.addPassthroughCopy({ lib: "lib" });
-  eleventyConfig.addPassthroughCopy({ "src/_data/buddy-quips.json": "buddy-quips.json" });
+  eleventyConfig.addPassthroughCopy({ "src/_data/botty-quips.json": "botty-quips.json" });
 
   eleventyConfig.addWatchTarget("src/_data/baseball.json");
   eleventyConfig.addWatchTarget("src/_data/league.json");

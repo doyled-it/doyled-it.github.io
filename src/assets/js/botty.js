@@ -1,5 +1,5 @@
-import { pickQuip } from "/lib/buddy-quips.mjs";
-import { createEngagement } from "/lib/buddy-engagement.mjs";
+import { pickQuip } from "/lib/botty-quips.mjs";
+import { createEngagement } from "/lib/botty-engagement.mjs";
 
 const CONFIG = {
   triggerTimeMs: 4000,
@@ -15,19 +15,19 @@ const CONFIG = {
 const URL_OK = /^(https?:\/\/|\/|mailto:|tel:)/i;
 
 const els = {
-  buddy: document.getElementById("buddy"),
-  bubble: document.getElementById("buddy-bubble"),
-  sprite: document.getElementById("buddy-sprite"),
-  panel: document.getElementById("buddy-panel"),
-  panelClose: document.getElementById("buddy-panel-close"),
-  panelLog: document.getElementById("buddy-panel-log"),
-  panelForm: document.getElementById("buddy-panel-form"),
-  panelInput: document.getElementById("buddy-panel-input"),
-  panelSend: document.getElementById("buddy-panel-send"),
+  botty: document.getElementById("botty"),
+  bubble: document.getElementById("botty-bubble"),
+  sprite: document.getElementById("botty-sprite"),
+  panel: document.getElementById("botty-panel"),
+  panelClose: document.getElementById("botty-panel-close"),
+  panelLog: document.getElementById("botty-panel-log"),
+  panelForm: document.getElementById("botty-panel-form"),
+  panelInput: document.getElementById("botty-panel-input"),
+  panelSend: document.getElementById("botty-panel-send"),
 };
 
-if (!els.buddy) {
-  console.warn("buddy: markup not found, skipping init");
+if (!els.botty) {
+  console.warn("botty: markup not found, skipping init");
 } else {
   init();
 }
@@ -178,7 +178,7 @@ let _fallbackBank = null;
 async function fallbackQuip(signals) {
   if (!_fallbackBank) {
     try {
-      const resp = await fetch("/buddy-quips.json");
+      const resp = await fetch("/botty-quips.json");
       _fallbackBank = await resp.json();
     } catch (_) {
       _fallbackBank = [{ trigger: "*", template: "hey." }];
@@ -189,8 +189,8 @@ async function fallbackQuip(signals) {
 }
 
 function showBubble(text, sticky) {
-  els.buddy.dataset.state = "shown";
-  els.buddy.setAttribute("aria-hidden", "false");
+  els.botty.dataset.state = "shown";
+  els.botty.setAttribute("aria-hidden", "false");
   els.bubble.textContent = text;
   els.bubble.hidden = false;
   if (!sticky && CONFIG.bubbleAutoHideMs > 0) {
