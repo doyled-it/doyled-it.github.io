@@ -300,6 +300,8 @@ function collectSignals(isQr, isMobile, params) {
     refererHost = document.referrer ? new URL(document.referrer).host : "";
   } catch (_) {}
 
+  const uaPlatform = navigator.userAgentData?.platform || navigator.platform || "";
+  const isMac = /Mac/i.test(uaPlatform);
   return {
     via: isQr ? "card" : null,
     path: location.pathname,
@@ -308,13 +310,32 @@ function collectSignals(isQr, isMobile, params) {
     lang: navigator.language || "",
     tz,
     tz_hour: Number.isFinite(tzHour) ? tzHour : 0,
-    ua_platform: navigator.userAgentData?.platform || navigator.platform || "",
+    ua_platform: uaPlatform,
     ua_browser: detectBrowser(),
+    mac_chip: isMac && !isMobile ? detectMacChip() : null,
     mobile: isMobile,
     returning,
     visit_count: visitCount,
     session_paths: sessionPaths,
   };
+}
+
+// Best-effort Apple Silicon vs Intel detection via the WebGL renderer
+// string. Apple Silicon Macs report "Apple M1/M2/.." or "Apple GPU";
+// Intel Macs report Intel/AMD/etc. Returns null if unknown — Firefox and
+// some Safari versions strip the renderer for fingerprinting protection.
+function detectMacChip() {
+  try {
+    const canvas = document.createElement("canvas");
+    const gl = canvas.getContext("webgl") || canvas.getContext("experimental-webgl");
+    if (!gl) return null;
+    const ext = gl.getExtension("WEBGL_debug_renderer_info");
+    const renderer = ext ? gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) : "";
+    if (!renderer) return null;
+    if (/Apple M\d|Apple GPU/i.test(renderer)) return "apple_silicon";
+    if (/Intel|AMD|Radeon/i.test(renderer)) return "intel";
+    return null;
+  } catch (_) { return null; }
 }
 
 function detectBrowser() {
