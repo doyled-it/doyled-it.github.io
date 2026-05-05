@@ -2,9 +2,9 @@
 
 Personal site. Eleventy 3 (11ty) static build wrapped in a Cloudflare
 Worker. Pastel HyperCard / cracktro aesthetic, cursor buddies, per-hobby
-data cards (baseball, golf, music), and a `/card` chat endpoint backed by
-Claude. Replaces the prior al-folio Jekyll site (preserved on
-`legacy/al-folio`).
+data cards (baseball, golf, music, movies), and a sardonic pixel-buddy
+chatbot ("botty") that floats on every page and talks to Claude. Replaces
+the prior al-folio Jekyll site (preserved on `legacy/al-folio`).
 
 ## Develop
 
@@ -31,7 +31,7 @@ npm run build
 Produces `_site/` including:
 
 - Static HTML for all 9 cards (home, résumé, projects, words, music,
-  contact, baseball, golf, card)
+  movies, contact, baseball, golf)
 - 8 short-URL redirect stubs (`/m`, `/cal`, `/gh`, `/p`, `/li`, `/s`,
   `/c`, `/w`) for the printed business card QR codes
 - `resume.pdf` — copied from the committed `src/resume.pdf` (regenerated
@@ -57,10 +57,14 @@ triggers the CF GitHub integration → it runs `npm run build:eleventy`
 then `npx wrangler deploy`. The Worker:
 
 - Serves `_site/` as static assets via the `ASSETS` binding
-- Routes `POST /card/chat` through `worker/index.js` to Claude
+- Routes `POST /api/chat` through `worker/index.js` to Claude (handles
+  both opening-line "quip" mode and the full conversational "chat" mode
+  used by the botty widget)
 
-The `/card` chatbot uses Cloudflare Turnstile + a per-IP daily rate limit
-backed by a Workers KV namespace.
+Botty uses Cloudflare Turnstile (invisible mode) + a per-IP daily rate
+limit backed by a Workers KV namespace. After the first Turnstile solve,
+the Worker mints a session token so subsequent chat sends skip the
+Turnstile round-trip.
 
 ### Worker config (CF dashboard)
 
@@ -111,12 +115,24 @@ diff under `src/_data/`.
 which tolerates GHIN's current response shape. Baseball also has a CI
 fallback in `.github/workflows/update-stats.yml`.
 
-## /card chatbot
+## Botty (the chat widget)
 
-A chat UI at `/card` that answers questions about Michael — work, hobbies,
-publications, recent GitHub activity, listening habits. Strictly scoped:
-refuses off-topic questions and prompt-injection attempts, redirects to
-email for anything substantive.
+A pixel-buddy chatbot widget pinned to every page. Resting on the
+bottom-right of the viewport, he blinks/smirks/shifts via a 19-expression
+SVG face, fires page-aware quips, and opens a chat panel on click.
+
+Two modes share one endpoint (`POST /api/chat`):
+
+- **Quip mode** — short opening lines. After 4s of dwell (or ~250px of
+  mouse movement), botty pops a contextual one-liner. Most fire from a
+  local 175+ entry quip bank (`src/_data/botty-quips.json`); the first
+  fresh-page quip optionally calls Claude for an LLM-generated greeting
+  using collected visitor signals.
+- **Chat mode** — full Q&A about Michael (work, hobbies, publications,
+  recent GitHub activity, listening habits). Strictly scoped: refuses
+  off-topic questions and prompt-injection attempts, capped at 4
+  sentences and 250 output tokens, redirects to email for anything
+  substantive.
 
 The Worker calls Claude Haiku 4.5 with a build-time-bundled bio as a
 cached system prompt. The bundle (`src/_data/bio-bundle.json`, gitignored)
@@ -130,19 +146,32 @@ is built by `scripts/compile-bio.mjs` and combines:
 - Last.fm — top tracks/artists/albums, listening hours, peak hour/day,
   discovery rate, full genre cloud
 
+### Visitor signals (for quip selection)
+
+Botty collects a wide signal panel in the browser: timezone, language,
+referer, browser/platform, mac chip (WebGL renderer probe), battery
+level + charging, connection type, screen aspect (ultrawide/vertical),
+high-refresh-rate display, dark/reduced-motion prefs, GPC/DNT, WebGPU
+support, PWA-installed, touch-on-desktop, cores/RAM, storage quota,
+reload count, etc. Quips trigger on any combination via predicate
+suffixes (`_gte`, `_lte`, `_starts`, `_contains`, `_not`, `_len_gte`)
+and weight to bias the surprising lines over generic filler.
+
 ## Repository layout
 
 ```
 .eleventy.js                  # 11ty config
 wrangler.toml                 # Cloudflare Worker config
 worker/
-  index.js                    # Worker entrypoint (POST /card/chat)
+  index.js                    # Worker entrypoint (POST /api/chat)
 lib/                          # pure modules with unit tests
   lastfm-core.mjs             # rich Last.fm fetch + derivations
   apple-music.mjs             # iTunes Search → Apple Music URL resolver
   baseball-filters.mjs
   golf-transform.mjs
   resume-filters.mjs
+  botty-quips.mjs             # quip predicate evaluator + weighted picker
+  botty-engagement.mjs        # dwell/mouse engagement state machine
 scripts/
   build-resume-pdf.mjs        # hackmyresume → puppeteer pipeline
   compile-bio.mjs             # builds bio-bundle.json for the chatbot
@@ -151,10 +180,31 @@ scripts/
   gen-*.mjs                   # node-canvas pixel-art generators
 src/
   _data/                      # site constants, cards, résumé, hobby JSON
-  _includes/                  # base layout, titlebar, panels, footer
-  assets/                     # css, js, fonts, sprites, audio
+    botty-quips.json          # quip bank (175+ weighted, predicate-keyed)
+    dataUpdated.js            # YYYY-MM-DD of last stats commit (for footer)
+    pkg.js                    # exposes package.json version (for footer)
+  _includes/
+    botty.njk                 # widget markup (sprite + bubble + panel + SVG face)
+    footer.njk                # version + data-refresh date footer
+  assets/css/botty.css
+  assets/js/botty.js          # browser orchestrator (face loop, swim, quips)
   words/                      # markdown posts
   *.njk                       # 9 cards + resume-print + sitemap + redirect
 tests/                        # node:test unit tests
 vendor/                       # vendored npm packages
+.github/workflows/
+  update-stats.yml            # weekly Sun 6am UTC: refresh baseball + golf
+  update-resume-pdf.yml       # on resume.json change: regen src/resume.pdf
+  version-bump.yml            # on PR merge: read version:* labels, bump + tag
+  release.yml                 # on tag push (or dispatch): create GH release
 ```
+
+## Versioning + releases
+
+PRs labelled `version:major` / `version:minor` / `version:patch` trigger
+`version-bump.yml` on merge: it bumps `package.json`, prepends a
+`CHANGELOG.md` entry, commits with `[skip ci]`, tags `vX.Y.Z`, then
+explicitly dispatches `release.yml` to create the GitHub release with
+auto-generated notes. The footer shows the current version (linked to its
+release) plus `data YYYY-MM-DD` — the date of the most recent commit
+touching the live stats files.
