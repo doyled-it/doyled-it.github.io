@@ -58,13 +58,17 @@ const EXPRESSIONS = {
   sweat:    { weight: 2,  ms: 1100, parts: { eyes: "open", mouth: "flat", brows: "worried", accent: "sweat" } },
 };
 
+// Anything an expression doesn't override falls back to these neutrals so
+// botty never ends up mouthless / browless when we forget to name a part.
+const FACE_DEFAULTS = { eyes: "open", mouth: "flat", brows: null, blush: null, accent: null };
+
 function applyFace(name) {
   const expr = EXPRESSIONS[name] || EXPRESSIONS.resting;
-  const groups = els.face.querySelectorAll("g[data-part]");
-  groups.forEach((g) => {
+  const parts = { ...FACE_DEFAULTS, ...expr.parts };
+  els.face.querySelectorAll("g[data-part]").forEach((g) => {
     const part = g.dataset.part;
     const variant = g.dataset.variant;
-    g.style.display = expr.parts[part] === variant ? "block" : "none";
+    g.style.display = parts[part] === variant ? "block" : "none";
   });
 }
 
