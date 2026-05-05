@@ -126,7 +126,8 @@
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 #000;
 }
-.botty-turnstile { padding: 0 8px 8px; }
+/* Invisible Turnstile widget — mounted out of view, no UI footprint. */
+.botty-turnstile-mount { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
 
 /* Mobile takeover */
 @media (max-width: 540px) {

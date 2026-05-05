@@ -46,6 +46,12 @@ async function init() {
   const signals = collectSignals(isQr, isMobile, params);
   trackSessionPath();
 
+  // Mint a session via invisible Turnstile before any LLM call. If
+  // Turnstile is unavailable (script blocked, key missing, solve fails),
+  // turnstileReady never resolves with a token and we silently fall back
+  // to the canned bank — chat sends will surface an error.
+  turnstileReady = ensureTurnstileToken(els.botty.dataset.turnstileSiteKey);
+
   let quipPromise = null;
   if (CONFIG.prefetchQuip && !CONFIG.fallbackOnly) {
     quipPromise = fetchQuip(signals).catch(() => null);
@@ -150,11 +156,67 @@ function detectBrowser() {
 }
 
 let sessionToken = "";
+let turnstileReady = null;
+
+// Load Turnstile, render invisibly, return the solve token. Resolves null
+// if the script can't load or the widget can't solve in time — callers
+// must handle that as "skip the LLM, fall back to canned bank."
+function ensureTurnstileToken(siteKey, timeoutMs = 8000) {
+  if (!siteKey) return Promise.resolve(null);
+  return new Promise((resolve) => {
+    let resolved = false;
+    const finish = (token) => {
+      if (resolved) return;
+      resolved = true;
+      resolve(token);
+    };
+    const timer = setTimeout(() => finish(null), timeoutMs);
+
+    const render = () => {
+      if (!window.turnstile) return finish(null);
+      try {
+        window.turnstile.render("#botty-turnstile", {
+          sitekey: siteKey,
+          size: "invisible",
+          callback: (t) => { clearTimeout(timer); finish(t); },
+          "error-callback": () => { clearTimeout(timer); finish(null); },
+          "timeout-callback": () => { clearTimeout(timer); finish(null); },
+        });
+      } catch (_) { clearTimeout(timer); finish(null); }
+    };
+
+    if (window.turnstile) {
+      render();
+      return;
+    }
+    const s = document.createElement("script");
+    s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
+    s.async = true;
+    s.defer = true;
+    s.onload = render;
+    s.onerror = () => { clearTimeout(timer); finish(null); };
+    document.head.appendChild(s);
+  });
+}
+
+async function authBody(extra) {
+  const body = { ...extra };
+  if (sessionToken) {
+    body.sessionToken = sessionToken;
+    return body;
+  }
+  const token = await turnstileReady;
+  if (token) body.turnstileToken = token;
+  return body;
+}
+
 async function fetchQuip(signals) {
+  const body = await authBody({ mode: "quip", signals });
+  if (!body.sessionToken && !body.turnstileToken) throw new Error("no auth");
   const resp = await fetch("/api/chat", {
     method: "POST",
     headers: { "content-type": "application/json" },
-    body: JSON.stringify({ mode: "quip", signals, sessionToken: sessionToken || undefined }),
+    body: JSON.stringify(body),
   });
   if (!resp.ok) throw new Error("quip http " + resp.status);
   const data = await resp.json();
@@ -245,8 +307,12 @@ async function sendChat(message) {
   els.panelSend.disabled = true;
   els.panelInput.disabled = true;
   try {
-    const body = { mode: "chat", message };
-    if (sessionToken) body.sessionToken = sessionToken;
+    const body = await authBody({ mode: "chat", message });
+    if (!body.sessionToken && !body.turnstileToken) {
+      placeholder.remove();
+      appendMsg("err", "couldn't verify the browser — refresh and try again");
+      return;
+    }
     const resp = await fetch("/api/chat", {
       method: "POST",
       headers: { "content-type": "application/json" },

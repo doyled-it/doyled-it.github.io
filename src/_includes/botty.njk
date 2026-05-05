@@ -1,4 +1,5 @@
-<div class="botty" id="botty" data-state="hidden" aria-hidden="true">
+<div class="botty" id="botty" data-state="hidden" aria-hidden="true"
+     data-turnstile-site-key="{{ site.turnstileSiteKey }}">
   <div class="botty-bubble" id="botty-bubble" hidden></div>
   <button class="botty-sprite" id="botty-sprite" type="button"
           aria-label="open chat with the card">
@@ -18,8 +19,6 @@
              maxlength="1000" required>
       <button type="submit" id="botty-panel-send">send</button>
     </form>
-    <div id="botty-turnstile-wrap" class="botty-turnstile">
-      <div id="botty-turnstile"></div>
-    </div>
   </div>
+  <div id="botty-turnstile" class="botty-turnstile-mount" aria-hidden="true"></div>
 </div>
