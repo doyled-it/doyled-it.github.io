@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-05-03T06:50:06.791Z",
+  "lastUpdated": "2026-05-05T23:26:23.956Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -641,23 +641,23 @@
       "position": "Utility (P/IF/OF)",
       "stats": {
         "hitting": {
-          "AB": 16,
-          "H": 7,
+          "AB": 19,
+          "H": 8,
           "2B": 0,
           "3B": 0,
           "HR": 0,
-          "RBI": 9,
+          "RBI": 10,
           "R": 6,
           "BB": 1,
           "K": 4,
           "HBP": 0,
           "SF": 0,
           "SB": 5,
-          "CS": 0,
-          "RISP": 10,
-          "RISP_H": 6,
-          "hard_contact": 6,
-          "pitches_seen": 76
+          "CS": 1,
+          "RISP": 11,
+          "RISP_H": 7,
+          "hard_contact": 7,
+          "pitches_seen": 88
         },
         "fielding": {
           "PO": 2,
@@ -678,10 +678,10 @@
           "PC": 72
         },
         "games": {
-          "total": 7,
-          "played": 5,
+          "total": 8,
+          "played": 6,
           "wins": 4,
-          "losses": 3,
+          "losses": 4,
           "ties": 0
         },
         "gamesList": [
@@ -1034,33 +1034,83 @@
               },
               "avg": 0.6666666666666666
             }
+          },
+          {
+            "date": "2026-05-03",
+            "opponent": "Diamond Dogs",
+            "location": "Chollas",
+            "result": "L",
+            "score": "8-5",
+            "played": true,
+            "rating": "4",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 1,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 1,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 1,
+                "RISP": 1,
+                "RISP_H": 1,
+                "hard_contact": 1,
+                "pitches_seen": 12
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0.3333333333333333
+            }
           }
         ],
         "calculated": {
-          "AVG": 0.4375,
-          "OBP": 0.47058823529411764,
-          "singles": 7,
-          "tb": 7,
-          "SLG": 0.4375,
-          "OPS": 0.9080882352941176,
-          "BABIP": 0.5833333333333334,
+          "AVG": 0.42105263157894735,
+          "OBP": 0.45,
+          "singles": 8,
+          "tb": 8,
+          "SLG": 0.42105263157894735,
+          "OPS": 0.8710526315789473,
+          "BABIP": 0.5333333333333333,
           "ISO": 0,
           "XBH": 0,
           "XBH_pct": 0,
-          "BB_pct": 0.058823529411764705,
-          "K_pct": 0.23529411764705882,
-          "clutch_avg": 0.6,
-          "contact_quality": 0.375,
+          "BB_pct": 0.05,
+          "K_pct": 0.2,
+          "clutch_avg": 0.6363636363636364,
+          "contact_quality": 0.3684210526315789,
           "ERA": 9,
           "WHIP": 4,
           "K_BB": 0.5,
           "K9": 12,
           "BB9": 24,
           "fieldingPct": 0.8,
-          "rangeFactor": 0.8
+          "rangeFactor": 0.6666666666666666
         }
       },
-      "gamesProcessed": 7
+      "gamesProcessed": 8
     }
   }
 }
