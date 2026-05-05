@@ -1,23 +1,19 @@
 {
   "name": "doyled-it",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "eleventy --serve --quiet",
-
     "build": "npm run build:bio && npm run build:site && npm run build:resume",
     "build:bio": "node scripts/compile-bio.mjs",
     "build:site": "eleventy",
     "build:resume": "node scripts/build-resume-pdf.mjs",
     "build:resume:wip": "node scripts/build-resume-pdf-new.mjs",
-
     "build:eleventy": "npm run build:bio && npm run build:site",
-
     "update:stats": "npm run update:baseball && npm run update:golf",
     "update:baseball": "node scripts/sync-stats.mjs --skip-golf-fetch",
     "update:golf": "node scripts/fetch-golf.mjs",
-
     "test": "node --test 'tests/**/*.test.mjs'"
   },
   "devDependencies": {
