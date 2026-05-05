@@ -34,7 +34,7 @@ test("buildMusicData returns live data and writes cache", async () => {
   });
   assert.equal(data.stale, false);
   assert.equal(data.recent.length, 1);
-  assert.equal(data.top.length, 1);
+  assert.equal(data.topTracks.length, 1);
   assert.ok(fs.existsSync(cachePath));
 });
 
@@ -75,5 +75,7 @@ test("buildMusicData returns empty stub when no cache and fetch fails", async ()
   });
   assert.equal(data.stale, true);
   assert.deepEqual(data.recent, []);
-  assert.deepEqual(data.top, []);
+  assert.deepEqual(data.topTracks, []);
+  assert.deepEqual(data.topArtists, []);
+  assert.deepEqual(data.topAlbums, []);
 });
