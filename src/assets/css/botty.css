@@ -48,9 +48,22 @@
   height: calc(100% - 20px);
   fill: #000;
   pointer-events: none;
+  animation: botty-swim 7.3s ease-in-out infinite;
 }
 /* Hide every part-group by default. JS toggles which one is visible. */
 .botty-face g[data-part] { display: none; }
+
+/* Whole face drifts a few pixels around the body — visible but unhurried. */
+@keyframes botty-swim {
+  0%   { transform: translate(0, 0); }
+  18%  { transform: translate(3px, -2px); }
+  36%  { transform: translate(-2px, -3px); }
+  54%  { transform: translate(-3px, 2px); }
+  72%  { transform: translate(2px, 3px); }
+  88%  { transform: translate(1px, -1px); }
+  100% { transform: translate(0, 0); }
+}
+.botty-sprite:hover .botty-face { animation-play-state: paused; }
 
 /* Speech bubble — top-aligned with the sprite's face. */
 .botty-bubble {
@@ -65,7 +78,8 @@
   box-shadow: 2px 2px 0 #000;
   animation: botty-bubble-in 280ms cubic-bezier(.2,.8,.4,1.2) both;
 }
-/* Tail drops straight down from near the right end of the bubble's bottom edge. */
+/* Tail drops off the bubble's bottom-right area, slanting down-right toward
+   the sprite (right edge vertical, hypotenuse from top-left down to tip). */
 .botty-bubble::after,
 .botty-bubble::before {
   content: "";
@@ -75,16 +89,16 @@
   border-style: solid;
 }
 .botty-bubble::before {
-  right: 12px;
-  bottom: -12px;
-  border-width: 12px 8px 0 8px;
-  border-color: #000 transparent transparent transparent;
+  right: 6px;
+  bottom: -14px;
+  border-width: 0 0 14px 16px;
+  border-color: transparent transparent #000 transparent;
 }
 .botty-bubble::after {
-  right: 14px;
-  bottom: -8px;
-  border-width: 9px 6px 0 6px;
-  border-color: #fff transparent transparent transparent;
+  right: 8px;
+  bottom: -12px;
+  border-width: 0 0 12px 14px;
+  border-color: transparent transparent #fff transparent;
 }
 @keyframes botty-bubble-in {
   from { transform: translateY(4px) scale(.94); opacity: 0; }
