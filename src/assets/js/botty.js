@@ -229,7 +229,7 @@ async function resolveQuip(promise, signals) {
   try {
     const text = await Promise.race([
       promise,
-      new Promise((_, rej) => setTimeout(() => rej(new Error("quip timeout")), 1500)),
+      new Promise((_, rej) => setTimeout(() => rej(new Error("quip timeout")), 3000)),
     ]);
     if (typeof text === "string" && text.trim()) return text.trim();
   } catch (_) {}
