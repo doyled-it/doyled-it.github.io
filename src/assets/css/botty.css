@@ -33,7 +33,7 @@
     radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
     radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
     linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
-  animation: botty-blink 5.4s steps(1, end) infinite, botty-shift 4.1s ease-in-out infinite;
+  animation: botty-face 9s steps(1, end) infinite, botty-shift 4.1s ease-in-out infinite;
 }
 .botty-sprite:hover::before { animation-play-state: paused; }
 .botty-sprite:active {
@@ -46,18 +46,57 @@
   25%      { transform: translate(1px, -1px); }
   60%      { transform: translate(-1px, 0); }
 }
-/* Eyes squish to a thin line for one frame each cycle. */
-@keyframes botty-blink {
-  0%, 92%, 100% {
+/* Cycle through resting → blink → side-glance → smirk → raised-brow. */
+@keyframes botty-face {
+  /* default: open eyes, neutral mouth */
+  0%, 28% {
     background:
       radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
       radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
       linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
   }
-  93%, 96% {
+  /* blink */
+  29%, 32% {
     background:
       linear-gradient(#000, #000) 18% 38% / 14% 2px no-repeat,
       linear-gradient(#000, #000) 68% 38% / 14% 2px no-repeat,
+      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
+  }
+  /* side-glance: pupils shifted right */
+  33%, 50% {
+    background:
+      radial-gradient(circle at 38% 38%, #000 0 3px, transparent 4px),
+      radial-gradient(circle at 82% 38%, #000 0 3px, transparent 4px),
+      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
+  }
+  /* smirk: mouth lifts on the right side */
+  51%, 70% {
+    background:
+      radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
+      radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
+      linear-gradient(#000, #000) 25% 72% / 30% 3px no-repeat,
+      linear-gradient(#000, #000) 55% 64% / 22% 3px no-repeat;
+  }
+  /* raised brow: short bars above eyes */
+  71%, 90% {
+    background:
+      linear-gradient(#000, #000) 18% 22% / 22% 2px no-repeat,
+      linear-gradient(#000, #000) 60% 22% / 22% 2px no-repeat,
+      radial-gradient(circle at 28% 42%, #000 0 3px, transparent 4px),
+      radial-gradient(circle at 72% 42%, #000 0 3px, transparent 4px),
+      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
+  }
+  /* second blink before resetting */
+  91%, 94% {
+    background:
+      linear-gradient(#000, #000) 18% 38% / 14% 2px no-repeat,
+      linear-gradient(#000, #000) 68% 38% / 14% 2px no-repeat,
+      linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
+  }
+  95%, 100% {
+    background:
+      radial-gradient(circle at 28% 38%, #000 0 3px, transparent 4px),
+      radial-gradient(circle at 72% 38%, #000 0 3px, transparent 4px),
       linear-gradient(#000, #000) 25% 72% / 50% 3px no-repeat;
   }
 }
@@ -88,12 +127,12 @@
 }
 .botty-bubble::before {
   bottom: -10px;
-  border-width: 10px 8px 0 0;
+  border-width: 10px 0 0 8px;
   border-color: #000 transparent transparent transparent;
 }
 .botty-bubble::after {
   bottom: -7px;
-  border-width: 8px 6px 0 0;
+  border-width: 8px 0 0 6px;
   border-color: #fff transparent transparent transparent;
 }
 @keyframes botty-bubble-in {

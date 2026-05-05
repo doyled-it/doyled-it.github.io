@@ -49,6 +49,12 @@ async function init() {
   const signals = collectSignals(isQr, isMobile, params);
   trackSessionPath();
 
+  // If botty already showed up earlier in this session, reveal the sprite
+  // right away on subsequent navigations — no second wait-for-engagement.
+  let alreadyRevealed = false;
+  try { alreadyRevealed = sessionStorage.getItem("dit.botty_revealed") === "1"; } catch (_) {}
+  if (alreadyRevealed) revealSprite();
+
   // Mint a session via invisible Turnstile before any LLM call. If
   // Turnstile is unavailable (script blocked, key missing, solve fails),
   // turnstileReady never resolves with a token and we silently fall back
@@ -116,10 +122,16 @@ function collectSignals(isQr, isMobile, params) {
   let visitCount = 0;
   let returning = false;
   try {
-    const raw = parseInt(localStorage.getItem("dit.visit_count") || "0", 10);
-    visitCount = Number.isFinite(raw) ? raw + 1 : 1;
+    const stored = parseInt(localStorage.getItem("dit.visit_count") || "0", 10);
+    const sessionCounted = sessionStorage.getItem("dit.session_seen") === "1";
+    if (sessionCounted) {
+      visitCount = Number.isFinite(stored) && stored > 0 ? stored : 1;
+    } else {
+      visitCount = (Number.isFinite(stored) ? stored : 0) + 1;
+      localStorage.setItem("dit.visit_count", String(visitCount));
+      sessionStorage.setItem("dit.session_seen", "1");
+    }
     returning = visitCount > 1;
-    localStorage.setItem("dit.visit_count", String(visitCount));
     localStorage.setItem("dit.visited", "1");
   } catch (_) {}
   let sessionPaths = [];
@@ -250,9 +262,14 @@ async function fallbackQuip(signals) {
   return picked ? picked.text : "hey.";
 }
 
-function showBubble(text, sticky) {
+function revealSprite() {
   els.botty.dataset.state = "shown";
   els.botty.setAttribute("aria-hidden", "false");
+  try { sessionStorage.setItem("dit.botty_revealed", "1"); } catch (_) {}
+}
+
+function showBubble(text, sticky) {
+  revealSprite();
   els.bubble.textContent = text;
   els.bubble.hidden = false;
   if (!sticky && CONFIG.bubbleAutoHideMs > 0) {
