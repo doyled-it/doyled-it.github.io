@@ -48,22 +48,10 @@
   height: calc(100% - 20px);
   fill: #000;
   pointer-events: none;
-  animation: botty-swim 7.3s ease-in-out infinite;
+  will-change: transform;
 }
 /* Hide every part-group by default. JS toggles which one is visible. */
 .botty-face g[data-part] { display: none; }
-
-/* Whole face drifts a few pixels around the body — visible but unhurried. */
-@keyframes botty-swim {
-  0%   { transform: translate(0, 0); }
-  18%  { transform: translate(3px, -2px); }
-  36%  { transform: translate(-2px, -3px); }
-  54%  { transform: translate(-3px, 2px); }
-  72%  { transform: translate(2px, 3px); }
-  88%  { transform: translate(1px, -1px); }
-  100% { transform: translate(0, 0); }
-}
-.botty-sprite:hover .botty-face { animation-play-state: paused; }
 
 /* Speech bubble — top-aligned with the sprite's face. */
 .botty-bubble {

@@ -72,6 +72,31 @@ function applyFace(name) {
   });
 }
 
+// Slow random drift of the face inside the body. Picks a fresh random
+// target every 4-9s and eases toward it — never repeating, never landing
+// on the same spot, no perceptible periodicity.
+function startFaceSwim() {
+  const DRIFT_PX = 7;
+  const STEP_MIN_MS = 4000;
+  const STEP_MAX_MS = 9000;
+  const EASE = 0.018; // small = slow approach
+  let cx = 0, cy = 0, tx = 0, ty = 0;
+  let nextChangeAt = 0;
+
+  function frame(t) {
+    if (t >= nextChangeAt) {
+      tx = (Math.random() * 2 - 1) * DRIFT_PX;
+      ty = (Math.random() * 2 - 1) * DRIFT_PX;
+      nextChangeAt = t + STEP_MIN_MS + Math.random() * (STEP_MAX_MS - STEP_MIN_MS);
+    }
+    cx += (tx - cx) * EASE;
+    cy += (ty - cy) * EASE;
+    els.face.style.transform = `translate(${cx.toFixed(2)}px, ${cy.toFixed(2)}px)`;
+    requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
 function startFaceLoop() {
   applyFace("resting");
   const accents = Object.entries(EXPRESSIONS).filter(([k]) => k !== "resting");
@@ -180,6 +205,7 @@ async function init() {
   }, 750);
 
   startFaceLoop();
+  startFaceSwim();
 
   // After a longer dwell, push a curated, page-specific invite — but only
   // once per session (don't badger across pageviews) and not if the user
