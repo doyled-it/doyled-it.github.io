@@ -158,8 +158,12 @@
   transform: translate(1px, 1px);
   box-shadow: 1px 1px 0 #000;
 }
-/* Invisible Turnstile widget — mounted out of view, no UI footprint. */
-.botty-turnstile-mount { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+/* Turnstile mount: lives inside the chat panel. With Managed mode, it
+   stays invisible for clean traffic and renders a checkbox for VPN /
+   suspect traffic. The :empty selector keeps the panel tight when the
+   widget hasn't rendered anything. */
+.botty-turnstile-mount { padding: 0 8px; }
+.botty-turnstile-mount:empty { padding: 0; }
 
 /* Mobile takeover */
 @media (max-width: 540px) {

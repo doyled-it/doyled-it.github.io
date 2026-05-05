@@ -437,7 +437,7 @@ function detectBrowser() {
 // Load Turnstile, render invisibly, return the solve token. Resolves null
 // if the script can't load or the widget can't solve in time — callers
 // must handle that as "skip the LLM, fall back to canned bank."
-function ensureTurnstileToken(siteKey, timeoutMs = 8000) {
+function ensureTurnstileToken(siteKey, timeoutMs = 30000) {
   if (!siteKey) return Promise.resolve(null);
   return new Promise((resolve) => {
     let resolved = false;
@@ -453,7 +453,9 @@ function ensureTurnstileToken(siteKey, timeoutMs = 8000) {
       try {
         window.turnstile.render("#botty-turnstile", {
           sitekey: siteKey,
-          appearance: "interaction-only",
+          // Let the Managed sitekey decide invisible vs interactive per
+          // visitor — VPN / suspect traffic gets the checkbox; clean
+          // traffic stays invisible.
           callback: (t) => { clearTimeout(timer); finish(t); },
           "error-callback": () => { clearTimeout(timer); finish(null); },
           "timeout-callback": () => { clearTimeout(timer); finish(null); },
