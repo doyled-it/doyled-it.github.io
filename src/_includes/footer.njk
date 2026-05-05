@@ -10,6 +10,9 @@
     &nbsp;·&nbsp;
     <a href="{{ next.url }}">{{ next.name }} ▶</a>
   </nav>
+  <a class="card-footer-version"
+     href="{{ site.repo }}/releases/tag/v{{ pkg.version }}"
+     rel="noopener">v{{ pkg.version }}</a>
 </div>
 <div class="key-hints" aria-label="Keyboard shortcuts">
   {%- set keys = [

@@ -192,6 +192,8 @@ body {
 }
 .card-footer nav a { color: #444; text-decoration: none; }
 .card-footer nav a:hover { color: var(--accent-pink-dark); text-decoration: underline; }
+.card-footer-version { color: #888; text-decoration: none; font-size: 13px; }
+.card-footer-version:hover { color: var(--accent-pink-dark); text-decoration: underline; }
 
 .key-hints {
   border-top: 1px dashed #bbb;
