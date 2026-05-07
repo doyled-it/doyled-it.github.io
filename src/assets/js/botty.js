@@ -18,7 +18,9 @@ const CONFIG = {
 const URL_OK = /^(https?:\/\/|\/|mailto:|tel:)/i;
 
 let sessionToken = "";
-let turnstileReady = null;
+let latestTurnstileToken = null;
+let turnstileWidgetId = null;
+let turnstileScriptPromise = null;
 
 const els = {
   botty: document.getElementById("botty"),
@@ -194,11 +196,10 @@ async function init() {
   try { alreadyRevealed = sessionStorage.getItem("dit.botty_revealed") === "1"; } catch (_) {}
   if (alreadyRevealed) revealSprite();
 
-  // Mint a session via invisible Turnstile before any LLM call. If
-  // Turnstile is unavailable (script blocked, key missing, solve fails),
-  // turnstileReady never resolves with a token and we silently fall back
-  // to the canned bank — chat sends will surface an error.
-  turnstileReady = ensureTurnstileToken(els.botty.dataset.turnstileSiteKey);
+  // Mount the Turnstile widget once. Managed mode keeps it invisible for
+  // clean traffic and shows a checkbox for VPN / suspect traffic. Tokens
+  // populate via callback; authBody pulls the latest at send time.
+  ensureTurnstileWidget(els.botty.dataset.turnstileSiteKey);
 
   let quipPromise = null;
   if (CONFIG.prefetchQuip && !CONFIG.fallbackOnly) {
@@ -434,47 +435,51 @@ function detectBrowser() {
   return "Other";
 }
 
-// Load Turnstile, render invisibly, return the solve token. Resolves null
-// if the script can't load or the widget can't solve in time — callers
-// must handle that as "skip the LLM, fall back to canned bank."
-function ensureTurnstileToken(siteKey, timeoutMs = 30000) {
-  if (!siteKey) return Promise.resolve(null);
-  return new Promise((resolve) => {
-    let resolved = false;
-    const finish = (token) => {
-      if (resolved) return;
-      resolved = true;
-      resolve(token);
-    };
-    const timer = setTimeout(() => finish(null), timeoutMs);
-
-    const render = () => {
-      if (!window.turnstile) return finish(null);
-      try {
-        window.turnstile.render("#botty-turnstile", {
-          sitekey: siteKey,
-          // Let the Managed sitekey decide invisible vs interactive per
-          // visitor — VPN / suspect traffic gets the checkbox; clean
-          // traffic stays invisible.
-          callback: (t) => { clearTimeout(timer); finish(t); },
-          "error-callback": () => { clearTimeout(timer); finish(null); },
-          "timeout-callback": () => { clearTimeout(timer); finish(null); },
-        });
-      } catch (_) { clearTimeout(timer); finish(null); }
-    };
-
-    if (window.turnstile) {
-      render();
-      return;
-    }
+// Render Turnstile once, then keep latestTurnstileToken in sync via the
+// callback — every refresh, expiry, and timeout updates it. Solving the
+// checkbox (Managed mode for VPN / suspect traffic) populates the token
+// even if the user takes their time. authBody pulls the freshest value
+// at send time and resets the widget so the next send has a fresh one.
+function loadTurnstileScript() {
+  if (turnstileScriptPromise) return turnstileScriptPromise;
+  if (window.turnstile) return Promise.resolve(true);
+  turnstileScriptPromise = new Promise((resolve) => {
     const s = document.createElement("script");
     s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js";
     s.async = true;
     s.defer = true;
-    s.onload = render;
-    s.onerror = () => { clearTimeout(timer); finish(null); };
+    s.onload = () => resolve(true);
+    s.onerror = () => resolve(false);
     document.head.appendChild(s);
   });
+  return turnstileScriptPromise;
+}
+
+async function ensureTurnstileWidget(siteKey) {
+  if (!siteKey) return;
+  if (turnstileWidgetId !== null) return;
+  const ok = await loadTurnstileScript();
+  if (!ok || !window.turnstile) return;
+  try {
+    turnstileWidgetId = window.turnstile.render("#botty-turnstile", {
+      sitekey: siteKey,
+      callback: (t) => { latestTurnstileToken = t; },
+      "expired-callback": () => { latestTurnstileToken = null; },
+      "timeout-callback":  () => { latestTurnstileToken = null; },
+      "error-callback":    () => { latestTurnstileToken = null; },
+    });
+  } catch (_) { /* render can throw if mount is missing — bail */ }
+}
+
+// Wait briefly for a token to populate — covers the case where the user
+// just solved the checkbox and the callback hasn't fired yet.
+async function waitForTurnstileToken(maxWaitMs = 6000) {
+  if (latestTurnstileToken) return latestTurnstileToken;
+  const start = Date.now();
+  while (!latestTurnstileToken && Date.now() - start < maxWaitMs) {
+    await new Promise((r) => setTimeout(r, 120));
+  }
+  return latestTurnstileToken;
 }
 
 async function authBody(extra) {
@@ -483,8 +488,16 @@ async function authBody(extra) {
     body.sessionToken = sessionToken;
     return body;
   }
-  const token = await turnstileReady;
-  if (token) body.turnstileToken = token;
+  const token = await waitForTurnstileToken();
+  if (token) {
+    body.turnstileToken = token;
+    // Single-use: clear locally and reset the widget so a fresh token
+    // arrives for the next send (Turnstile auto-refreshes after reset).
+    latestTurnstileToken = null;
+    if (turnstileWidgetId !== null && window.turnstile?.reset) {
+      try { window.turnstile.reset(turnstileWidgetId); } catch (_) {}
+    }
+  }
   return body;
 }
 
@@ -597,7 +610,7 @@ async function sendChat(message) {
     const body = await authBody({ mode: "chat", message });
     if (!body.sessionToken && !body.turnstileToken) {
       placeholder.remove();
-      appendMsg("err", "couldn't verify the browser — refresh and try again");
+      appendMsg("err", "couldn't verify the browser — solve the turnstile check above (or refresh) and try again");
       return;
     }
     const resp = await fetch("/api/chat", {
