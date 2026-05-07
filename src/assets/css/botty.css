@@ -167,7 +167,14 @@
 
 /* Mobile takeover */
 @media (max-width: 540px) {
-  .botty { bottom: 12px; right: 12px; left: 12px; }
-  .botty-panel { width: auto; max-height: 60vh; }
-  .botty-bubble { max-width: 100%; }
+  /* Don't pin the left edge — let the grid shrink to content so the
+     bubble sits right next to the sprite instead of stretching to fill. */
+  .botty { bottom: 12px; right: 12px; }
+  .botty-panel {
+    /* Panel still spans full available width when open. */
+    width: calc(100vw - 24px);
+    max-width: 360px;
+    max-height: 60vh;
+  }
+  .botty-bubble { max-width: 60vw; }
 }

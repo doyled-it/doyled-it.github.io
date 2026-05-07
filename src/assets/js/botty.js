@@ -501,8 +501,26 @@ async function authBody(extra) {
   return body;
 }
 
+function loadShownQuips() {
+  try {
+    return JSON.parse(sessionStorage.getItem("dit.botty_shown_quips") || "[]");
+  } catch (_) { return []; }
+}
+function recordShownQuip(text) {
+  if (!text) return;
+  try {
+    const list = loadShownQuips();
+    if (list[list.length - 1] === text) return;
+    list.push(text);
+    sessionStorage.setItem("dit.botty_shown_quips", JSON.stringify(list.slice(-30)));
+  } catch (_) {}
+}
+
 async function fetchQuip(signals) {
-  const body = await authBody({ mode: "quip", signals });
+  // Tell the LLM what botty has already said so it doesn't repeat itself
+  // and doesn't echo any of the canned bank lines verbatim.
+  const enriched = { ...signals, recent_quips: loadShownQuips() };
+  const body = await authBody({ mode: "quip", signals: enriched });
   if (!body.sessionToken && !body.turnstileToken) throw new Error("no auth");
   const resp = await fetch("/api/chat", {
     method: "POST",
@@ -511,8 +529,16 @@ async function fetchQuip(signals) {
   });
   if (!resp.ok) throw new Error("quip http " + resp.status);
   const data = await resp.json();
-  if (data.sessionToken) sessionToken = data.sessionToken;
+  if (data.sessionToken) {
+    sessionToken = data.sessionToken;
+    hideTurnstileWidget();
+  }
   return data.reply || "";
+}
+
+function hideTurnstileWidget() {
+  const mount = document.getElementById("botty-turnstile");
+  if (mount) mount.style.display = "none";
 }
 
 async function resolveQuip(promise, signals) {
@@ -537,7 +563,10 @@ async function fallbackQuip(signals) {
       _fallbackBank = [{ trigger: "*", template: "hey." }];
     }
   }
-  const picked = pickQuip(_fallbackBank, signals);
+  const seen = loadShownQuips();
+  // Pull templates only — the picker dedups on the unfilled template so
+  // {{visit_count}}-style fillers can re-fire with a new value if needed.
+  const picked = pickQuip(_fallbackBank, signals, Math.random, seen);
   return picked ? picked.text : "hey.";
 }
 
@@ -551,6 +580,7 @@ function showBubble(text, sticky) {
   revealSprite();
   els.bubbleText.textContent = text;
   els.bubble.hidden = false;
+  recordShownQuip(text);
   if (!sticky && CONFIG.bubbleAutoHideMs > 0) {
     setTimeout(() => { els.bubble.hidden = true; }, CONFIG.bubbleAutoHideMs);
   }
@@ -624,7 +654,10 @@ async function sendChat(message) {
       appendMsg("err", data.error || ("request failed (" + resp.status + ")"));
       return;
     }
-    if (data.sessionToken) sessionToken = data.sessionToken;
+    if (data.sessionToken) {
+      sessionToken = data.sessionToken;
+      hideTurnstileWidget();
+    }
     placeholder.remove();
     appendMsg("bot", (data.reply || "").trim() || "(no reply)");
   } catch (_) {

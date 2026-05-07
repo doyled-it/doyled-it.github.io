@@ -1,187 +1,1187 @@
 [
-  { "trigger": { "via": "card" }, "template": "the qr worked. respect." },
-  { "trigger": { "via": "card" }, "template": "scanner-of-cards. welcome." },
-  { "trigger": { "via": "card" }, "template": "you came in from the printed bit." },
-  { "trigger": { "returning": true, "visit_count_gte": 5 }, "template": "back again. obsessed?" },
-  { "trigger": { "returning": true, "visit_count_gte": 5 }, "template": "{{visit_count}} visits. somebody's interested." },
-  { "trigger": { "returning": true }, "template": "missed you." },
-  { "trigger": { "returning": true }, "template": "back already." },
-  { "trigger": { "tz_hour_gte": 0, "tz_hour_lt": 5 }, "template": "{{tz_hour}}am where you are. go to bed." },
-  { "trigger": { "tz_hour_gte": 5, "tz_hour_lt": 8 }, "template": "early bird in {{city}}. respect." },
-  { "trigger": { "tz_hour_gte": 22, "tz_hour_lt": 24 }, "template": "late one. fair." },
-  { "trigger": { "tz_hour_gte": 12, "tz_hour_lt": 14 }, "template": "lunch in {{city}}, then? same." },
-  { "trigger": { "cf_country": "DE" }, "template": "guten tag. mein deutsch ist begrenzt." },
-  { "trigger": { "cf_country": "JP" }, "template": "konnichiwa. that's about the limit of my japanese." },
-  { "trigger": { "cf_country": "US", "cf_city": "San Diego" }, "template": "san diego represent." },
-  { "trigger": { "cf_country": "GB" }, "template": "how's the weather in {{city}}? lying. it's raining." },
-  { "trigger": { "cf_country_not": "US" }, "template": "{{city}}? hi. long way." },
-  { "trigger": { "lang_starts": "es" }, "template": "hola — mi español está oxidado." },
-  { "trigger": { "lang_starts": "fr" }, "template": "bonjour. that's the extent of it." },
-  { "trigger": { "lang_starts": "de" }, "template": "hallo. wie geht's." },
-  { "trigger": { "ua_browser": "Firefox" }, "template": "firefox user. principles intact." },
-  { "trigger": { "ua_browser": "Safari" }, "template": "safari? you must hate batteries dying." },
-  { "trigger": { "ua_browser": "Edge" }, "template": "edge. bold choice." },
-  { "trigger": { "ua_browser": "Chrome" }, "template": "chrome. of course." },
-  { "trigger": { "ua_platform": "Linux" }, "template": "linux. you're built different." },
-  { "trigger": { "ua_platform": "Windows" }, "template": "windows. solid." },
-  { "trigger": { "referer_host_contains": "twitter" }, "template": "twitter sent you. brave." },
-  { "trigger": { "referer_host_contains": "x.com" }, "template": "from the everything app. how did you get here." },
-  { "trigger": { "referer_host_contains": "news.ycombinator" }, "template": "hn brought you. condolences on the comments." },
-  { "trigger": { "referer_host_contains": "google" }, "template": "google sent you. search worked." },
-  { "trigger": { "referer_host_contains": "linkedin" }, "template": "from linkedin. corporate." },
-  { "trigger": { "referer_host_contains": "github" }, "template": "from github. you saw the repo, didn't you." },
-  { "trigger": { "referer_host_contains": "bsky" }, "template": "bluesky pipeline still works, apparently." },
-  { "trigger": { "path": "/baseball/" }, "template": "ball talk. let's go." },
-  { "trigger": { "path": "/golf/" }, "template": "the handicap is real, unfortunately." },
-  { "trigger": { "path": "/music/" }, "template": "judge the listening habits at your peril." },
-  { "trigger": { "path": "/movies/" }, "template": "letterboxd warning: opinions ahead." },
-  { "trigger": { "path": "/resume/" }, "template": "the cv is here. fair." },
-  { "trigger": { "path": "/projects/" }, "template": "the side projects. some even shipped." },
-  { "trigger": { "path": "/words/" }, "template": "fewer words than i'd like, honestly." },
-  { "trigger": { "session_paths_len_gte": 3 }, "template": "third stop on the tour. thorough." },
-  { "trigger": { "mobile": true }, "template": "mobile. abridged tour available." },
-  { "trigger": { "path": "/baseball/" }, "template": "scroll past the strikeouts. politely." },
-  { "trigger": { "path": "/baseball/" }, "template": "the ops is doing numbers this year." },
-  { "trigger": { "path": "/baseball/" }, "template": "ask about the league. it's a whole thing." },
-  { "trigger": { "path": "/golf/" }, "template": "the short game is a lifelong negotiation." },
-  { "trigger": { "path": "/golf/" }, "template": "ghin doesn't lie. unfortunately." },
-  { "trigger": { "path": "/golf/" }, "template": "ask about the goal handicap. it's specific." },
-  { "trigger": { "path": "/music/" }, "template": "scrobbles don't lie either." },
-  { "trigger": { "path": "/music/" }, "template": "the genre cloud is humbling." },
-  { "trigger": { "path": "/music/" }, "template": "try the heatmap. the late nights show up." },
-  { "trigger": { "path": "/movies/" }, "template": "the four-stars are where the taste lives." },
-  { "trigger": { "path": "/movies/" }, "template": "letterboxd-pilled, mildly." },
-  { "trigger": { "path": "/resume/" }, "template": "there's a pdf if you're an old-school reader." },
-  { "trigger": { "path": "/resume/" }, "template": "twelve years in. somehow." },
-  { "trigger": { "path": "/projects/" }, "template": "some of these are fully shipped. some are vibes." },
-  { "trigger": { "path": "/projects/" }, "template": "this site is on the list, technically." },
-  { "trigger": { "path": "/words/" }, "template": "the queue is longer than the published list." },
-  { "trigger": { "path": "/words/" }, "template": "drafts: many. published: fewer." },
-  { "trigger": { "path": "/contact/" }, "template": "email is fine. cal.com is faster." },
-  { "trigger": { "path": "/contact/" }, "template": "the qr codes go to real places, fwiw." },
-  { "trigger": { "path": "/" }, "template": "the home page. the hub." },
-  { "trigger": { "path": "/" }, "template": "pick a card. any card." },
-  { "trigger": { "returning": true, "visit_count_gte": 10 }, "template": "double digits now. you're family." },
-  { "trigger": { "returning": true, "visit_count_gte": 20 }, "template": "{{visit_count}}. michael owes you a beer." },
-  { "trigger": { "session_paths_len_gte": 5 }, "template": "five pages. you're committed." },
-  { "trigger": { "session_paths_len_gte": 7 }, "template": "the full tour. impressive." },
-  { "trigger": { "tz_hour_gte": 2, "tz_hour_lt": 5 }, "template": "small hours. who's hurting you?" },
-  { "trigger": { "tz_hour_gte": 14, "tz_hour_lt": 17 }, "template": "afternoon slump. understandable." },
-  { "trigger": { "tz_hour_gte": 17, "tz_hour_lt": 20 }, "template": "post-work scroll. classic." },
-  { "trigger": { "ua_browser": "Chrome" }, "template": "another chrome tab. brave." },
-  { "trigger": { "ua_platform": "MacIntel" }, "template": "mac, then. command-tabbing already." },
-  { "trigger": { "mac_chip": "apple_silicon" }, "template": "apple silicon. instant wake. spoiled." },
-  { "trigger": { "mac_chip": "apple_silicon" }, "template": "m-series chip. fan never spins." },
-  { "trigger": { "mac_chip": "apple_silicon" }, "template": "your battery's at 87% and you've been up six hours, haven't you." },
-  { "trigger": { "mac_chip": "apple_silicon" }, "template": "no bootcamp for you anymore. that's the trade." },
-  { "trigger": { "mac_chip": "apple_silicon" }, "template": "rosetta is doing more work than you think." },
-  { "trigger": { "mac_chip": "apple_silicon" }, "template": "the gpu cores are barely waking up for this site. sorry." },
-  { "trigger": { "mac_chip": "intel" }, "template": "intel mac. holding the line." },
-  { "trigger": { "mac_chip": "intel" }, "template": "the fan kicked on for this page, didn't it." },
-  { "trigger": { "mac_chip": "intel" }, "template": "intel mac. last of a noble line." },
-  { "trigger": { "mac_chip": "intel" }, "template": "still on intel? respect or denial, can't tell." },
-  { "trigger": { "mobile": true }, "template": "tiny screen. big intentions." },
-  { "trigger": { "mobile": true }, "template": "thumb-typing? respect." },
-  { "trigger": { "mobile": true }, "template": "phone hours. fair." },
-  { "trigger": { "mobile": true }, "template": "the desktop site has more easter eggs, fwiw." },
-  { "trigger": { "mobile": true }, "template": "scroll's good on mobile though, isn't it." },
-  { "trigger": { "mobile": true }, "template": "this card layout is better on a laptop, no offense." },
-  { "trigger": { "mobile": true }, "template": "rotate to landscape if you're feeling brave." },
-  { "trigger": { "mobile": true }, "template": "phone in hand, time to kill. classic." },
-  { "trigger": { "mobile": true, "ua_platform_contains": "iPhone" }, "template": "iphone, then. the obvious one." },
-  { "trigger": { "mobile": true, "ua_platform_contains": "iPhone" }, "template": "ios safari. you've made peace." },
-  { "trigger": { "mobile": true, "ua_platform_contains": "Android" }, "template": "android. principles intact." },
-  { "trigger": { "mobile": true, "ua_platform_contains": "Android" }, "template": "android user — chrome on chrome on chrome." },
-  { "trigger": { "mobile": true, "tz_hour_gte": 22 }, "template": "in bed scrolling? called out." },
-  { "trigger": { "mobile": true, "tz_hour_gte": 0, "tz_hour_lt": 5 }, "template": "phone in the dark. doomscrolling counts as a hobby." },
-  { "trigger": { "mobile": true, "tz_hour_gte": 6, "tz_hour_lt": 9 }, "template": "morning phone time. hello." },
-  { "trigger": { "mobile": true, "ua_browser": "Chrome" }, "template": "mobile chrome. the default of defaults." },
-  { "trigger": { "mobile": true, "ua_browser": "Safari" }, "template": "mobile safari. clean." },
-  { "trigger": { "mobile": true, "ua_browser": "Firefox" }, "template": "firefox on mobile. who hurt you, in the best way." },
-  { "trigger": { "mobile": true, "returning": true }, "template": "back on mobile. portable obsession." },
-  { "trigger": { "mobile": true, "via": "card" }, "template": "scanned the card with your phone like a normal person." },
-  { "trigger": { "mobile": true, "path": "/baseball/" }, "template": "the stats table sideways-scrolls. pinch and zoom." },
-  { "trigger": { "mobile": true, "path": "/music/" }, "template": "the heatmap on a phone is a brave act." },
-  { "trigger": { "mobile": true, "path": "/resume/" }, "template": "the pdf renders better. just so you know." },
-  { "trigger": "*", "template": "hey." },
-  { "trigger": "*", "template": "ask away." },
-  { "trigger": "*", "template": "hello internet." },
-  { "trigger": "*", "template": "what's up." },
-  { "trigger": "*", "template": "got questions?" },
-  { "trigger": "*", "template": "hi there." },
-  { "trigger": "*", "template": "fire when ready." },
-  { "trigger": "*", "template": "anything you want to know." },
-  { "trigger": "*", "template": "i know things. ask." },
-  { "trigger": "*", "template": "in the chair." },
-  { "trigger": "*", "template": "still here." },
-  { "trigger": "*", "template": "loitering with intent." },
-  { "trigger": "*", "template": "any time, friend." },
-  { "trigger": "*", "template": "lurking is fine too." },
-  { "trigger": "*", "template": "this is the chat. surprise." },
-  { "trigger": "*", "template": "yes i'm a bot. i know my place." },
-  { "trigger": "*", "template": "click me when you're ready." },
-  { "trigger": "*", "template": "no quiz. promise." },
-  { "trigger": "*", "template": "hover me, even." },
-  { "trigger": "*", "template": "scroll on. i'll be here." },
-  { "trigger": "*", "template": "the cursor moved. i noticed." },
-  { "trigger": "*", "template": "ten percent of my training was on snark." },
-  { "trigger": "*", "template": "small website energy." },
-  { "trigger": "*", "template": "the marquee is the soul of this site." },
-  { "trigger": "*", "template": "this site is mostly hand-coded. sue him." },
-  { "trigger": "*", "template": "you're allowed to ask weird stuff." },
-  { "trigger": "*", "template": "or don't. also valid." },
-  { "trigger": "*", "template": "the cards are the cards." },
-  { "trigger": "*", "template": "you can use h/r/p/w/m/c/b/g for the cards. fancy." },
-  { "trigger": "*", "template": "michael is a real person. i checked." },
-  { "trigger": "*", "template": "the site uses a chiptune player. don't @ me." },
-  { "trigger": "*", "template": "haiku 4.5. small but mighty." },
-  { "trigger": "*", "template": "running on cloudflare. fast as anything." },
-  { "trigger": "*", "template": "no cookies. just sessionstorage and good intentions." },
-  { "trigger": "*", "template": "if i say something dumb, refresh me." },
-  { "trigger": "*", "template": "the bio is curated. hand-rolled." },
-  { "trigger": "*", "template": "ask about the obsidian vault. it's a thing." },
-  { "trigger": "*", "template": "the resume pdf is one click away." },
-  { "trigger": "*", "template": "yes i can render markdown links." },
-  { "trigger": "*", "template": "ask about a paper. there's a list." },
-  { "trigger": "*", "template": "ask about the league standings. very specific." },
-
-  { "trigger": { "battery_charging": false, "battery_level_lte": 0.15 }, "weight": 8, "template": "low battery and you're still here. brave." },
-  { "trigger": { "battery_charging": false, "battery_level_lte": 0.10 }, "weight": 10, "template": "you're at like 10%. plug in. for me." },
-  { "trigger": { "battery_charging": false, "battery_level_lte": 0.05 }, "weight": 12, "template": "5% battery. living a fast life." },
-  { "trigger": { "battery_charging": true, "battery_level_lte": 0.30 }, "weight": 6, "template": "charging up. wise choice." },
-  { "trigger": { "battery_charging": true, "battery_level_gte": 0.99 }, "weight": 5, "template": "fully charged AND plugged in. unplug, your battery has feelings." },
-
-  { "trigger": { "conn_type": "slow-2g" }, "weight": 12, "template": "on slow-2g and still here. cathedral patience." },
-  { "trigger": { "conn_type": "2g" }, "weight": 10, "template": "2g connection. respect the load times." },
-  { "trigger": { "conn_type": "3g" }, "weight": 6, "template": "3g out here. retro." },
-  { "trigger": { "save_data": true }, "weight": 7, "template": "data-saver mode. the responsible setting." },
-  { "trigger": { "downlink_mbps_gte": 100 }, "weight": 5, "template": "100+ mbps. fiber, then. we don't deserve this." },
-
-  { "trigger": { "high_refresh": true }, "weight": 9, "template": "120hz panel for a static page. flex." },
-  { "trigger": { "ultrawide": true }, "weight": 9, "template": "ultrawide monitor. unhinged. complimentary." },
-  { "trigger": { "vertical_monitor": true }, "weight": 10, "template": "vertical monitor. dev energy detected." },
-  { "trigger": { "dpr_gte": 2 }, "weight": 3, "template": "retina-class screen. lucky pixels." },
-  { "trigger": { "dpr_gte": 3 }, "weight": 5, "template": "3x density display. that's a phone or a very expensive laptop." },
-
-  { "trigger": { "standalone_pwa": true }, "weight": 12, "template": "you installed this site as an app? bold move." },
-  { "trigger": { "touch_on_desktop": true }, "weight": 10, "template": "touchscreen on a desktop browser. surface or wacom?" },
-  { "trigger": { "webgpu": true, "ua_browser": "Chrome" }, "weight": 6, "template": "webgpu enabled. bleeding edge." },
-
-  { "trigger": { "cores_gte": 16 }, "weight": 5, "template": "{{cores}} cores for one chat widget. flex." },
-  { "trigger": { "cores_lte": 2 }, "weight": 4, "template": "two cores. holding the line." },
-  { "trigger": { "ram_gb_gte": 32 }, "weight": 5, "template": "{{ram_gb}}gb of ram. for this? truly." },
-  { "trigger": { "ram_gb_lte": 2 }, "weight": 4, "template": "{{ram_gb}}gb device. lean." },
-
-  { "trigger": { "dark_mode": true }, "weight": 3, "template": "dark mode warrior. the site doesn't care, fwiw." },
-  { "trigger": { "reduced_motion": true }, "weight": 4, "template": "reduced motion respected. botty calms down for you." },
-  { "trigger": { "gpc": true }, "weight": 7, "template": "GPC sent. respected." },
-  { "trigger": { "dnt": true }, "weight": 6, "template": "DNT enabled. old-school." },
-
-  { "trigger": { "nav_type": "back_forward" }, "weight": 6, "template": "back-button arrival. classic." },
-  { "trigger": { "nav_type": "reload" }, "weight": 4, "template": "refresh. something not right?" },
-  { "trigger": { "reload_count_gte": 3 }, "weight": 9, "template": "{{reload_count}}rd refresh. is the site broken or are you?" },
-
-  { "trigger": { "tz_lang_mismatch": true }, "weight": 8, "template": "english browser, {{tz}} timezone. interesting combo." },
-
-  { "trigger": { "storage_quota_gb_gte": 50 }, "weight": 3, "template": "you've got {{storage_quota_gb}}gb of browser storage free. tidy." }
+  {
+    "trigger": {
+      "via": "card"
+    },
+    "template": "the qr worked. respect.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "via": "card"
+    },
+    "template": "scanner-of-cards. welcome.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "via": "card"
+    },
+    "template": "you came in from the printed bit.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "returning": true,
+      "visit_count_gte": 5
+    },
+    "template": "back again. obsessed?",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "returning": true,
+      "visit_count_gte": 5
+    },
+    "template": "{{visit_count}} visits. somebody's interested.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "returning": true
+    },
+    "template": "missed you.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "returning": true
+    },
+    "template": "back already.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 0,
+      "tz_hour_lt": 5
+    },
+    "template": "{{tz_hour}}am where you are. go to bed.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 5,
+      "tz_hour_lt": 8
+    },
+    "template": "early bird in {{city}}. respect.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 22,
+      "tz_hour_lt": 24
+    },
+    "template": "late one. fair.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 12,
+      "tz_hour_lt": 14
+    },
+    "template": "lunch in {{city}}, then? same.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "cf_country": "DE"
+    },
+    "template": "guten tag. mein deutsch ist begrenzt.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "cf_country": "JP"
+    },
+    "template": "konnichiwa. that's about the limit of my japanese.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "cf_country": "US",
+      "cf_city": "San Diego"
+    },
+    "template": "san diego represent.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "cf_country": "GB"
+    },
+    "template": "how's the weather in {{city}}? lying. it's raining.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "cf_country_not": "US"
+    },
+    "template": "{{city}}? hi. long way.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "lang_starts": "es"
+    },
+    "template": "hola — mi español está oxidado.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "lang_starts": "fr"
+    },
+    "template": "bonjour. that's the extent of it.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "lang_starts": "de"
+    },
+    "template": "hallo. wie geht's.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_browser": "Firefox"
+    },
+    "template": "firefox user. principles intact.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_browser": "Safari"
+    },
+    "template": "safari? you must hate batteries dying.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_browser": "Edge"
+    },
+    "template": "edge. bold choice.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_browser": "Chrome"
+    },
+    "template": "chrome. of course.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_platform": "Linux"
+    },
+    "template": "linux. you're built different.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_platform": "Windows"
+    },
+    "template": "windows. solid.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "twitter"
+    },
+    "template": "twitter sent you. brave.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "x.com"
+    },
+    "template": "from the everything app. how did you get here.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "news.ycombinator"
+    },
+    "template": "hn brought you. condolences on the comments.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "google"
+    },
+    "template": "google sent you. search worked.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "linkedin"
+    },
+    "template": "from linkedin. corporate.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "github"
+    },
+    "template": "from github. you saw the repo, didn't you.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "referer_host_contains": "bsky"
+    },
+    "template": "bluesky pipeline still works, apparently.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/baseball/"
+    },
+    "template": "ball talk. let's go.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/golf/"
+    },
+    "template": "the handicap is real, unfortunately.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/music/"
+    },
+    "template": "judge the listening habits at your peril.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/movies/"
+    },
+    "template": "letterboxd warning: opinions ahead.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/resume/"
+    },
+    "template": "the cv is here. fair.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/projects/"
+    },
+    "template": "the side projects. some even shipped.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/words/"
+    },
+    "template": "fewer words than i'd like, honestly.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "session_paths_len_gte": 3
+    },
+    "template": "third stop on the tour. thorough.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "mobile. abridged tour available.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/baseball/"
+    },
+    "template": "scroll past the strikeouts. politely.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/baseball/"
+    },
+    "template": "the ops is doing numbers this year.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/baseball/"
+    },
+    "template": "ask about the league. it's a whole thing.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/golf/"
+    },
+    "template": "the short game is a lifelong negotiation.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/golf/"
+    },
+    "template": "ghin doesn't lie. unfortunately.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/golf/"
+    },
+    "template": "ask about the goal handicap. it's specific.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/music/"
+    },
+    "template": "scrobbles don't lie either.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/music/"
+    },
+    "template": "the genre cloud is humbling.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/music/"
+    },
+    "template": "try the heatmap. the late nights show up.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/movies/"
+    },
+    "template": "the four-stars are where the taste lives.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/movies/"
+    },
+    "template": "letterboxd-pilled, mildly.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/resume/"
+    },
+    "template": "there's a pdf if you're an old-school reader.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/resume/"
+    },
+    "template": "twelve years in. somehow.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/projects/"
+    },
+    "template": "some of these are fully shipped. some are vibes.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/projects/"
+    },
+    "template": "this site is on the list, technically.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/words/"
+    },
+    "template": "the queue is longer than the published list.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/words/"
+    },
+    "template": "drafts: many. published: fewer.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/contact/"
+    },
+    "template": "email is fine. cal.com is faster.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/contact/"
+    },
+    "template": "the qr codes go to real places, fwiw.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/"
+    },
+    "template": "the home page. the hub.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "path": "/"
+    },
+    "template": "pick a card. any card.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "returning": true,
+      "visit_count_gte": 10
+    },
+    "template": "double digits now. you're family.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "returning": true,
+      "visit_count_gte": 20
+    },
+    "template": "{{visit_count}}. michael owes you a beer.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "session_paths_len_gte": 5
+    },
+    "template": "five pages. you're committed.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "session_paths_len_gte": 7
+    },
+    "template": "the full tour. impressive.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 2,
+      "tz_hour_lt": 5
+    },
+    "template": "small hours. who's hurting you?",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 14,
+      "tz_hour_lt": 17
+    },
+    "template": "afternoon slump. understandable.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "tz_hour_gte": 17,
+      "tz_hour_lt": 20
+    },
+    "template": "post-work scroll. classic.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_browser": "Chrome"
+    },
+    "template": "another chrome tab. brave.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "ua_platform": "MacIntel"
+    },
+    "template": "mac, then. command-tabbing already.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "apple_silicon"
+    },
+    "template": "apple silicon. instant wake. spoiled.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "apple_silicon"
+    },
+    "template": "m-series chip. fan never spins.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "apple_silicon"
+    },
+    "template": "your battery's at 87% and you've been up six hours, haven't you.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "apple_silicon"
+    },
+    "template": "no bootcamp for you anymore. that's the trade.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "apple_silicon"
+    },
+    "template": "rosetta is doing more work than you think.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "apple_silicon"
+    },
+    "template": "the gpu cores are barely waking up for this site. sorry.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "intel"
+    },
+    "template": "intel mac. holding the line.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "intel"
+    },
+    "template": "the fan kicked on for this page, didn't it.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "intel"
+    },
+    "template": "intel mac. last of a noble line.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mac_chip": "intel"
+    },
+    "template": "still on intel? respect or denial, can't tell.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "tiny screen. big intentions.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "thumb-typing? respect.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "phone hours. fair.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "the desktop site has more easter eggs, fwiw.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "scroll's good on mobile though, isn't it.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "this card layout is better on a laptop, no offense.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "rotate to landscape if you're feeling brave.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true
+    },
+    "template": "phone in hand, time to kill. classic.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_platform_contains": "iPhone"
+    },
+    "template": "iphone, then. the obvious one.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_platform_contains": "iPhone"
+    },
+    "template": "ios safari. you've made peace.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_platform_contains": "Android"
+    },
+    "template": "android. principles intact.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_platform_contains": "Android"
+    },
+    "template": "android user — chrome on chrome on chrome.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "tz_hour_gte": 22
+    },
+    "template": "in bed scrolling? called out.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "tz_hour_gte": 0,
+      "tz_hour_lt": 5
+    },
+    "template": "phone in the dark. doomscrolling counts as a hobby.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "tz_hour_gte": 6,
+      "tz_hour_lt": 9
+    },
+    "template": "morning phone time. hello.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_browser": "Chrome"
+    },
+    "template": "mobile chrome. the default of defaults.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_browser": "Safari"
+    },
+    "template": "mobile safari. clean.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "ua_browser": "Firefox"
+    },
+    "template": "firefox on mobile. who hurt you, in the best way.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "returning": true
+    },
+    "template": "back on mobile. portable obsession.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "via": "card"
+    },
+    "template": "scanned the card with your phone like a normal person.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "path": "/baseball/"
+    },
+    "template": "the stats table sideways-scrolls. pinch and zoom.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "path": "/music/"
+    },
+    "template": "the heatmap on a phone is a brave act.",
+    "weight": 2
+  },
+  {
+    "trigger": {
+      "mobile": true,
+      "path": "/resume/"
+    },
+    "template": "the pdf renders better. just so you know.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "hey.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "ask away.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "hello internet.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "what's up.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "got questions?",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "hi there.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "fire when ready.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "anything you want to know.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "i know things. ask.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "in the chair.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "still here.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "loitering with intent.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "any time, friend.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "lurking is fine too.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "this is the chat. surprise.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "yes i'm a bot. i know my place.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "click me when you're ready.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "no quiz. promise.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "hover me, even.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "scroll on. i'll be here.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "the cursor moved. i noticed.",
+    "weight": 1
+  },
+  {
+    "trigger": "*",
+    "template": "ten percent of my training was on snark.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "small website energy.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "the marquee is the soul of this site.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "this site is mostly hand-coded. sue him.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "you're allowed to ask weird stuff.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "or don't. also valid.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "the cards are the cards.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "you can use h/r/p/w/m/c/b/g for the cards. fancy.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "michael is a real person. i checked.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "the site uses a chiptune player. don't @ me.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "haiku 4.5. small but mighty.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "running on cloudflare. fast as anything.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "no cookies. just sessionstorage and good intentions.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "if i say something dumb, refresh me.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "the bio is curated. hand-rolled.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "ask about the obsidian vault. it's a thing.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "the resume pdf is one click away.",
+    "weight": 2
+  },
+  {
+    "trigger": "*",
+    "template": "yes i can render markdown links.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "ask about a paper. there's a list.",
+    "weight": 3
+  },
+  {
+    "trigger": "*",
+    "template": "ask about the league standings. very specific.",
+    "weight": 3
+  },
+  {
+    "trigger": {
+      "battery_charging": false,
+      "battery_level_lte": 0.15
+    },
+    "weight": 8,
+    "template": "low battery and you're still here. brave."
+  },
+  {
+    "trigger": {
+      "battery_charging": false,
+      "battery_level_lte": 0.1
+    },
+    "weight": 10,
+    "template": "you're at like 10%. plug in. for me."
+  },
+  {
+    "trigger": {
+      "battery_charging": false,
+      "battery_level_lte": 0.05
+    },
+    "weight": 12,
+    "template": "5% battery. living a fast life."
+  },
+  {
+    "trigger": {
+      "battery_charging": true,
+      "battery_level_lte": 0.3
+    },
+    "weight": 6,
+    "template": "charging up. wise choice."
+  },
+  {
+    "trigger": {
+      "battery_charging": true,
+      "battery_level_gte": 0.99
+    },
+    "weight": 5,
+    "template": "fully charged AND plugged in. unplug, your battery has feelings."
+  },
+  {
+    "trigger": {
+      "conn_type": "slow-2g"
+    },
+    "weight": 12,
+    "template": "on slow-2g and still here. cathedral patience."
+  },
+  {
+    "trigger": {
+      "conn_type": "2g"
+    },
+    "weight": 10,
+    "template": "2g connection. respect the load times."
+  },
+  {
+    "trigger": {
+      "conn_type": "3g"
+    },
+    "weight": 6,
+    "template": "3g out here. retro."
+  },
+  {
+    "trigger": {
+      "save_data": true
+    },
+    "weight": 7,
+    "template": "data-saver mode. the responsible setting."
+  },
+  {
+    "trigger": {
+      "downlink_mbps_gte": 100
+    },
+    "weight": 5,
+    "template": "100+ mbps. fiber, then. we don't deserve this."
+  },
+  {
+    "trigger": {
+      "high_refresh": true
+    },
+    "weight": 9,
+    "template": "120hz panel for a static page. flex."
+  },
+  {
+    "trigger": {
+      "ultrawide": true
+    },
+    "weight": 9,
+    "template": "ultrawide monitor. unhinged. complimentary."
+  },
+  {
+    "trigger": {
+      "vertical_monitor": true
+    },
+    "weight": 10,
+    "template": "vertical monitor. dev energy detected."
+  },
+  {
+    "trigger": {
+      "dpr_gte": 2
+    },
+    "weight": 3,
+    "template": "retina-class screen. lucky pixels."
+  },
+  {
+    "trigger": {
+      "dpr_gte": 3
+    },
+    "weight": 5,
+    "template": "3x density display. that's a phone or a very expensive laptop."
+  },
+  {
+    "trigger": {
+      "standalone_pwa": true
+    },
+    "weight": 12,
+    "template": "you installed this site as an app? bold move."
+  },
+  {
+    "trigger": {
+      "touch_on_desktop": true
+    },
+    "weight": 10,
+    "template": "touchscreen on a desktop browser. surface or wacom?"
+  },
+  {
+    "trigger": {
+      "webgpu": true,
+      "ua_browser": "Chrome"
+    },
+    "weight": 6,
+    "template": "webgpu enabled. bleeding edge."
+  },
+  {
+    "trigger": {
+      "cores_gte": 16
+    },
+    "weight": 5,
+    "template": "{{cores}} cores for one chat widget. flex."
+  },
+  {
+    "trigger": {
+      "cores_lte": 2
+    },
+    "weight": 4,
+    "template": "two cores. holding the line."
+  },
+  {
+    "trigger": {
+      "ram_gb_gte": 32
+    },
+    "weight": 5,
+    "template": "{{ram_gb}}gb of ram. for this? truly."
+  },
+  {
+    "trigger": {
+      "ram_gb_lte": 2
+    },
+    "weight": 4,
+    "template": "{{ram_gb}}gb device. lean."
+  },
+  {
+    "trigger": {
+      "dark_mode": true
+    },
+    "weight": 3,
+    "template": "dark mode warrior. the site doesn't care, fwiw."
+  },
+  {
+    "trigger": {
+      "reduced_motion": true
+    },
+    "weight": 4,
+    "template": "reduced motion respected. botty calms down for you."
+  },
+  {
+    "trigger": {
+      "gpc": true
+    },
+    "weight": 7,
+    "template": "GPC sent. respected."
+  },
+  {
+    "trigger": {
+      "dnt": true
+    },
+    "weight": 6,
+    "template": "DNT enabled. old-school."
+  },
+  {
+    "trigger": {
+      "nav_type": "back_forward"
+    },
+    "weight": 6,
+    "template": "back-button arrival. classic."
+  },
+  {
+    "trigger": {
+      "nav_type": "reload"
+    },
+    "weight": 4,
+    "template": "refresh. something not right?"
+  },
+  {
+    "trigger": {
+      "reload_count_gte": 3
+    },
+    "weight": 9,
+    "template": "{{reload_count}}rd refresh. is the site broken or are you?"
+  },
+  {
+    "trigger": {
+      "tz_lang_mismatch": true
+    },
+    "weight": 8,
+    "template": "english browser, {{tz}} timezone. interesting combo."
+  },
+  {
+    "trigger": {
+      "storage_quota_gb_gte": 50
+    },
+    "weight": 3,
+    "template": "you've got {{storage_quota_gb}}gb of browser storage free. tidy."
+  }
 ]
