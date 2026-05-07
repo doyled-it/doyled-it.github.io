@@ -17,3 +17,4 @@ node_modules/
 
 # os
 .DS_Store
+src/_data/bio-bundle.json

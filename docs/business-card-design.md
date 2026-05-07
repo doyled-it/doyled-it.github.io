@@ -19,7 +19,7 @@ A single universal business card that:
 |---|---|
 | Size | US standard 88.9 × 50.8 mm (3.5" × 2") |
 | Orientation | Landscape, both sides |
-| Corner radius | 1/8" (3 mm) — protects pocket-bend corners without fighting the chassis aesthetic |
+| Corner radius | 1/4" (6.35 mm) — Jukebox's "Rounded .25"" option |
 | Stock | 32pt soft-touch / suede laminated |
 | Print | Digital CMYK both sides |
 | Edge paint | None |
@@ -113,7 +113,7 @@ Same chassis, different interior.
 - **Quantity:** 250
 - **Stock:** 32pt soft-touch (suede) lamination, both sides
 - **Print:** Digital CMYK, full bleed, both sides
-- **Corners:** Rounded, 1/8" (3 mm) radius
+- **Corners:** Rounded, 1/4" (6.35 mm) radius — Jukebox's "Rounded .25"" option
 - **Edge paint:** None
 - **Spot UV:** Front-side titlebar only (full strip ~89 mm × 5 mm)
 - **Estimated cost:** $150–210 total (~$0.60–0.85 per card)
