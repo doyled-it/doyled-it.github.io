@@ -117,7 +117,13 @@ Same chassis, different interior.
 - **Edge paint:** None
 - **Spot UV:** Front-side titlebar only (full strip ~89 mm × 5 mm)
 - **Estimated cost:** $150–210 total (~$0.60–0.85 per card)
-- **Bleed/safe area:** Use Jukebox's standard template (3 mm bleed, 3 mm safe margin from cut)
+- **Bleed area:** 3.75" × 2.25" (95.25 × 57.15 mm) — background must extend to here on all sides (0.125" / 3.175 mm past trim)
+- **Trim size:** 3.5" × 2" (88.9 × 50.8 mm) — the actual cut line
+- **Safety area:** 3.25" × 1.75" (82.55 × 44.45 mm) — all text, QRs, and important visual content stays inside this (0.125" / 3.175 mm inside trim)
+- **No outer border at trim:** the 2 px window border from the website doesn't translate to print — at trim with rounded corners and ±1 mm cut tolerance it would look uneven. The rounded-corner cut against the surrounding paper IS the visual edge.
+- **Color profile:** US Sheetfed Coated v2 (Jukebox default)
+- **Image DPI:** 300 dpi minimum, embedded
+- **Fonts:** Outlined (convert to paths) when delivering the print PDF
 
 ## Companion deliverables (separate work, not part of card itself)
 
