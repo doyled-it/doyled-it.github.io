@@ -50,9 +50,11 @@ await page.addStyleTag({ content: `
     position: relative;
     overflow: hidden;
   }
+  /* Strip = 12px bleed-top + ~32px titlebar height. Reaches exactly to
+     the titlebar's bottom black border so the gradient is seamless. */
   .bleed-export::before {
     content: ""; position: absolute; left: 0; right: 0; top: 0;
-    height: 36px;
+    height: 44px;
     background: linear-gradient(90deg, #ff6fb3 0%, #ffe14d 100%);
     z-index: 0;
   }

@@ -44,8 +44,10 @@
   .titlebar {
     background: linear-gradient(90deg, #ff6fb3 0%, #ffe14d 100%);
     border-bottom: 2px solid #000;
-    /* Push titlebar text into the safety area on left/right. */
-    padding: 5px 22px;
+    /* 14px top keeps text inside the 0.125" safety area; 22px sides
+       does the same horizontally. The gradient itself can extend past
+       trim — only text needs to stay inside safety. */
+    padding: 14px 22px 6px;
     display: flex; justify-content: space-between; align-items: center;
     font-family: 'Pixelify Sans', sans-serif;
     font-weight: 700; font-size: 12px; color: #000;
