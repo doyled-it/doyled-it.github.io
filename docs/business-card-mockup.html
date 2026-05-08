@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Business card — visual reference</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;700&family=VT323&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: #f4f4f4;
+    color: #222;
+    padding: 40px 20px;
+  }
+  main { max-width: 540px; margin: 0 auto; }
+  h1 { font-family: 'Pixelify Sans', sans-serif; font-weight: 700; margin: 0 0 8px; }
+  .lede { color: #666; margin: 0 0 32px; font-size: 14px; line-height: 1.55; }
+  .lede code { background: #fffbe6; padding: 1px 4px; border: 1px solid #ddd; border-radius: 3px; font-size: 12px; }
+
+  /* Mockup canvas = trim size: 380×218 px ≈ 89×51 mm at 4.27 px/mm. The
+     0.125" Jukebox safety margin = ~14 px on each side at this scale, so
+     all content sits inside an inner 352×190 area. The 0.125" bleed area
+     (background extending past trim) lives outside this card div in the
+     real print file — visualized via the dashed outline below. */
+  .bizcard {
+    width: 380px; height: 218px;
+    background: #fffbe6; color: #000;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    border-radius: 27px;
+    margin: 0 auto 8px;
+  }
+  /* Faint dashed safety guide for designer reference — toggle off via
+     `.bizcard.no-guides` for clean export PNGs. */
+  .bizcard:not(.no-guides)::after {
+    content: ""; position: absolute; pointer-events: none;
+    top: 14px; left: 14px; right: 14px; bottom: 14px;
+    border: 1px dashed rgba(180,140,140,0.45);
+    border-radius: 13px;
+  }
+  .titlebar {
+    background: linear-gradient(90deg, #ff6fb3 0%, #ffe14d 100%);
+    border-bottom: 2px solid #000;
+    /* 14px top keeps text inside the 0.125" safety area; 22px sides
+       does the same horizontally. The gradient itself can extend past
+       trim — only text needs to stay inside safety. */
+    padding: 14px 22px 6px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'Pixelify Sans', sans-serif;
+    font-weight: 700; font-size: 12px; color: #000;
+    flex-shrink: 0;
+  }
+  .titlebar .ctrl { letter-spacing: 2px; }
+
+  .front .body { flex: 1; padding: 22px 22px 22px 22px; display: flex; flex-direction: column; justify-content: center; }
+  .front .name { font-family: 'Pixelify Sans', sans-serif; font-weight: 700; font-size: 38px; margin: 0; line-height: 0.95; color: #000; }
+  .front .title { font-family: 'VT323', monospace; font-size: 17px; margin: 8px 0 0; color: #222; }
+  .front .pronouns { font-family: 'VT323', monospace; font-size: 13px; color: #888; margin: 4px 0 0; }
+  .mascot {
+    position: absolute; width: 56px; height: 56px;
+    /* Push inside the safety area + away from the rounded-corner cut. */
+    bottom: 18px; right: 20px;
+    background-image: url('https://raw.githubusercontent.com/doyled-it/doyled-it.github.io/main/src/assets/sprites/oneko/sheet.gif');
+    background-position: -192px -192px;
+    background-size: 512px auto;
+    image-rendering: pixelated;
+  }
+
+  .back .grid { flex: 1; padding: 6px 22px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 3px 14px; align-content: start; }
+  .back .row { display: flex; align-items: center; gap: 7px; font-family: 'VT323', monospace; font-size: 12px; color: #000; line-height: 1.0; }
+  .back .row img { width: 36px; height: 36px; flex-shrink: 0; image-rendering: pixelated; }
+  .back .row .meta { min-width: 0; flex: 1; }
+  .back .row .lbl { font-family: 'JetBrains Mono', monospace; font-size: 7px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; line-height: 1; margin-bottom: 1px; }
+  .back .row .val { font-size: 12px; word-break: break-all; line-height: 1; }
+  .back .micro {
+    position: absolute; left: 22px; right: 22px; bottom: 16px;
+    font-family: 'JetBrains Mono', monospace; font-size: 6px; color: #999;
+    border-top: 1px dashed #cdb; padding-top: 3px;
+    letter-spacing: 0.2px; text-align: center;
+  }
+
+  .label { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.5px; margin: 28px 0 8px; text-align: center; }
+  .footer { margin-top: 48px; font-size: 12px; color: #888; text-align: center; }
+  .footer a { color: #c8a; }
+</style>
+</head>
+<body>
+<main>
+
+  <h1>Business card — visual reference</h1>
+  <p class="lede">
+    Locked design as of 2026-04-27. Rendered at mockup canvas scale (380 × 218 px representing 89 × 51 mm; ~4.27 px/mm). Print production should match these proportions visually, not literally pixel-for-pixel — typographic point sizes will be smaller than the CSS px values shown here. See <code>docs/business-card-design.md</code> for full spec.
+  </p>
+
+  <div class="label">Front</div>
+  <div class="bizcard front">
+    <div class="titlebar"><span>michael.doyle.exe</span><span class="ctrl">_ □ ✕</span></div>
+    <div class="body">
+      <h2 class="name" style="margin:0">Michael Doyle</h2>
+      <p class="title">AI Researcher, Engineer, &amp; Prototyper</p>
+      <p class="pronouns">he/him</p>
+    </div>
+    <div class="mascot"></div>
+  </div>
+
+  <div class="label">Back</div>
+  <div class="bizcard back">
+    <div class="titlebar"><span>contact.txt</span><span class="ctrl">_ □ ✕</span></div>
+    <div class="grid">
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fm" alt="QR for personal email"><div class="meta"><div class="lbl">E-MAIL</div><div class="val">michael@doyled-it.com</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fw" alt="QR for personal site"><div class="meta"><div class="lbl">WEBSITE</div><div class="val">doyled-it.com</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fcal" alt="QR for cal.com"><div class="meta"><div class="lbl">CALENDAR</div><div class="val">cal.com/doyled-it</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fgh" alt="QR for github"><div class="meta"><div class="lbl">GITHUB</div><div class="val">@doyled-it</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fp" alt="QR for phone"><div class="meta"><div class="lbl">PHONE</div><div class="val">(775) 450-6522</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fli" alt="QR for linkedin"><div class="meta"><div class="lbl">LINKEDIN</div><div class="val">michaeldoyleml</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fs" alt="QR for scholar"><div class="meta"><div class="lbl">PUBLICATIONS</div><div class="val">google scholar</div></div></div>
+      <div class="row"><img src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&qzone=1&data=https%3A%2F%2Fdoyled-it.com%2Fc" alt="QR for botty chatbot"><div class="meta"><div class="lbl">★ ASK BOTTY</div><div class="val">chatbot helper</div></div></div>
+    </div>
+  </div>
+
+  <p class="footer">
+    Open this file directly in a browser for live rendering. Fonts via Google Fonts; QR codes generated by <a href="https://goqr.me">api.qrserver.com</a>; mascot pulled from <code>src/assets/sprites/oneko/sheet.gif</code> in this repo.
+  </p>
+
+</main>
+</body>
+</html>
