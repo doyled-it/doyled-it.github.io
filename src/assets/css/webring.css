@@ -1,0 +1,112 @@
+/* ============================================================
+   webring — friends of the small web, sticker on the desk
+   ============================================================ */
+
+.webring {
+  margin-top: 18px;
+  padding: 12px 14px 14px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  font-family: var(--font-mono);
+  color: var(--ink);
+}
+
+.webring-head {
+  text-align: center;
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.webring-title {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.06em;
+  color: var(--accent-pink-dark);
+}
+
+.webring-sub {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  letter-spacing: 0.05em;
+}
+
+.webring-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+}
+
+.webring-list li { display: block; }
+
+.webring-btn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 88px;
+  height: 31px;
+  padding: 2px 4px;
+  border: 2px solid var(--ink);
+  text-decoration: none;
+  color: var(--ink);
+  background: #fff;
+  font-family: var(--font-mono);
+  line-height: 1;
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.08s ease;
+}
+
+.webring-btn-name {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.webring-btn-tag {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.webring-btn:hover,
+.webring-btn:focus-visible {
+  transform: translate(-1px, -1px);
+  box-shadow: 2px 2px 0 var(--ink);
+  outline: none;
+}
+
+.webring-btn--pink      { background: var(--accent-pink); }
+.webring-btn--pink-dark { background: var(--accent-pink-dark); color: #fff; }
+.webring-btn--pink-dark .webring-btn-tag { color: #ffe9f3; }
+.webring-btn--yellow    { background: var(--accent-yellow); }
+.webring-btn--green     { background: var(--accent-green); }
+.webring-btn--cyan      { background: var(--accent-cyan); }
+.webring-btn--purple    { background: var(--accent-purple); }
+
+.webring-foot {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: 12px;
+  color: #555;
+}
+.webring-foot a { color: var(--accent-pink-dark); }
+
+@media (max-width: 480px) {
+  .webring-list { gap: 5px; }
+}

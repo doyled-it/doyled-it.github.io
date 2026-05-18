@@ -1,0 +1,23 @@
+<aside class="webring" aria-label="friends of the small web">
+  <header class="webring-head">
+    <span class="webring-title">▒▓█ FRIENDS OF THE SMALL WEB █▓▒</span>
+    <span class="webring-sub">the internet's not dead. just sleeping.</span>
+  </header>
+  <ul class="webring-list">
+    {%- for f in friends -%}
+      <li>
+        <a class="webring-btn webring-btn--{{ f.color }}"
+           href="{{ f.url }}"
+           target="_blank"
+           rel="noopener me external"
+           title="{{ f.tagline }}">
+          <span class="webring-btn-name">{{ f.name }}</span>
+          <span class="webring-btn-tag">{{ f.tagline }}</span>
+        </a>
+      </li>
+    {%- endfor -%}
+  </ul>
+  <p class="webring-foot">
+    swap a button? <a href="/contact/">say hi</a>.
+  </p>
+</aside>

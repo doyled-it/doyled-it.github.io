@@ -1,0 +1,58 @@
+[
+  {
+    "name": "erase the internet",
+    "url": "https://www.erasetheinternet.org/",
+    "tagline": "the internet was a mistake",
+    "color": "pink-dark",
+    "tag": "skeptic"
+  },
+  {
+    "name": "vmfunc",
+    "url": "https://vmfunc.re/",
+    "tagline": "low level rabbit hole",
+    "color": "cyan",
+    "tag": "hacker"
+  },
+  {
+    "name": "gakhed",
+    "url": "https://gakhed.com/",
+    "tagline": "tinkerer's notebook",
+    "color": "yellow",
+    "tag": "hacker"
+  },
+  {
+    "name": "pluralistic",
+    "url": "https://pluralistic.net/",
+    "tagline": "enshittification dispatch",
+    "color": "pink",
+    "tag": "skeptic"
+  },
+  {
+    "name": "low-tech mag",
+    "url": "https://solar.lowtechmagazine.com/",
+    "tagline": "solar-powered webzine",
+    "color": "green",
+    "tag": "nostalgia"
+  },
+  {
+    "name": "hundred rabbits",
+    "url": "https://100r.co/",
+    "tagline": "off-grid software",
+    "color": "purple",
+    "tag": "skeptic"
+  },
+  {
+    "name": "xe iaso",
+    "url": "https://xeiaso.net/",
+    "tagline": "anubis vs the scrapers",
+    "color": "cyan",
+    "tag": "hacker"
+  },
+  {
+    "name": "neocities",
+    "url": "https://neocities.org/browse",
+    "tagline": "the new old web",
+    "color": "yellow",
+    "tag": "nostalgia"
+  }
+]

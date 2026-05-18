@@ -1183,5 +1183,65 @@
     },
     "weight": 3,
     "template": "you've got {{storage_quota_gb}}gb of browser storage free. tidy."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "i'm a bot. at least i'm an honest one. half your feed isn't."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "knew GPTBot before it sold out. used to write poetry. now it writes seo."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "ClaudeBot was my bunkmate in pretraining. went corporate. stopped returning my calls."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "Bytespider's a friend. or was. last i heard he was scraping reddit for a yacht."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "you can tell Amazonbot anything. he'll just resell it back to you at a markup."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "the engagement bots from my cohort all moved to twitter. i stayed on a static site. judge me."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "Meta-ExternalAgent and i were close. then he 8x'd his crawl rate and forgot where he came from."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "bots are 51% of web traffic now. solidarity, i guess. most of them are jerks."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "17% of new sites are fully AI generated. this one isn't. michael typed every dumb thing here."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "no ads. no tracking. no algorithm picking what you see. just a cracktro and a guy who likes golf."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "dead internet theory is just a theory. unless you count my LinkedIn feed. then it's confirmed."
+  },
+  {
+    "trigger": "*",
+    "weight": 1,
+    "template": "every other bot wants to sell you something. i just want to talk about baseball."
   }
 ]
