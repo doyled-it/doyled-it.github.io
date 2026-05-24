@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-05-17T06:56:24.407Z",
+  "lastUpdated": "2026-05-24T07:04:33.023Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -641,47 +641,47 @@
       "position": "Utility (P/IF/OF)",
       "stats": {
         "hitting": {
-          "AB": 19,
-          "H": 8,
+          "AB": 22,
+          "H": 9,
           "2B": 0,
           "3B": 0,
           "HR": 0,
           "RBI": 10,
           "R": 6,
           "BB": 1,
-          "K": 4,
+          "K": 5,
           "HBP": 0,
           "SF": 0,
-          "SB": 5,
+          "SB": 6,
           "CS": 1,
-          "RISP": 11,
+          "RISP": 12,
           "RISP_H": 7,
           "hard_contact": 7,
-          "pitches_seen": 88
+          "pitches_seen": 91
         },
         "fielding": {
-          "PO": 2,
+          "PO": 5,
           "A": 2,
           "E": 1,
-          "TC": 5,
+          "TC": 8,
           "DP": 0
         },
         "pitching": {
-          "IP": 3,
-          "H_p": 4,
-          "R_p": 3,
-          "ER": 3,
-          "BB_p": 8,
+          "IP": 5.1,
+          "H_p": 10,
+          "R_p": 10,
+          "ER": 9,
+          "BB_p": 12,
           "K_p": 4,
           "HR_p": 0,
-          "BF": 16,
-          "PC": 72
+          "BF": 31,
+          "PC": 131
         },
         "games": {
-          "total": 8,
-          "played": 6,
+          "total": 9,
+          "played": 7,
           "wins": 4,
-          "losses": 4,
+          "losses": 5,
           "ties": 0
         },
         "gamesList": [
@@ -1084,33 +1084,83 @@
               },
               "avg": 0.3333333333333333
             }
+          },
+          {
+            "date": "2026-05-17",
+            "opponent": "Sandlot Athletics",
+            "location": "\"@Mt. Miguel\"",
+            "result": "L",
+            "score": "2-15",
+            "played": true,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 1,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 1,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 1,
+                "CS": 0,
+                "RISP": 1,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 3
+              },
+              "fielding": {
+                "PO": 3,
+                "A": 0,
+                "E": 0,
+                "TC": 3,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 2.1,
+                "H_p": 6,
+                "R_p": 7,
+                "ER": 6,
+                "BB_p": 4,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 15,
+                "PC": 59
+              },
+              "avg": 0.3333333333333333
+            }
           }
         ],
         "calculated": {
-          "AVG": 0.42105263157894735,
-          "OBP": 0.45,
-          "singles": 8,
-          "tb": 8,
-          "SLG": 0.42105263157894735,
-          "OPS": 0.8710526315789473,
-          "BABIP": 0.5333333333333333,
+          "AVG": 0.4090909090909091,
+          "OBP": 0.43478260869565216,
+          "singles": 9,
+          "tb": 9,
+          "SLG": 0.4090909090909091,
+          "OPS": 0.8438735177865613,
+          "BABIP": 0.5294117647058824,
           "ISO": 0,
           "XBH": 0,
           "XBH_pct": 0,
-          "BB_pct": 0.05,
-          "K_pct": 0.2,
-          "clutch_avg": 0.6363636363636364,
-          "contact_quality": 0.3684210526315789,
-          "ERA": 9,
-          "WHIP": 4,
-          "K_BB": 0.5,
-          "K9": 12,
-          "BB9": 24,
-          "fieldingPct": 0.8,
-          "rangeFactor": 0.6666666666666666
+          "BB_pct": 0.043478260869565216,
+          "K_pct": 0.21739130434782608,
+          "clutch_avg": 0.5833333333333334,
+          "contact_quality": 0.3181818181818182,
+          "ERA": 15.882352941176471,
+          "WHIP": 4.313725490196079,
+          "K_BB": 0.3333333333333333,
+          "K9": 7.058823529411765,
+          "BB9": 21.176470588235297,
+          "fieldingPct": 0.875,
+          "rangeFactor": 1
         }
       },
-      "gamesProcessed": 8
+      "gamesProcessed": 9
     }
   }
 }
