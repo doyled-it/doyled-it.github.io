@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-06-14T07:33:40.144Z",
+  "lastUpdated": "2026-06-14T23:03:16.525Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -641,47 +641,47 @@
       "position": "Utility (P/IF/OF)",
       "stats": {
         "hitting": {
-          "AB": 27,
-          "H": 9,
+          "AB": 34,
+          "H": 10,
           "2B": 1,
           "3B": 0,
           "HR": 0,
           "RBI": 13,
-          "R": 7,
-          "BB": 1,
-          "K": 6,
+          "R": 8,
+          "BB": 3,
+          "K": 8,
           "HBP": 1,
           "SF": 0,
-          "SB": 6,
-          "CS": 1,
-          "RISP": 16,
+          "SB": 8,
+          "CS": 2,
+          "RISP": 18,
           "RISP_H": 8,
-          "hard_contact": 9,
-          "pitches_seen": 108
+          "hard_contact": 10,
+          "pitches_seen": 141
         },
         "fielding": {
-          "PO": 5,
-          "A": 4,
+          "PO": 8,
+          "A": 10,
           "E": 1,
-          "TC": 10,
+          "TC": 19,
           "DP": 0
         },
         "pitching": {
-          "IP": 5.1,
-          "H_p": 10,
-          "R_p": 10,
+          "IP": 7.1,
+          "H_p": 12,
+          "R_p": 11,
           "ER": 9,
           "BB_p": 12,
-          "K_p": 4,
+          "K_p": 6,
           "HR_p": 0,
           "BF": 31,
-          "PC": 131
+          "PC": 161
         },
         "games": {
-          "total": 10,
-          "played": 8,
-          "wins": 5,
-          "losses": 5,
+          "total": 12,
+          "played": 10,
+          "wins": 6,
+          "losses": 6,
           "ties": 0
         },
         "gamesList": [
@@ -1184,33 +1184,133 @@
               },
               "avg": 0
             }
+          },
+          {
+            "date": "2026-06-07",
+            "opponent": "Bubblegum Boys",
+            "location": "Hilton Head",
+            "result": "W",
+            "score": "7-1",
+            "played": true,
+            "rating": "8",
+            "notable": "nice splitter backwards K",
+            "stats": {
+              "hitting": {
+                "AB": 3,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 1,
+                "BB": 1,
+                "K": 2,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 2,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 18
+              },
+              "fielding": {
+                "PO": 1,
+                "A": 3,
+                "E": 0,
+                "TC": 4,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 2,
+                "H_p": 2,
+                "R_p": 1,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 2,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 30
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-06-14",
+            "opponent": "San Diego Banditos",
+            "location": "\"@Hilton Head\"",
+            "result": "L",
+            "score": "2-2",
+            "played": true,
+            "rating": "7",
+            "notable": "Good defensive game",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 1,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 1,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 1,
+                "RISP": 2,
+                "RISP_H": 0,
+                "hard_contact": 1,
+                "pitches_seen": 15
+              },
+              "fielding": {
+                "PO": 2,
+                "A": 3,
+                "E": 0,
+                "TC": 5,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0.25
+            }
           }
         ],
         "calculated": {
-          "AVG": 0.3333333333333333,
-          "OBP": 0.3793103448275862,
-          "singles": 8,
-          "tb": 10,
-          "SLG": 0.37037037037037035,
-          "OPS": 0.7496807151979565,
-          "BABIP": 0.42857142857142855,
-          "ISO": 0.037037037037037035,
+          "AVG": 0.29411764705882354,
+          "OBP": 0.3684210526315789,
+          "singles": 9,
+          "tb": 11,
+          "SLG": 0.3235294117647059,
+          "OPS": 0.6919504643962848,
+          "BABIP": 0.38461538461538464,
+          "ISO": 0.02941176470588236,
           "XBH": 1,
-          "XBH_pct": 0.1111111111111111,
-          "BB_pct": 0.034482758620689655,
-          "K_pct": 0.20689655172413793,
-          "clutch_avg": 0.5,
-          "contact_quality": 0.3333333333333333,
-          "ERA": 15.882352941176471,
-          "WHIP": 4.313725490196079,
-          "K_BB": 0.3333333333333333,
-          "K9": 7.058823529411765,
-          "BB9": 21.176470588235297,
-          "fieldingPct": 0.9,
-          "rangeFactor": 1.125
+          "XBH_pct": 0.1,
+          "BB_pct": 0.07894736842105263,
+          "K_pct": 0.21052631578947367,
+          "clutch_avg": 0.4444444444444444,
+          "contact_quality": 0.29411764705882354,
+          "ERA": 11.408450704225352,
+          "WHIP": 3.3802816901408455,
+          "K_BB": 0.5,
+          "K9": 7.605633802816902,
+          "BB9": 15.211267605633804,
+          "fieldingPct": 0.9473684210526315,
+          "rangeFactor": 1.8
         }
       },
-      "gamesProcessed": 10
+      "gamesProcessed": 12
     }
   }
 }
