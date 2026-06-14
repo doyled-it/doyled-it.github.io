@@ -2,7 +2,7 @@ name: Update Stats Data
 
 on:
   schedule:
-    - cron: '0 6 * * 0'  # Every Sunday at 6am UTC
+    - cron: '0 6 * * *'  # Every day at 6am UTC
   workflow_dispatch:
 
 permissions:
