@@ -1,0 +1,65 @@
+name: Update Stats Data (self-hosted)
+
+# Golf (GHIN) and the league schedule (sdabl1.info) both block datacenter IPs,
+# so they cannot run on GitHub-hosted runners. This workflow runs on a
+# self-hosted runner on a residential connection (e.g. Michael's home server).
+# Baseball lives in update-stats.yml on GitHub-hosted runners instead.
+#
+# Setup required before this can run:
+#   1. Register a self-hosted runner on the home server (Settings → Actions →
+#      Runners → New self-hosted runner) with the label `self-hosted`.
+#   2. Add repo secrets GHIN_USERNAME and GHIN_PASSWORD (Settings → Secrets and
+#      variables → Actions).
+#   3. Keep scripts/sdabl-sources.json pointed at the active season's page_node_id.
+#
+# Until a runner is registered, scheduled runs simply queue and do nothing
+# harmful; trigger manually from the Actions tab once the runner is online.
+on:
+  schedule:
+    - cron: '30 6 * * *'  # Every day at 6:30am UTC (after the baseball job)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-local:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Golf: fetch directly from GHIN into golf-raw.json (the file the site reads).
+      - name: Fetch golf stats
+        continue-on-error: true
+        env:
+          GHIN_USERNAME: ${{ secrets.GHIN_USERNAME }}
+          GHIN_PASSWORD: ${{ secrets.GHIN_PASSWORD }}
+        run: npm run update:golf
+
+      # League: scrape sdabl1.info into league.json.
+      - name: Fetch league data
+        continue-on-error: true
+        run: npm run update:league
+
+      - name: Check for changes
+        id: changes
+        run: |
+          git diff --quiet src/_data/golf-raw.json src/_data/league.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Commit and push
+        if: steps.changes.outputs.changed == 'true'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/_data/golf-raw.json src/_data/league.json
+          git commit -m "chore: update golf and league data"
+          git push

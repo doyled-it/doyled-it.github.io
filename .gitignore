@@ -11,6 +11,7 @@ node_modules/
 
 # local state
 .superpowers/
+.sdabl-snapshots/
 .env
 .env.*
 !.env.example

@@ -1,0 +1,4 @@
+{
+  "_comment": "Maps a season id to its sdabl1.info division page_node_id (or a full URL). Only the active season needs to be listed here; finished seasons stay frozen in league.json. The page_node_id changes every season — grab it from the division page URL on sdabl1.info and update this file each new season.",
+  "spring2026": "9397536"
+}

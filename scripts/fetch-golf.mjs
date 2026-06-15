@@ -36,10 +36,22 @@ if (!golfer) {
 }
 console.log(`   ${golfer.first_name} ${golfer.last_name} · HI ${golfer.handicap_index}`);
 
+// `limit` is the real request field (the schema ignores `count`). 100 is the
+// max history GHIN returns in one page and covers every round we have.
 const scoresData = await ghin.golfers.getScores(parseInt(username, 10), {
-  count: 100,
+  limit: 100,
 });
 console.log(`   ${scoresData.scores.length} rounds`);
+
+// Pull the full handicap record too (low HI, revision schedule, club list).
+// Additive and best-effort: a failure here must not lose the scores.
+let handicap = null;
+try {
+  handicap = await ghin.handicaps.getOne(parseInt(username, 10));
+  console.log(`   handicap record fetched (low HI ${handicap?.low_hi ?? "n/a"})`);
+} catch (err) {
+  console.warn(`⚠️  handicap detail fetch failed — continuing without it: ${err.message}`);
+}
 
 const data = {
   golfer: {
@@ -51,6 +63,8 @@ const data = {
     club: golfer.club_name,
     state: golfer.state,
     status: golfer.status,
+    // Extra handicap detail straight from GHIN; null when the call failed.
+    handicapDetail: handicap,
   },
   scores: scoresData.scores,
   metadata: {

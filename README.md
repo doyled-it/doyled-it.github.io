@@ -101,19 +101,41 @@ Without credentials the build succeeds and the card shows a stub.
 
 ### Refreshing hobby stats
 
-All stats refresh scripts run **locally** (GHIN blocks datacenter IPs;
-baseball pulls from a local Obsidian vault). Commit the resulting JSON
-diff under `src/_data/`.
-
 | Script | What it refreshes |
 |---|---|
-| `npm run update:stats` | Both — `update:baseball` + `update:golf` |
-| `npm run update:baseball` | `src/_data/baseball.json` from `~/vaults/baseball` + SDABL league snapshots |
-| `npm run update:golf` | `src/_data/golf-raw.json` from GHIN (needs `GHIN_USERNAME` + `GHIN_PASSWORD` in `.env`) |
+| `npm run update:stats` | All three — `update:baseball` + `update:golf` + `update:league` |
+| `npm run update:baseball` | `src/_data/baseball.json` from `~/vaults/baseball` |
+| `npm run update:golf` | `src/_data/golf-raw.json` straight from GHIN (needs `GHIN_USERNAME` + `GHIN_PASSWORD` in `.env`) |
+| `npm run update:league` | `src/_data/league.json` by scraping sdabl1.info (uses `scripts/sdabl-sources.json`) |
 
 `update:golf` uses the `doyled-it/ghin` fork (pinned in `package.json`)
-which tolerates GHIN's current response shape. Baseball also has a CI
-fallback in `.github/workflows/update-stats.yml`.
+which tolerates GHIN's current response shape, and pulls full scores
+(with per-hole + statistics detail) plus the handicap record into
+`golf-raw.json` — the file the golf page actually reads.
+
+#### Where each piece runs
+
+Two of these can't run on GitHub-hosted runners: **GHIN** (golf) and
+**sdabl1.info** (league) both return `403` to datacenter IPs. So the
+automation is split:
+
+- **`.github/workflows/update-stats.yml`** (GitHub-hosted, daily 6am UTC):
+  baseball only. The `obsidian-baseball` repo is public, so this just
+  works.
+- **`.github/workflows/update-stats-local.yml`** (self-hosted, daily
+  6:30am UTC): golf + league. Needs a **self-hosted runner on a
+  residential connection** (e.g. a home server) labelled `self-hosted`,
+  plus repo secrets `GHIN_USERNAME` / `GHIN_PASSWORD`. Until a runner is
+  registered, its scheduled runs just queue harmlessly — trigger it from
+  the Actions tab once the runner is online.
+
+Each new league season, update `scripts/sdabl-sources.json` with the
+active season's `page_node_id` (from the division page URL on
+sdabl1.info). Finished seasons stay frozen in `league.json`.
+
+You can still refresh everything by hand any time with
+`npm run update:stats` from a residential connection, then commit the
+JSON diff under `src/_data/`.
 
 ## Botty (the chat widget)
 
@@ -175,8 +197,12 @@ lib/                          # pure modules with unit tests
 scripts/
   build-resume-pdf.mjs        # hackmyresume → puppeteer pipeline
   compile-bio.mjs             # builds bio-bundle.json for the chatbot
-  sync-stats.mjs              # update:baseball — pull baseball + SDABL
+  sync-stats.mjs              # update:baseball — pull baseball from vault
   fetch-golf.mjs              # update:golf — pull GHIN → golf-raw.json
+  update-league.mjs           # update:league — scrape sdabl1.info → league.json
+  scrape-sdabl.mjs            # headless snapshot of a sdabl1.info division page
+  parse-sdabl.mjs             # snapshot HTML → league.json
+  sdabl-sources.json          # active season → sdabl1.info page_node_id
   gen-*.mjs                   # node-canvas pixel-art generators
 src/
   _data/                      # site constants, cards, résumé, hobby JSON
@@ -193,7 +219,8 @@ src/
 tests/                        # node:test unit tests
 vendor/                       # vendored npm packages
 .github/workflows/
-  update-stats.yml            # weekly Sun 6am UTC: refresh baseball + golf
+  update-stats.yml            # daily 6am UTC (GitHub-hosted): refresh baseball
+  update-stats-local.yml      # daily 6:30am UTC (self-hosted): golf + league
   update-resume-pdf.yml       # on resume.json change: regen src/resume.pdf
   version-bump.yml            # on PR merge: read version:* labels, bump + tag
   release.yml                 # on tag push (or dispatch): create GH release

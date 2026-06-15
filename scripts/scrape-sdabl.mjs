@@ -23,7 +23,11 @@ const url = /^https?:\/\//.test(arg)
   ? arg
   : `https://www.sdabl1.info/season_management_division_page/tab_standings?page_node_id=${arg}`;
 
-const outDir = join(homedir(), "vaults/baseball/sdabl-snapshots");
+// Snapshot output dir. Defaults to the local Obsidian vault, but a self-hosted
+// CI runner can point this elsewhere via SDABL_SNAPSHOT_DIR.
+const outDir =
+  process.env.SDABL_SNAPSHOT_DIR ||
+  join(homedir(), "vaults/baseball/sdabl-snapshots");
 if (!existsSync(outDir)) mkdirSync(outDir, { recursive: true });
 const outPath = join(outDir, `${seasonId}.html`);
 

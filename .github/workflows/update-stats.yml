@@ -1,5 +1,9 @@
 name: Update Stats Data
 
+# Baseball personal stats only. The obsidian-baseball repo is public and has no
+# IP restrictions, so this runs fine on GitHub-hosted runners. Golf (GHIN) and
+# the league schedule (sdabl1.info) both block datacenter IPs, so they live in
+# update-stats-local.yml on a self-hosted runner instead.
 on:
   schedule:
     - cron: '0 6 * * *'  # Every day at 6am UTC
@@ -30,22 +34,16 @@ jobs:
           node process-stats.js
           cp stats-data.json $GITHUB_WORKSPACE/src/_data/baseball.json
 
-      # Golf: clone repo, copy GHIN data
-      - name: Fetch golf stats
-        run: |
-          git clone --depth 1 https://github.com/doyled-it/golf-stats.git /tmp/golf
-          cp /tmp/golf/ghin-data.json $GITHUB_WORKSPACE/src/_data/golf.json
-
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet src/_data/baseball.json src/_data/golf.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet src/_data/baseball.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/_data/baseball.json src/_data/golf.json
-          git commit -m "chore: update baseball and golf stats data"
+          git add src/_data/baseball.json
+          git commit -m "chore: update baseball stats data"
           git push

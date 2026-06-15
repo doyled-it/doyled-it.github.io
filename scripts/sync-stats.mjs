@@ -3,8 +3,8 @@
 // Runs `process-stats.js` in each vault so the JSON is fresh, then copies it.
 
 import { execSync } from "node:child_process";
-import { copyFileSync, existsSync, mkdirSync, readFileSync, readdirSync } from "node:fs";
-import { dirname, join, basename } from "node:path";
+import { copyFileSync, existsSync, mkdirSync } from "node:fs";
+import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 import { homedir } from "node:os";
 
@@ -63,48 +63,6 @@ if (!skipGolfFetch) {
   console.log(`⏩ golf: --skip-golf-fetch passed, leaving src/_data/golf-raw.json as-is`);
 }
 
-// Refresh SDABL league data.
-// sources.json maps seasonId → page_node_id (or full URL) on sdabl1.info.
-// For each configured source we run the headless scraper, then parse to JSON.
-// If a season has no entry in sources.json but has a pre-existing <seasonId>.html
-// snapshot, we parse that without re-scraping.
-const snapDir = join(home, "vaults/baseball/sdabl-snapshots");
-if (existsSync(snapDir)) {
-  const scraper = join(repoRoot, "scripts/scrape-sdabl.mjs");
-  const parser = join(repoRoot, "scripts/parse-sdabl.mjs");
-
-  const sourcesPath = join(snapDir, "sources.json");
-  const sources = existsSync(sourcesPath)
-    ? JSON.parse(readFileSync(sourcesPath, "utf8"))
-    : {};
-
-  const seasons = new Set([
-    ...Object.keys(sources),
-    ...readdirSync(snapDir)
-      .filter((f) => f.endsWith(".html"))
-      .map((f) => basename(f, ".html")),
-  ]);
-
-  for (const seasonId of seasons) {
-    const ref = sources[seasonId];
-    if (ref) {
-      console.log(`🌐 sdabl: scraping ${seasonId}...`);
-      try {
-        execSync(`node ${scraper} ${seasonId} ${ref}`, { cwd: repoRoot, stdio: "inherit" });
-      } catch {
-        console.warn(`⚠️  sdabl: scrape failed for ${seasonId} — falling back to existing snapshot`);
-      }
-    }
-    const htmlPath = join(snapDir, `${seasonId}.html`);
-    if (!existsSync(htmlPath)) {
-      console.warn(`⚠️  sdabl: no snapshot for ${seasonId} — skipping parse`);
-      continue;
-    }
-    console.log(`🏟️  sdabl: parsing ${seasonId}...`);
-    try {
-      execSync(`node ${parser} ${seasonId} ${htmlPath}`, { cwd: repoRoot, stdio: "inherit" });
-    } catch {
-      console.warn(`⚠️  sdabl: parse failed for ${seasonId}`);
-    }
-  }
-}
+// SDABL league data is refreshed separately by scripts/update-league.mjs
+// (`npm run update:league`), which reads scripts/sdabl-sources.json and needs
+// no Obsidian vault. `npm run update:stats` runs it after this script.
