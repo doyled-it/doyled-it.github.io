@@ -37,6 +37,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # The league scraper drives a headless browser; make sure one is present.
+      - name: Install Chrome for Puppeteer
+        run: npx puppeteer browsers install chrome
+
       # Golf: fetch directly from GHIN into golf-raw.json (the file the site reads).
       - name: Fetch golf stats
         continue-on-error: true
