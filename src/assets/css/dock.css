@@ -1,0 +1,147 @@
+/* ============================================================
+   dock.css — mobile-only mini tile stack at bottom-right.
+   Bottom to top: checklist, botty (full face), buddy.
+   On desktop, the original layouts apply (botty bottom-right
+   full sprite, buddy bottom-left picker, checklist floating
+   panel positioned by words-post.css).
+   ============================================================ */
+
+@media (max-width: 720px) {
+
+  :root {
+    --dock-tile: 40px;
+    --dock-edge: 12px;
+    --dock-gap: 8px;
+  }
+
+  /* Hide the cursor-following companion sprite on touch devices. There is
+     no mouse to follow; the picker still opens via the buddy tile. */
+  .buddy-sprite { display: none !important; }
+
+  /* Hide the floating quip bubble in mini mode. Too wide to anchor against
+     a 40x40 tile; chat panel still opens on tap. */
+  .botty-bubble { display: none !important; }
+
+  /* ---- Checklist (bottom tile) ----
+     Container z-index sits above the dim backdrop so the expanded panel
+     inside is not bounded by a low-z parent stacking context. */
+  .dgw-checklist {
+    position: fixed !important;
+    right: var(--dock-edge);
+    bottom: var(--dock-edge);
+    left: auto;
+    z-index: 10001;
+  }
+  .dgw-checklist-toggle {
+    width: var(--dock-tile);
+    height: var(--dock-tile);
+    background: var(--card-body, #fffbe6) !important;
+    border: 2px solid var(--ink, #000) !important;
+    box-shadow: 3px 3px 0 var(--ink, #000) !important;
+    font-family: var(--font-display, "Pixelify Sans", system-ui) !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    cursor: pointer;
+    font-size: 12px;
+  }
+  .dgw-checklist-toggle:hover { background: var(--accent-yellow, #ffe14d) !important; }
+  .dgw-checklist-toggle:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--ink, #000) !important;
+  }
+  /* Hide the "◆ Checklist" label; only the count badge stays. */
+  .dgw-checklist-toggle > span:first-child { display: none !important; }
+  .dgw-checklist-count {
+    font-family: var(--font-mono, "VT323", monospace) !important;
+    font-size: 14px !important;
+    background: var(--accent-green, #8dff8d) !important;
+    border: 1px solid var(--ink, #000) !important;
+    padding: 0 4px !important;
+    line-height: 1.2 !important;
+  }
+
+  /* Panel opens above the checklist tile. */
+  .dgw-checklist-panel {
+    right: var(--dock-edge) !important;
+    bottom: calc(var(--dock-edge) + var(--dock-tile) + var(--dock-gap)) !important;
+    left: auto !important;
+    z-index: 10001 !important;
+    background: var(--accent-green, #8dff8d) !important;
+  }
+
+  /* ---- Botty (middle tile, full face) ---- */
+  .botty {
+    position: fixed;
+    right: var(--dock-edge);
+    bottom: calc(var(--dock-edge) + var(--dock-tile) + var(--dock-gap));
+  }
+  .botty-sprite {
+    width: var(--dock-tile);
+    height: var(--dock-tile);
+    background: var(--card-body, #fffbe6);
+    border: 2px solid var(--ink, #000);
+    box-shadow: 3px 3px 0 var(--ink, #000);
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    display: block;
+  }
+  .botty-sprite:hover { background: var(--accent-yellow, #ffe14d); }
+  .botty-sprite:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--ink, #000);
+  }
+  .botty-face {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* ---- Buddy (top tile, sprite centered) ---- */
+  .buddy-selector {
+    position: fixed !important;
+    right: var(--dock-edge) !important;
+    bottom: calc(var(--dock-edge) + 2 * (var(--dock-tile) + var(--dock-gap))) !important;
+    left: auto !important;
+    z-index: 998;
+  }
+  .buddy-toggle {
+    width: var(--dock-tile) !important;
+    height: var(--dock-tile) !important;
+    background: var(--card-body, #fffbe6) !important;
+    border: 2px solid var(--ink, #000) !important;
+    box-shadow: 3px 3px 0 var(--ink, #000) !important;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    cursor: pointer;
+    font-family: inherit;
+  }
+  .buddy-toggle:hover { background: var(--accent-yellow, #ffe14d) !important; }
+  .buddy-toggle:active {
+    transform: translate(1px, 1px);
+    box-shadow: 2px 2px 0 var(--ink, #000) !important;
+  }
+  .buddy-toggle-name { display: none !important; }
+  /* Keep the sprite at its native 32x32 frame; buddies.js drives the
+     background-position to pick a frame from the sprite sheet. */
+  .buddy-toggle-sprite {
+    width: 32px !important;
+    height: 32px !important;
+    margin: 0 !important;
+  }
+
+  /* The picker popup opens above the tile, right-aligned. */
+  .buddy-grid-popup {
+    left: auto !important;
+    right: 0 !important;
+  }
+
+} /* end @media (max-width: 720px) */
