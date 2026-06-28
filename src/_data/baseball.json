@@ -1,6 +1,6 @@
 {
   "currentSeason": "spring2026",
-  "lastUpdated": "2026-06-21T07:36:18.245Z",
+  "lastUpdated": "2026-06-28T07:19:17.655Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -641,7 +641,7 @@
       "position": "Utility (P/IF/OF)",
       "stats": {
         "hitting": {
-          "AB": 34,
+          "AB": 38,
           "H": 10,
           "2B": 1,
           "3B": 0,
@@ -649,8 +649,8 @@
           "RBI": 13,
           "R": 8,
           "BB": 3,
-          "K": 8,
-          "HBP": 1,
+          "K": 9,
+          "HBP": 2,
           "SF": 0,
           "SB": 8,
           "CS": 2,
@@ -661,9 +661,9 @@
         },
         "fielding": {
           "PO": 8,
-          "A": 10,
+          "A": 11,
           "E": 1,
-          "TC": 19,
+          "TC": 20,
           "DP": 0
         },
         "pitching": {
@@ -678,10 +678,10 @@
           "PC": 161
         },
         "games": {
-          "total": 12,
-          "played": 10,
+          "total": 13,
+          "played": 11,
           "wins": 6,
-          "losses": 6,
+          "losses": 7,
           "ties": 0
         },
         "gamesList": [
@@ -1284,33 +1284,83 @@
               },
               "avg": 0.25
             }
+          },
+          {
+            "date": "2026-06-21",
+            "opponent": "Beavers",
+            "location": "\"@Presidio\"",
+            "result": "L",
+            "score": "5-12",
+            "played": true,
+            "rating": "3",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 1,
+                "HBP": 1,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 1,
+                "E": 0,
+                "TC": 1,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
           }
         ],
         "calculated": {
-          "AVG": 0.29411764705882354,
-          "OBP": 0.3684210526315789,
+          "AVG": 0.2631578947368421,
+          "OBP": 0.3488372093023256,
           "singles": 9,
           "tb": 11,
-          "SLG": 0.3235294117647059,
-          "OPS": 0.6919504643962848,
-          "BABIP": 0.38461538461538464,
-          "ISO": 0.02941176470588236,
+          "SLG": 0.2894736842105263,
+          "OPS": 0.6383108935128519,
+          "BABIP": 0.3448275862068966,
+          "ISO": 0.026315789473684237,
           "XBH": 1,
           "XBH_pct": 0.1,
-          "BB_pct": 0.07894736842105263,
-          "K_pct": 0.21052631578947367,
+          "BB_pct": 0.06976744186046512,
+          "K_pct": 0.20930232558139536,
           "clutch_avg": 0.4444444444444444,
-          "contact_quality": 0.29411764705882354,
+          "contact_quality": 0.2631578947368421,
           "ERA": 11.408450704225352,
           "WHIP": 3.3802816901408455,
           "K_BB": 0.5,
           "K9": 7.605633802816902,
           "BB9": 15.211267605633804,
-          "fieldingPct": 0.9473684210526315,
-          "rangeFactor": 1.8
+          "fieldingPct": 0.95,
+          "rangeFactor": 1.7272727272727273
         }
       },
-      "gamesProcessed": 12
+      "gamesProcessed": 13
     }
   }
 }
