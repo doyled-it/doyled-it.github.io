@@ -72,6 +72,17 @@
   ],
   "publications": [
     {
+      "name": "Identifier-Free Code Embedding Models for Scalable Search",
+      "publisher": "ArXiv",
+      "releaseDate": "2026-05-05",
+      "url": "https://arxiv.org/abs/2605.05251",
+      "summary": "Formalizes the function-association problem for binary reverse engineering and fine-tunes a Qwen3-Embedding model with contrastive learning to bidirectionally match source and decompiled stripped code, outperforming prior embedding baselines.",
+      "authors": [
+        "Eric Wolos",
+        "Michael Doyle"
+      ]
+    },
+    {
       "name": "Can LLMs Replace Humans During Code Chunking?",
       "publisher": "ArXiv",
       "releaseDate": "2025-06-24",
@@ -95,6 +106,36 @@
         "Doug Wendt",
         "William Macke",
         "Thomas Schill"
+      ]
+    },
+    {
+      "name": "Leveraging LLMs for Legacy Code Modernization: Evaluation of LLM-Generated Documentation",
+      "publisher": "IEEE/ACM International Workshop on Large Language Models for Code (LLM4Code)",
+      "releaseDate": "2025-05-03",
+      "url": "https://ieeexplore.ieee.org/document/11028228/",
+      "summary": "Investigates using LLMs to generate documentation for legacy code in MUMPS and mainframe Assembly (ALC), proposing a prompting strategy and evaluation rubric, and finding LLM-generated comments to be largely hallucination-free, complete, and useful.",
+      "authors": [
+        "Colin Diggs",
+        "Michael Doyle",
+        "Amit Madan",
+        "Emily Escamilla",
+        "Siggy Scott",
+        "Jacob Zimmer",
+        "Naveed Nekoo",
+        "Paul Ursino",
+        "Michael Bartholf",
+        "Zachary Robin",
+        "Anand Patel",
+        "Chris Glasz",
+        "William Macke",
+        "Paul Kirk",
+        "Jasper Phillips",
+        "Arun Sridharan",
+        "Doug Wendt",
+        "Scott Rosen",
+        "Nitin Naik",
+        "Justin F. Brunelle",
+        "Samruddhi Thaker"
       ]
     },
     {
@@ -125,36 +166,6 @@
         "Michael Bartholf",
         "Zachary Robin",
         "Paul Ursino"
-      ]
-    },
-    {
-      "name": "Leveraging LLMs for Legacy Code Modernization: Challenges and Opportunities for LLM-Generated Documentation",
-      "publisher": "ArXiv",
-      "releaseDate": "2024-11-22",
-      "url": "https://arxiv.org/abs/2411.14971",
-      "summary": "Investigates using LLMs to generate documentation for legacy code in MUMPS and ALC, proposing a prompting strategy and evaluation rubric while highlighting the limitations of current automated metrics.",
-      "authors": [
-        "Colin Diggs",
-        "Michael Doyle",
-        "Amit Madan",
-        "Siggy Scott",
-        "Emily Escamilla",
-        "Jacob Zimmer",
-        "Naveed Nekoo",
-        "Paul Ursino",
-        "Michael Bartholf",
-        "Zachary Robin",
-        "Anand Patel",
-        "Chris Glasz",
-        "William Macke",
-        "Paul Kirk",
-        "Jasper Phillips",
-        "Arun Sridharan",
-        "Doug Wendt",
-        "Scott Rosen",
-        "Nitin Naik",
-        "Justin F. Brunelle",
-        "Samruddhi Thaker"
       ]
     },
     {
@@ -288,18 +299,6 @@
   ],
   "projects": [
     {
-      "name": "PFC-LLM",
-      "summary": "A CLI tool designed to classify documents with a political score according to the Left/Right, Libertarian/Authoritarian political compass, based on the Sapply test.",
-      "highlights": [],
-      "startDate": "2024-08",
-      "endDate": "2024-08",
-      "roles": [
-        "Lead Developer",
-        "Maintainer"
-      ],
-      "url": "https://github.com/doyled-it/pfc-llm"
-    },
-    {
       "name": "Janus LLM",
       "summary": "A library for LLM IT modernization, using LLMs, RAG, and intelligent chunking.",
       "highlights": [],
@@ -333,6 +332,30 @@
         "Developer"
       ],
       "url": "https://github.com/mitrefireline/simharness"
+    },
+    {
+      "name": "Agent View",
+      "summary": "A Rust terminal dashboard for orchestrating and monitoring multiple AI coding-agent sessions in parallel, with real-time status detection across Claude Code, Codex, Gemini, and OpenCode.",
+      "highlights": [],
+      "startDate": "2026-04",
+      "description": "",
+      "roles": [
+        "Lead Developer",
+        "Maintainer"
+      ],
+      "url": "https://github.com/doyled-it/agent-view"
+    },
+    {
+      "name": "Wavecrest",
+      "summary": "A Wave Terminal companion for AI coding agents, providing a multi-session dashboard, live token-usage gauges, and an MCP server that exposes session state to any MCP-speaking agent.",
+      "highlights": [],
+      "startDate": "2026-05",
+      "description": "",
+      "roles": [
+        "Lead Developer",
+        "Maintainer"
+      ],
+      "url": "https://github.com/doyled-it/wavecrest"
     }
   ]
 }

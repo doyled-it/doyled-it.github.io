@@ -43,7 +43,7 @@ function render(resume) {
   ];
   Handlebars.registerHelper("date", function (date) {
     const theDate = new Date(date);
-    return `${months[theDate.getMonth()]} ${theDate.getFullYear()}`;
+    return `${months[theDate.getUTCMonth()]} ${theDate.getUTCFullYear()}`;
   });
 
   return Handlebars.compile(template)({
