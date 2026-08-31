@@ -224,6 +224,51 @@ async function lastfmSummary() {
   }
 }
 
+// ---- words (blog posts) ------------------------------------------------
+//
+// Reads every .md file in src/words/, parses frontmatter, and includes the
+// title, date, slug, and full markdown body in the bundle. This lets the
+// chatbot answer questions about post content. A simple regex parser is
+// enough; no need to pull in gray-matter for the handful of fields used.
+
+function parseFrontmatter(raw) {
+  const m = raw.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!m) return { meta: {}, body: raw };
+  const meta = {};
+  for (const line of m[1].split("\n")) {
+    const kv = line.match(/^(\w+):\s*(.*)$/);
+    if (!kv) continue;
+    let v = kv[2].trim();
+    // Strip surrounding quotes (single or double) for simple string values.
+    if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+      v = v.slice(1, -1);
+    }
+    meta[kv[1]] = v;
+  }
+  return { meta, body: m[2] };
+}
+
+function wordsSummary() {
+  const dir = path.join(root, "src/words");
+  if (!fs.existsSync(dir)) return [];
+  return fs.readdirSync(dir)
+    .filter((f) => f.endsWith(".md"))
+    .map((f) => {
+      const raw = fs.readFileSync(path.join(dir, f), "utf8");
+      const { meta, body } = parseFrontmatter(raw);
+      const slug = f.replace(/^\d{4}-\d{2}-\d{2}-/, "").replace(/\.md$/, "");
+      return {
+        title: meta.title || slug,
+        subtitle: meta.subtitle || null,
+        date: meta.date || null,
+        slug,
+        url: `/words/${slug}/`,
+        body,
+      };
+    })
+    .sort((a, b) => (b.date || "").localeCompare(a.date || ""));
+}
+
 // ---- letterboxd watching summary ----------------------------------------
 
 function trimFilm(f) {
@@ -287,10 +332,11 @@ const bundle = {
   github_activity,
   music_listening,
   movie_watching,
+  words: wordsSummary(),
 };
 
 const outPath = path.join(root, "src/_data/bio-bundle.json");
 fs.writeFileSync(outPath, JSON.stringify(bundle, null, 2));
 console.log(
-  `wrote ${outPath} (${(fs.statSync(outPath).size / 1024).toFixed(1)} KB, ${bundle.publications.length} papers, ${bundle.baseball_stats.seasons.length} seasons, ${bundle.golf_stats.rounds_played} rounds)`
+  `wrote ${outPath} (${(fs.statSync(outPath).size / 1024).toFixed(1)} KB, ${bundle.publications.length} papers, ${bundle.baseball_stats.seasons.length} seasons, ${bundle.golf_stats.rounds_played} rounds, ${bundle.words.length} posts)`
 );

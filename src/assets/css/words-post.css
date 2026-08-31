@@ -1,0 +1,589 @@
+/* ============================================================
+   words-post.css — extra components for long-form posts
+   matches main.css cracktro chassis idiom
+   ============================================================ */
+
+/* --- Post subtitle --- */
+.post-subtitle {
+  text-align: center;
+  font-family: var(--font-body);
+  font-style: italic;
+  font-size: 17px;
+  color: var(--accent-pink-dark);
+  margin: -6px 0 6px;
+  letter-spacing: 0.02em;
+}
+
+/* --- Always-expanded Contents nav --- */
+.post-toc {
+  margin: 22px 0 28px;
+  padding: 14px 18px 16px;
+  border: 2px solid var(--ink);
+  background: var(--accent-green);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.post-toc h2 {
+  margin: 0 0 10px;
+  font-family: var(--font-display);
+  font-size: 18px;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+  text-align: left;
+}
+.post-toc ol {
+  margin: 0;
+  padding-left: 28px;
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+.post-toc li {
+  padding: 2px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+}
+.post-toc li:last-child { border-bottom: none; }
+.post-toc a { color: var(--ink); }
+
+/* --- "Why this matters" collapsible --- */
+.card-body details.dgw-why {
+  margin: 18px 0 8px;
+  border: 2px solid var(--ink);
+  background: var(--accent-cyan);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.card-body details.dgw-why > summary {
+  background: var(--accent-cyan);
+  border-bottom: 2px solid var(--ink);
+  font-family: var(--font-display);
+  letter-spacing: 0.05em;
+  color: var(--accent-pink-dark);
+}
+.card-body details.dgw-why[open] > summary {
+  border-bottom: 2px solid var(--ink);
+}
+.card-body details.dgw-why > *:not(summary) {
+  padding: 0 14px;
+}
+.card-body details.dgw-why > p:first-of-type { padding-top: 10px; }
+.card-body details.dgw-why > p:last-of-type { padding-bottom: 10px; }
+
+/* --- Section spacing --- */
+.card-body section {
+  margin: 36px 0;
+  scroll-margin-top: 12px;
+}
+.card-body section + section {
+  border-top: 1px dashed #999;
+  padding-top: 28px;
+}
+
+/* --- Callouts --- */
+.dgw-callout {
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
+  padding: 14px 18px;
+  margin: 22px 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.5;
+}
+.dgw-callout--disclosure {
+  background: var(--accent-cyan);
+}
+.dgw-callout--disclosure blockquote {
+  margin: 0;
+  border: none;
+  padding: 0;
+  font-style: italic;
+}
+.dgw-callout--warn {
+  background: var(--accent-yellow);
+}
+.dgw-callout strong {
+  font-family: var(--font-display);
+  color: var(--accent-pink-dark);
+  letter-spacing: 0.04em;
+}
+
+/* --- TOC details/summary --- */
+.dgw-toc {
+  margin: 18px 0 28px;
+  border: 2px solid var(--ink);
+  background: var(--accent-green);
+  box-shadow: 3px 3px 0 var(--ink);
+}
+.dgw-toc summary,
+details > summary {
+  cursor: pointer;
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+  padding: 8px 14px;
+  letter-spacing: 0.05em;
+  list-style: none;
+}
+.dgw-toc summary::-webkit-details-marker,
+details > summary::-webkit-details-marker { display: none; }
+.dgw-toc summary::before,
+details > summary::before {
+  content: "▸ ";
+  color: var(--accent-pink-dark);
+}
+.dgw-toc[open] summary::before,
+details[open] > summary::before { content: "▾ "; }
+
+.dgw-toc[open] {
+  padding-bottom: 8px;
+}
+.dgw-toc ul {
+  margin: 0;
+  padding: 4px 24px 12px 36px;
+  list-style: none;
+  font-family: var(--font-mono);
+  font-size: 16px;
+}
+.dgw-toc li {
+  padding: 2px 0;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.3);
+}
+.dgw-toc li:last-child { border-bottom: none; }
+
+/* Inline details (non-TOC) blend into card */
+.card-body details {
+  margin: 16px 0;
+  border: 2px solid var(--ink);
+  background: #fff;
+  box-shadow: 2px 2px 0 var(--ink);
+}
+.card-body details > summary {
+  background: var(--accent-yellow);
+  border-bottom: 2px solid var(--ink);
+}
+.card-body details[open] > summary {
+  border-bottom: 2px solid var(--ink);
+}
+.card-body details > *:not(summary) {
+  padding: 0 18px;
+}
+.card-body details > p:first-of-type { padding-top: 10px; }
+.card-body details > p:last-of-type { padding-bottom: 10px; }
+
+/* Bullets inside details were clipping because list-style-position defaults to
+   outside, placing markers in the padding gutter where they fall off the box.
+   Pull lists in from the edge so the markers sit safely inside the body. */
+.card-body details > ul,
+.card-body details > ol {
+  padding-left: 38px;
+  padding-right: 18px;
+  margin: 8px 0;
+}
+.card-body details > ul:last-child,
+.card-body details > ol:last-child { padding-bottom: 10px; }
+.card-body details > ul:first-of-type,
+.card-body details > ol:first-of-type { padding-top: 4px; }
+
+/* --- Decision tree widget --- */
+.dgw-decision-tree {
+  display: block;
+  margin: 28px 0;
+  padding: 16px 18px;
+  border: 2px solid var(--ink);
+  background: var(--accent-purple);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
+  font-family: var(--font-body);
+}
+.dgw-decision-tree-title {
+  font-family: var(--font-display);
+  font-size: 20px;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  text-align: center;
+  margin: 0 0 12px;
+}
+.dgw-decision-tree-question {
+  font-family: var(--font-display);
+  font-size: 17px;
+  margin: 12px 0 8px;
+}
+.dgw-decision-tree-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.dgw-decision-tree button {
+  font-family: var(--font-display);
+  font-size: 15px;
+  background: var(--card-body);
+  color: var(--ink);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  padding: 6px 12px;
+  cursor: pointer;
+  letter-spacing: 0.04em;
+}
+.dgw-decision-tree button:hover {
+  background: var(--accent-yellow);
+}
+.dgw-decision-tree button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.dgw-decision-tree button[aria-pressed="true"] {
+  background: var(--accent-green);
+}
+.dgw-decision-tree-result {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  font-size: 16px;
+}
+.dgw-decision-tree-result strong {
+  font-family: var(--font-display);
+  color: var(--accent-pink-dark);
+}
+.dgw-decision-tree-reset {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+}
+
+/* --- Checklist widget (floating, sticky) ---
+   Desktop layout: a floating toggle pill at bottom-left, above the buddy
+   selector (which lives at bottom: 12px / left: 12px in buddy-select.css).
+   On mobile (<=720px) dock.css reskins everything as a mini tile at
+   bottom-right. */
+.dgw-checklist {
+  position: fixed;
+  left: 12px;        /* match buddy-selector's left edge */
+  bottom: 78px;
+  z-index: 10001;
+  display: block;
+  font-family: var(--font-body);
+}
+
+/* The toggle button (always visible). Shows current progress count. */
+.dgw-checklist-toggle {
+  background: var(--accent-green);
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  font-family: var(--font-display);
+  font-size: 16px;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  padding: 8px 14px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+.dgw-checklist-toggle:hover { background: var(--accent-yellow); }
+.dgw-checklist-toggle:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.dgw-checklist-toggle .dgw-checklist-count {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  background: var(--card-body);
+  border: 1px solid var(--ink);
+  padding: 0 6px;
+}
+/* Hide toggle when panel is open; the panel has its own close button. */
+/* The toggle stays visible when the panel is open so a second tap on it
+   closes the panel (see words-post.js click handler). */
+
+/* The expanded panel. Hidden by default, shown when [data-open="true"].
+   Bumped up to clear the bottom-left buddy selector. */
+.dgw-checklist-panel {
+  display: none;
+  position: fixed;
+  left: 18px;
+  bottom: 78px;
+  width: 360px;
+  max-height: 75vh;
+  background: var(--accent-green);
+  border: 2px solid var(--ink);
+  box-shadow: var(--shadow-offset) var(--shadow-offset) 0 var(--ink);
+  padding: 14px 16px 12px;
+  overflow-y: auto;
+  font-family: var(--font-body);
+}
+.dgw-checklist[data-open="true"] .dgw-checklist-panel { display: block; }
+
+.dgw-checklist-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.dgw-checklist-title {
+  font-family: var(--font-display);
+  font-size: 18px;
+  color: var(--ink);
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+.dgw-checklist-close {
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-display);
+  font-size: 14px;
+  padding: 2px 8px;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.dgw-checklist-close:hover { background: var(--accent-yellow); }
+.dgw-checklist-close:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.dgw-checklist-sub {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #333;
+  margin: 0 0 10px;
+}
+.dgw-checklist ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.dgw-checklist li {
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.35);
+  padding: 6px 0;
+}
+.dgw-checklist li:last-child { border-bottom: none; }
+.dgw-checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: 1.4;
+}
+.dgw-checklist input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 3px;
+  accent-color: var(--accent-pink-dark);
+}
+.dgw-checklist input[type="checkbox"]:checked + .dgw-checklist-text {
+  text-decoration: line-through;
+  color: #555;
+}
+.dgw-checklist-text { flex: 1; }
+.dgw-checklist-progress {
+  margin-top: 10px;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dgw-checklist-reset {
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  font-family: var(--font-display);
+  font-size: 13px;
+  padding: 3px 8px;
+  cursor: pointer;
+}
+.dgw-checklist-reset:hover { background: var(--accent-yellow); }
+.dgw-checklist-reset:active {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+
+/* When the checklist is open the backdrop covers the entire viewport,
+   including the other floating tiles (botty z-index 9999, buddy 9998).
+   The panel itself sits above the backdrop (z-index 10001 in dock.css). */
+.dgw-checklist-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 10000;
+}
+.dgw-checklist[data-open="true"] + .dgw-checklist-backdrop { display: block; }
+
+/* The checklist now lives in the mini-tools strip at bottom-right (see
+   dock.css). The previous "go inline on mobile" overrides are no longer
+   needed because the mini toggle is small enough to coexist with content
+   on any viewport. The expanded panel still floats. */
+
+/* Reduce motion respects. */
+@media (prefers-reduced-motion: reduce) {
+  .dgw-checklist-toggle:active,
+  .dgw-checklist-close:active,
+  .dgw-checklist-reset:active {
+    transform: none;
+  }
+}
+
+/* --- Per-section citations --- */
+.citations {
+  margin-top: 18px;
+  padding: 8px 12px;
+  border-top: 1px dashed #999;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #555;
+}
+.citations strong {
+  font-family: var(--font-display);
+  color: var(--accent-pink-dark);
+  display: block;
+  margin-bottom: 4px;
+  letter-spacing: 0.05em;
+}
+.citations ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.citations li {
+  padding: 2px 0;
+  word-break: break-all;
+}
+
+/* --- Tables in posts (light cracktro framing) ---
+   Tables are wrapped at runtime by words-post.js so we keep the table as a
+   real `display: table` element (preserves column layout) and put the scroll
+   on a wrapper div instead. */
+.card-body .table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  max-width: 100%;
+  margin: 18px 0;
+  /* A subtle right-edge fade hints that there is more to scroll on narrow
+     viewports without adding a scrollbar that takes up vertical space. */
+}
+.card-body .table-wrap > table {
+  margin: 0;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  font-family: var(--font-body);
+}
+.card-body th, .card-body td {
+  border: 1px solid var(--ink);
+  padding: 6px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+.card-body thead {
+  background: var(--accent-yellow);
+  font-family: var(--font-display);
+  letter-spacing: 0.04em;
+}
+/* On narrow viewports, give cells a minimum width so columns don't get crushed
+   into one-character stacks; horizontal scroll appears inside the wrapper. */
+@media (max-width: 720px) {
+  .card-body .table-wrap > table { min-width: 520px; }
+  .card-body th, .card-body td { font-size: 14px; }
+}
+
+/* --- Settings path (in-app navigation breadcrumbs) ---
+   For prose like: tap Settings → Chats → Chat Backup
+   Stays inline, wraps naturally at separator boundaries, pops against
+   body text without becoming a heavy block. */
+.card-body .settings-path {
+  font-family: var(--font-mono);
+  background: var(--accent-cyan);
+  border: 1px solid var(--ink);
+  padding: 1px 8px;
+  font-size: 0.95em;
+  color: var(--ink);
+  border-radius: 2px;
+  display: inline;
+  white-space: normal;
+}
+.card-body .settings-path-sep {
+  color: var(--accent-pink-dark);
+  font-family: var(--font-display);
+  padding: 0 3px;
+  font-weight: bold;
+}
+
+/* --- Numbered procedural steps ---
+   Use <ol class="steps"> in markdown to render a stronger numbered list
+   that signals "follow these in this exact order". */
+.card-body ol.steps {
+  list-style: none;
+  counter-reset: step;
+  padding-left: 0;
+  margin: 16px 0;
+}
+.card-body ol.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding: 6px 0 6px 42px;
+  margin: 0;
+  line-height: 1.5;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.2);
+}
+.card-body ol.steps > li:last-child { border-bottom: none; }
+.card-body ol.steps > li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 4px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  background: var(--accent-yellow);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ink);
+  line-height: 1;
+}
+
+/* --- Inline code styling (no syntax highlighter) --- */
+.card-body code {
+  font-family: var(--font-mono);
+  background: #f3edd2;
+  border: 1px solid #d8cf9c;
+  padding: 0 4px;
+  font-size: 0.95em;
+}
+.card-body pre {
+  font-family: var(--font-mono);
+  background: #1a1a1a;
+  color: #e6f5e6;
+  padding: 12px 14px;
+  border: 2px solid var(--ink);
+  box-shadow: 3px 3px 0 var(--ink);
+  overflow-x: auto;
+  font-size: 15px;
+  line-height: 1.4;
+}
+.card-body pre code {
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+@media (max-width: 720px) {
+  .dgw-decision-tree, .dgw-callout {
+    padding: 12px 14px;
+  }
+  .card-body pre { font-size: 13px; }
+  .card-body table { font-size: 14px; }
+}
+
+/* The cursor-buddy selector is now a mini sprite in the bottom-right
+   strip (see dock.css). No viewport-based hiding needed. */

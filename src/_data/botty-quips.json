@@ -1183,5 +1183,55 @@
     },
     "weight": 3,
     "template": "you've got {{storage_quota_gb}}gb of browser storage free. tidy."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 4,
+    "template": "graphene curious. respect."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 4,
+    "template": "ask me anything about this. i actually read it."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 3,
+    "template": "the checklist is bottom-left. i live on the right. we coexist."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 3,
+    "template": "long read. coffee recommended."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 3,
+    "template": "de-googling is a journey, not a flip."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 2,
+    "template": "the part about 2fa codes on paper? not optional."
+  },
+  {
+    "trigger": { "path": "/words/grapheneos-degoogle/" },
+    "weight": 2,
+    "template": "yes, em dashes are banned in this one. policy."
+  },
+  {
+    "trigger": { "path_starts": "/words/" },
+    "weight": 2,
+    "template": "you're in the wordy zone."
+  },
+  {
+    "trigger": { "path_starts": "/words/" },
+    "weight": 2,
+    "template": "longer than i usually write."
+  },
+  {
+    "trigger": { "path_starts": "/words/" },
+    "weight": 2,
+    "template": "questions about this post? ask away."
   }
 ]
