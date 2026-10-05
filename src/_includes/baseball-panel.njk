@@ -176,7 +176,7 @@
                 <table class="stat-table stat-table--advanced">
                   <thead>
                     <tr>
-                      <th data-tip="Runners in scoring position — hits/attempts">RISP</th>
+                      <th data-tip="Runners in scoring position: hits/attempts">RISP</th>
                       <th data-tip="{{ baseballGlossary['HARD%'] }}">HARD</th>
                       <th data-tip="Total pitches seen in this game">PIT</th>
                       {{ th("SF") }}
@@ -500,7 +500,7 @@
           <th data-tip="Runs For">RF</th>
           <th data-tip="Runs Allowed">RA</th>
           <th data-tip="Run differential (RF - RA)">DIFF</th>
-          <th data-tip="Pythagorean expected win% from RF²/(RF²+RA²) — baseball exponent 1.83">PYTH</th>
+          <th data-tip="Pythagorean expected win% from RF²/(RF²+RA²), baseball exponent 1.83">PYTH</th>
           <th data-tip="Monte Carlo playoff odds: 1000 simulations of the remaining schedule using 70% Pythagorean + 30% actual win%">PLAYOFF%</th>
         </tr>
       </thead>
@@ -510,7 +510,7 @@
           {% set diff = t.RF - t.RA %}
         <tr{% if isMine %} class="is-me"{% endif %}>
           <td>{{ t.rank }}</td>
-          <td class="team-col">{{ t.team }}{% if isMine %} <span class="me-badge">YOU</span>{% endif %}{% if t.clinched %} <span class="clinch-badge clinched" data-tip="Clinched a playoff spot — even if they lose out, no one can pass them">CLINCHED</span>{% elif t.eliminated %} <span class="clinch-badge eliminated" data-tip="Mathematically eliminated from playoffs — cannot reach the cutoff even by winning out">OUT</span>{% endif %}</td>
+          <td class="team-col">{{ t.team }}{% if isMine %} <span class="me-badge">YOU</span>{% endif %}{% if t.clinched %} <span class="clinch-badge clinched" data-tip="Clinched a playoff spot: even if they lose out, no one can pass them">CLINCHED</span>{% elif t.eliminated %} <span class="clinch-badge eliminated" data-tip="Mathematically eliminated from playoffs: cannot reach the cutoff even by winning out">OUT</span>{% endif %}</td>
           <td>{{ t.W }}</td>
           <td>{{ t.L }}</td>
           <td>{{ t.T }}</td>
@@ -751,16 +751,16 @@
     <p class="model-caveat">
       A well-calibrated model has ≈0% gap in every row.
       {% if m.brierSkill < 0 %}
-      Negative skill means the Pythagorean formula is still noisy — most teams
+      Negative skill means the Pythagorean formula is still noisy. Most teams
       haven't played enough games for run differential to be reliable. Expect
       this to improve as the season progresses.
       {% elif m.brierSkill < 0.15 %}
-      Marginally better than a coin flip — the model is starting to pick up
+      Marginally better than a coin flip. The model is starting to pick up
       signal but {{ m.games }} games isn't enough to separate real skill from
       noise.
       {% else %}
       Predicted probabilities track actual outcomes closely across
-      {{ m.games }} games — the Pythagorean + record blend works in this
+      {{ m.games }} games. The Pythagorean + record blend works in this
       league once teams have a meaningful sample.
       {% endif %}
     </p>

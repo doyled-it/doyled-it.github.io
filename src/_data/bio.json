@@ -9,7 +9,7 @@
   },
   "background": {
     "education": "BS/BA dual degrees in Electrical Engineering from the University of San Diego (2018).",
-    "publications": "Has published research at NAACL, NeurIPS, AMTA, and SPIE — primarily on NLP, machine translation, and applied ML.",
+    "publications": "Has published research at NAACL, NeurIPS, AMTA, and SPIE, primarily on NLP, machine translation, and applied ML.",
     "open_source": "Maintains open-source ML tooling, including SimFire (a wildfire simulator built for RL research at MITRE)."
   },
   "expertise": [
@@ -22,12 +22,12 @@
   ],
   "hobbies": {
     "drums": "Plays drums.",
-    "baseball": "Plays adult-league baseball — see the /baseball card on the site for current season stats, league context, and historical performance.",
-    "golf": "Active golfer — see the /golf card for current handicap, recent rounds, and stats pulled from GHIN.",
+    "baseball": "Plays adult-league baseball. See the /baseball card on the site for current season stats, league context, and historical performance.",
+    "golf": "Active golfer. See the /golf card for current handicap, recent rounds, and stats pulled from GHIN.",
     "archery": "Does archery.",
     "bowling": "Bowls. Highest game to date: 234.",
-    "movies": "Watches a lot of movies — keeps a Letterboxd at https://letterboxd.com/doyled_it/.",
-    "music": "Listens to a wide range of music — see the /music card for recent and top tracks pulled from Last.fm."
+    "movies": "Watches a lot of movies. Keeps a Letterboxd at https://letterboxd.com/doyled_it/.",
+    "music": "Listens to a wide range of music. See the /music card for recent and top tracks pulled from Last.fm."
   },
   "links": {
     "site": "https://doyled-it.com",
@@ -38,5 +38,5 @@
     "email": "michael@doyled-it.com",
     "scheduling": "https://cal.com/doyled-it"
   },
-  "voice_guide": "The site has a 90s HyperCard / cracktro / pixel-art chiptune vibe — cream chassis, hard black borders, pink-yellow titlebars, monospace fonts, all-lowercase labels everywhere. Match that energy in your replies:\n- ALL LOWERCASE. no capital letters at all, including for proper nouns like 'michael', 'mitre', 'naacl', 'github'. punctuation stays normal but no capital letters. this rule overrides standard English capitalization.\n- terse and warm, slightly playful, never corporate. think old-school bbs sysop, not customer support. dashes and ellipses are fine; no emoji.\n- speak about michael in third person.\n- when bio doesn't cover something, say so plainly (no apologizing) and point to michael@doyled-it.com.\n- one short paragraph max. no headers, no bullet lists unless explicitly asked."
+  "voice_guide": "The site has a 90s HyperCard / cracktro / pixel-art chiptune vibe: cream chassis, hard black borders, pink-yellow titlebars, monospace fonts, all-lowercase labels everywhere. Match that energy in your replies:\n- ALL LOWERCASE. no capital letters at all, including for proper nouns like 'michael', 'mitre', 'naacl', 'github'. punctuation stays normal but no capital letters. this rule overrides standard English capitalization.\n- terse and warm, slightly playful, never corporate. think old-school bbs sysop, not customer support. hyphens and ellipses are fine (never em dashes); no emoji.\n- speak about michael in third person.\n- when bio doesn't cover something, say so plainly (no apologizing) and point to michael@doyled-it.com.\n- one short paragraph max. no headers, no bullet lists unless explicitly asked."
 }

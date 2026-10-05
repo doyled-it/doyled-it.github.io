@@ -122,7 +122,7 @@
     "trigger": {
       "lang_starts": "es"
     },
-    "template": "hola — mi español está oxidado.",
+    "template": "hola. mi español está oxidado.",
     "weight": 2
   },
   {
@@ -663,7 +663,7 @@
       "mobile": true,
       "ua_platform_contains": "Android"
     },
-    "template": "android user — chrome on chrome on chrome.",
+    "template": "android user, chrome on chrome on chrome.",
     "weight": 2
   },
   {

@@ -24,7 +24,7 @@ extraCSS:
       · last 5 avg {{ st.recentForm.last5 }}
       · GIR {{ st.shotStats.gir }}% · scrambling {{ st.scrambling.pct }}%
       {% if topCourse %}· most played: {{ topCourse.name }} ({{ topCourse.rounds }}){% endif %}
-      {% if lastRound %}· last round: {{ lastRound.played_at | readableDate }} — {{ lastRound.adjusted_gross_score }} ({{ lastRound.course_name }}){% endif %}
+      {% if lastRound %}· last round: {{ lastRound.played_at | readableDate }} · {{ lastRound.adjusted_gross_score }} ({{ lastRound.course_name }}){% endif %}
       ·····
     </span>
   </div>
@@ -38,7 +38,7 @@ extraCSS:
     </div>
 
     <div class="golf-stats-grid">
-      <div class="golf-stat-box" data-tip="Your official USGA Handicap Index — the average of the 8 lowest differentials from your last 20 rounds, times 0.96. Lower is better. Scratch = 0.">
+      <div class="golf-stat-box" data-tip="Your official USGA Handicap Index: the average of the 8 lowest differentials from your last 20 rounds, times 0.96. Lower is better. Scratch = 0.">
         <div class="stat-label">Handicap</div>
         <div class="stat-value">{{ g.handicapIndex }}</div>
       </div>
@@ -54,7 +54,7 @@ extraCSS:
         <div class="stat-label">Avg to Par</div>
         <div class="stat-value">+{{ st.avgToPar }}</div>
       </div>
-      <div class="golf-stat-box" data-tip="Your single best score differential — adjusts your score for course difficulty, so it's comparable across courses. Lower is better.">
+      <div class="golf-stat-box" data-tip="Your single best score differential: adjusts your score for course difficulty, so it's comparable across courses. Lower is better.">
         <div class="stat-label">Best Differential</div>
         <div class="stat-value">{{ st.bestDifferential }}</div>
       </div>
@@ -138,7 +138,7 @@ extraCSS:
           <div class="stat-label">Fairways</div>
           <div class="stat-value">{{ st.shotStats.fairways }}%</div>
         </div>
-        <div class="golf-stat-box" data-tip="Greens in regulation — reaching the green in (par − 2) strokes. Correlates strongly with score.">
+        <div class="golf-stat-box" data-tip="Greens in regulation: reaching the green in (par − 2) strokes. Correlates strongly with score.">
           <div class="stat-label">GIR</div>
           <div class="stat-value">{{ st.shotStats.gir }}%</div>
         </div>
@@ -150,7 +150,7 @@ extraCSS:
           <div class="stat-label">1-Putt</div>
           <div class="stat-value">{{ st.shotStats.onePutt }}%</div>
         </div>
-        <div class="golf-stat-box" data-tip="Percent of holes finished in exactly two putts — the 'expected' outcome on most greens.">
+        <div class="golf-stat-box" data-tip="Percent of holes finished in exactly two putts, the 'expected' outcome on most greens.">
           <div class="stat-label">2-Putt</div>
           <div class="stat-value">{{ st.shotStats.twoPutt }}%</div>
         </div>
@@ -323,11 +323,11 @@ extraCSS:
     <div class="golf-section">
       <h3>AFTER MISSING THE GREEN <span class="golf-sub">what happens when you don't hit GIR</span></h3>
       <div class="golf-stats-grid">
-        <div class="golf-stat-box" data-tip="Greens in regulation — percent of holes where your ball was on the green in (par − 2) strokes. Tour pros average ~65%; scratch amateurs ~50%.">
+        <div class="golf-stat-box" data-tip="Greens in regulation: percent of holes where your ball was on the green in (par − 2) strokes. Tour pros average ~65%; scratch amateurs ~50%.">
           <div class="stat-label">GIR</div>
           <div class="stat-value">{{ st.scrambling.girPct }}%</div>
         </div>
-        <div class="golf-stat-box" data-tip="Of the holes where you missed the green, what percent did you still make par or better? Classic 'scrambling' stat — tests short-game recovery. Tour average ~60%.">
+        <div class="golf-stat-box" data-tip="Of the holes where you missed the green, what percent did you still make par or better? Classic 'scrambling' stat: tests short-game recovery. Tour average ~60%.">
           <div class="stat-label">Scrambling %</div>
           <div class="stat-value {% if st.scrambling.pct >= 50 %}score-under{% elif st.scrambling.pct < 30 %}score-over{% endif %}">{{ st.scrambling.pct }}%</div>
         </div>
@@ -491,7 +491,7 @@ extraCSS:
         </div>
         <div class="goal-pace-note">
           {% if goal.hit %}
-          🎉 You hit the target — keep it under {{ goal.target }} to stay there.
+          🎉 You hit the target. Keep it under {{ goal.target }} to stay there.
           {% elif goal.onPace %}
           ✓ On pace. If you keep dropping {{ goal.recentPerMonth | abs }} strokes per month you'll land at around
           <strong>{{ goal.projectedHI }}</strong> by the deadline.
@@ -500,7 +500,7 @@ extraCSS:
           <strong>{{ goal.requiredPerMonth | abs }}/mo</strong> to hit {{ goal.target }} on time.
           Current trajectory projects to about <strong>{{ goal.projectedHI }}</strong>.
           {% else %}
-          Your HI has been moving up recently — you'll need to drop
+          Your HI has been moving up recently. You'll need to drop
           <strong>{{ goal.requiredPerMonth | abs }} strokes/month</strong>
           to hit {{ goal.target }} by the deadline.
           {% endif %}
