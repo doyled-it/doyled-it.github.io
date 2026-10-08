@@ -108,24 +108,35 @@ function computeCareerAnalytics(seasons, games) {
       team: s.team,
       position: s.position,
       stats: s.stats,
+      league: s.league,
     });
   }
-  const seasonsSummary = [...bySeason.values()].map((s) => ({
-    id: s.id,
-    name: s.name,
-    team: s.team,
-    GP: s.stats?.games?.played ?? 0,
-    W: s.stats?.games?.wins ?? 0,
-    L: s.stats?.games?.losses ?? 0,
-    AVG: s.stats?.calculated?.AVG ?? 0,
-    OBP: s.stats?.calculated?.OBP ?? 0,
-    SLG: s.stats?.calculated?.SLG ?? 0,
-    OPS: s.stats?.calculated?.OPS ?? 0,
-    HR: s.stats?.hitting?.HR ?? 0,
-    RBI: s.stats?.hitting?.RBI ?? 0,
-    ERA: s.stats?.calculated?.ERA ?? 0,
-    IP: s.stats?.pitching?.IP ?? 0,
-  }));
+  const seasonsSummary = [...bySeason.values()].map((s) => {
+    // SDABL is the source of truth for the team W/L record; the personal game
+    // log (Obsidian) is only a fallback for seasons with no league data.
+    // Only override with SDABL when the season was fetched fresh from the API
+    // (source: "se-api"); legacy scraped seasons keep the personal record so a
+    // stale mid-season snapshot can't clobber a fuller one.
+    const mine = s.league?.source === "se-api" && s.league?.userTeam
+      ? (s.league.standings || []).find((t) => t.team === s.league.userTeam)
+      : null;
+    return {
+      id: s.id,
+      name: s.name,
+      team: s.team,
+      GP: mine ? mine.GP : (s.stats?.games?.played ?? 0),
+      W: mine ? mine.W : (s.stats?.games?.wins ?? 0),
+      L: mine ? mine.L : (s.stats?.games?.losses ?? 0),
+      AVG: s.stats?.calculated?.AVG ?? 0,
+      OBP: s.stats?.calculated?.OBP ?? 0,
+      SLG: s.stats?.calculated?.SLG ?? 0,
+      OPS: s.stats?.calculated?.OPS ?? 0,
+      HR: s.stats?.hitting?.HR ?? 0,
+      RBI: s.stats?.hitting?.RBI ?? 0,
+      ERA: s.stats?.calculated?.ERA ?? 0,
+      IP: s.stats?.pitching?.IP ?? 0,
+    };
+  });
 
   // --- Best/worst games (by user rating then by total bases) ---
   const scored = played.map((g) => {

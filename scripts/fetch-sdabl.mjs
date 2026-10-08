@@ -127,6 +127,7 @@ function buildSeason(events, teamName) {
 
   return {
     updated: new Date().toISOString(),
+    source: "se-api",
     divisionName,
     userTeams: [teamName],
     playoffSpots: PLAYOFF_SPOTS,
