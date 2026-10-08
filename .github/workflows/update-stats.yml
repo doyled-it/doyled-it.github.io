@@ -42,16 +42,20 @@ jobs:
           npm run fetch-data
           cp ghin-data.json $GITHUB_WORKSPACE/src/_data/golf-raw.json
 
+      # League: SDABL schedule, scores and standings from the public SportsEngine API (no auth)
+      - name: Fetch SDABL league data
+        run: node scripts/fetch-sdabl.mjs
+
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet src/_data/baseball.json src/_data/golf-raw.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/_data/baseball.json src/_data/golf-raw.json
+          git add src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json
           git commit -m "chore: update baseball and golf stats data"
           git push

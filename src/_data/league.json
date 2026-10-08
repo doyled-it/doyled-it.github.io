@@ -3967,6 +3967,737 @@
           "recapUrl": null
         }
       ]
+    },
+    "fall2026": {
+      "updated": "2026-10-08T21:09:18.589Z",
+      "divisionName": "25A",
+      "userTeams": [
+        "Expos (25A)"
+      ],
+      "playoffSpots": 6,
+      "totalGames": 8,
+      "standings": [
+        {
+          "rank": 1,
+          "team": "Fighting Friars",
+          "W": 4,
+          "L": 0,
+          "T": 0,
+          "GP": 4,
+          "PCT": 1,
+          "GB": 0,
+          "RF": 87,
+          "RA": 33,
+          "diff": 54
+        },
+        {
+          "rank": 2,
+          "team": "Reapers Baseball Club",
+          "W": 4,
+          "L": 0,
+          "T": 0,
+          "GP": 4,
+          "PCT": 1,
+          "GB": 0,
+          "RF": 59,
+          "RA": 29,
+          "diff": 30
+        },
+        {
+          "rank": 3,
+          "team": "Expos (25A)",
+          "W": 3,
+          "L": 2,
+          "T": 0,
+          "GP": 5,
+          "PCT": 0.6,
+          "GB": 1.5,
+          "RF": 69,
+          "RA": 54,
+          "diff": 15
+        },
+        {
+          "rank": 4,
+          "team": "Bubblegum Boys",
+          "W": 2,
+          "L": 2,
+          "T": 0,
+          "GP": 4,
+          "PCT": 0.5,
+          "GB": 2,
+          "RF": 51,
+          "RA": 50,
+          "diff": 1
+        },
+        {
+          "rank": 5,
+          "team": "THE OG",
+          "W": 1,
+          "L": 3,
+          "T": 0,
+          "GP": 4,
+          "PCT": 0.25,
+          "GB": 3,
+          "RF": 54,
+          "RA": 57,
+          "diff": -3
+        },
+        {
+          "rank": 6,
+          "team": "Vaqueros",
+          "W": 0,
+          "L": 2,
+          "T": 0,
+          "GP": 2,
+          "PCT": 0,
+          "GB": 3,
+          "RF": 6,
+          "RA": 42,
+          "diff": -36
+        },
+        {
+          "rank": 7,
+          "team": "Bombers",
+          "W": 0,
+          "L": 5,
+          "T": 0,
+          "GP": 5,
+          "PCT": 0,
+          "GB": 4.5,
+          "RF": 33,
+          "RA": 94,
+          "diff": -61
+        }
+      ],
+      "schedule": [
+        {
+          "date": "Sep 13",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "score": 10,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "THE OG",
+            "score": 8,
+            "record": "1 - 3"
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/04c1a2de-d483-4e1c-9e91-c2c18cdfe915"
+        },
+        {
+          "date": "Sep 13",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": 4,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": 26,
+            "record": "4 - 0"
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/b2970b7a-c330-4a25-902c-c4a88c988d90"
+        },
+        {
+          "date": "Sep 13",
+          "dow": "Sun",
+          "time": "11:45 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 13",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Expos (25A)",
+            "score": 16,
+            "record": "3 - 2"
+          },
+          "home": {
+            "team": "Bombers",
+            "score": 2,
+            "record": "0 - 5"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/85cbb436-5da5-40ae-9898-e251a349f519"
+        },
+        {
+          "date": "Sep 20",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "THE OG",
+            "score": 14,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": 15,
+            "record": "4 - 0"
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/af735b13-f404-4439-92ba-22fa9f4404b7"
+        },
+        {
+          "date": "Sep 20",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Sep 20",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "score": 14,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Expos (25A)",
+            "score": 11,
+            "record": "3 - 2"
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/e1de5502-3030-4a10-bf78-c0567b10b6e6"
+        },
+        {
+          "date": "Sep 20",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bombers",
+            "score": 5,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "score": 18,
+            "record": "2 - 2"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/8ed66a53-6f30-4fef-8f68-7e9f8c57f0d6"
+        },
+        {
+          "date": "Sep 27",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "score": 20,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Vaqueros",
+            "score": 2,
+            "record": "0 - 2"
+          },
+          "venue": "Otay Ranch HS · JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/e8aeee36-fbbe-4abf-bc9b-54dec71a36d0"
+        },
+        {
+          "date": "Sep 27",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": 9,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "Expos (25A)",
+            "score": 11,
+            "record": "3 - 2"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/16ac1295-fd9a-428a-9153-6d9b13bb3c4d"
+        },
+        {
+          "date": "Sep 27",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Expos (25A)",
+            "score": 9,
+            "record": "3 - 2"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": 25,
+            "record": "4 - 0"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/1bb8d5a3-a570-42c1-b666-cb165cf3f247"
+        },
+        {
+          "date": "Sep 27",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "THE OG",
+            "score": 24,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Bombers",
+            "score": 12,
+            "record": "0 - 5"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/a228e167-c49c-47f3-894d-1435638a2946"
+        },
+        {
+          "date": "Oct 4",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Bombers",
+            "score": 8,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "score": 15,
+            "record": "4 - 0"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/0bf4421a-cebf-4003-b78c-3388fe80e155"
+        },
+        {
+          "date": "Oct 4",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "THE OG",
+            "score": 8,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "score": 20,
+            "record": "2 - 2"
+          },
+          "venue": "McElroy · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/f4e32e3b-48fc-4df6-8400-ca9da443c8c7"
+        },
+        {
+          "date": "Oct 4",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Fighting Friars",
+            "score": 21,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Bombers",
+            "score": 6,
+            "record": "0 - 5"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/a832e065-6320-45d7-90dc-ec019e152c7b"
+        },
+        {
+          "date": "Oct 4",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Vaqueros",
+            "score": 4,
+            "record": "0 - 2"
+          },
+          "home": {
+            "team": "Expos (25A)",
+            "score": 22,
+            "record": "3 - 2"
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/a6591412-0e1b-436b-8bfb-d0405f86f393"
+        },
+        {
+          "date": "Oct 11",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 11",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 11",
+          "dow": "Sun",
+          "time": "11:45 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 11",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "THE OG",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 18",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "home": {
+            "team": "THE OG",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "venue": "Lakeside Pony · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 18",
+          "dow": "Sun",
+          "time": "9:00 AM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 18",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 18",
+          "dow": "Sun",
+          "time": "11:45 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 25",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "THE OG",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 25",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 25",
+          "dow": "Sun",
+          "time": "1:00 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Oct 25",
+          "dow": "Sun",
+          "time": "11:45 PM PDT",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 1",
+          "dow": "Sun",
+          "time": "9:00 AM PST",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 1",
+          "dow": "Sun",
+          "time": "9:00 AM PST",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "THE OG",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Otay Ranch HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 1",
+          "dow": "Sun",
+          "time": "1:00 PM PST",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 1",
+          "dow": "Sun",
+          "time": "1:00 PM PST",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 1",
+          "dow": "Sun",
+          "time": "1:30 PM PST",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "home": {
+            "team": "THE OG",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "venue": "Montgomery HS · Varsity",
+          "recapUrl": null
+        }
+      ]
     }
   }
 }
