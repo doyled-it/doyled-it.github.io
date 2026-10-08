@@ -1,6 +1,6 @@
 {
-  "currentSeason": "spring2026",
-  "lastUpdated": "2026-10-08T20:12:56.153Z",
+  "currentSeason": "fall2026",
+  "lastUpdated": "2026-10-08T20:30:56.992Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -1361,6 +1361,334 @@
         }
       },
       "gamesProcessed": 13
+    },
+    "fall2026": {
+      "id": "fall2026",
+      "name": "Fall 2026",
+      "folder": "games/2026/fall",
+      "player": "Michael Doyle",
+      "team": "Happy Sox",
+      "position": "Utility (P/IF/OF)",
+      "stats": {
+        "hitting": {
+          "AB": 14,
+          "H": 1,
+          "2B": 0,
+          "3B": 0,
+          "HR": 0,
+          "RBI": 0,
+          "R": 3,
+          "BB": 1,
+          "K": 6,
+          "HBP": 2,
+          "SF": 0,
+          "SB": 1,
+          "CS": 0,
+          "RISP": 3,
+          "RISP_H": 0,
+          "hard_contact": 0,
+          "pitches_seen": 15
+        },
+        "fielding": {
+          "PO": 6,
+          "A": 6,
+          "E": 1,
+          "TC": 11,
+          "DP": 0
+        },
+        "pitching": {
+          "IP": 6,
+          "H_p": 5,
+          "R_p": 9,
+          "ER": 6,
+          "BB_p": 9,
+          "K_p": 4,
+          "HR_p": 1,
+          "BF": 32,
+          "PC": 0
+        },
+        "games": {
+          "total": 5,
+          "played": 4,
+          "wins": 2,
+          "losses": 2,
+          "ties": 0
+        },
+        "gamesList": [
+          {
+            "date": "2026-09-20",
+            "opponent": "Reapers Baseball Club",
+            "location": "Hilton Head",
+            "result": "L",
+            "score": "13-9",
+            "played": true,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 5,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 3,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 1,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 4,
+                "A": 3,
+                "E": 1,
+                "TC": 7,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 3,
+                "H_p": 4,
+                "R_p": 6,
+                "ER": 3,
+                "BB_p": 5,
+                "K_p": 2,
+                "HR_p": 0,
+                "BF": 17,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-09-27",
+            "opponent": "Bubblegum Boys",
+            "location": "Presidio",
+            "result": "W",
+            "score": "9-11",
+            "played": true,
+            "rating": "6",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 1,
+                "BB": 1,
+                "K": 3,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 2,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 15
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 1,
+                "E": 0,
+                "TC": 1,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 2,
+                "H_p": 1,
+                "R_p": 3,
+                "ER": 3,
+                "BB_p": 2,
+                "K_p": 1,
+                "HR_p": 1,
+                "BF": 10,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-09-27",
+            "opponent": "Fighting Friars",
+            "location": "\"@Presidio\"",
+            "result": "L",
+            "played": true,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 1,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 1,
+                "A": 0,
+                "E": 0,
+                "TC": 1,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          },
+          {
+            "date": "2026-10-04",
+            "opponent": "Vaqueros",
+            "location": "San Ysidro",
+            "result": "W",
+            "score": "3-24",
+            "played": true,
+            "rating": "8",
+            "notable": "ass magnet",
+            "stats": {
+              "hitting": {
+                "AB": 4,
+                "H": 1,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 2,
+                "BB": 0,
+                "K": 0,
+                "HBP": 2,
+                "SF": 0,
+                "SB": 1,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 1,
+                "A": 2,
+                "E": 0,
+                "TC": 2,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 1,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 2,
+                "K_p": 1,
+                "HR_p": 0,
+                "BF": 5,
+                "PC": 0
+              },
+              "avg": 0.25
+            }
+          },
+          {
+            "date": "2026-10-06",
+            "opponent": "Fighting Friars",
+            "location": "Presidio",
+            "result": "W/L",
+            "played": false,
+            "rating": "",
+            "notable": "",
+            "stats": {
+              "hitting": {
+                "AB": 0,
+                "H": 0,
+                "2B": 0,
+                "3B": 0,
+                "HR": 0,
+                "RBI": 0,
+                "R": 0,
+                "BB": 0,
+                "K": 0,
+                "HBP": 0,
+                "SF": 0,
+                "SB": 0,
+                "CS": 0,
+                "RISP": 0,
+                "RISP_H": 0,
+                "hard_contact": 0,
+                "pitches_seen": 0
+              },
+              "fielding": {
+                "PO": 0,
+                "A": 0,
+                "E": 0,
+                "TC": 0,
+                "DP": 0
+              },
+              "pitching": {
+                "IP": 0,
+                "H_p": 0,
+                "R_p": 0,
+                "ER": 0,
+                "BB_p": 0,
+                "K_p": 0,
+                "HR_p": 0,
+                "BF": 0,
+                "PC": 0
+              },
+              "avg": 0
+            }
+          }
+        ],
+        "calculated": {
+          "AVG": 0.07142857142857142,
+          "OBP": 0.23529411764705882,
+          "singles": 1,
+          "tb": 1,
+          "SLG": 0.07142857142857142,
+          "OPS": 0.3067226890756303,
+          "BABIP": 0.125,
+          "ISO": 0,
+          "XBH": 0,
+          "XBH_pct": 0,
+          "BB_pct": 0.058823529411764705,
+          "K_pct": 0.35294117647058826,
+          "clutch_avg": 0,
+          "contact_quality": 0,
+          "ERA": 9,
+          "WHIP": 2.3333333333333335,
+          "K_BB": 0.4444444444444444,
+          "K9": 6,
+          "BB9": 13.5,
+          "fieldingPct": 1.0909090909090908,
+          "rangeFactor": 3
+        }
+      },
+      "gamesProcessed": 5
     }
   }
 }
