@@ -3969,11 +3969,7 @@
       ]
     },
     "fall2026": {
-<<<<<<< HEAD
-      "updated": "2026-10-08T22:48:37.681Z",
-=======
-      "updated": "2026-10-08T22:55:20.204Z",
->>>>>>> ebc494d (feat(baseball): tidy the schedule and source the game log from SDABL)
+      "updated": "2026-10-08T23:00:21.111Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
