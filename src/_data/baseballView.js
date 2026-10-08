@@ -281,7 +281,8 @@ function enrichLeague(league) {
   const totalGames = league.totalGames ?? null;
   const allEvents = league.schedule ?? [];
   const results = allEvents.filter((e) => e.completed);
-  const upcoming = allEvents.filter((e) => !e.completed);
+  const TODAY = new Date().toISOString().slice(0, 10);
+  const upcoming = allEvents.filter((e) => !e.completed && (!e.isoDate || e.isoDate >= TODAY));
   const teams = computeStandings(allEvents, league.standings ?? []);
   const userTeams = league.userTeams ?? [];
   const mine = teams.find((t) => userTeams.includes(t.team));
@@ -513,6 +514,27 @@ export default function () {
         stats.gamesList = stats.gamesList.filter(
           (g) => g.played || !g.date || g.date <= todayISO,
         );
+      }
+      // SDABL is the source of truth for scores and W/L: override the game log
+      // from the league feed (matched by date + opponent) for fresh seasons.
+      if (leagueData?.source === "se-api" && stats?.gamesList) {
+        const ut = leagueData.userTeams ?? [];
+        const byGame = new Map();
+        for (const ev of leagueData.schedule ?? []) {
+          if (!ev.completed) continue;
+          const uTeam = ut.includes(ev.home.team) ? ev.home.team : ut.includes(ev.away.team) ? ev.away.team : null;
+          if (!uTeam) continue;
+          const mineHome = uTeam === ev.home.team;
+          const us = mineHome ? ev.home.score : ev.away.score;
+          const them = mineHome ? ev.away.score : ev.home.score;
+          const opp = mineHome ? ev.away.team : ev.home.team;
+          if (us == null || them == null) continue;
+          byGame.set(`${ev.isoDate}|${opp}`, { result: us > them ? "W" : us < them ? "L" : "T", score: `${us}-${them}` });
+        }
+        stats.gamesList = stats.gamesList.map((g) => {
+          const hit = byGame.get(`${g.date}|${g.opponent}`);
+          return hit ? { ...g, result: hit.result, score: hit.score } : g;
+        });
       }
       return { ...personal, stats, league: enrichLeague(leagueData) };
     }

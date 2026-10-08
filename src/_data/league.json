@@ -3969,7 +3969,11 @@
       ]
     },
     "fall2026": {
+<<<<<<< HEAD
       "updated": "2026-10-08T22:48:37.681Z",
+=======
+      "updated": "2026-10-08T22:55:20.204Z",
+>>>>>>> ebc494d (feat(baseball): tidy the schedule and source the game log from SDABL)
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4074,7 +4078,8 @@
         {
           "date": "Sep 13",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-09-13",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4093,7 +4098,8 @@
         {
           "date": "Sep 13",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-09-13",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4112,7 +4118,8 @@
         {
           "date": "Sep 13",
           "dow": "Sun",
-          "time": "11:45 AM PDT",
+          "isoDate": "2026-09-13",
+          "time": "11:45 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4131,7 +4138,8 @@
         {
           "date": "Sep 13",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-09-13",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4150,7 +4158,8 @@
         {
           "date": "Sep 20",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-09-20",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4169,7 +4178,8 @@
         {
           "date": "Sep 20",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-09-20",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4188,7 +4198,8 @@
         {
           "date": "Sep 20",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-09-20",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4207,7 +4218,8 @@
         {
           "date": "Sep 20",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-09-20",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4226,7 +4238,8 @@
         {
           "date": "Sep 27",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-09-27",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4245,7 +4258,8 @@
         {
           "date": "Sep 27",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-09-27",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4264,7 +4278,8 @@
         {
           "date": "Sep 27",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-09-27",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4283,7 +4298,8 @@
         {
           "date": "Sep 27",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-09-27",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4302,7 +4318,8 @@
         {
           "date": "Oct 4",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-10-04",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4321,7 +4338,8 @@
         {
           "date": "Oct 4",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-10-04",
+          "time": "9:00 AM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4340,7 +4358,8 @@
         {
           "date": "Oct 4",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-04",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4359,7 +4378,8 @@
         {
           "date": "Oct 4",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-04",
+          "time": "1:00 PM",
           "status": "Final",
           "completed": true,
           "away": {
@@ -4378,7 +4398,8 @@
         {
           "date": "Oct 11",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-10-11",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4397,7 +4418,8 @@
         {
           "date": "Oct 11",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-10-11",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4416,7 +4438,8 @@
         {
           "date": "Oct 11",
           "dow": "Sun",
-          "time": "11:45 AM PDT",
+          "isoDate": "2026-10-11",
+          "time": "11:45 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4435,7 +4458,8 @@
         {
           "date": "Oct 11",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-11",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4454,7 +4478,8 @@
         {
           "date": "Oct 18",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-10-18",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4473,7 +4498,8 @@
         {
           "date": "Oct 18",
           "dow": "Sun",
-          "time": "9:00 AM PDT",
+          "isoDate": "2026-10-18",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4492,7 +4518,8 @@
         {
           "date": "Oct 18",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-18",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4511,7 +4538,8 @@
         {
           "date": "Oct 18",
           "dow": "Sun",
-          "time": "11:45 PM PDT",
+          "isoDate": "2026-10-18",
+          "time": "11:45 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4530,7 +4558,8 @@
         {
           "date": "Oct 25",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-25",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4549,7 +4578,8 @@
         {
           "date": "Oct 25",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-25",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4568,7 +4598,8 @@
         {
           "date": "Oct 25",
           "dow": "Sun",
-          "time": "1:00 PM PDT",
+          "isoDate": "2026-10-25",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4587,7 +4618,8 @@
         {
           "date": "Oct 25",
           "dow": "Sun",
-          "time": "11:45 PM PDT",
+          "isoDate": "2026-10-25",
+          "time": "11:45 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4606,7 +4638,8 @@
         {
           "date": "Nov 1",
           "dow": "Sun",
-          "time": "9:00 AM PST",
+          "isoDate": "2026-11-01",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4625,7 +4658,8 @@
         {
           "date": "Nov 1",
           "dow": "Sun",
-          "time": "9:00 AM PST",
+          "isoDate": "2026-11-01",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4644,7 +4678,8 @@
         {
           "date": "Nov 1",
           "dow": "Sun",
-          "time": "1:00 PM PST",
+          "isoDate": "2026-11-01",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4663,7 +4698,8 @@
         {
           "date": "Nov 1",
           "dow": "Sun",
-          "time": "1:00 PM PST",
+          "isoDate": "2026-11-01",
+          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4682,7 +4718,8 @@
         {
           "date": "Nov 1",
           "dow": "Sun",
-          "time": "1:30 PM PST",
+          "isoDate": "2026-11-01",
+          "time": "1:30 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {

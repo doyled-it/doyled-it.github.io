@@ -361,7 +361,7 @@ tr.game-detail > td {
   padding-right: 14px;
   border-left: 4px solid var(--accent-pink-dark);
 }
-.schedule-time { color: var(--accent-pink-dark); font-weight: 700; }
+.schedule-time { color: var(--accent-pink-dark); font-weight: 700; white-space: nowrap; }
 .schedule-matchup .team { font-weight: 400; }
 .schedule-matchup .team.is-me { font-weight: 700; }
 .schedule-matchup .at {

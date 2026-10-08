@@ -88,7 +88,8 @@ function buildSeason(events, teamName) {
     return {
       date: fmt(g.start_date_time, { month: "short", day: "numeric" }),
       dow: fmt(g.start_date_time, { weekday: "short" }),
-      time: fmt(g.start_date_time, { hour: "numeric", minute: "2-digit", timeZoneName: "short" }),
+      isoDate: new Intl.DateTimeFormat("en-CA", { timeZone: "America/Los_Angeles", year: "numeric", month: "2-digit", day: "2-digit" }).format(new Date(g.start_date_time)),
+      time: fmt(g.start_date_time, { hour: "numeric", minute: "2-digit" }),
       status: completed ? "Final" : "Scheduled",
       completed,
       away: { team: awayName, score: aScore },
