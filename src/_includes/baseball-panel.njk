@@ -442,10 +442,10 @@
     <h3>UPCOMING SCHEDULE</h3>
     {% if season.league.difficulty %}
     <div class="sos-summary">
-      <div class="sos-label">REMAINING SCHEDULE</div>
+      <div class="sos-label">SCHEDULE DIFFICULTY</div>
       <div class="sos-value {{ season.league.difficulty.css }}">{{ season.league.difficulty.label }}</div>
       <div class="sos-detail">
-        {{ season.league.difficulty.games }} games · avg win prob
+        {{ season.league.difficulty.games }} games left · avg win prob
         <b>{{ season.league.difficulty.avgWinProb | fmtPct(0) }}</b>
       </div>
     </div>
