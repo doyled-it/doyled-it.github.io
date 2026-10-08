@@ -1,6 +1,6 @@
 {
   "currentSeason": "fall2026",
-  "lastUpdated": "2026-10-08T22:48:33.540Z",
+  "lastUpdated": "2026-10-08T23:00:48.014Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -1462,7 +1462,7 @@
           "PC": 0
         },
         "games": {
-          "total": 5,
+          "total": 4,
           "played": 4,
           "wins": 2,
           "losses": 2,
@@ -1675,57 +1675,6 @@
               },
               "avg": 0.5
             }
-          },
-          {
-            "date": "2026-10-06",
-            "opponent": "Fighting Friars",
-            "location": "Presidio",
-            "result": "W/L",
-            "played": false,
-            "rating": "",
-            "notable": "",
-            "stats": {
-              "hitting": {
-                "PA": 0,
-                "AB": 0,
-                "H": 0,
-                "2B": 0,
-                "3B": 0,
-                "HR": 0,
-                "RBI": 0,
-                "R": 0,
-                "BB": 0,
-                "K": 0,
-                "HBP": 0,
-                "SF": 0,
-                "FC": 0,
-                "SB": 0,
-                "CS": 0,
-                "RISP": 0,
-                "RISP_H": 0,
-                "hard_contact": 0,
-                "pitches_seen": 0
-              },
-              "fielding": {
-                "PO": 0,
-                "A": 0,
-                "E": 0,
-                "TC": 0,
-                "DP": 0
-              },
-              "pitching": {
-                "IP": 0,
-                "H_p": 0,
-                "R_p": 0,
-                "ER": 0,
-                "BB_p": 0,
-                "K_p": 0,
-                "HR_p": 0,
-                "BF": 0,
-                "PC": 0
-              },
-              "avg": 0
-            }
           }
         ],
         "calculated": {
@@ -1752,7 +1701,7 @@
           "rangeFactor": 3
         }
       },
-      "gamesProcessed": 5
+      "gamesProcessed": 4
     }
   }
 }
