@@ -121,10 +121,11 @@
           <td>{{ game.date }}</td>
           <td>{{ game.opponent }}</td>
           <td>
-            {% if not game.played %}DNP
-            {% elif game.result == "W" %}<span class="win">W {{ game.score }}</span>
-            {% else %}<span class="loss">L {{ game.score }}</span>
-            {% endif %}
+            {% if game.result == "W" %}<span class="win">W {{ game.score }}</span>
+            {% elif game.result == "L" %}<span class="loss">L {{ game.score }}</span>
+            {% elif game.result == "T" %}<span>T {{ game.score }}</span>
+            {% else %}DNP{% endif %}
+            {% if not game.played and game.result %}<span class="dnp-tag">DNP</span>{% endif %}
           </td>
           {% if game.played %}
           <td>{{ gh.AB }}</td>

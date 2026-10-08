@@ -362,6 +362,7 @@ tr.game-detail > td {
   border-left: 4px solid var(--accent-pink-dark);
 }
 .schedule-time { color: var(--accent-pink-dark); font-weight: 700; white-space: nowrap; }
+.dnp-tag { color: #999; font-size: 0.78em; margin-left: 6px; letter-spacing: 0.5px; vertical-align: middle; }
 .schedule-matchup .team { font-weight: 400; }
 .schedule-matchup .team.is-me { font-weight: 700; }
 .schedule-matchup .at {

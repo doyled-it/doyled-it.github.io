@@ -519,7 +519,7 @@ export default function () {
       // from the league feed (matched by date + opponent) for fresh seasons.
       if (leagueData?.source === "se-api" && stats?.gamesList) {
         const ut = leagueData.userTeams ?? [];
-        const byGame = new Map();
+        const sdabl = [];
         for (const ev of leagueData.schedule ?? []) {
           if (!ev.completed) continue;
           const uTeam = ut.includes(ev.home.team) ? ev.home.team : ut.includes(ev.away.team) ? ev.away.team : null;
@@ -528,13 +528,26 @@ export default function () {
           const us = mineHome ? ev.home.score : ev.away.score;
           const them = mineHome ? ev.away.score : ev.home.score;
           const opp = mineHome ? ev.away.team : ev.home.team;
-          if (us == null || them == null) continue;
-          byGame.set(`${ev.isoDate}|${opp}`, { result: us > them ? "W" : us < them ? "L" : "T", score: `${us}-${them}` });
+          if (us == null || them == null || /^bye$/i.test(opp)) continue;
+          sdabl.push({ isoDate: ev.isoDate, opp, venue: ev.venue || "", result: us > them ? "W" : us < them ? "L" : "T", score: `${us}-${them}` });
         }
+        const byGame = new Map(sdabl.map((g) => [`${g.isoDate}|${g.opp}`, g]));
+        // Scores/result come from SDABL for the games the user logged.
         stats.gamesList = stats.gamesList.map((g) => {
           const hit = byGame.get(`${g.date}|${g.opponent}`);
           return hit ? { ...g, result: hit.result, score: hit.score } : g;
         });
+        // Add the games the user did not play, from the SDABL schedule, as DNP rows.
+        const have = new Set(stats.gamesList.map((g) => `${g.date}|${g.opponent}`));
+        for (const g of sdabl) {
+          if (have.has(`${g.isoDate}|${g.opp}`)) continue;
+          stats.gamesList.push({
+            date: g.isoDate, opponent: g.opp, location: g.venue,
+            result: g.result, score: g.score, played: false,
+            stats: { hitting: {}, fielding: {}, pitching: {} },
+          });
+        }
+        stats.gamesList.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
       }
       return { ...personal, stats, league: enrichLeague(leagueData) };
     }
