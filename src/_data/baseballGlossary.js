@@ -1,5 +1,7 @@
 export default {
-  AB: "At Bats — official plate appearances (excludes walks, HBP, sacrifices)",
+  PA: "Plate Appearances: every trip to the plate. You log this; AB is derived from it.",
+  AB: "At Bats: plate appearances minus walks, HBP and sacrifices (PA - BB - HBP - SF).",
+  FC: "Fielder's Choice: a fielder retires another runner instead of the batter. Counts as an at-bat, not a hit.",
   H: "Hits — times reaching base safely via hit",
   "2B": "Doubles — two-base hits",
   "3B": "Triples — three-base hits",

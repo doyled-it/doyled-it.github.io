@@ -29,13 +29,13 @@
     <h3>HITTING</h3>
     <table class="stat-table">
       <thead>
-        <tr>{{ th("AB") }}{{ th("H") }}{{ th("2B") }}{{ th("3B") }}{{ th("HR") }}{{ th("RBI") }}{{ th("R") }}{{ th("BB") }}{{ th("K") }}{{ th("SB") }}</tr>
+        <tr>{{ th("PA") }}{{ th("AB") }}{{ th("H") }}{{ th("2B") }}{{ th("3B") }}{{ th("HR") }}{{ th("RBI") }}{{ th("R") }}{{ th("BB") }}{{ th("K") }}{{ th("FC") }}{{ th("SB") }}</tr>
       </thead>
       <tbody>
         <tr>
-          <td>{{ h.AB }}</td><td>{{ h.H }}</td><td>{{ h["2B"] }}</td><td>{{ h["3B"] }}</td>
+          <td>{{ h.PA }}</td><td>{{ h.AB }}</td><td>{{ h.H }}</td><td>{{ h["2B"] }}</td><td>{{ h["3B"] }}</td>
           <td>{{ h.HR }}</td><td>{{ h.RBI }}</td><td>{{ h.R }}</td><td>{{ h.BB }}</td>
-          <td>{{ h.K }}</td><td>{{ h.SB }}</td>
+          <td>{{ h.K }}</td><td>{{ h.FC }}</td><td>{{ h.SB }}</td>
         </tr>
         <tr>
           <th colspan="2" data-tip="{{ baseballGlossary.AVG }}">AVG</th><th colspan="2" data-tip="{{ baseballGlossary.OBP }}">OBP</th><th colspan="2" data-tip="{{ baseballGlossary.SLG }}">SLG</th><th colspan="2" data-tip="{{ baseballGlossary.OPS }}">OPS</th><th colspan="2" data-tip="{{ baseballGlossary.ISO }}">ISO</th>
