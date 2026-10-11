@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-10-08T23:00:51.418Z",
+      "updated": "2026-10-11T11:53:28.468Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4019,29 +4019,29 @@
         },
         {
           "rank": 4,
-          "team": "Bubblegum Boys",
+          "team": "THE OG",
           "W": 2,
           "L": 2,
           "T": 0,
           "GP": 4,
           "PCT": 0.5,
           "GB": 2,
-          "RF": 51,
-          "RA": 50,
-          "diff": 1
+          "RF": 66,
+          "RA": 45,
+          "diff": 21
         },
         {
           "rank": 5,
-          "team": "THE OG",
+          "team": "Bubblegum Boys",
           "W": 1,
           "L": 3,
           "T": 0,
           "GP": 4,
           "PCT": 0.25,
           "GB": 3,
-          "RF": 54,
-          "RA": 57,
-          "diff": -3
+          "RF": 39,
+          "RA": 62,
+          "diff": -23
         },
         {
           "rank": 6,
@@ -4086,7 +4086,7 @@
           "home": {
             "team": "THE OG",
             "score": 8,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/04c1a2de-d483-4e1c-9e91-c2c18cdfe915"
@@ -4101,7 +4101,7 @@
           "away": {
             "team": "Bubblegum Boys",
             "score": 4,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "home": {
             "team": "Fighting Friars",
@@ -4161,7 +4161,7 @@
           "away": {
             "team": "THE OG",
             "score": 14,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "home": {
             "team": "Fighting Friars",
@@ -4226,7 +4226,7 @@
           "home": {
             "team": "Bubblegum Boys",
             "score": 18,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/8ed66a53-6f30-4fef-8f68-7e9f8c57f0d6"
@@ -4261,7 +4261,7 @@
           "away": {
             "team": "Bubblegum Boys",
             "score": 9,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "home": {
             "team": "Expos (25A)",
@@ -4301,7 +4301,7 @@
           "away": {
             "team": "THE OG",
             "score": 24,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "home": {
             "team": "Bombers",
@@ -4340,13 +4340,13 @@
           "completed": true,
           "away": {
             "team": "THE OG",
-            "score": 8,
-            "record": "1 - 3"
+            "score": 20,
+            "record": "2 - 2"
           },
           "home": {
             "team": "Bubblegum Boys",
-            "score": 20,
-            "record": "2 - 2"
+            "score": 8,
+            "record": "1 - 3"
           },
           "venue": "McElroy · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/f4e32e3b-48fc-4df6-8400-ca9da443c8c7"
@@ -4421,7 +4421,7 @@
           "away": {
             "team": "Bubblegum Boys",
             "score": null,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "home": {
             "team": "Reapers Baseball Club",
@@ -4461,7 +4461,7 @@
           "away": {
             "team": "THE OG",
             "score": null,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "home": {
             "team": "Vaqueros",
@@ -4486,7 +4486,7 @@
           "home": {
             "team": "THE OG",
             "score": null,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "venue": "Lakeside Pony · Field",
           "recapUrl": null
@@ -4541,7 +4541,7 @@
           "away": {
             "team": "Bubblegum Boys",
             "score": null,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "home": {
             "team": "BYE",
@@ -4566,7 +4566,7 @@
           "home": {
             "team": "THE OG",
             "score": null,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "venue": "Presidio · Field",
           "recapUrl": null
@@ -4606,7 +4606,7 @@
           "home": {
             "team": "Bubblegum Boys",
             "score": null,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": null
@@ -4641,7 +4641,7 @@
           "away": {
             "team": "Bubblegum Boys",
             "score": null,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "home": {
             "team": "Vaqueros",
@@ -4661,7 +4661,7 @@
           "away": {
             "team": "THE OG",
             "score": null,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "home": {
             "team": "Reapers Baseball Club",
@@ -4706,7 +4706,7 @@
           "home": {
             "team": "Bubblegum Boys",
             "score": null,
-            "record": "2 - 2"
+            "record": "1 - 3"
           },
           "venue": "Presidio · Field",
           "recapUrl": null
@@ -4726,7 +4726,7 @@
           "home": {
             "team": "THE OG",
             "score": null,
-            "record": "1 - 3"
+            "record": "2 - 2"
           },
           "venue": "Montgomery HS · Varsity",
           "recapUrl": null
