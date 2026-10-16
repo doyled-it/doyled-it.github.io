@@ -205,6 +205,20 @@
           <span class="rvc-seg seg-good" style="width:{{ cc.range.teeStart.online }}%">{% if cc.range.teeStart.online >= 9 %}on line {{ cc.range.teeStart.online }}%{% endif %}</span>
           <span class="rvc-seg seg-right" style="width:{{ cc.range.teeStart.right }}%">{% if cc.range.teeStart.right >= 9 %}R {{ cc.range.teeStart.right }}%{% endif %}</span>
         </div>
+        {% if cc.fairway %}
+        <div class="rvc-compare">
+          <div class="rvc-stat" data-tip="Share of {{ cc.fairway.shots }} range drives that would land inside a 30-yard fairway, from their left/right spread{% if est %} (left/right includes estimated curve){% endif %}. 25 yd: {{ cc.fairway.widths[0].pct }}%, 35 yd: {{ cc.fairway.widths[2].pct }}%.">
+            <div class="stat-label">Range says {{ est }}</div>
+            <div class="stat-value">{{ cc.fairway.predicted }}%</div>
+          </div>
+          <div class="rvc-vs">vs</div>
+          <div class="rvc-stat" data-tip="Fairways hit on par 4s and 5s over the last {{ cc.rounds }} rounds (any club off the tee).">
+            <div class="stat-label">Course fairways</div>
+            <div class="stat-value">{{ cc.fairway.actual }}%</div>
+          </div>
+        </div>
+        <div class="rvc-label">Expected fairways from {{ cc.fairway.shots }} range drives on an assumed 30-yard fairway{% if cc.fairway.predicted - cc.fairway.actual >= 10 %}: about {{ cc.fairway.predicted - cc.fairway.actual }} points of your range driving doesn't make it to the course{% endif %}.</div>
+        {% endif %}
       </div>
       <div class="rvc-card">
         <div class="rvc-title">INTO THE GREEN</div>
@@ -225,6 +239,60 @@
       </div>
     </div>
     {% for n in cc.notes %}<p class="range-note">{{ n }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% set pv = rg.practice %}
+  {% if pv %}
+  {% set pc = pv.chart %}
+  <div class="golf-section">
+    <h3>PRACTICE vs SCORING <span class="golf-sub">{{ pv.sessions }} range sessions ({{ pv.shots }} balls) since {{ pv.firstSession }} against 18-hole differentials</span></h3>
+    <svg class="golf-chart" viewBox="0 0 {{ pc.w }} {{ pc.h }}" role="img" aria-label="Range sessions and score differentials over time">
+      <rect x="{{ pc.padL }}" y="{{ pc.padT }}" width="{{ pc.plotW }}" height="{{ pc.plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+      {% for tk in pc.yTicks %}
+      <line x1="{{ pc.padL }}" y1="{{ tk.y }}" x2="{{ pc.padL + pc.plotW }}" y2="{{ tk.y }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ pc.padL - 6 }}" y="{{ tk.y + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ tk.v }}</text>
+      {% endfor %}
+      {% for s in pc.sessions %}
+      <line x1="{{ s.x }}" y1="{{ pc.padT }}" x2="{{ s.x }}" y2="{{ pc.padT + pc.plotH }}" stroke="#228b22" stroke-width="1" stroke-opacity="0.25"/>
+      <rect x="{{ s.x - 2 }}" y="{{ s.y }}" width="4" height="{{ s.h }}" fill="#228b22"><title>{{ s.tip }}</title></rect>
+      {% endfor %}
+      <line x1="{{ pc.padL }}" y1="{{ pc.strip.top + pc.strip.h }}" x2="{{ pc.padL + pc.plotW }}" y2="{{ pc.strip.top + pc.strip.h }}" stroke="#000" stroke-width="1"/>
+      <path d="{{ pc.rollPath }}" fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linejoin="round"/>
+      {% for p in pc.points %}
+      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="3.5" fill="{% if p.after %}#228b22{% else %}#888{% endif %}" stroke="#000" stroke-width="0.6"><title>{{ p.tip }}</title></circle>
+      {% endfor %}
+      {% for m in pc.months %}
+      <text x="{{ m.x }}" y="{{ pc.strip.labelY }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ m.label }}</text>
+      {% endfor %}
+      <text x="{{ pc.padL + 6 }}" y="{{ pc.padT + 16 }}" font-size="13" font-family="VT323, monospace" fill="#555">differential (lower is better)</text>
+    </svg>
+    <div class="chart-legend range-legend">
+      <span class="legend-chip"><span class="club-dot" style="background:#228b22"></span>round within {{ pv.afterDays }} days of practice</span>
+      <span class="legend-chip"><span class="club-dot" style="background:#888"></span>other round</span>
+      <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>5-round avg</span>
+      <span class="legend-chip"><span class="chip-swatch" style="background:#228b22;height:10px;width:4px"></span>range session (height = balls)</span>
+    </div>
+    <div class="golf-stats-grid">
+      <div class="golf-stat-box" data-tip="Average 18-hole differential for rounds played within {{ pv.afterDays }} days after a range session.">
+        <div class="stat-label">After practice</div>
+        <div class="stat-value">{{ pv.after.avg if pv.after.n else "–" }}</div>
+        <div class="muted">{{ pv.after.n }} rounds</div>
+      </div>
+      <div class="golf-stat-box" data-tip="Average 18-hole differential for every other round in the same stretch.">
+        <div class="stat-label">Other rounds</div>
+        <div class="stat-value">{{ pv.other.avg if pv.other.n else "–" }}</div>
+        <div class="muted">{{ pv.other.n }} rounds</div>
+      </div>
+      <div class="golf-stat-box" data-tip="Other rounds minus after-practice rounds. Positive means you score better after practicing.">
+        <div class="stat-label">Practice edge</div>
+        <div class="stat-value">{% if pv.after.n and pv.other.n %}{{ (pv.other.avg - pv.after.avg) | round(1) }}{% else %}–{% endif %}</div>
+        <div class="muted">strokes</div>
+      </div>
+    </div>
+    <p class="range-note">
+      {% if pv.after.n < 10 or pv.other.n < 10 %}Early read: with {{ pv.after.n }} and {{ pv.other.n }} rounds in the two groups, a stroke either way can be noise. It firms up as rounds and sessions pile up. {% endif %}This shows correlation only. A week with practice may also be a week with more golf, better weather or a course you know.
+    </p>
   </div>
   {% endif %}
 

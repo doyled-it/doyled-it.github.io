@@ -168,14 +168,27 @@ for (const s of wanted) {
 }
 
 sessions.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+// Practice history: just the date and size of every session ever (no shot
+// detail), so the site can line up practice against scoring over time.
+const hist = await api(`/session/v2/activities?startDate=2015-01-01&endDate=${end}`, { token });
+const history = (hist.data ?? [])
+  .filter((s) => sessionTypes.includes(s.sessionType))
+  .map((s) => ({ date: s.date, shots: num(s.shotCount), minutes: num(s.duration) }))
+  .sort((a, b) => new Date(b.date) - new Date(a.date));
 const out = join(repoRoot, "src/_data/mlm.json");
 const shotTotal = sessions.reduce((a, s) => a + s.shotCount, 0);
 // Leave the file alone when nothing changed, so the weekly job doesn't commit
 // a new fetchedAt stamp on its own.
 const prev = existsSync(out) ? JSON.parse(readFileSync(out, "utf8")) : null;
-if (prev && prev.since === since && JSON.stringify(prev.sessions) === JSON.stringify(sessions)) {
+if (
+  prev &&
+  prev.since === since &&
+  JSON.stringify(prev.sessions) === JSON.stringify(sessions) &&
+  JSON.stringify(prev.history) === JSON.stringify(history)
+) {
   console.log(`✅ no new sessions (${sessions.length} session(s), ${shotTotal} shots); ${out} unchanged`);
 } else {
-  writeFileSync(out, JSON.stringify({ fetchedAt: new Date().toISOString(), since, sessions }, null, 2) + "\n");
+  writeFileSync(out, JSON.stringify({ fetchedAt: new Date().toISOString(), since, sessions, history }, null, 2) + "\n");
   console.log(`✅ wrote ${out} (${sessions.length} session(s), ${shotTotal} shots)`);
 }

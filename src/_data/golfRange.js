@@ -314,6 +314,8 @@ export default function () {
   }));
 
   const course = courseComparison(clubs);
+  if (course) course.fairway = fairwayPrediction(clubs, course);
+  const practice = practiceVsScoring(mlm.history || []);
   const odds = oddsModel(clubs);
 
   const driver = clubByName.get("Driver");
@@ -351,6 +353,7 @@ export default function () {
     dispersion: dp,
     course,
     odds,
+    practice,
     yardageGroups: ["woods", "irons", "wedges"]
       .map((k) => ({ kind: k, clubs: clubs.filter((c) => c.kind === k && c.nClean > 0) }))
       .filter((g) => g.clubs.length),
@@ -507,5 +510,125 @@ function oddsModel(clubs) {
       mishitRate: r2(c.mishitRate),
       n: c.n,
     })),
+  };
+}
+
+// ---- Expected vs actual fairways ----
+// Driver landing spots (left/right) as a normal spread, all swings counted
+// (a mishit can still find the fairway). The SD is blended with the bag's
+// typical side spread the same way the green odds are. Fairway widths are
+// assumptions, not measured: 30 yards is the headline.
+const FAIRWAY_WIDTHS = [25, 30, 35];
+
+const erf = (x) => {
+  // Abramowitz and Stegun 7.1.26, accurate to about 1e-7.
+  const t = 1 / (1 + 0.3275911 * Math.abs(x));
+  const y = 1 - ((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+  return x >= 0 ? y : -y;
+};
+const normCdf = (x, m, s) => 0.5 * (1 + erf((x - m) / (s * Math.SQRT2)));
+
+function fairwayPrediction(clubs, course) {
+  const d = clubs.find((c) => c.club === "Driver");
+  if (!d) return null;
+  const sides = d.shots.map((x) => x.side).filter(isNum);
+  if (sides.length < 2) return null;
+  const others = clubs.filter((c) => c.nClean >= 3 && isNum(c.sideSd)).map((c) => c.sideSd / c.carry);
+  const prior = (median(others) ?? 0.05) * (d.carry ?? 250);
+  const df = sides.length - 1;
+  const sdv = Math.sqrt((df * sd(sides) ** 2 + PRIOR_SHOTS * prior * prior) / (df + PRIOR_SHOTS));
+  const m = mean(sides);
+  const at = (w) => Math.round((normCdf(w / 2, m, sdv) - normCdf(-w / 2, m, sdv)) * 100);
+  return {
+    widths: FAIRWAY_WIDTHS.map((w) => ({ width: w, pct: at(w) })),
+    predicted: at(30),
+    actual: course.tee.all.fairway,
+    shots: sides.length,
+    meanSide: r1(m),
+    sd: r1(sdv),
+  };
+}
+
+// ---- Practice vs scoring ----
+// Every practice session ever (date and size only) against 18-hole score
+// differentials over the same stretch.
+const AFTER_DAYS = 7; // a round within this many days of a session counts as "after practice"
+const MIN_GROUP = 5; // rounds needed in each group before the comparison is shown as meaningful
+
+function practiceVsScoring(history) {
+  const file = path.resolve("src/_data/golf-raw.json");
+  if (!history.length || !fs.existsSync(file)) return null;
+  const raw = JSON.parse(fs.readFileSync(file, "utf8"));
+  const sessions = history.map((h) => ({ ...h, t: new Date(h.date).getTime() })).sort((a, b) => a.t - b.t);
+  const start = sessions[0].t - 14 * 86400000;
+  const end = Date.now();
+  const rounds = (raw.scores || [])
+    .filter((s) => s.number_of_holes === 18 && isNum(Number(s.differential)) && s.differential !== null)
+    .map((s) => ({ t: new Date(s.played_at).getTime(), diff: Number(s.differential), date: s.played_at }))
+    .filter((r) => r.t >= start && r.t <= end)
+    .sort((a, b) => a.t - b.t);
+  if (!rounds.length) return null;
+
+  // Rolling 5-round average.
+  rounds.forEach((r, i) => {
+    const win = rounds.slice(Math.max(0, i - 4), i + 1);
+    r.roll = mean(win.map((x) => x.diff));
+    r.afterPractice = sessions.some((s) => s.t <= r.t && r.t - s.t <= AFTER_DAYS * 86400000);
+  });
+  const after = rounds.filter((r) => r.afterPractice);
+  const other = rounds.filter((r) => !r.afterPractice);
+
+  const ch = { w: 760, h: 240, padL: 44, padR: 16, padT: 14, padB: 64 };
+  ch.plotW = ch.w - ch.padL - ch.padR;
+  ch.plotH = ch.h - ch.padT - ch.padB;
+  const dLo = Math.floor(Math.min(...rounds.map((r) => r.diff)) - 1);
+  const dHi = Math.ceil(Math.max(...rounds.map((r) => r.diff)) + 1);
+  const x = (t) => r1(ch.padL + ((t - start) / (end - start)) * ch.plotW);
+  const y = (v) => r1(ch.padT + ((dHi - v) / (dHi - dLo)) * ch.plotH);
+  const step = Math.max(1, Math.round((dHi - dLo) / 4));
+  ch.yTicks = [];
+  for (let v = dLo; v <= dHi; v += step) ch.yTicks.push({ v, y: y(v) });
+  ch.points = rounds.map((r) => ({
+    x: x(r.t),
+    y: y(r.diff),
+    after: r.afterPractice,
+    tip: `${fmtDate(r.date, { month: "short", day: "numeric", year: "numeric" })}: differential ${r.diff}${r.afterPractice ? ` (within ${AFTER_DAYS} days of a range session)` : ""}`,
+  }));
+  ch.rollPath = rounds.map((r, i) => `${i ? "L" : "M"} ${x(r.t)} ${y(r.roll)}`).join(" ");
+  const maxShots = Math.max(...sessions.map((s) => s.shots || 0), 1);
+  const stripTop = ch.padT + ch.plotH + 12;
+  const stripH = 22;
+  ch.strip = { top: stripTop, h: stripH, labelY: stripTop + stripH + 16 };
+  ch.sessions = sessions.map((s) => {
+    const hgt = r1(Math.max(3, ((s.shots || 0) / maxShots) * stripH));
+    return {
+      x: x(s.t),
+      y: r1(stripTop + stripH - hgt),
+      h: hgt,
+      tip: `${fmtDate(s.date, { month: "short", day: "numeric", year: "numeric" })}: range session, ${s.shots} shots`,
+    };
+  });
+  // Month labels along the bottom, every other month if crowded.
+  ch.months = [];
+  const d0 = new Date(start);
+  const months = [];
+  for (let m = new Date(d0.getFullYear(), d0.getMonth() + 1, 1); m.getTime() <= end; m.setMonth(m.getMonth() + 1)) months.push(new Date(m));
+  const every = months.length > 8 ? 2 : 1;
+  months.forEach((m, i) => {
+    if (i % every) return;
+    ch.months.push({ x: x(m.getTime()), label: fmtDate(m.toISOString(), { month: "short", year: "2-digit" }) });
+  });
+
+  return {
+    chart: ch,
+    sessions: sessions.length,
+    shots: sessions.reduce((a, s) => a + (s.shots || 0), 0),
+    rounds: rounds.length,
+    afterDays: AFTER_DAYS,
+    after: { n: after.length, avg: r1(mean(after.map((r) => r.diff))) },
+    other: { n: other.length, avg: r1(mean(other.map((r) => r.diff))) },
+    enough: after.length >= MIN_GROUP && other.length >= MIN_GROUP,
+    minGroup: MIN_GROUP,
+    firstSession: fmtDate(sessions[0].date, { month: "short", year: "numeric" }),
   };
 }

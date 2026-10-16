@@ -684,3 +684,22 @@
 /* Yardage card */
 .yardage-table .club-cell { text-align: left; }
 .yardage-table td.yard-typical { font-size: 22px; font-weight: 700; color: #228b22; }
+
+.rvc-compare {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 12px;
+}
+.rvc-stat {
+  text-align: center;
+  padding: 4px 10px;
+  border: 1px solid #228b22;
+  border-radius: 4px;
+  background: #fff;
+  min-width: 110px;
+}
+.rvc-stat .stat-label { font-family: var(--font-mono); font-size: 14px; color: #444; text-transform: uppercase; }
+.rvc-stat .stat-value { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: #228b22; }
+.rvc-vs { font-family: var(--font-mono); font-size: 18px; color: #666; }
