@@ -120,10 +120,16 @@ function computeCareerAnalytics(seasons, games) {
     const mine = s.league?.source === "se-api" && s.league?.userTeam
       ? (s.league.standings || []).find((t) => t.team === s.league.userTeam)
       : null;
+    // Display name: prefer the live league team (stripping any trailing
+    // division code like " (25A)") so the header matches the standings and
+    // self-corrects on a rename. Fall back to the personal/vault team for
+    // legacy seasons with no fresh feed.
+    const liveTeam = s.league?.source === "se-api" && s.league?.userTeam ? s.league.userTeam : null;
+    const displayTeam = liveTeam ? liveTeam.replace(/\s*\([^)]*\)\s*$/, "").trim() : s.team;
     return {
       id: s.id,
       name: s.name,
-      team: s.team,
+      team: displayTeam,
       GP: mine ? mine.GP : (s.stats?.games?.played ?? 0),
       W: mine ? mine.W : (s.stats?.games?.wins ?? 0),
       L: mine ? mine.L : (s.stats?.games?.losses ?? 0),
@@ -549,7 +555,12 @@ export default function () {
         }
         stats.gamesList.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
       }
-      return { ...personal, stats, league: enrichLeague(leagueData) };
+      // Display the live league team name (minus any " (25A)" division code)
+      // for fresh seasons so the header matches the standings and self-corrects
+      // on a rename; legacy seasons keep the personal/vault team.
+      const liveTeam = leagueData?.source === "se-api" ? (leagueData.userTeams || [])[0] : null;
+      const displayTeam = liveTeam ? liveTeam.replace(/\s*\([^)]*\)\s*$/, "").trim() : personal.team;
+      return { ...personal, team: displayTeam, stats, league: enrichLeague(leagueData) };
     }
     // League-only season (no personal stats). Construct a placeholder so the
     // tab can render the league block without breaking the stat-block macros.
