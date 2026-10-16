@@ -1,0 +1,56 @@
+---
+layout: base.njk
+title: golf yardages
+description: Stock carry yardages per club from MLM2PRO range sessions.
+permalink: /golf/yardages/index.html
+cardNum: 7
+cardTitle: golf · yardages
+forceBuddy: golf-cart
+extraCSS:
+  - /assets/css/golf.css
+---
+{% set rg = golfRange %}
+{% set est = "≈" if rg.spinEstimated else "" %}
+<main class="card golf-card" id="main">
+  {% include "titlebar.njk" %}
+  <div class="card-body">
+    <div class="range-header">
+      <h2>📋 YARDAGE CARD 📋</h2>
+      <div class="golfer-info">carry in yards · {{ rg.totals.shots if rg.hasData else 0 }} range shots{% if rg.hasData %} since {{ rg.sinceLabel }}{% endif %}</div>
+      <a class="range-card-link" href="/golf/#range">← full range data</a>
+    </div>
+
+    {% if rg.hasData %}
+    {% for g in rg.yardageGroups %}
+    <div class="golf-section">
+      <h3>{{ g.kind | upper }}</h3>
+      <table class="scorecard-table yardage-table">
+        <thead>
+          <tr><th>Club</th><th>Carry</th><th data-tip="Where most clean shots land (20th to 80th percentile)">Most shots</th><th{% if est %} data-tip="Estimated: roll is modeled from spin, which range balls can't measure"{% endif %}>Total {{ est }}</th><th>Shots</th></tr>
+        </thead>
+        <tbody>
+          {% for c in g.clubs %}
+          <tr>
+            <td class="club-cell"><span class="club-dot" style="background:{{ c.color }}"></span>{{ c.club }}</td>
+            <td class="yard-typical">{{ c.yard.typical | round(0) }}</td>
+            <td>{{ c.yard.lo | round(0) }}–{{ c.yard.hi | round(0) }}</td>
+            <td>{{ c.yard.total | round(0) }}</td>
+            <td>{{ c.nClean }}{% if c.nMishit %}<span class="muted">/{{ c.n }}</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+    {% if rg.tightGaps.length %}
+    <p class="range-note">⚠ Tight gaps: {% for g in rg.tightGaps %}{{ g.club }} → {{ g.next }} ({{ g.gap }} yd){% if not loop.last %}; {% endif %}{% endfor %}.</p>
+    {% endif %}
+    <p class="range-note">
+      Carry is the median of clean range shots (mishits left out); "most shots" is where the middle of them landed. These come from range balls, which fly shorter than a premium ball, so on the course expect each club to go a few yards farther.{% if rg.course and rg.course.appr.miss.short > rg.course.appr.miss.long %} On the course you miss greens short ({{ rg.course.appr.miss.short }}%) more than long ({{ rg.course.appr.miss.long }}%), so when you're between clubs, take the longer one.{% endif %}
+    </p>
+    {% else %}
+    <p class="range-note">No range sessions yet.</p>
+    {% endif %}
+  </div>
+  {% include "footer.njk" %}
+</main>

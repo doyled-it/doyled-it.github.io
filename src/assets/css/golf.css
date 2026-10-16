@@ -593,3 +593,94 @@
 @media (max-width: 720px) {
   .range-dive { grid-template-columns: 1fr; }
 }
+
+.range-card-link {
+  display: inline-block;
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: #228b22;
+}
+
+/* Range vs course */
+.rvc-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.rvc-card {
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 12px;
+}
+.rvc-title { font-family: var(--font-mono); font-size: 18px; font-weight: 700; color: #228b22; }
+.rvc-label { font-family: var(--font-mono); font-size: 15px; color: #444; margin: 8px 0 3px; }
+.rvc-bar {
+  display: flex;
+  height: 24px;
+  border: 2px solid var(--ink);
+  background: #fff;
+  overflow: hidden;
+}
+.rvc-seg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.seg-good { background: #228b22; }
+.seg-left { background: #1f5fa8; }
+.seg-right { background: #c4561e; }
+.seg-long { background: #7a3fa0; }
+.seg-short { background: #b32020; }
+.seg-depth { background: #888; }
+@media (max-width: 720px) {
+  .rvc-grid { grid-template-columns: 1fr; }
+}
+
+/* Green-hitting odds */
+.odds-box {
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 4px 4px 0 var(--ink);
+  padding: 10px 12px;
+}
+.odds-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 20px;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  margin-bottom: 10px;
+}
+.odds-controls label { display: flex; align-items: center; gap: 8px; }
+.odds-controls input[type="range"] { width: 200px; accent-color: #228b22; }
+.odds-controls select { font-family: var(--font-mono); font-size: 16px; }
+.odds-row {
+  display: grid;
+  grid-template-columns: 70px 1fr 64px 120px;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  padding: 2px 0;
+}
+.odds-row.is-best { font-weight: 700; }
+.odds-track { height: 16px; border: 2px solid var(--ink); background: #fff; }
+.odds-fill { display: block; height: 100%; }
+.odds-pct { text-align: right; }
+.odds-meta { color: #666; font-size: 15px; }
+@media (max-width: 480px) {
+  .odds-row { grid-template-columns: 52px 1fr 56px; }
+  .odds-meta { display: none; }
+}
+
+/* Yardage card */
+.yardage-table .club-cell { text-align: left; }
+.yardage-table td.yard-typical { font-size: 22px; font-weight: 700; color: #228b22; }

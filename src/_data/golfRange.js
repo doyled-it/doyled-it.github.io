@@ -25,6 +25,10 @@ const SMASH_ALSO_SHORT = 0.95;
 const LOW_LAUNCH = 6; // degrees under the club's median launch
 const MIN_SHOTS_TO_FLAG = 3;
 const TIGHT_GAP = 6; // yards; consecutive clubs closer than this overlap
+// The MLM2PRO only measures spin with RPT-marked balls; with range balls the
+// app models spin, spin axis and the curve (side) instead. Flip this if you
+// start hitting RPT balls.
+const SPIN_ESTIMATED = true;
 
 const TZ = "America/Los_Angeles";
 const fmtDate = (iso, opts) => new Intl.DateTimeFormat("en-US", { timeZone: TZ, ...opts }).format(new Date(iso));
@@ -150,6 +154,16 @@ export default function () {
         max: r1(Math.max(...carries)),
       },
       sideLabel: lr(avg("side")),
+      // Yardage card: where most clean shots land (20th to 80th percentile).
+      yard: {
+        typical: r1(median(carries)),
+        lo: r1(quantile(carries, 0.2)),
+        hi: r1(quantile(carries, 0.8)),
+        total: r1(median(col("total"))),
+      },
+      kind: /driver|wood|hybrid/i.test(name) ? "woods" : /wedge/i.test(name) ? "wedges" : "irons",
+      mishitRate: all.length ? (all.length - clean.length) / all.length : 0,
+      medCarryAll: medCarry,
       shots: flagged.map((x, j) => ({ ...x, n: j + 1 })),
     };
   });
@@ -274,7 +288,10 @@ export default function () {
     c.zoom = z;
     // Ball flight in neutral terms (positive = right on every MLM angle).
     const start = !isNum(c.launchDir) ? null : Math.abs(c.launchDir) < 2 ? "starts on line" : `starts ${Math.abs(c.launchDir)}° ${c.launchDir > 0 ? "right" : "left"}`;
-    const curve = !isNum(c.spinAxis) ? null : Math.abs(c.spinAxis) < 3 ? "flies straight" : `curves ${c.spinAxis > 0 ? "right" : "left"}${Math.abs(c.spinAxis) >= 10 ? " hard" : ""}`;
+    const curve = !isNum(c.spinAxis)
+      ? null
+      : (Math.abs(c.spinAxis) < 3 ? "flies straight" : `curves ${c.spinAxis > 0 ? "right" : "left"}${Math.abs(c.spinAxis) >= 10 ? " hard" : ""}`) +
+        (SPIN_ESTIMATED ? " (est.)" : "");
     c.shape = [start, curve].filter(Boolean).join(", ") || "–";
     c.attackLabel = signed(c.attack, "°");
     c.pathLabel = signed(c.clubPath, "°");
@@ -296,11 +313,15 @@ export default function () {
     mishits: allShots.filter((x) => x.sessionId === s.id && x.mishit).length,
   }));
 
+  const course = courseComparison(clubs);
+  const odds = oddsModel(clubs);
+
   const driver = clubByName.get("Driver");
   const tight = clubs.filter((c) => c.tightGap);
 
   return {
     hasData: true,
+    spinEstimated: SPIN_ESTIMATED,
     fetchedAt: mlm.fetchedAt,
     sinceLabel: fmtDate(mlm.since, { month: "short", day: "numeric", year: "numeric" }),
     sessions: sessionRows,
@@ -328,5 +349,163 @@ export default function () {
     clubs,
     boxplot: bw,
     dispersion: dp,
+    course,
+    odds,
+    yardageGroups: ["woods", "irons", "wedges"]
+      .map((k) => ({ kind: k, clubs: clubs.filter((c) => c.kind === k && c.nClean > 0) }))
+      .filter((g) => g.clubs.length),
+  };
+}
+
+// ---- Range vs course ----
+// GHIN hole stats use the same codes for drive_accuracy and
+// approach_shot_accuracy: 0 = left, 1 = right, 2 = long, 3 = short. (Decoded by
+// matching hole-level codes to GHIN's own per-round missed_*_percent stats.)
+const MISS = ["left", "right", "long", "short"];
+const COURSE_ROUNDS = 20; // most recent rounds with hole-level miss data
+const START_LINE = 2; // degrees; start direction inside this counts as on line
+const RANGE_MISS_YD = 8; // yards off the club's median carry counts as short/long
+
+function courseComparison(clubs) {
+  const file = path.resolve("src/_data/golf-raw.json");
+  if (!fs.existsSync(file)) return null;
+  const raw = JSON.parse(fs.readFileSync(file, "utf8"));
+  const rounds = (raw.scores || [])
+    .filter((s) => (s.hole_details || []).some((h) => h.approach_shot_accuracy != null || h.drive_accuracy != null))
+    .sort((a, b) => new Date(b.played_at) - new Date(a.played_at))
+    .slice(0, COURSE_ROUNDS);
+  if (!rounds.length) return null;
+
+  const tee = { fairway: 0, left: 0, right: 0, long: 0, short: 0 };
+  const appr = { green: 0, left: 0, right: 0, long: 0, short: 0 };
+  for (const r of rounds) {
+    for (const h of r.hole_details || []) {
+      if (h.par >= 4) {
+        if (h.fairway_hit === true) tee.fairway++;
+        else if (h.drive_accuracy != null) tee[MISS[h.drive_accuracy]]++;
+      }
+      if (h.gir_flag === true) appr.green++;
+      else if (h.approach_shot_accuracy != null) appr[MISS[h.approach_shot_accuracy]]++;
+    }
+  }
+  const share = (o, keys) => {
+    const n = keys.reduce((a, k) => a + o[k], 0);
+    return Object.fromEntries(keys.map((k) => [k, n ? Math.round((o[k] / n) * 100) : 0]).concat([["n", n]]));
+  };
+
+  const shotsOf = (pred) => clubs.filter(pred).flatMap((c) => c.shots.map((sh) => ({ ...sh, med: c.medCarryAll })));
+  const startShare = (xs) => {
+    const ys = xs.filter((x) => isNum(x.launchDir));
+    const n = ys.length || 1;
+    return {
+      left: Math.round((ys.filter((x) => x.launchDir < -START_LINE).length / n) * 100),
+      online: Math.round((ys.filter((x) => Math.abs(x.launchDir) <= START_LINE).length / n) * 100),
+      right: Math.round((ys.filter((x) => x.launchDir > START_LINE).length / n) * 100),
+      avg: r1(mean(ys.map((x) => x.launchDir))),
+      n: ys.length,
+    };
+  };
+  const depthShare = (xs) => {
+    const ys = xs.filter((x) => isNum(x.carry));
+    const n = ys.length || 1;
+    return {
+      short: Math.round((ys.filter((x) => x.carry < x.med - RANGE_MISS_YD).length / n) * 100),
+      long: Math.round((ys.filter((x) => x.carry > x.med + RANGE_MISS_YD).length / n) * 100),
+      n: ys.length,
+    };
+  };
+  const teeShots = shotsOf((c) => c.kind === "woods");
+  const apprShots = shotsOf((c) => c.kind === "irons" || /pitching|gap/i.test(c.club));
+
+  const out = {
+    rounds: rounds.length,
+    since: fmtDate(rounds[rounds.length - 1].played_at, { month: "short", year: "numeric" }),
+    tee: { all: share(tee, ["fairway", "left", "right", "long", "short"]), miss: share(tee, ["left", "right"]) },
+    appr: {
+      all: share(appr, ["green", "left", "right", "long", "short"]),
+      miss: share(appr, ["left", "right", "long", "short"]),
+    },
+    range: {
+      teeStart: startShare(teeShots),
+      apprStart: startShare(apprShots),
+      apprDepth: depthShare(apprShots),
+      apprSide: r1(mean(apprShots.filter((x) => !x.mishit).map((x) => x.side))),
+    },
+    rules: { startLine: START_LINE, rangeMissYd: RANGE_MISS_YD },
+  };
+
+  // Plain-language read of the two side by side.
+  const notes = [];
+  const tm = out.tee.miss;
+  const ts = out.range.teeStart;
+  if (tm.n) {
+    const courseSide = tm.left > tm.right ? "left" : tm.right > tm.left ? "right" : null;
+    const rangeSide = ts.avg < -START_LINE ? "left" : ts.avg > START_LINE ? "right" : null;
+    if (courseSide && rangeSide === courseSide) {
+      notes.push(`Off the tee you miss ${courseSide} more often on the course (${tm[courseSide]}% of missed fairways), and your woods start ${Math.abs(ts.avg)}° ${rangeSide} on average at the range. Same miss in both places.`);
+    } else if (courseSide && rangeSide) {
+      const woods = clubs.filter((c) => c.kind === "woods" && isNum(c.spinAxis));
+      const axis = mean(woods.map((c) => c.spinAxis));
+      const curveSide = isNum(axis) && Math.abs(axis) >= 3 ? (axis > 0 ? "right" : "left") : null;
+      notes.push(
+        `Off the tee you miss ${courseSide} more often on the course (${tm[courseSide]}% of missed fairways), but your woods start ${rangeSide} at the range (${ts[rangeSide]}% of swings, measured).` +
+          (curveSide === courseSide
+            ? ` The range's estimated spin curves them back ${curveSide}; if that curve grows on the course, it would explain the ${courseSide} miss.`
+            : " The course miss probably comes from curve or aim rather than start line.")
+      );
+    } else if (courseSide) {
+      notes.push(`Off the tee you miss ${courseSide} more often on the course (${tm[courseSide]}% of missed fairways); your woods start close to on line at the range.`);
+    }
+  }
+  const am = out.appr.miss;
+  if (am.n) {
+    const biggest = ["left", "right", "long", "short"].sort((a, b) => am[b] - am[a])[0];
+    if (biggest === "short") {
+      notes.push(`Short is your most common missed green on the course (${am.short}%, against ${am.long}% long). At the range ${out.range.apprDepth.short}% of iron shots carried ${RANGE_MISS_YD}+ yards short of that club's median and ${out.range.apprDepth.long}% carried that far long. Your misses come up short, so pick the club for your typical carry, not your best one.`);
+    } else {
+      notes.push(`Your most common missed green on the course is ${biggest} (${am[biggest]}%).`);
+    }
+    const lr = am.left - am.right;
+    if (Math.abs(lr) <= 5) {
+      notes.push(`Left and right green misses are close to even on the course (${am.left}% vs ${am.right}%), even though the range model puts your irons ${lrText(out.range.apprSide)} on average. Your irons start ${out.range.apprStart.online}% of the time within ${START_LINE}° of on line, which is measured, so the course is backing the start line more than the estimated curve.`);
+    }
+  }
+  out.notes = notes;
+  return out;
+}
+const lrText = (x) => (!isNum(x) ? "on line" : Math.abs(x) < 0.5 ? "on line" : `${Math.abs(r1(x))} yd ${x > 0 ? "right" : "left"}`);
+
+// ---- Green-hitting odds ----
+// Each club is treated as a normal spread around its average clean shot. With
+// 3 to 6 shots per club a raw SD can be absurdly small (three 6-irons within
+// 2 yards), so each club's SD is blended with the whole bag's typical spread
+// (scaled to that club's distance) as if that bag spread were PRIOR_SHOTS more
+// shots. A mishit is assumed to miss the green.
+const PRIOR_SHOTS = 4;
+
+function oddsModel(clubs) {
+  const usable = clubs.filter((c) => c.nClean >= 2 && isNum(c.carry));
+  const ratios = (k) =>
+    usable.filter((c) => c.nClean >= 3 && isNum(c[k])).map((c) => c[k] / c.carry);
+  const carryCv = median(ratios("carrySd")) ?? 0.04;
+  const sideCv = median(ratios("sideSd")) ?? 0.05;
+  const blend = (sdv, n, prior) => {
+    const df = Math.max(n - 1, 0);
+    const s2 = isNum(sdv) ? sdv * sdv : 0;
+    return Math.sqrt((df * s2 + PRIOR_SHOTS * prior * prior) / (df + PRIOR_SHOTS));
+  };
+  return {
+    priorShots: PRIOR_SHOTS,
+    clubs: usable.map((c) => ({
+      club: c.club,
+      code: c.code,
+      color: c.color,
+      carry: c.carry,
+      side: c.side ?? 0,
+      carrySd: r1(blend(c.carrySd, c.nClean, carryCv * c.carry)),
+      sideSd: r1(blend(c.sideSd, c.nClean, sideCv * c.carry)),
+      mishitRate: r2(c.mishitRate),
+      n: c.n,
+    })),
   };
 }

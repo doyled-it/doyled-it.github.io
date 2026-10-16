@@ -1,10 +1,12 @@
 {# Range sessions from the MLM2PRO launch monitor. View model: src/_data/golfRange.js #}
 {% set rg = golfRange %}
 {% set t = rg.totals %}
+{% set est = "≈" if rg.spinEstimated else "" %}
 <div class="range-block" id="range">
   <div class="range-header">
     <h2>🎯 RANGE · MLM2PRO 🎯</h2>
     <div class="golfer-info">launch monitor sessions since {{ rg.sinceLabel }} · {{ t.sessions }} session{% if t.sessions != 1 %}s{% endif %} · {{ t.shots }} shots · {{ t.clubs }} clubs</div>
+    <a class="range-card-link" href="/golf/yardages/">📋 yardage card →</a>
   </div>
 
   <div class="golf-stats-grid">
@@ -24,8 +26,8 @@
       <div class="stat-label">Driver Smash</div>
       <div class="stat-value">{{ t.driverSmash or "–" }}</div>
     </div>
-    <div class="golf-stat-box" data-tip="Where the average clean shot finishes left or right of the target line, all clubs pooled.">
-      <div class="stat-label">Avg Miss</div>
+    <div class="golf-stat-box" data-tip="Where the average clean shot finishes left or right of the target line, all clubs pooled.{% if est %} Estimated: the curve is modeled, not measured, with range balls.{% endif %}">
+      <div class="stat-label">Avg Miss {{ est }}</div>
       <div class="stat-value">{{ t.avgSideLabel }}</div>
     </div>
     <div class="golf-stat-box" data-tip="Shots flagged as mishits and left out of the averages. The rule is under the dispersion chart.">
@@ -70,13 +72,13 @@
             <th data-tip="Clean shots / all shots">Shots</th>
             <th>Carry</th>
             <th data-tip="Standard deviation of carry. Lower = more consistent distance.">±SD</th>
-            <th>Total</th>
-            <th>Side</th>
+            <th>Total {{ est }}</th>
+            <th>Side {{ est }}</th>
             <th>Ball</th>
             <th>Club</th>
             <th>Smash</th>
             <th>Launch</th>
-            <th>Spin</th>
+            <th>Spin {{ est }}</th>
             <th>Apex ft</th>
           </tr>
         </thead>
@@ -100,6 +102,9 @@
         </tbody>
       </table>
     </div>
+    {% if est %}
+    <p class="range-note">≈ estimated. The MLM2PRO only measures spin on RPT-marked balls, so with range balls it models spin and curve instead. Ball speed, club speed, launch angle and start direction are measured. Carry is calculated from those plus the spin estimate, and total adds a modeled roll.</p>
+    {% endif %}
   </div>
 
   {% set bw = rg.boxplot %}
@@ -142,7 +147,7 @@
 
   {% set dp = rg.dispersion %}
   <div class="golf-section">
-    <h3>SHOT DISPERSION <span class="golf-sub">where every shot landed, looking down the range</span></h3>
+    <h3>SHOT DISPERSION <span class="golf-sub">where every shot landed, looking down the range{% if est %} (left/right includes estimated curve){% endif %}</span></h3>
     <svg class="golf-chart" viewBox="0 0 {{ dp.w }} {{ dp.h }}" role="img" aria-label="Shot dispersion, side versus carry">
       <rect x="{{ dp.padL }}" y="{{ dp.padT }}" width="{{ dp.plotW }}" height="{{ dp.plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
       {% for tk in dp.xTicks %}
@@ -179,6 +184,76 @@
       Clubs with fewer than {{ rg.rules.minShots }} shots are never flagged.
     </p>
   </div>
+
+  {% set cc = rg.course %}
+  {% if cc %}
+  <div class="golf-section">
+    <h3>RANGE vs COURSE <span class="golf-sub">last {{ cc.rounds }} GHIN rounds (since {{ cc.since }}) next to the range</span></h3>
+    <div class="rvc-grid">
+      <div class="rvc-card">
+        <div class="rvc-title">OFF THE TEE</div>
+        <div class="rvc-label">Course · {{ cc.tee.all.n }} tee shots on par 4s and 5s</div>
+        <div class="rvc-bar">
+          <span class="rvc-seg seg-left" style="width:{{ cc.tee.all.left }}%">{% if cc.tee.all.left >= 9 %}L {{ cc.tee.all.left }}%{% endif %}</span>
+          <span class="rvc-seg seg-good" style="width:{{ cc.tee.all.fairway }}%">{% if cc.tee.all.fairway >= 9 %}FW {{ cc.tee.all.fairway }}%{% endif %}</span>
+          <span class="rvc-seg seg-right" style="width:{{ cc.tee.all.right }}%">{% if cc.tee.all.right >= 9 %}R {{ cc.tee.all.right }}%{% endif %}</span>
+          <span class="rvc-seg seg-depth" style="width:{{ cc.tee.all.long + cc.tee.all.short }}%"></span>
+        </div>
+        <div class="rvc-label">Range · start direction of {{ cc.range.teeStart.n }} wood swings (measured)</div>
+        <div class="rvc-bar">
+          <span class="rvc-seg seg-left" style="width:{{ cc.range.teeStart.left }}%">{% if cc.range.teeStart.left >= 9 %}L {{ cc.range.teeStart.left }}%{% endif %}</span>
+          <span class="rvc-seg seg-good" style="width:{{ cc.range.teeStart.online }}%">{% if cc.range.teeStart.online >= 9 %}on line {{ cc.range.teeStart.online }}%{% endif %}</span>
+          <span class="rvc-seg seg-right" style="width:{{ cc.range.teeStart.right }}%">{% if cc.range.teeStart.right >= 9 %}R {{ cc.range.teeStart.right }}%{% endif %}</span>
+        </div>
+      </div>
+      <div class="rvc-card">
+        <div class="rvc-title">INTO THE GREEN</div>
+        <div class="rvc-label">Course · where {{ cc.appr.miss.n }} missed greens went</div>
+        <div class="rvc-bar">
+          <span class="rvc-seg seg-left" style="width:{{ cc.appr.miss.left }}%">{% if cc.appr.miss.left >= 9 %}L {{ cc.appr.miss.left }}%{% endif %}</span>
+          <span class="rvc-seg seg-right" style="width:{{ cc.appr.miss.right }}%">{% if cc.appr.miss.right >= 9 %}R {{ cc.appr.miss.right }}%{% endif %}</span>
+          <span class="rvc-seg seg-long" style="width:{{ cc.appr.miss.long }}%">{% if cc.appr.miss.long >= 9 %}long {{ cc.appr.miss.long }}%{% endif %}</span>
+          <span class="rvc-seg seg-short" style="width:{{ cc.appr.miss.short }}%">{% if cc.appr.miss.short >= 9 %}short {{ cc.appr.miss.short }}%{% endif %}</span>
+        </div>
+        <div class="rvc-label">Range · {{ cc.range.apprDepth.n }} iron and wedge shots, {{ cc.rules.rangeMissYd }}+ yd off that club's median</div>
+        <div class="rvc-bar">
+          <span class="rvc-seg seg-long" style="width:{{ cc.range.apprDepth.long }}%">{% if cc.range.apprDepth.long >= 9 %}long {{ cc.range.apprDepth.long }}%{% endif %}</span>
+          <span class="rvc-seg seg-good" style="width:{{ 100 - cc.range.apprDepth.long - cc.range.apprDepth.short }}%">within {{ cc.rules.rangeMissYd }} yd {{ 100 - cc.range.apprDepth.long - cc.range.apprDepth.short }}%</span>
+          <span class="rvc-seg seg-short" style="width:{{ cc.range.apprDepth.short }}%">{% if cc.range.apprDepth.short >= 9 %}short {{ cc.range.apprDepth.short }}%{% endif %}</span>
+        </div>
+        <div class="rvc-label">Course GIR {{ cc.appr.all.green }}% · range irons start within {{ cc.rules.startLine }}° of on line {{ cc.range.apprStart.online }}% of the time</div>
+      </div>
+    </div>
+    {% for n in cc.notes %}<p class="range-note">{{ n }}</p>{% endfor %}
+  </div>
+  {% endif %}
+
+  {% if rg.odds.clubs.length %}
+  <div class="golf-section">
+    <h3>GREEN-HITTING ODDS <span class="golf-sub">which club finds the green from here</span></h3>
+    <div class="odds-box">
+      <div class="odds-controls">
+        <label>Distance to pin <strong><span id="odds-dist-out">150</span> yd</strong>
+          <input type="range" id="odds-dist" min="60" max="260" step="5" value="150">
+        </label>
+        <label>Green
+          <select id="odds-green">
+            <option value="20,25">small (20 × 25 yd)</option>
+            <option value="25,30" selected>medium (25 × 30 yd)</option>
+            <option value="30,36">large (30 × 36 yd)</option>
+          </select>
+        </label>
+        <label class="odds-check"><input type="checkbox" id="odds-bias"> include the range's left/right bias{% if est %} (estimated){% endif %}</label>
+      </div>
+      <div id="odds-out" class="odds-out" aria-live="polite"></div>
+    </div>
+    <script type="application/json" id="odds-data">{{ rg.odds | dump | safe }}</script>
+    <p class="range-note">
+      Each club's clean shots are treated as a spread around their average, aimed at the pin, and a green is an oval of the size picked. A mishit counts as missing the green, so clubs you mishit more lose odds. With only a few shots per club, each club's spread is blended with your whole bag's typical spread as if that were {{ rg.odds.priorShots }} more shots, so three lucky swings can't make a club look perfect.
+      By default it assumes you aim for your usual shape, so only the spread counts; tick the box to play each club's average left/right miss as hit. Carry is where the ball lands, so firm greens play a little shorter. Range balls fly shorter than your gamer ball, so on the course every club should go a bit farther than this.{% if rg.course %} Treat these as a best case: flat lies, no wind, no pressure and a pile of balls. Your actual GIR over the last {{ rg.course.rounds }} rounds is {{ rg.course.appr.all.green }}%.{% endif %}
+    </p>
+  </div>
+  {% endif %}
 
   <div class="golf-section">
     <h3>CLUB DEEP DIVE <span class="golf-sub">pick a club</span></h3>
@@ -226,20 +301,20 @@
           <div class="golf-stat-box"><div class="stat-label">Club mph</div><div class="stat-value">{{ c.clubSpeed }}</div></div>
           <div class="golf-stat-box"><div class="stat-label">Smash</div><div class="stat-value">{{ c.smash }}</div></div>
           <div class="golf-stat-box"><div class="stat-label">Launch</div><div class="stat-value">{{ c.launch }}°</div></div>
-          <div class="golf-stat-box"><div class="stat-label">Spin rpm</div><div class="stat-value">{{ c.spin }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Spin rpm {{ est }}</div><div class="stat-value">{{ c.spin }}</div></div>
           <div class="golf-stat-box"><div class="stat-label">Apex ft</div><div class="stat-value">{{ c.apex }}</div></div>
           <div class="golf-stat-box" data-tip="Angle the ball comes down at. Steeper holds greens better."><div class="stat-label">Descent</div><div class="stat-value">{{ c.descent }}°</div></div>
           <div class="golf-stat-box" data-tip="Up (+) or down (−) the club is moving at impact."><div class="stat-label">Attack</div><div class="stat-value">{{ c.attackLabel }}</div></div>
           <div class="golf-stat-box" data-tip="Club path relative to the target line. + is out to the right, − is to the left."><div class="stat-label">Path</div><div class="stat-value">{{ c.pathLabel }}</div></div>
           <div class="golf-stat-box" data-tip="Starting direction. + is right of target."><div class="stat-label">Start dir</div><div class="stat-value">{{ c.launchDirLabel }}</div></div>
-          <div class="golf-stat-box" data-tip="Tilt of the spin axis. + curves the ball right, − curves it left."><div class="stat-label">Spin axis</div><div class="stat-value">{{ c.spinAxisLabel }}</div></div>
-          <div class="golf-stat-box"><div class="stat-label">Avg side</div><div class="stat-value">{{ c.sideLabel }}</div></div>
+          <div class="golf-stat-box" data-tip="Tilt of the spin axis. + curves the ball right, − curves it left."><div class="stat-label">Spin axis {{ est }}</div><div class="stat-value">{{ c.spinAxisLabel }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Avg side {{ est }}</div><div class="stat-value">{{ c.sideLabel }}</div></div>
         </div>
       </div>
       <div class="range-table-wrap">
         <table class="scorecard-table range-shot-table">
           <thead>
-            <tr><th>#</th><th>Carry</th><th>Total</th><th>Side</th><th>Ball</th><th>Club</th><th>Smash</th><th>Launch</th><th>Dir</th><th>Spin</th><th>Axis</th><th>Apex</th><th>Desc</th><th>Attack</th><th>Path</th><th></th></tr>
+            <tr><th>#</th><th>Carry</th><th>Total</th><th>Side {{ est }}</th><th>Ball</th><th>Club</th><th>Smash</th><th>Launch</th><th>Dir</th><th>Spin {{ est }}</th><th>Axis {{ est }}</th><th>Apex</th><th>Desc</th><th>Attack</th><th>Path</th><th></th></tr>
           </thead>
           <tbody>
             {% for sh in c.shots %}
