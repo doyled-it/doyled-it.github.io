@@ -62,6 +62,54 @@
     </div>
   </div>
 
+  {% set sp = rg.speed %}
+  {% if sp %}
+  {% set sc = sp.chart %}
+  <div class="golf-section">
+    <h3>SWING SPEED <span class="golf-sub">driver club-head speed per session (measured){% if sp.sessions == 1 %} · one point so far, fills in each session{% endif %}</span></h3>
+    <div class="golf-stats-grid">
+      <div class="golf-stat-box" data-tip="Fastest driver swing measured, across every session. Club speed is read by the device, not modeled from spin.">
+        <div class="stat-label">Fastest Swing</div>
+        <div class="stat-value">{{ sp.fastest.max }}<span class="stat-unit">mph</span></div>
+        <div class="muted">{{ sp.fastest.date }}</div>
+      </div>
+      <div class="golf-stat-box" data-tip="Average driver club speed in your most recent session.">
+        <div class="stat-label">Latest Avg</div>
+        <div class="stat-value">{{ sp.latest.avg }}<span class="stat-unit">mph</span></div>
+        <div class="muted">{{ sp.latest.date }}</div>
+      </div>
+      <div class="golf-stat-box" data-tip="Best driver ball speed measured. Ball speed divided by club speed is smash factor; 1.50 is the ceiling.">
+        <div class="stat-label">Best Ball Speed</div>
+        <div class="stat-value">{{ sp.bestBall or "–" }}<span class="stat-unit">mph</span></div>
+      </div>
+    </div>
+    <svg class="golf-chart" viewBox="0 0 {{ sc.w }} {{ sc.h }}" role="img" aria-label="Driver club speed per session">
+      <rect x="{{ sc.padL }}" y="{{ sc.padT }}" width="{{ sc.plotW }}" height="{{ sc.plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+      {% for tk in sc.yTicks %}
+      <line x1="{{ sc.padL }}" y1="{{ tk.y }}" x2="{{ sc.padL + sc.plotW }}" y2="{{ tk.y }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ sc.padL - 6 }}" y="{{ tk.y + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ tk.v }}</text>
+      {% endfor %}
+      {% if sc.avgPath %}<path d="{{ sc.avgPath }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>{% endif %}
+      {% for p in sc.points %}
+      <line x1="{{ p.x }}" y1="{{ p.yMax }}" x2="{{ p.x }}" y2="{{ p.yAvg }}" stroke="#0f7a1e" stroke-width="1" stroke-opacity="0.5"/>
+      <circle cx="{{ p.x }}" cy="{{ p.yMax }}" r="3" fill="none" stroke="#0f7a1e" stroke-width="1.5"><title>{{ p.tipMax }}</title></circle>
+      <circle cx="{{ p.x }}" cy="{{ p.yAvg }}" r="3.5" fill="#0f7a1e" stroke="#000" stroke-width="0.6"><title>{{ p.tipAvg }}</title></circle>
+      <text x="{{ p.x }}" y="{{ sc.padT + sc.plotH + 18 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.label }}</text>
+      {% endfor %}
+      <text x="{{ sc.padL + 6 }}" y="{{ sc.padT + 14 }}" font-size="13" font-family="VT323, monospace" fill="#555">mph ↑</text>
+    </svg>
+    <div class="chart-legend range-legend">
+      <span class="legend-chip"><span class="club-dot" style="background:#0f7a1e"></span>session average</span>
+      <span class="legend-chip"><span class="club-dot" style="background:#fff;border-color:#0f7a1e"></span>fastest that session</span>
+      {% if sc.avgPath %}<span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>avg trend</span>{% endif %}
+    </div>
+    <p class="range-note">
+      Club speed is measured, so this is one of the cleaner numbers here. Roughly every 1 mph of driver club speed is worth about {{ sp.yardsPerMph }} yards of carry, so speed work shows up directly in distance.
+      {% if sp.sessions < 4 %} The trend line needs a few more sessions before it means anything.{% endif %}
+    </p>
+  </div>
+  {% endif %}
+
   <div class="golf-section">
     <h3>CLUB AVERAGES <span class="golf-sub">yards and mph, mishits left out</span></h3>
     <div class="range-table-wrap">

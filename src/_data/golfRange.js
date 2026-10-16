@@ -317,6 +317,7 @@ export default function () {
   if (course) course.fairway = fairwayPrediction(clubs, course);
   const practice = practiceVsScoring(mlm.history || []);
   const odds = oddsModel(clubs);
+  const speed = speedTracker(sessions);
 
   const driver = clubByName.get("Driver");
   const tight = clubs.filter((c) => c.tightGap);
@@ -354,6 +355,7 @@ export default function () {
     course,
     odds,
     practice,
+    speed,
     yardageGroups: ["woods", "irons", "wedges"]
       .map((k) => ({ kind: k, clubs: clubs.filter((c) => c.kind === k && c.nClean > 0) }))
       .filter((g) => g.clubs.length),
@@ -630,5 +632,68 @@ function practiceVsScoring(history) {
     enough: after.length >= MIN_GROUP && other.length >= MIN_GROUP,
     minGroup: MIN_GROUP,
     firstSession: fmtDate(sessions[0].date, { month: "short", year: "numeric" }),
+  };
+}
+
+// ---- Swing-speed tracker ----
+// Driver club-head speed per session over time, with the fastest swing marked.
+// Club speed is measured (not modeled from spin), so every driver swing counts,
+// mishits included: a thinned drive is still a real swing-speed sample.
+function speedTracker(sessions) {
+  const rows = sessions
+    .map((s) => {
+      const drv = s.shots.filter((x) => /driver/i.test(x.club) && isNum(x.clubSpeed));
+      if (!drv.length) return null;
+      const cs = drv.map((x) => x.clubSpeed);
+      const bs = drv.map((x) => x.ballSpeed).filter(isNum);
+      return {
+        id: s.id,
+        date: s.date,
+        t: new Date(s.date).getTime(),
+        n: drv.length,
+        avg: r1(mean(cs)),
+        max: r1(Math.max(...cs)),
+        ballMax: bs.length ? r1(Math.max(...bs)) : null,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.t - b.t);
+  if (!rows.length) return null;
+
+  const ch = { w: 760, h: 220, padL: 44, padR: 16, padT: 16, padB: 32 };
+  ch.plotW = ch.w - ch.padL - ch.padR;
+  ch.plotH = ch.h - ch.padT - ch.padB;
+  const vals = rows.flatMap((d) => [d.avg, d.max]).filter(isNum);
+  ch.lo = niceFloor(Math.min(...vals) - 3, 5);
+  ch.hi = niceCeil(Math.max(...vals) + 3, 5);
+  const n = rows.length;
+  const x = (i) => r1(n === 1 ? ch.padL + ch.plotW / 2 : ch.padL + (i * ch.plotW) / (n - 1));
+  const y = (v) => r1(ch.padT + ((ch.hi - v) / (ch.hi - ch.lo)) * ch.plotH);
+  ch.yTicks = ticks(ch.lo, ch.hi, 5).map((v) => ({ v, y: y(v) }));
+  ch.points = rows.map((d, i) => ({
+    x: x(i),
+    yAvg: y(d.avg),
+    yMax: y(d.max),
+    label: fmtDate(d.date, { month: "short", day: "numeric" }),
+    tipAvg: `${fmtDate(d.date, { month: "short", day: "numeric", year: "numeric" })}: ${d.avg} mph average over ${d.n} drive${d.n === 1 ? "" : "s"}`,
+    tipMax: `${fmtDate(d.date, { month: "short", day: "numeric", year: "numeric" })}: ${d.max} mph fastest`,
+  }));
+  ch.avgPath = n > 1 ? rows.map((d, i) => `${i ? "L" : "M"} ${x(i)} ${y(d.avg)}`).join(" ") : null;
+  ch.single = n === 1;
+
+  const latest = rows[rows.length - 1];
+  const fastest = rows.reduce((a, b) => (b.max > a.max ? b : a));
+  const bestAvg = rows.reduce((a, b) => (b.avg > a.avg ? b : a));
+  const ballMaxes = rows.map((d) => d.ballMax).filter(isNum);
+  return {
+    chart: ch,
+    sessions: n,
+    latest: { avg: latest.avg, max: latest.max, date: fmtDate(latest.date, { month: "short", day: "numeric" }) },
+    fastest: { max: fastest.max, date: fmtDate(fastest.date, { month: "short", year: "numeric" }) },
+    bestAvg: bestAvg.avg,
+    bestBall: ballMaxes.length ? Math.max(...ballMaxes) : null,
+    // 1 mph of club speed is worth roughly 2.5 to 3 yards of driver carry; the
+    // midpoint is a fair rule of thumb to motivate speed work.
+    yardsPerMph: 2.75,
   };
 }
