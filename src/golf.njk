@@ -6,6 +6,8 @@ cardTitle: golf
 forceBuddy: golf-cart
 extraCSS:
   - /assets/css/golf.css
+extraJS:
+  - /assets/js/golf-range.js
 ---
 {% set g = golf.golfer %}
 {% set scores = golf.scores %}
@@ -555,6 +557,10 @@ extraCSS:
       </div>
     </div>
     {% endfor %}
+    {% endif %}
+
+    {% if golfRange.hasData %}
+    {% include "golf-range.njk" %}
     {% endif %}
   </div>
   {% include "footer.njk" %}

@@ -481,3 +481,115 @@
   border-left: 4px solid var(--accent-pink-dark);
 }
 .goal-chart { margin-top: 4px; }
+
+/* --- Range sessions (MLM2PRO) --- */
+.range-block {
+  margin-top: 28px;
+  padding-top: 8px;
+  border-top: 3px double #228b22;
+}
+.range-header {
+  text-align: center;
+  margin-bottom: 14px;
+}
+.range-header h2 {
+  font-family: var(--font-display);
+  color: #228b22;
+  font-size: 22px;
+  margin: 6px 0 4px;
+  letter-spacing: 0.08em;
+}
+.range-header .golfer-info {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: #444;
+}
+.stat-unit {
+  font-size: 15px;
+  font-weight: 400;
+  color: #555;
+  margin-left: 3px;
+}
+.range-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.range-table-wrap .scorecard-table td,
+.range-table-wrap .scorecard-table th { white-space: nowrap; }
+.range-avg-table .club-cell { text-align: left; }
+.club-dot {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1px solid var(--ink);
+  margin-right: 6px;
+  vertical-align: middle;
+}
+.club-dot--mishit {
+  background: #fff;
+  border: 2px solid #c41e3a;
+}
+.muted { color: #888; }
+.range-legend { flex-wrap: wrap; gap: 6px 14px; }
+.range-note {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  color: #444;
+  margin: 8px 0 0;
+  max-width: 800px;
+}
+.range-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 6px 0 12px;
+}
+.range-tab {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  padding: 3px 10px;
+  background: var(--card-body);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 var(--ink);
+  color: var(--ink);
+  cursor: pointer;
+}
+.range-tab:hover { background: var(--accent-yellow); }
+.range-tab.is-active {
+  background: #228b22;
+  color: #fff;
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0 var(--ink);
+}
+.range-panel-head {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  margin-bottom: 8px;
+}
+.range-dive {
+  display: grid;
+  grid-template-columns: minmax(0, 360px) 1fr;
+  gap: 14px;
+  align-items: start;
+  margin-bottom: 12px;
+}
+.range-dive-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.range-dive-stats .golf-stat-box { padding: 4px; }
+.range-dive-stats .stat-label { font-size: 14px; }
+.range-dive-stats .stat-value { font-size: 20px; }
+.range-shot-table tr.mishit-row td { color: #c41e3a; }
+.mishit-tag {
+  font-size: 13px;
+  padding: 0 4px;
+  border: 1px solid #c41e3a;
+  color: #c41e3a;
+  text-transform: uppercase;
+}
+@media (max-width: 720px) {
+  .range-dive { grid-template-columns: 1fr; }
+}

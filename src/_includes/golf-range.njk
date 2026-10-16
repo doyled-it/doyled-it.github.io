@@ -1,0 +1,271 @@
+{# Range sessions from the MLM2PRO launch monitor. View model: src/_data/golfRange.js #}
+{% set rg = golfRange %}
+{% set t = rg.totals %}
+<div class="range-block" id="range">
+  <div class="range-header">
+    <h2>🎯 RANGE · MLM2PRO 🎯</h2>
+    <div class="golfer-info">launch monitor sessions since {{ rg.sinceLabel }} · {{ t.sessions }} session{% if t.sessions != 1 %}s{% endif %} · {{ t.shots }} shots · {{ t.clubs }} clubs</div>
+  </div>
+
+  <div class="golf-stats-grid">
+    <div class="golf-stat-box" data-tip="Longest carry of any shot, any club.">
+      <div class="stat-label">Longest Carry</div>
+      <div class="stat-value">{{ t.longestCarry }}<span class="stat-unit">yd</span></div>
+    </div>
+    <div class="golf-stat-box" data-tip="Fastest club-head speed measured on any swing.">
+      <div class="stat-label">Fastest Club</div>
+      <div class="stat-value">{{ t.fastestClub }}<span class="stat-unit">mph</span></div>
+    </div>
+    <div class="golf-stat-box" data-tip="Average driver carry with mishits left out.">
+      <div class="stat-label">Driver Carry</div>
+      <div class="stat-value">{{ t.driverCarry or "–" }}<span class="stat-unit">yd</span></div>
+    </div>
+    <div class="golf-stat-box" data-tip="Ball speed divided by club speed on the driver. 1.50 is the practical ceiling; it measures how centered the strike is.">
+      <div class="stat-label">Driver Smash</div>
+      <div class="stat-value">{{ t.driverSmash or "–" }}</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Where the average clean shot finishes left or right of the target line, all clubs pooled.">
+      <div class="stat-label">Avg Miss</div>
+      <div class="stat-value">{{ t.avgSideLabel }}</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Shots flagged as mishits and left out of the averages. The rule is under the dispersion chart.">
+      <div class="stat-label">Mishits</div>
+      <div class="stat-value">{{ t.mishits }} / {{ t.shots }}</div>
+    </div>
+  </div>
+
+  <div class="golf-section">
+    <h3>SESSIONS</h3>
+    <div class="range-table-wrap">
+      <table class="scorecard-table">
+        <thead>
+          <tr><th>Date</th><th>Time</th><th>Type</th><th>Shots</th><th>Clubs</th><th>Min</th><th>Longest</th><th>Fastest</th><th>Mishits</th></tr>
+        </thead>
+        <tbody>
+          {% for s in rg.sessions %}
+          <tr>
+            <td>{{ s.date }}</td>
+            <td>{{ s.time }}</td>
+            <td>{{ s.type }}</td>
+            <td>{{ s.shots }}</td>
+            <td>{{ s.clubs }}</td>
+            <td>{{ s.minutes }}</td>
+            <td><strong>{{ s.longestCarry }}</strong></td>
+            <td>{{ s.fastestClub }}</td>
+            <td>{{ s.mishits }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="golf-section">
+    <h3>CLUB AVERAGES <span class="golf-sub">yards and mph, mishits left out</span></h3>
+    <div class="range-table-wrap">
+      <table class="scorecard-table range-avg-table">
+        <thead>
+          <tr>
+            <th>Club</th>
+            <th data-tip="Clean shots / all shots">Shots</th>
+            <th>Carry</th>
+            <th data-tip="Standard deviation of carry. Lower = more consistent distance.">±SD</th>
+            <th>Total</th>
+            <th>Side</th>
+            <th>Ball</th>
+            <th>Club</th>
+            <th>Smash</th>
+            <th>Launch</th>
+            <th>Spin</th>
+            <th>Apex ft</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in rg.clubs %}
+          <tr>
+            <td class="club-cell"><span class="club-dot" style="background:{{ c.color }}"></span>{{ c.club }}</td>
+            <td>{{ c.nClean }}{% if c.nMishit %}<span class="muted">/{{ c.n }}</span>{% endif %}</td>
+            <td><strong>{{ c.carry }}</strong></td>
+            <td>{{ c.carrySd or "–" }}</td>
+            <td>{{ c.total }}</td>
+            <td>{{ c.sideLabel }}</td>
+            <td>{{ c.ballSpeed }}</td>
+            <td>{{ c.clubSpeed }}</td>
+            <td>{{ c.smash }}</td>
+            <td>{{ c.launch }}°</td>
+            <td>{{ c.spin }}</td>
+            <td>{{ c.apex }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  {% set bw = rg.boxplot %}
+  <div class="golf-section">
+    <h3>CARRY BY CLUB <span class="golf-sub">box = middle 50%, line = median, gap = yards to the next club</span></h3>
+    <svg class="golf-chart" viewBox="0 0 {{ bw.w }} {{ bw.h }}" role="img" aria-label="Carry distance box plot per club">
+      <rect x="{{ bw.padL }}" y="{{ bw.padT }}" width="{{ bw.plotW }}" height="{{ bw.plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+      {% for tk in bw.ticks %}
+      <line x1="{{ tk.x }}" y1="{{ bw.padT }}" x2="{{ tk.x }}" y2="{{ bw.padT + bw.plotH }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ tk.x }}" y="{{ bw.padT + bw.plotH + 18 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ tk.v }}</text>
+      {% endfor %}
+      <text x="{{ bw.padL + bw.plotW + 10 }}" y="{{ bw.padT + bw.plotH + 18 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#555">gap</text>
+      {% for row in bw.rows %}
+      <text x="{{ bw.padL - 8 }}" y="{{ row.cy + 5 }}" font-size="15" font-family="VT323, monospace" text-anchor="end" fill="#222">{{ row.club }}</text>
+      <line x1="{{ row.x.min }}" y1="{{ row.cy }}" x2="{{ row.x.max }}" y2="{{ row.cy }}" stroke="{{ row.color }}" stroke-width="1.5"/>
+      <line x1="{{ row.x.min }}" y1="{{ row.cy - 6 }}" x2="{{ row.x.min }}" y2="{{ row.cy + 6 }}" stroke="{{ row.color }}" stroke-width="1.5"/>
+      <line x1="{{ row.x.max }}" y1="{{ row.cy - 6 }}" x2="{{ row.x.max }}" y2="{{ row.cy + 6 }}" stroke="{{ row.color }}" stroke-width="1.5"/>
+      <rect x="{{ row.x.q1 }}" y="{{ row.cy - 8 }}" width="{{ row.x.boxW }}" height="16" fill="{{ row.color }}" fill-opacity="0.22" stroke="{{ row.color }}" stroke-width="1.5"><title>{{ row.club }}: median {{ row.box.med }}, middle 50% {{ row.box.q1 }} to {{ row.box.q3 }}, range {{ row.box.min }} to {{ row.box.max }}</title></rect>
+      <line x1="{{ row.x.med }}" y1="{{ row.cy - 9 }}" x2="{{ row.x.med }}" y2="{{ row.cy + 9 }}" stroke="#000" stroke-width="2.5"/>
+      {% for p in row.points %}
+      {% if p.mishit %}
+      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="3.5" fill="none" stroke="#c41e3a" stroke-width="1.5"><title>{{ p.tip }}</title></circle>
+      {% else %}
+      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="2.5" fill="{{ row.color }}" stroke="#000" stroke-width="0.5"><title>{{ p.tip }}</title></circle>
+      {% endif %}
+      {% endfor %}
+      {% if row.gap != null %}
+      <text x="{{ bw.padL + bw.plotW + 10 }}" y="{{ row.cy + bw.rowH / 2 + 5 }}" font-size="14" font-family="VT323, monospace" text-anchor="start" fill="{% if row.tightGap %}#c41e3a{% else %}#555{% endif %}">{% if row.gap > 0 %}{{ row.gap }}{% else %}{{ row.gap }}!{% endif %}<title>{{ row.club }} to {{ row.nextClub }}: {{ row.gap }} yd (median carry)</title></text>
+      {% endif %}
+      {% endfor %}
+    </svg>
+    {% if rg.tightGaps.length %}
+    <p class="range-note">
+      Tight gaps (under {{ rg.rules.tightGap }} yd):
+      {% for g in rg.tightGaps %}{{ g.club }} → {{ g.next }} ({{ g.gap }} yd){% if not loop.last %}; {% endif %}{% endfor %}.
+      {% for g in rg.tightGaps %}{% if g.gap <= 0 %}The {{ g.club }} is carrying no farther than the {{ g.next }}. {% endif %}{% endfor %}
+    </p>
+    {% endif %}
+  </div>
+
+  {% set dp = rg.dispersion %}
+  <div class="golf-section">
+    <h3>SHOT DISPERSION <span class="golf-sub">where every shot landed, looking down the range</span></h3>
+    <svg class="golf-chart" viewBox="0 0 {{ dp.w }} {{ dp.h }}" role="img" aria-label="Shot dispersion, side versus carry">
+      <rect x="{{ dp.padL }}" y="{{ dp.padT }}" width="{{ dp.plotW }}" height="{{ dp.plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+      {% for tk in dp.xTicks %}
+      <line x1="{{ tk.x }}" y1="{{ dp.padT }}" x2="{{ tk.x }}" y2="{{ dp.padT + dp.plotH }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ tk.x }}" y="{{ dp.padT + dp.plotH + 18 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ tk.label }}</text>
+      {% endfor %}
+      {% for tk in dp.yTicks %}
+      <line x1="{{ dp.padL }}" y1="{{ tk.y }}" x2="{{ dp.padL + dp.plotW }}" y2="{{ tk.y }}" stroke="#e6daa6" stroke-width="1"/>
+      <text x="{{ dp.padL - 6 }}" y="{{ tk.y + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ tk.v }}</text>
+      {% endfor %}
+      <line x1="{{ dp.centerX }}" y1="{{ dp.padT }}" x2="{{ dp.centerX }}" y2="{{ dp.padT + dp.plotH }}" stroke="#000" stroke-width="1.2" stroke-dasharray="5 4"/>
+      {% for e in dp.ellipses %}
+      <ellipse cx="{{ e.cx }}" cy="{{ e.cy }}" rx="{{ e.rx }}" ry="{{ e.ry }}" fill="{{ e.color }}" fill-opacity="0.12" stroke="{{ e.color }}" stroke-width="1.2" stroke-dasharray="3 2"><title>{{ e.club }}: clean-shot spread (±1 SD)</title></ellipse>
+      {% endfor %}
+      {% for p in dp.points %}
+      {% if p.mishit %}
+      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="4" fill="none" stroke="#c41e3a" stroke-width="1.6"><title>{{ p.tip }}</title></circle>
+      {% else %}
+      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="3.5" fill="{{ p.color }}" stroke="#000" stroke-width="0.6"><title>{{ p.tip }}</title></circle>
+      {% endif %}
+      {% endfor %}
+      <text x="{{ dp.padL + 6 }}" y="{{ dp.padT + 16 }}" font-size="13" font-family="VT323, monospace" fill="#555">carry (yd) ↑</text>
+      <text x="{{ dp.padL + dp.plotW - 6 }}" y="{{ dp.padT + dp.plotH - 6 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">left ← side (yd) → right</text>
+    </svg>
+    <div class="chart-legend range-legend">
+      {% for c in rg.clubs %}
+      <span class="legend-chip"><span class="club-dot" style="background:{{ c.color }}"></span>{{ c.code or c.club }}</span>
+      {% endfor %}
+      <span class="legend-chip"><span class="club-dot club-dot--mishit"></span>mishit</span>
+    </div>
+    <p class="range-note">
+      Ovals cover one standard deviation of each club's clean shots (3+ needed). The side axis is stretched about {{ dp.stretch }}× compared with carry so left/right misses are readable, which makes the ovals look wider than they are.
+      A shot counts as a mishit when it carries under {{ rg.rules.carryPct }}% of that club's median, or when its smash factor is {{ rg.rules.smashDrop }}+ below the club's median and it also came up short (under {{ rg.rules.alsoShortPct }}%).
+      Clubs with fewer than {{ rg.rules.minShots }} shots are never flagged.
+    </p>
+  </div>
+
+  <div class="golf-section">
+    <h3>CLUB DEEP DIVE <span class="golf-sub">pick a club</span></h3>
+    <div class="range-tabs" role="tablist">
+      {% for c in rg.clubs %}
+      <button type="button" class="range-tab{% if loop.first %} is-active{% endif %}" role="tab" aria-selected="{{ 'true' if loop.first else 'false' }}" data-target="{{ c.slug }}">{{ c.code or c.club }}</button>
+      {% endfor %}
+    </div>
+    {% for c in rg.clubs %}
+    {% set z = c.zoom %}
+    <div class="range-panel{% if loop.first %} is-active{% endif %}" data-club="{{ c.slug }}" role="tabpanel"{% if not loop.first %} hidden{% endif %}>
+      <div class="range-panel-head">
+        <strong>{{ c.club }}</strong>{% if c.model %} · {{ c.model }}{% endif %} · {{ c.nClean }} clean of {{ c.n }} · {{ c.shape }}
+      </div>
+      <div class="range-dive">
+        <svg class="golf-chart range-zoom" viewBox="0 0 {{ z.w }} {{ z.h }}" role="img" aria-label="{{ c.club }} dispersion">
+          <rect x="{{ z.padL }}" y="{{ z.padT }}" width="{{ z.plotW }}" height="{{ z.plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+          {% for tk in z.xTicks %}
+          <line x1="{{ tk.x }}" y1="{{ z.padT }}" x2="{{ tk.x }}" y2="{{ z.padT + z.plotH }}" stroke="#e6daa6" stroke-width="1"/>
+          <text x="{{ tk.x }}" y="{{ z.padT + z.plotH + 18 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ tk.label }}</text>
+          {% endfor %}
+          {% for tk in z.yTicks %}
+          <line x1="{{ z.padL }}" y1="{{ tk.y }}" x2="{{ z.padL + z.plotW }}" y2="{{ tk.y }}" stroke="#e6daa6" stroke-width="1"/>
+          <text x="{{ z.padL - 6 }}" y="{{ tk.y + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ tk.v }}</text>
+          {% endfor %}
+          <line x1="{{ z.centerX }}" y1="{{ z.padT }}" x2="{{ z.centerX }}" y2="{{ z.padT + z.plotH }}" stroke="#000" stroke-width="1.2" stroke-dasharray="5 4"/>
+          {% if z.ellipse %}
+          <ellipse cx="{{ z.ellipse.cx }}" cy="{{ z.ellipse.cy }}" rx="{{ z.ellipse.rx }}" ry="{{ z.ellipse.ry }}" fill="{{ c.color }}" fill-opacity="0.15" stroke="{{ c.color }}" stroke-width="1.2" stroke-dasharray="3 2"/>
+          <circle cx="{{ z.ellipse.cx }}" cy="{{ z.ellipse.cy }}" r="3" fill="#000"><title>average clean shot: {{ c.carry }} carry, {{ c.sideLabel }}</title></circle>
+          {% endif %}
+          {% for p in z.points %}
+          {% if p.mishit %}
+          <circle cx="{{ p.x }}" cy="{{ p.y }}" r="7" fill="#fff" stroke="#c41e3a" stroke-width="1.6"><title>{{ p.tip }}</title></circle>
+          {% else %}
+          <circle cx="{{ p.x }}" cy="{{ p.y }}" r="7" fill="{{ c.color }}" stroke="#000" stroke-width="0.8"><title>{{ p.tip }}</title></circle>
+          {% endif %}
+          <text x="{{ p.x }}" y="{{ p.y + 4 }}" font-size="12" font-family="VT323, monospace" text-anchor="middle" fill="{% if p.mishit %}#c41e3a{% else %}#fff{% endif %}" pointer-events="none">{{ p.n }}</text>
+          {% endfor %}
+        </svg>
+        <div class="range-dive-stats">
+          <div class="golf-stat-box"><div class="stat-label">Carry</div><div class="stat-value">{{ c.carry }}</div></div>
+          <div class="golf-stat-box" data-tip="Carry standard deviation"><div class="stat-label">Carry ±</div><div class="stat-value">{{ c.carrySd or "–" }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Total</div><div class="stat-value">{{ c.total }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Ball mph</div><div class="stat-value">{{ c.ballSpeed }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Club mph</div><div class="stat-value">{{ c.clubSpeed }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Smash</div><div class="stat-value">{{ c.smash }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Launch</div><div class="stat-value">{{ c.launch }}°</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Spin rpm</div><div class="stat-value">{{ c.spin }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Apex ft</div><div class="stat-value">{{ c.apex }}</div></div>
+          <div class="golf-stat-box" data-tip="Angle the ball comes down at. Steeper holds greens better."><div class="stat-label">Descent</div><div class="stat-value">{{ c.descent }}°</div></div>
+          <div class="golf-stat-box" data-tip="Up (+) or down (−) the club is moving at impact."><div class="stat-label">Attack</div><div class="stat-value">{{ c.attackLabel }}</div></div>
+          <div class="golf-stat-box" data-tip="Club path relative to the target line. + is out to the right, − is to the left."><div class="stat-label">Path</div><div class="stat-value">{{ c.pathLabel }}</div></div>
+          <div class="golf-stat-box" data-tip="Starting direction. + is right of target."><div class="stat-label">Start dir</div><div class="stat-value">{{ c.launchDirLabel }}</div></div>
+          <div class="golf-stat-box" data-tip="Tilt of the spin axis. + curves the ball right, − curves it left."><div class="stat-label">Spin axis</div><div class="stat-value">{{ c.spinAxisLabel }}</div></div>
+          <div class="golf-stat-box"><div class="stat-label">Avg side</div><div class="stat-value">{{ c.sideLabel }}</div></div>
+        </div>
+      </div>
+      <div class="range-table-wrap">
+        <table class="scorecard-table range-shot-table">
+          <thead>
+            <tr><th>#</th><th>Carry</th><th>Total</th><th>Side</th><th>Ball</th><th>Club</th><th>Smash</th><th>Launch</th><th>Dir</th><th>Spin</th><th>Axis</th><th>Apex</th><th>Desc</th><th>Attack</th><th>Path</th><th></th></tr>
+          </thead>
+          <tbody>
+            {% for sh in c.shots %}
+            <tr class="{% if sh.mishit %}mishit-row{% endif %}">
+              <td>{{ sh.n }}</td>
+              <td><strong>{{ sh.carry }}</strong></td>
+              <td>{{ sh.total }}</td>
+              <td>{% if sh.side > 0 %}+{% endif %}{{ sh.side }}</td>
+              <td>{{ sh.ballSpeed }}</td>
+              <td>{{ sh.clubSpeed }}</td>
+              <td>{{ sh.smash }}</td>
+              <td>{{ sh.launch }}°</td>
+              <td>{% if sh.launchDir > 0 %}+{% endif %}{{ sh.launchDir }}°</td>
+              <td>{{ sh.spin }}</td>
+              <td>{% if sh.spinAxis > 0 %}+{% endif %}{{ sh.spinAxis }}°</td>
+              <td>{{ sh.apex }}</td>
+              <td>{{ sh.descent }}°</td>
+              <td>{% if sh.attack > 0 %}+{% endif %}{{ sh.attack }}°</td>
+              <td>{% if sh.clubPath > 0 %}+{% endif %}{{ sh.clubPath }}°</td>
+              <td>{% if sh.mishit %}<span class="mishit-tag" data-tip="{{ sh.why }}">mishit</span>{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
