@@ -55,16 +55,23 @@ jobs:
           MLM_PASSWORD: ${{ secrets.MLM_PASSWORD }}
         run: node scripts/fetch-mlm.mjs
 
+      # Projects: refresh the live GitHub descriptions for the projects page.
+      - name: Refresh project descriptions
+        continue-on-error: true
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/fetch-projects.mjs
+
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json src/_data/mlm.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json src/_data/mlm.json src/_data/github-repos.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json src/_data/mlm.json
-          git commit -m "chore: update baseball, golf and range stats data"
+          git add src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json src/_data/mlm.json src/_data/github-repos.json
+          git commit -m "chore: update stats and project data"
           git push

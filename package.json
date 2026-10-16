@@ -15,6 +15,7 @@
     "update:baseball": "node scripts/sync-stats.mjs --skip-golf-fetch",
     "update:golf": "node scripts/fetch-golf.mjs",
     "update:mlm": "node scripts/fetch-mlm.mjs",
+    "update:projects": "node scripts/fetch-projects.mjs",
     "test": "node --test 'tests/**/*.test.mjs'"
   },
   "devDependencies": {

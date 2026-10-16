@@ -1,0 +1,205 @@
+{
+  "doyled-it/agent-view": {
+    "url": "https://github.com/doyled-it/agent-view",
+    "description": "OpenTUI-based terminal interface for managing and monitoring AI coding agent sessions",
+    "language": "Rust",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/big-eiffel": {
+    "url": "https://github.com/doyled-it/big-eiffel",
+    "description": "Reproducible estimate of the probability Ty France's 2025 NLDS ball would have cleared the fence it hit a roof cable in front of, three ways: empirical pooling, a calibrated drag-plus-Magnus physics model, and physics-informed LightGBM quantile regression.",
+    "language": "Python",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/claude-skills": {
+    "url": "https://github.com/doyled-it/claude-skills",
+    "description": "Personal Claude Code skills marketplace",
+    "language": "Shell",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/claude-vault-skills": {
+    "url": "https://github.com/doyled-it/claude-vault-skills",
+    "description": "Claude Code skill suite for managing an Obsidian vault as a productivity system: automated todos from email, Teams, meetings, and GitLab; daily briefings; dashboards; meeting notes; and autonomous issue implementation.",
+    "language": "Python",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/codex.doyled-it.com": {
+    "url": "https://github.com/doyled-it/codex.doyled-it.com",
+    "description": "",
+    "language": "HTML",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/dbags": {
+    "url": "https://github.com/doyled-it/dbags",
+    "description": "Danny's Big Ass Glove Softball Team Homepage",
+    "language": "JavaScript",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/doyled-it.github.io": {
+    "url": "https://github.com/doyled-it/doyled-it.github.io",
+    "description": "Personal site at doyled-it.com. Eleventy 3 (11ty) + pastel HyperCard aesthetic, hobby cards (baseball, golf, music), cursor buddies.",
+    "language": "JavaScript",
+    "homepage": "https://doyled-it.com",
+    "archived": false
+  },
+  "doyled-it/excalidraw-skill": {
+    "url": "https://github.com/doyled-it/excalidraw-skill",
+    "description": "Agent skill for generating editable .excalidraw diagrams that argue visually: deterministic layout, text measurement, geometry preflight. Installs into Claude Code, Codex, or any skill-aware agent.",
+    "language": "Python",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/explain-codebase-skill": {
+    "url": "https://github.com/doyled-it/explain-codebase-skill",
+    "description": "Claude Code skill: explain a codebase via ASCII diagrams + prose, accelerated by codegraph when available",
+    "language": null,
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/ghin": {
+    "url": "https://github.com/doyled-it/ghin",
+    "description": "⛳ An unofficial wrapper for the GHIN api",
+    "language": null,
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/golf-stats": {
+    "url": "https://github.com/doyled-it/golf-stats",
+    "description": "",
+    "language": "TypeScript",
+    "homepage": "https://doyled-it.com/golf-stats/",
+    "archived": false
+  },
+  "doyled-it/lawyer-brain": {
+    "url": "https://github.com/doyled-it/lawyer-brain",
+    "description": "Is your lawyer brain rotted or is it gleaming?",
+    "language": "Python",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/like-to-discover": {
+    "url": "https://github.com/doyled-it/like-to-discover",
+    "description": "A Spotify Heroku app that puts all likes from your Discover Weekly playlist into an archive playlist.",
+    "language": "Python",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/obsidian-baseball": {
+    "url": "https://github.com/doyled-it/obsidian-baseball",
+    "description": "A vault for all of my baseball notes.",
+    "language": "JavaScript",
+    "homepage": "https://doyled-it.com/obsidian-baseball/",
+    "archived": false
+  },
+  "doyled-it/obsidian-plugin-dev-skill": {
+    "url": "https://github.com/doyled-it/obsidian-plugin-dev-skill",
+    "description": "Claude Code skill for Obsidian community plugin development",
+    "language": null,
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/obsidian-tag-filter": {
+    "url": "https://github.com/doyled-it/obsidian-tag-filter",
+    "description": "",
+    "language": "TypeScript",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/ogham": {
+    "url": "https://github.com/doyled-it/ogham",
+    "description": "Transliterate text into ogham, drawn as SVG. Non-commercial, copyleft.",
+    "language": "JavaScript",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/practice-playbook": {
+    "url": "https://github.com/doyled-it/practice-playbook",
+    "description": "Golf Practice Playbook Website",
+    "language": "JavaScript",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/ratchet": {
+    "url": "https://github.com/doyled-it/ratchet",
+    "description": "",
+    "language": "HTML",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/sdabl-leaderboard": {
+    "url": "https://github.com/doyled-it/sdabl-leaderboard",
+    "description": "",
+    "language": "JavaScript",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/theneedlepoint": {
+    "url": "https://github.com/doyled-it/theneedlepoint",
+    "description": "",
+    "language": "TypeScript",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/theneedlescrape": {
+    "url": "https://github.com/doyled-it/theneedlescrape",
+    "description": "",
+    "language": "Python",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/three-blueberries": {
+    "url": "https://github.com/doyled-it/three-blueberries",
+    "description": "What a California house actually costs, itemised and sourced. No lead capture, no email gate.",
+    "language": "TypeScript",
+    "homepage": "https://blueberries.doyled-it.com",
+    "archived": false
+  },
+  "doyled-it/tutti": {
+    "url": "https://github.com/doyled-it/tutti",
+    "description": "Tutti: drive multiple coding-agent backends through a strict, forge-integrated dev workflow",
+    "language": "Rust",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/umps-vs-players": {
+    "url": "https://github.com/doyled-it/umps-vs-players",
+    "description": "",
+    "language": "HTML",
+    "homepage": null,
+    "archived": false
+  },
+  "doyled-it/wavecrest": {
+    "url": "https://github.com/doyled-it/wavecrest",
+    "description": "Wave Terminal companion for AI coding agents: usage gauges, session orchestration, MCP server",
+    "language": "TypeScript",
+    "homepage": null,
+    "archived": false
+  },
+  "janus-llm/janus-llm": {
+    "url": "https://github.com/janus-llm/janus-llm",
+    "description": "Leveraging LLMs for modernization through intelligent chunking, iterative prompting and reflection, and retrieval augmented generation (RAG).",
+    "language": "Python",
+    "homepage": "https://janus-llm.github.io/janus-llm/",
+    "archived": false
+  },
+  "mitrefireline/simfire": {
+    "url": "https://github.com/mitrefireline/simfire",
+    "description": "An open-source wildfire simulator written in Python and meant to be used to train reinforcement learning (RL) agents.",
+    "language": "Python",
+    "homepage": "https://mitrefireline.github.io/simfire/",
+    "archived": false
+  },
+  "mitrefireline/simharness": {
+    "url": "https://github.com/mitrefireline/simharness",
+    "description": "An open-source Reinforcement Learning (RL) harness written in Python to work with SimFire for training agents to fight wildfires on real data.",
+    "language": "Python",
+    "homepage": "https://fireline.mitre.org",
+    "archived": false
+  }
+}

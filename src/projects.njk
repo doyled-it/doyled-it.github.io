@@ -7,130 +7,20 @@ cardTitle: projects
 <h2>◆ Projects ◆</h2>
 <p class="projects-intro">Public open-source things I've built or contributed to.</p>
 
+{% for section in projects %}
 <section class="projects-section">
   <header class="projects-section-head">
-    <img src="/assets/sprites/projects/agent-view.png" alt="" class="projects-section-icon">
-    <h3>Tools &amp; AI</h3>
+    <img src="/assets/sprites/projects/{{ section.sprite }}.png" alt="" class="projects-section-icon">
+    <h3>{{ section.title }}</h3>
   </header>
   <ul class="projects-list">
+    {% for item in section.items %}
     <li>
-      <a href="https://github.com/doyled-it/agent-view"><strong>agent-view</strong></a>
-      &mdash; Terminal interface for managing and monitoring AI coding agent sessions. Written in Rust.
+      <a href="{{ item.url }}"><strong>{{ item.name }}</strong></a>
+      {%- if item.description %} · {{ item.description }}{% endif %}
+      {%- if item.extra %} {{ item.extra.before }} <a href="{{ item.extra.url }}">{{ item.extra.label }}</a>.{% endif %}
     </li>
-    <li>
-      <a href="https://github.com/doyled-it/claude-vault-skills"><strong>claude-vault-skills</strong></a>
-      &mdash; Claude Code skill suite for managing an Obsidian vault as a productivity system. Daily briefings, dashboards, autonomous issue implementation.
-    </li>
-    <li>
-      <a href="https://github.com/doyled-it/obsidian-plugin-dev-skill"><strong>obsidian-plugin-dev-skill</strong></a>
-      &mdash; Claude Code skill for Obsidian community plugin development. Build, test, publish workflow.
-    </li>
+    {% endfor %}
   </ul>
 </section>
-
-<section class="projects-section">
-  <header class="projects-section-head">
-    <img src="/assets/sprites/projects/vault.png" alt="" class="projects-section-icon">
-    <h3>Obsidian</h3>
-  </header>
-  <ul class="projects-list">
-    <li>
-      <a href="https://github.com/doyled-it/obsidian-tag-filter"><strong>obsidian-tag-filter</strong></a>
-      &mdash; Community plugin for filtering notes by tags.
-    </li>
-    <li>
-      <a href="https://github.com/doyled-it/obsidian-baseball"><strong>obsidian-baseball</strong></a>
-      &mdash; My rec-league baseball stats tracked in Obsidian with Dataview queries. Hitting, fielding, pitching, calculated rates, game logs.
-    </li>
-  </ul>
-</section>
-
-<section class="projects-section">
-  <header class="projects-section-head">
-    <img src="/assets/sprites/projects/baseball.png" alt="" class="projects-section-icon">
-    <h3>Baseball</h3>
-  </header>
-  <ul class="projects-list">
-    <li>
-      <a href="https://github.com/doyled-it/sdabl-leaderboard"><strong>SDABL leaderboard</strong></a>
-      &mdash; A leaderboard site for the San Diego Adult Baseball League. Standings, stats, player rankings.
-    </li>
-    <li>
-      <a href="https://github.com/doyled-it/dbags"><strong>dbags</strong></a>
-      &mdash; Homepage for Danny's Big Ass Glove softball team.
-    </li>
-  </ul>
-</section>
-
-<section class="projects-section">
-  <header class="projects-section-head">
-    <img src="/assets/sprites/projects/golf-bag.png" alt="" class="projects-section-icon">
-    <h3>Golf</h3>
-  </header>
-  <ul class="projects-list">
-    <li>
-      <a href="https://github.com/doyled-it/golf-stats"><strong>golf-stats</strong></a>
-      &mdash; Personal golf stats dashboard pulling from GHIN. Handicap, scoring trends, shot stats, course performance.
-    </li>
-    <li>
-      <a href="https://github.com/doyled-it/practice-playbook"><strong>practice-playbook</strong></a>
-      &mdash; Golf practice playbook website.
-    </li>
-    <li>
-      <a href="https://github.com/doyled-it/ghin"><strong>ghin</strong></a>
-      &mdash; Fork of an unofficial GHIN API wrapper, patched for current response quirks.
-    </li>
-  </ul>
-</section>
-
-<section class="projects-section">
-  <header class="projects-section-head">
-    <img src="/assets/sprites/projects/vinyl.png" alt="" class="projects-section-icon">
-    <h3>Music &amp; culture</h3>
-  </header>
-  <ul class="projects-list">
-    <li>
-      <a href="https://github.com/doyled-it/theneedlepoint"><strong>theneedlepoint</strong></a>
-      &mdash; Visualizes data from The Needle Drop reviews. Companion scraper at
-      <a href="https://github.com/doyled-it/theneedlescrape">theneedlescrape</a>.
-    </li>
-    <li>
-      <a href="https://github.com/doyled-it/like-to-discover"><strong>like-to-discover</strong></a>
-      &mdash; Spotify Heroku app that archives every Discover Weekly like into a long-running playlist.
-    </li>
-  </ul>
-</section>
-
-<section class="projects-section">
-  <header class="projects-section-head">
-    <img src="/assets/sprites/projects/janus.png" alt="" class="projects-section-icon">
-    <h3>Research / MITRE OSS</h3>
-  </header>
-  <ul class="projects-list">
-    <li>
-      <a href="https://github.com/janus-llm/janus-llm"><strong>janus-llm</strong></a>
-      &mdash; LLM-powered code modernization via chunking, iterative prompting, and RAG.
-    </li>
-    <li>
-      <a href="https://github.com/mitrefireline/simfire"><strong>SimFire</strong></a>
-      &mdash; Open-source wildfire simulator for training reinforcement learning agents. Published at NeurIPS 2023.
-    </li>
-    <li>
-      <a href="https://github.com/mitrefireline/simharness"><strong>SimHarness</strong></a>
-      &mdash; The RL training harness paired with SimFire. Agent training, reward shaping, experiment management.
-    </li>
-  </ul>
-</section>
-
-<section class="projects-section">
-  <header class="projects-section-head">
-    <img src="/assets/sprites/projects/mac.png" alt="" class="projects-section-icon">
-    <h3>This site</h3>
-  </header>
-  <ul class="projects-list">
-    <li>
-      <a href="https://github.com/doyled-it/doyled-it.github.io"><strong>doyled-it.com</strong></a>
-      &mdash; The one you're looking at. 11ty static build, Cloudflare Worker for the chat endpoint, pastel HyperCard aesthetic, cursor buddies, Last.fm integration.
-    </li>
-  </ul>
-</section>
+{% endfor %}
