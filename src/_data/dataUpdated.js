@@ -3,7 +3,12 @@ import { execSync } from "node:child_process";
 // YYYY-MM-DD of the most recent commit that touched the live stats files.
 // Surfaces in the footer next to the version, so a stats refresh is visible
 // even when the code version doesn't change.
-const TRACKED = ["src/_data/baseball.json", "src/_data/golf-raw.json", "src/_data/mlm.json"];
+const TRACKED = [
+  "src/_data/baseball.json",
+  "src/_data/golf-raw.json",
+  "src/_data/mlm.json",
+  "src/_data/18birdies.json",
+];
 
 export default function () {
   try {

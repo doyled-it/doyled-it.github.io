@@ -703,3 +703,13 @@
 .rvc-stat .stat-label { font-family: var(--font-mono); font-size: 14px; color: #444; text-transform: uppercase; }
 .rvc-stat .stat-value { font-family: var(--font-mono); font-size: 24px; font-weight: 700; color: #228b22; }
 .rvc-vs { font-family: var(--font-mono); font-size: 18px; color: #666; }
+
+/* 18Birdies on-course section */
+.golf-note {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: #777;
+  margin: 6px 2px 0;
+  font-style: italic;
+}
+.club-n { color: #888; font-size: 0.85em; }
