@@ -175,7 +175,7 @@
     </div>
     <p class="range-note">
       Ovals cover one standard deviation of each club's clean shots (3+ needed). The side axis is stretched about {{ dp.stretch }}× compared with carry so left/right misses are readable, which makes the ovals look wider than they are.
-      A shot counts as a mishit when it carries under {{ rg.rules.carryPct }}% of that club's median, or when its smash factor is {{ rg.rules.smashDrop }}+ below the club's median and it also came up short (under {{ rg.rules.alsoShortPct }}%).
+      A shot counts as a mishit when it carries under {{ rg.rules.carryPct }}% of that club's median, or when its smash factor is {{ rg.rules.smashDrop }}+ below the club's median and it also came up short (under {{ rg.rules.alsoShortPct }}%). A shot that launches {{ rg.rules.lowLaunch }}° or more under the club's median launch is also a mishit (a thin strike, which can fly long).
       Clubs with fewer than {{ rg.rules.minShots }} shots are never flagged.
     </p>
   </div>

@@ -10,7 +10,9 @@
 // when it carries under MISHIT_CARRY of the median, or when its smash factor
 // is MISHIT_SMASH or more below the median (the signature of an off-center
 // strike) and it also came up short. The second condition keeps a wedge with
-// a low smash but a normal carry from being thrown out. Mishits still show on
+// a low smash but a normal carry from being thrown out. A shot that launches
+// LOW_LAUNCH degrees or more under the club's median is also a mishit: that is
+// a thin strike, which on a wedge flies long instead of short. Mishits still show on
 // every chart (hollow, red outline) but are left out of averages, boxes,
 // ellipses and gapping.
 
@@ -20,6 +22,7 @@ import path from "node:path";
 const MISHIT_CARRY = 0.85;
 const MISHIT_SMASH = 0.1;
 const SMASH_ALSO_SHORT = 0.95;
+const LOW_LAUNCH = 6; // degrees under the club's median launch
 const MIN_SHOTS_TO_FLAG = 3;
 const TIGHT_GAP = 6; // yards; consecutive clubs closer than this overlap
 
@@ -92,6 +95,7 @@ export default function () {
     const all = byClub.get(name);
     const medCarry = median(all.map((x) => x.carry));
     const medSmash = median(all.map((x) => x.smash));
+    const medLaunch = median(all.map((x) => x.launch));
     const canFlag = all.length >= MIN_SHOTS_TO_FLAG;
     const flagged = all.map((sh) => {
       const reasons = [];
@@ -105,6 +109,7 @@ export default function () {
       ) {
         reasons.push("off-center strike");
       }
+      if (canFlag && isNum(sh.launch) && sh.launch <= medLaunch - LOW_LAUNCH + 1e-9) reasons.push("launched low");
       return { ...sh, mishit: reasons.length > 0, why: reasons.join(", ") };
     });
     const clean = flagged.filter((x) => !x.mishit);
@@ -315,6 +320,7 @@ export default function () {
       carryPct: Math.round(MISHIT_CARRY * 100),
       smashDrop: MISHIT_SMASH,
       alsoShortPct: Math.round(SMASH_ALSO_SHORT * 100),
+      lowLaunch: LOW_LAUNCH,
       minShots: MIN_SHOTS_TO_FLAG,
       tightGap: TIGHT_GAP,
     },
