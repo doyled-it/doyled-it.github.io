@@ -3969,14 +3969,14 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-10-11T11:53:28.468Z",
+      "updated": "2026-10-16T03:12:47.420Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
         "Expos (25A)"
       ],
       "playoffSpots": 6,
-      "totalGames": 8,
+      "totalGames": 11,
       "standings": [
         {
           "rank": 1,
@@ -4729,6 +4729,246 @@
             "record": "2 - 2"
           },
           "venue": "Montgomery HS · Varsity",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "1:00 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "1:00 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "1:00 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "11:45 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "THE OG",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 15",
+          "dow": "Sun",
+          "isoDate": "2026-11-15",
+          "time": "8:30 AM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 15",
+          "dow": "Sun",
+          "isoDate": "2026-11-15",
+          "time": "1:00 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "THE OG",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "venue": "Chollas · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 15",
+          "dow": "Sun",
+          "isoDate": "2026-11-15",
+          "time": "1:00 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Hilton Head · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 15",
+          "dow": "Sun",
+          "isoDate": "2026-11-15",
+          "time": "11:45 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 22",
+          "dow": "Sun",
+          "isoDate": "2026-11-22",
+          "time": "8:30 AM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "home": {
+            "team": "Expos (25A)",
+            "score": null,
+            "record": "3 - 2"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 22",
+          "dow": "Sun",
+          "isoDate": "2026-11-22",
+          "time": "9:00 AM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Reapers Baseball Club",
+            "score": null,
+            "record": "4 - 0"
+          },
+          "venue": "Otay Ranch HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 22",
+          "dow": "Sun",
+          "isoDate": "2026-11-22",
+          "time": "9:00 AM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "THE OG",
+            "score": null,
+            "record": "2 - 2"
+          },
+          "home": {
+            "team": "Vaqueros",
+            "score": null,
+            "record": "0 - 2"
+          },
+          "venue": "San Ysidro HS · JV",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 22",
+          "dow": "Sun",
+          "isoDate": "2026-11-22",
+          "time": "11:45 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "home": {
+            "team": "BYE",
+            "score": null,
+            "record": ""
+          },
+          "venue": "BYE · Week off",
           "recapUrl": null
         }
       ]
