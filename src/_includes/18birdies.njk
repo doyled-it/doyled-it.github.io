@@ -107,6 +107,34 @@
 </div>
 {% endif %}
 
+{% if eb.firstPutt.count > 8 %}
+{% set fp = eb.firstPutt %}
+<div class="golf-section">
+  <h3>APPROACH PROXIMITY <span class="golf-sub">how close approaches finish to the pin &middot; {{ fp.count }} on-green shots &middot; proxy for first-putt distance</span></h3>
+  <div class="golf-stats-grid">
+    <div class="golf-stat-box" data-tip="Average distance your approach shots finish from the pin, for shots that end on or near the green.">
+      <div class="stat-label">Avg Proximity</div>
+      <div class="stat-value">{{ fp.avgFt }}<span class="stat-unit">ft</span></div>
+    </div>
+    <div class="golf-stat-box" data-tip="Median proximity (half of approaches finish inside this).">
+      <div class="stat-label">Median</div>
+      <div class="stat-value">{{ fp.medianFt }}<span class="stat-unit">ft</span></div>
+    </div>
+  </div>
+  <div class="scoring-dist">
+    {% set bmax = 1 %}{% for b in fp.bands %}{% if b.count > bmax %}{% set bmax = b.count %}{% endif %}{% endfor %}
+    {% for b in fp.bands %}
+    <div class="dist-bar">
+      <span class="dist-label">{{ b.lo }}-{{ b.hi }} ft</span>
+      <div class="dist-fill" style="width: {{ (b.count / bmax * 100) | round(0) }}%; background:#0f7a1e"></div>
+      <span class="dist-pct">{{ b.count }}</span>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="golf-note">Derived from each approach's finish vs its aim point; 18Birdies does not expose first-putt distance in local data.</p>
+</div>
+{% endif %}
+
 <div class="golf-section">
   <h3>COURSES <span class="golf-sub">18Birdies rounds, over par per hole</span></h3>
   <table class="scorecard-table">

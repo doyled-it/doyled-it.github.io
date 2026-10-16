@@ -160,6 +160,35 @@ export default function () {
     avgLateral: points.length ? r1(mean(points.map((p) => p.x))) : 0,
   };
 
+  // Approach proximity (first-putt-distance proxy): how close approaches finish
+  // to the aimed pin, for shots that end on or near the green. 18Birdies does
+  // not expose first-putt distance locally, so this is derived from finish vs aim.
+  const ON_GREEN_YD = 18;
+  const proxFt = [];
+  for (const s of shots) {
+    if (s.lie === "Tee") continue;
+    const mv = missVector(s);
+    if (!mv) continue;
+    const dy = Math.hypot(mv.along, mv.lateral);
+    if (dy <= ON_GREEN_YD) proxFt.push(dy * 3);
+  }
+  const bandDefs = [
+    [0, 10],
+    [10, 20],
+    [20, 30],
+    [30, ON_GREEN_YD * 3],
+  ];
+  const firstPutt = {
+    count: proxFt.length,
+    avgFt: proxFt.length ? Math.round(mean(proxFt)) : null,
+    medianFt: proxFt.length ? Math.round(median(proxFt)) : null,
+    bands: bandDefs.map(([lo, hi]) => ({
+      lo,
+      hi,
+      count: proxFt.filter((p) => p >= lo && p < hi).length,
+    })),
+  };
+
   // By course (over par per hole, course-length agnostic).
   const byCourseMap = new Map();
   for (const r of rounds) {
@@ -205,6 +234,7 @@ export default function () {
     clubs,
     byLie,
     dispersion,
+    firstPutt,
     byCourse,
     recent,
   };
