@@ -46,9 +46,10 @@ function missVector(shot) {
   if (!start || !end || !aim) return null;
   const [lng0, lat0] = start;
   const latRad = (lat0 * Math.PI) / 180;
+  // Meters per degree: longitude scales by cos(latitude), latitude is ~constant.
   const toM = (p) => [
     (p[0] - lng0) * 111320 * Math.cos(latRad),
-    (p[1] - lat0) * 110540,
+    (p[1] - lat0) * 111132,
   ];
   const tgt = toM(aim);
   const tlen = Math.hypot(tgt[0], tgt[1]);
@@ -92,11 +93,13 @@ export default function () {
     count: sum(rounds.map((r) => r[k])),
   }));
   const distTotal = sum(dist.map((d) => d.count)) || 1;
+  const distMax = Math.max(1, ...dist.map((d) => d.count));
   const scoreDist = dist.map((d) => ({
     key: d.key,
     label: { eagles: "Eagle+", birdies: "Birdie", pars: "Par", bogeys: "Bogey", doublePlus: "Dbl+" }[d.key],
     count: d.count,
     pct: Math.round((100 * d.count) / distTotal),
+    barPct: Math.round((100 * d.count) / distMax),
   }));
 
   // Club True Distances (filtered by the app's include flag).
@@ -129,6 +132,7 @@ export default function () {
     byLieMap.get(s.lie).push(s);
   }
   const lieTotal = sum([...byLieMap.values()].map((v) => v.length)) || 1;
+  const lieMaxShots = Math.max(1, ...[...byLieMap.values()].map((v) => v.length));
   const byLie = lieOrder
     .filter((l) => byLieMap.has(l))
     .map((l) => {
@@ -138,6 +142,7 @@ export default function () {
         lie: l,
         shots: v.length,
         pct: Math.round((100 * v.length) / lieTotal),
+        barPct: Math.round((100 * v.length) / lieMaxShots),
         avgDist: tds.length ? Math.round(mean(tds)) : null,
       };
     });
@@ -178,14 +183,17 @@ export default function () {
     [20, 30],
     [30, ON_GREEN_YD * 3],
   ];
+  const bandCounts = bandDefs.map(([lo, hi]) => proxFt.filter((p) => p >= lo && p < hi).length);
+  const bandMax = Math.max(1, ...bandCounts);
   const firstPutt = {
     count: proxFt.length,
     avgFt: proxFt.length ? Math.round(mean(proxFt)) : null,
     medianFt: proxFt.length ? Math.round(median(proxFt)) : null,
-    bands: bandDefs.map(([lo, hi]) => ({
+    bands: bandDefs.map(([lo, hi], i) => ({
       lo,
       hi,
-      count: proxFt.filter((p) => p >= lo && p < hi).length,
+      count: bandCounts[i],
+      barPct: Math.round((100 * bandCounts[i]) / bandMax),
     })),
   };
 

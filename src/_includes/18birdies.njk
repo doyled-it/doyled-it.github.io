@@ -44,6 +44,21 @@
   </div>
 </div>
 
+{% if eb.scoreDist.length %}
+<div class="golf-section">
+  <h3>SCORING MIX <span class="golf-sub">share of holes, eagles through doubles</span></h3>
+  <div class="scoring-dist">
+    {% for d in eb.scoreDist %}
+    <div class="dist-bar">
+      <span class="dist-label">{{ d.label }}</span>
+      <div class="dist-fill" style="width: {{ d.barPct }}%; background:#0f7a1e"></div>
+      <span class="dist-pct">{{ d.pct }}% <span class="club-n">({{ d.count }})</span></span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
 {% if eb.clubs.length %}
 <div class="golf-section">
   <h3>CLUB DISTANCES <span class="golf-sub">median True Distance (elevation/wind-adjusted), app-filtered shots</span></h3>
@@ -63,12 +78,10 @@
 <div class="golf-section">
   <h3>BY LIE <span class="golf-sub">where your tracked shots are played from</span></h3>
   <div class="scoring-dist">
-    {% set lieMax = eb.byLie[0].shots %}
-    {% for l in eb.byLie %}{% if l.shots > lieMax %}{% set lieMax = l.shots %}{% endif %}{% endfor %}
     {% for l in eb.byLie %}
     <div class="dist-bar">
       <span class="dist-label">{{ l.lie }}</span>
-      <div class="dist-fill" style="width: {{ (l.shots / lieMax * 100) | round(0) }}%; background:#228b22"></div>
+      <div class="dist-fill" style="width: {{ l.barPct }}%; background:#228b22"></div>
       <span class="dist-pct">{{ l.pct }}% <span class="club-n">({{ l.shots }})</span></span>
     </div>
     {% endfor %}
@@ -122,11 +135,10 @@
     </div>
   </div>
   <div class="scoring-dist">
-    {% set bmax = 1 %}{% for b in fp.bands %}{% if b.count > bmax %}{% set bmax = b.count %}{% endif %}{% endfor %}
     {% for b in fp.bands %}
     <div class="dist-bar">
       <span class="dist-label">{{ b.lo }}-{{ b.hi }} ft</span>
-      <div class="dist-fill" style="width: {{ (b.count / bmax * 100) | round(0) }}%; background:#0f7a1e"></div>
+      <div class="dist-fill" style="width: {{ b.barPct }}%; background:#0f7a1e"></div>
       <span class="dist-pct">{{ b.count }}</span>
     </div>
     {% endfor %}
