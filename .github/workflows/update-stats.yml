@@ -2,7 +2,7 @@ name: Update Stats Data
 
 on:
   schedule:
-    - cron: '0 6 * * 0'  # Every Sunday at 6am UTC
+    - cron: '0 10 * * *'  # Daily at 10:00 UTC (3am PDT / 2am PST), after evening range sessions
   workflow_dispatch:
 
 permissions:

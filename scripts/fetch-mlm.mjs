@@ -5,7 +5,9 @@
 // the returned JWT as "Authorization: JWT <token>" on each request.
 //
 // Only sessions on or after `since` in scripts/mlm-sources.json are kept (the
-// most recent session when this was set up, plus everything after it).
+// most recent session when this was set up, plus everything after it), and
+// only the session types listed in `sessionTypes` (PRACTICE by default, so
+// target-range games full of partial swings don't drag club averages down).
 //
 // The API is metric (meters, m/s); values are converted to yards, mph and feet
 // here so the site can render them as-is.
@@ -25,7 +27,9 @@ const M_TO_FT = 3.28084;
 // Local runs read .env; CI passes the secrets as env vars and has no .env.
 if (existsSync(join(repoRoot, ".env"))) process.loadEnvFile(join(repoRoot, ".env"));
 
-const { since } = JSON.parse(readFileSync(join(repoRoot, "scripts/mlm-sources.json"), "utf8"));
+const { since, sessionTypes = ["PRACTICE"] } = JSON.parse(
+  readFileSync(join(repoRoot, "scripts/mlm-sources.json"), "utf8")
+);
 const email = process.env.MLM_EMAIL;
 const password = process.env.MLM_PASSWORD;
 if (!email || !password) {
@@ -87,8 +91,8 @@ const listed = list.data ?? [];
 if ((list.total ?? 0) > listed.length) {
   console.warn(`⚠️  activities returned ${listed.length} of ${list.total}; some sessions may be missing`);
 }
-const wanted = listed.filter((s) => new Date(s.date) >= sinceDate);
-console.log(`   ${wanted.length} session(s) since ${since}`);
+const wanted = listed.filter((s) => new Date(s.date) >= sinceDate && sessionTypes.includes(s.sessionType));
+console.log(`   ${wanted.length} ${sessionTypes.join("/")} session(s) since ${since}`);
 
 const sessions = [];
 for (const s of wanted) {
