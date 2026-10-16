@@ -1,0 +1,140 @@
+{# On-course shot data from 18Birdies. Rendered into golf.njk when data exists. #}
+{% if eighteenBirdies.ok %}
+{% set eb = eighteenBirdies %}
+{% set s = eb.summary %}
+
+<div class="golf-section eighteen-birdies">
+  <h3>ON-COURSE SHOT DATA <span class="golf-sub">from 18Birdies &middot; {{ s.shots }} tracked full-swing shots across {{ s.rounds }} rounds</span></h3>
+
+  <div class="golf-stats-grid">
+    <div class="golf-stat-box" data-tip="18Birdies' own handicap index, computed from your on-course rounds (separate from your USGA/GHIN index above).">
+      <div class="stat-label">18B Handicap</div>
+      <div class="stat-value">{{ eb.profile.handicap if eb.profile.handicap != null else "–" }}</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Rounds logged in 18Birdies, split by 18-hole and 9-hole.">
+      <div class="stat-label">Rounds</div>
+      <div class="stat-value">{{ s.rounds }} <span class="stat-unit">({{ s.rounds18 }}×18 / {{ s.rounds9 }}×9)</span></div>
+    </div>
+    <div class="golf-stat-box" data-tip="Greens in regulation, measured from shot positions.">
+      <div class="stat-label">GIR</div>
+      <div class="stat-value">{{ s.girPct }}%</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Fairways hit off the tee on par 4s and 5s, from shot positions.">
+      <div class="stat-label">Fairways</div>
+      <div class="stat-value">{{ s.fairwayPct }}%</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Average putts per 18-hole round.">
+      <div class="stat-label">Putts / 18</div>
+      <div class="stat-value">{{ s.avgPutts18 if s.avgPutts18 != null else "–" }}</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Average score to par on 18-hole rounds.">
+      <div class="stat-label">Avg 18H</div>
+      <div class="stat-value {% if s.avgToPar18 > 0 %}score-over{% elif s.avgToPar18 < 0 %}score-under{% endif %}">{% if s.avgToPar18 != null %}{% if s.avgToPar18 > 0 %}+{% endif %}{{ s.avgToPar18 }}{% else %}–{% endif %}</div>
+    </div>
+    <div class="golf-stat-box" data-tip="Average score to par on 9-hole rounds.">
+      <div class="stat-label">Avg 9H</div>
+      <div class="stat-value {% if s.avgToPar9 > 0 %}score-over{% elif s.avgToPar9 < 0 %}score-under{% endif %}">{% if s.avgToPar9 != null %}{% if s.avgToPar9 > 0 %}+{% endif %}{{ s.avgToPar9 }}{% else %}–{% endif %}</div>
+    </div>
+    {% if s.best18 %}
+    <div class="golf-stat-box" data-tip="Best 18-hole round to par ({{ s.best18.course }}).">
+      <div class="stat-label">Best 18H</div>
+      <div class="stat-value score-under">{% if s.best18.toPar > 0 %}+{% endif %}{{ s.best18.toPar }}</div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+{% if eb.clubs.length %}
+<div class="golf-section">
+  <h3>CLUB DISTANCES <span class="golf-sub">median True Distance (elevation/wind-adjusted), app-filtered shots</span></h3>
+  <div class="scoring-dist">
+    {% for c in eb.clubs %}
+    <div class="dist-bar">
+      <span class="dist-label">{{ c.label }}</span>
+      <div class="dist-fill" style="width: {{ c.barPct }}%; background:#0f7a1e"></div>
+      <span class="dist-pct">{{ c.median }}y <span class="club-n">({{ c.shots }})</span></span>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+{% if eb.byLie.length %}
+<div class="golf-section">
+  <h3>BY LIE <span class="golf-sub">where your tracked shots are played from</span></h3>
+  <div class="scoring-dist">
+    {% set lieMax = eb.byLie[0].shots %}
+    {% for l in eb.byLie %}{% if l.shots > lieMax %}{% set lieMax = l.shots %}{% endif %}{% endfor %}
+    {% for l in eb.byLie %}
+    <div class="dist-bar">
+      <span class="dist-label">{{ l.lie }}</span>
+      <div class="dist-fill" style="width: {{ (l.shots / lieMax * 100) | round(0) }}%; background:#228b22"></div>
+      <span class="dist-pct">{{ l.pct }}% <span class="club-n">({{ l.shots }})</span></span>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="golf-note">Lie labels are inferred from 18Birdies' shot data; Tee is confirmed, the rest are best-effort.</p>
+</div>
+{% endif %}
+
+{% if eb.dispersion.count > 8 %}
+{% set d = eb.dispersion %}
+{% set size = 320 %}
+{% set half = size / 2 %}
+{% set scale = half / (d.window + 2) %}
+<div class="golf-section">
+  <h3>APPROACH DISPERSION <span class="golf-sub">{{ d.count }} aimed shots, miss relative to target (center = pin)</span></h3>
+  <svg class="golf-chart" viewBox="0 0 {{ size }} {{ size }}" role="img" aria-label="Approach shot dispersion around the pin">
+    <rect x="1" y="1" width="{{ size - 2 }}" height="{{ size - 2 }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+    {% for ring in [10, 20, 30, 40] %}
+    <circle cx="{{ half }}" cy="{{ half }}" r="{{ ring * scale }}" fill="none" stroke="#e6daa6" stroke-width="1"/>
+    <text x="{{ half + ring * scale - 2 }}" y="{{ half - 3 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#999">{{ ring }}y</text>
+    {% endfor %}
+    <line x1="{{ half }}" y1="8" x2="{{ half }}" y2="{{ size - 8 }}" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+    <line x1="8" y1="{{ half }}" x2="{{ size - 8 }}" y2="{{ half }}" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+    <text x="{{ half + 4 }}" y="14" font-size="12" font-family="VT323, monospace" fill="#555">LONG</text>
+    <text x="{{ half + 4 }}" y="{{ size - 6 }}" font-size="12" font-family="VT323, monospace" fill="#555">SHORT</text>
+    {% for p in d.points %}
+    <circle cx="{{ half + p.x * scale }}" cy="{{ half - p.y * scale }}" r="2.6" fill="#0f7a1e" fill-opacity="0.5" stroke="#0f5416" stroke-width="0.5"><title>{{ p.club }}: {{ p.y }}y {% if p.y >= 0 %}long{% else %}short{% endif %}, {{ p.x | abs }}y {% if p.x >= 0 %}right{% else %}left{% endif %}</title></circle>
+    {% endfor %}
+    <circle cx="{{ half }}" cy="{{ half }}" r="3.5" fill="#c41e3a" stroke="#000" stroke-width="1"/>
+  </svg>
+  <div class="chart-legend">
+    <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Pin</span>
+    <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Shot finish</span>
+    <span class="legend-chip">Avg: {{ d.avgLong | abs }}y {% if d.avgLong >= 0 %}long{% else %}short{% endif %}, {{ d.avgLateral | abs }}y {% if d.avgLateral >= 0 %}right{% else %}left{% endif %}</span>
+  </div>
+</div>
+{% endif %}
+
+<div class="golf-section">
+  <h3>COURSES <span class="golf-sub">18Birdies rounds, over par per hole</span></h3>
+  <table class="scorecard-table">
+    <thead><tr><th>Course</th><th>Rounds</th><th>Over par / hole</th></tr></thead>
+    <tbody>
+      {% for c in eb.byCourse %}
+      <tr><td>{{ c.course }}</td><td>{{ c.rounds }}</td><td class="{% if c.overParPerHole > 0 %}score-over{% elif c.overParPerHole < 0 %}score-under{% endif %}">{% if c.overParPerHole > 0 %}+{% endif %}{{ c.overParPerHole }}</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="golf-section">
+  <h3>RECENT 18BIRDIES ROUNDS</h3>
+  <table class="scorecard-table">
+    <thead><tr><th>Date</th><th>Course</th><th>Holes</th><th>Score</th><th>To par</th></tr></thead>
+    <tbody>
+      {% for r in eb.recent %}
+      <tr>
+        <td>{{ r.date | readableDate }}</td>
+        <td>{{ r.course }}</td>
+        <td>{{ r.holes }}</td>
+        <td>{{ r.strokes }}</td>
+        <td class="{% if r.toPar > 0 %}score-over{% elif r.toPar < 0 %}score-under{% endif %}">{% if r.toPar > 0 %}+{% endif %}{{ r.toPar }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="golf-note">Shot data updated {{ eb.generatedAt | readableDate }}. Source: 18Birdies, exported locally.</p>
+</div>
+{% endif %}
