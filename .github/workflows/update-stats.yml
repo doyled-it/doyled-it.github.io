@@ -46,16 +46,25 @@ jobs:
       - name: Fetch SDABL league data
         run: node scripts/fetch-sdabl.mjs
 
+      # Range: MLM2PRO sessions from Rapsodo RCloud (unofficial API, login with secrets).
+      # Allowed to fail so a Rapsodo change can't block the other stats updates.
+      - name: Fetch MLM2PRO range sessions
+        continue-on-error: true
+        env:
+          MLM_EMAIL: ${{ secrets.MLM_EMAIL }}
+          MLM_PASSWORD: ${{ secrets.MLM_PASSWORD }}
+        run: node scripts/fetch-mlm.mjs
+
       - name: Check for changes
         id: changes
         run: |
-          git diff --quiet src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
+          git diff --quiet src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json src/_data/mlm.json && echo "changed=false" >> $GITHUB_OUTPUT || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Commit and push
         if: steps.changes.outputs.changed == 'true'
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json
-          git commit -m "chore: update baseball and golf stats data"
+          git add src/_data/baseball.json src/_data/golf-raw.json src/_data/league.json src/_data/mlm.json
+          git commit -m "chore: update baseball, golf and range stats data"
           git push
