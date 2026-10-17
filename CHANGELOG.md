@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.0] - 2026-10-17
+
+### Changed
+
+- feat(golf): strokes-gained trend, club gapping, on-target by lie (#12) (@doyled-it)
+
 ## [1.1.0] - 2026-10-16
 
 ### Changed
