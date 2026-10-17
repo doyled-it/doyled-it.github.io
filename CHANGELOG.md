@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.1] - 2026-10-17
+
+### Changed
+
+- fix(golf): exclude other players' rounds; fix bar overlap (#14) (@doyled-it)
+
 ## [1.3.0] - 2026-10-17
 
 ### Changed
