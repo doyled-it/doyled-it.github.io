@@ -714,6 +714,19 @@
 }
 .club-n { color: #888; font-size: 0.85em; }
 
+/* 18Birdies bar lists carry a value plus a count, so widen the value column and
+   let each row grow to fit instead of overlapping (the base .dist-bar is a
+   fixed 26px tall with a 46px value column, sized for GHIN's single values). */
+.eb-dist .dist-bar {
+  grid-template-columns: 92px 1fr auto;
+  height: auto;
+  min-height: 24px;
+}
+.eb-dist .dist-pct {
+  white-space: nowrap;
+  text-align: right;
+}
+
 /* 18Birdies satellite shot map */
 .shotmap-controls {
   font-family: var(--font-mono);
