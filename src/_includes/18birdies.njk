@@ -59,6 +59,58 @@
 </div>
 {% endif %}
 
+{% if eb.sgTrend.count > 2 %}
+{% set sg = eb.sgTrend %}
+{% set cw = 760 %}{% set ch = 190 %}
+{% set pl = 44 %}{% set pr = 16 %}{% set pt = 14 %}{% set pb = 30 %}
+{% set pw = cw - pl - pr %}{% set ph = ch - pt - pb %}
+{% set padv = ((sg.max - sg.min) or 1) * 0.1 %}
+{% set ymin = sg.min - padv %}{% set ymax = sg.max + padv %}
+{% set yr = (ymax - ymin) or 1 %}
+{% set n = sg.points | length %}
+<div class="golf-section">
+  <h3>STROKES GAINED TREND <span class="golf-sub">per round, overall and tee-to-green &middot; higher is better</span></h3>
+  <svg class="golf-chart" viewBox="0 0 {{ cw }} {{ ch }}" role="img" aria-label="Strokes gained trend">
+    <rect x="{{ pl }}" y="{{ pt }}" width="{{ pw }}" height="{{ ph }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+    {% for g in [0, 0.25, 0.5, 0.75, 1.0] %}
+      {% set gy = pt + g * ph %}{% set val = ymax - g * yr %}
+    <line x1="{{ pl }}" y1="{{ gy }}" x2="{{ pl + pw }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
+    <text x="{{ pl - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{% if val > 0 %}+{% endif %}{{ val | round(1) }}</text>
+    {% endfor %}
+    {% if ymin < 0 and ymax > 0 %}
+      {% set zy = pt + (ymax / yr) * ph %}
+    <line x1="{{ pl }}" y1="{{ zy }}" x2="{{ pl + pw }}" y2="{{ zy }}" stroke="#999" stroke-width="1" stroke-dasharray="4 3"/>
+    {% endif %}
+    {% set opath = "" %}
+    {% for p in sg.points %}
+      {% set x = pl + (loop.index0 * pw / (n - 1)) %}
+      {% set y = pt + ((ymax - p.overall) / yr) * ph %}
+      {% set opath = opath + (" L " if loop.index0 else "M ") + x | string + " " + y | string %}
+    {% endfor %}
+    <path d="{{ opath }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>
+    {% set tpath = "" %}{% set started = false %}
+    {% for p in sg.points %}
+      {% if p.t2g != null %}
+        {% set x = pl + (loop.index0 * pw / (n - 1)) %}
+        {% set y = pt + ((ymax - p.t2g) / yr) * ph %}
+        {% set tpath = tpath + (" L " if started else "M ") + x | string + " " + y | string %}
+        {% set started = true %}
+      {% endif %}
+    {% endfor %}
+    <path d="{{ tpath }}" fill="none" stroke="#c41e3a" stroke-width="1.8" stroke-dasharray="5 3"/>
+    {% for idx in [0, (n / 2) | int, n - 1] %}
+      {% set p = sg.points[idx] %}{% set x = pl + (idx * pw / (n - 1)) %}
+    <text x="{{ x }}" y="{{ ch - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
+    {% endfor %}
+  </svg>
+  <div class="chart-legend">
+    <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Overall</span>
+    <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Tee-to-green</span>
+    <span class="legend-chip">Avg overall: {% if sg.avgOverall > 0 %}+{% endif %}{{ sg.avgOverall }}</span>
+  </div>
+</div>
+{% endif %}
+
 {% if eb.clubs.length %}
 <div class="golf-section">
   <h3>CLUB DISTANCES <span class="golf-sub">median True Distance (elevation/wind-adjusted), app-filtered shots</span></h3>
@@ -71,6 +123,25 @@
     </div>
     {% endfor %}
   </div>
+</div>
+{% endif %}
+
+{% if eb.clubGaps.length %}
+<div class="golf-section">
+  <h3>CLUB GAPPING <span class="golf-sub">step to the next club down; flags overlaps and big gaps</span></h3>
+  <table class="scorecard-table">
+    <thead><tr><th>Club</th><th>Carry (median)</th><th>Gap to next</th></tr></thead>
+    <tbody>
+      {% for c in eb.clubGaps %}
+      <tr>
+        <td>{{ c.label }}</td>
+        <td>{{ c.median }}y</td>
+        <td class="{% if c.overlap or c.big %}score-over{% endif %}">{% if c.gap != null %}{{ c.gap }}y{% if c.overlap %} (overlap){% elif c.big %} (big gap){% endif %}{% else %}&ndash;{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="golf-note">Overlaps (same or inverted carry) and big gaps (18y+) point to bag-gapping to tidy up.</p>
 </div>
 {% endif %}
 
@@ -87,6 +158,22 @@
     {% endfor %}
   </div>
   <p class="golf-note">Lie labels from 18Birdies shot data: Tee, Fairway, Rough, and Recovery are verified; Sand is inferred from club and distance patterns.</p>
+</div>
+{% endif %}
+
+{% if eb.onTargetByLie.length %}
+<div class="golf-section">
+  <h3>ON TARGET BY LIE <span class="golf-sub">share of shots finishing within 20 yd of the aim point, by lie</span></h3>
+  <div class="scoring-dist">
+    {% for p in eb.onTargetByLie %}
+    <div class="dist-bar">
+      <span class="dist-label">{{ p.lie }}</span>
+      <div class="dist-fill" style="width: {{ p.pct }}%; background:#228b22"></div>
+      <span class="dist-pct">{{ p.pct }}% <span class="club-n">({{ p.shots }})</span></span>
+    </div>
+    {% endfor %}
+  </div>
+  <p class="golf-note">Higher is better: how your execution holds up from the fairway versus the rough or a recovery.</p>
 </div>
 {% endif %}
 

@@ -106,8 +106,10 @@ export default function () {
   const byClub = new Map();
   for (const s of shots) {
     if (!s.inc || !s.td || s.td <= 0 || s.club == null) continue;
-    if (!byClub.has(s.club)) byClub.set(s.club, { club: s.club, type: s.type, tds: [] });
-    byClub.get(s.club).tds.push(s.td);
+    // Key on type+number so a 5-wood and a 5-iron are not merged into one club.
+    const key = `${s.type}:${s.club}`;
+    if (!byClub.has(key)) byClub.set(key, { club: s.club, type: s.type, tds: [] });
+    byClub.get(key).tds.push(s.td);
   }
   let clubs = [...byClub.values()]
     .filter((c) => c.tds.length >= 3)
@@ -221,6 +223,59 @@ export default function () {
 
   const putts18 = r18.map((r) => r.putts).filter((p) => typeof p === "number" && p > 0);
 
+  // Strokes-gained trend over time (overall and tee-to-green), sentinel-filtered
+  // upstream so only real values arrive.
+  const sgRounds = rounds
+    .filter((r) => typeof r.sgOverall === "number")
+    .sort((a, b) => (a.date || 0) - (b.date || 0))
+    .map((r) => ({
+      date: new Date(r.date).toISOString().slice(0, 10),
+      overall: r.sgOverall,
+      t2g: typeof r.sgT2G === "number" ? r.sgT2G : null,
+    }));
+  const sgVals = sgRounds.flatMap((p) => [p.overall, p.t2g].filter((v) => typeof v === "number"));
+  const sgTrend = {
+    count: sgRounds.length,
+    points: sgRounds,
+    min: sgVals.length ? Math.min(...sgVals) : 0,
+    max: sgVals.length ? Math.max(...sgVals) : 0,
+    avgOverall: sgRounds.length ? r1(mean(sgRounds.map((p) => p.overall))) : null,
+  };
+
+  // Club gapping: distance step from each club to the next shorter one.
+  const clubGaps = clubs.map((c, i) => {
+    const next = clubs[i + 1];
+    const gap = next ? c.median - next.median : null;
+    return {
+      label: c.label,
+      median: c.median,
+      gap,
+      overlap: gap !== null && gap <= 0,
+      big: gap !== null && gap >= 18,
+    };
+  });
+
+  // On-target rate by lie: share of shots that finish within a target radius of
+  // the aim point. A rate (not conditional proximity), so it avoids the
+  // selection bias of only counting shots that already finished near the green.
+  const TARGET_YD = 20;
+  const lieHit = new Map();
+  for (const s of shots) {
+    if (!s.lie || s.lie === "Tee") continue;
+    const mv = missVector(s);
+    if (!mv) continue;
+    const entry = lieHit.get(s.lie) || { hit: 0, total: 0 };
+    entry.total += 1;
+    if (Math.hypot(mv.along, mv.lateral) <= TARGET_YD) entry.hit += 1;
+    lieHit.set(s.lie, entry);
+  }
+  const onTargetByLie = ["Fairway", "Rough", "Recovery", "Sand"]
+    .filter((l) => lieHit.has(l) && lieHit.get(l).total >= 3)
+    .map((l) => {
+      const e = lieHit.get(l);
+      return { lie: l, pct: Math.round((100 * e.hit) / e.total), shots: e.total };
+    });
+
   return {
     ok: true,
     generatedAt: doc.generatedAt,
@@ -240,9 +295,12 @@ export default function () {
     },
     scoreDist,
     clubs,
+    clubGaps,
     byLie,
+    onTargetByLie,
     dispersion,
     firstPutt,
+    sgTrend,
     byCourse,
     recent,
   };
