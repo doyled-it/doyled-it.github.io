@@ -234,6 +234,28 @@
 </div>
 {% endif %}
 
+{% if eb.mapData.length %}
+<div class="golf-section">
+  <h3>SHOT MAP <span class="golf-sub">your tracked shots on satellite imagery &middot; pick a round</span></h3>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" crossorigin="" />
+  <div class="shotmap-controls">
+    <label for="shotmap-round">Round</label>
+    <select id="shotmap-round" class="shotmap-select"></select>
+  </div>
+  <div id="shotmap" class="shotmap"></div>
+  <div class="chart-legend">
+    <span class="legend-chip"><span class="chip-swatch" style="background:#1d6fd0"></span>Tee</span>
+    <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Fairway</span>
+    <span class="legend-chip"><span class="chip-swatch" style="background:#b58b00"></span>Rough</span>
+    <span class="legend-chip"><span class="chip-swatch" style="background:#c99a2e"></span>Sand</span>
+    <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Recovery</span>
+  </div>
+  <p class="golf-note">Tiles &copy; Esri, Maxar. Only shots 18Birdies GPS-tracked appear; putts are not tracked.</p>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" crossorigin=""></script>
+  <script src="/assets/js/golf-shotmap.js"></script>
+</div>
+{% endif %}
+
 <div class="golf-section">
   <h3>COURSES <span class="golf-sub">18Birdies rounds, over par per hole</span></h3>
   <table class="scorecard-table">
