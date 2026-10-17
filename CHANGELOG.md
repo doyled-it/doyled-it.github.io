@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.3.0] - 2026-10-17
+
+### Changed
+
+- feat(golf): satellite shot map (Leaflet + Esri) (#13) (@doyled-it)
+
 ## [1.2.0] - 2026-10-17
 
 ### Changed
