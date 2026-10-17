@@ -223,6 +223,32 @@ export default function () {
 
   const putts18 = r18.map((r) => r.putts).filter((p) => typeof p === "number" && p > 0);
 
+  // Per-round shot geometry for the satellite shot map (client-side Leaflet).
+  // Shots carry the round's localRoundId in `s.r`; rounds are matched on
+  // `r.localId` (not `r.id`, which is the server roundId and would never match).
+  // Only fields the client renders are emitted, to keep shotmap.json small.
+  const shotsByRound = new Map();
+  for (const s of shots) {
+    if (!s.start || !s.end) continue;
+    if (!shotsByRound.has(s.r)) shotsByRound.set(s.r, []);
+    shotsByRound.get(s.r).push({
+      h: s.h,
+      club: clubLabel(s.club, s.type),
+      lie: s.lie,
+      start: s.start,
+      end: s.end,
+    });
+  }
+  const mapData = rounds
+    .filter((r) => shotsByRound.has(r.localId))
+    .sort((a, b) => (b.date || 0) - (a.date || 0))
+    .map((r) => ({
+      date: new Date(r.date).toISOString().slice(0, 10),
+      course: r.course,
+      toPar: r.toPar,
+      shots: shotsByRound.get(r.localId).sort((a, b) => (a.h || 0) - (b.h || 0)),
+    }));
+
   // Strokes-gained trend over time (overall and tee-to-green), sentinel-filtered
   // upstream so only real values arrive.
   const sgRounds = rounds
@@ -303,5 +329,6 @@ export default function () {
     sgTrend,
     byCourse,
     recent,
+    mapData,
   };
 }

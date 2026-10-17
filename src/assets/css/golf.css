@@ -713,3 +713,30 @@
   font-style: italic;
 }
 .club-n { color: #888; font-size: 0.85em; }
+
+/* 18Birdies satellite shot map */
+.shotmap-controls {
+  font-family: var(--font-mono);
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin: 4px 0 8px;
+}
+.shotmap-select {
+  font-family: var(--font-mono);
+  font-size: 15px;
+  padding: 2px 6px;
+  border: 2px solid #228b22;
+  background: #fff;
+  max-width: 100%;
+}
+.shotmap {
+  height: 440px;
+  width: 100%;
+  border: 3px double #228b22;
+  background: #cfe8cf;
+}
+.leaflet-container {
+  font-family: var(--font-mono);
+  background: #cfe8cf;
+}
