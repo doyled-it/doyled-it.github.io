@@ -224,6 +224,9 @@ export default function () {
   const putts18 = r18.map((r) => r.putts).filter((p) => typeof p === "number" && p > 0);
 
   // Per-round shot geometry for the satellite shot map (client-side Leaflet).
+  // Shots carry the round's localRoundId in `s.r`; rounds are matched on
+  // `r.localId` (not `r.id`, which is the server roundId and would never match).
+  // Only fields the client renders are emitted, to keep shotmap.json small.
   const shotsByRound = new Map();
   for (const s of shots) {
     if (!s.start || !s.end) continue;
@@ -234,17 +237,14 @@ export default function () {
       lie: s.lie,
       start: s.start,
       end: s.end,
-      aim: s.aim,
     });
   }
   const mapData = rounds
     .filter((r) => shotsByRound.has(r.localId))
     .sort((a, b) => (b.date || 0) - (a.date || 0))
     .map((r) => ({
-      id: r.localId,
       date: new Date(r.date).toISOString().slice(0, 10),
       course: r.course,
-      holes: r.holes,
       toPar: r.toPar,
       shots: shotsByRound.get(r.localId).sort((a, b) => (a.h || 0) - (b.h || 0)),
     }));

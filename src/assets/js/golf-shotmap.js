@@ -8,13 +8,21 @@
   var mapEl = document.getElementById("shotmap");
   if (!mapEl || typeof L === "undefined") return;
 
+  // Lie colors are mirrored by the legend swatches in _includes/18birdies.njk;
+  // keep the two in sync.
   var LIE_COLORS = {
     Tee: "#1d6fd0",
     Fairway: "#0f7a1e",
-    Rough: "#b58b00",
-    Sand: "#c99a2e",
+    Rough: "#a0661e",
+    Sand: "#e8c84a",
     Recovery: "#c41e3a",
   };
+
+  function esc(value) {
+    return String(value == null ? "" : value).replace(/[&<>]/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c];
+    });
+  }
 
   var map = L.map(mapEl, { scrollWheelZoom: false, attributionControl: true });
   L.tileLayer(
@@ -49,7 +57,7 @@
         fillOpacity: 1,
       })
         .bindPopup(
-          "Hole " + (s.h != null ? s.h : "?") + "<br>" + (s.club || "?") + (s.lie ? " from " + s.lie : "")
+          "Hole " + esc(s.h != null ? s.h : "?") + "<br>" + esc(s.club || "?") + (s.lie ? " from " + esc(s.lie) : "")
         )
         .addTo(shotLayer);
       L.circleMarker(b, { radius: 3, color: color, weight: 1, fillColor: "#fff", fillOpacity: 1 }).addTo(
@@ -61,6 +69,7 @@
 
   fetch("/assets/data/shotmap.json")
     .then(function (r) {
+      if (!r.ok) throw new Error("shotmap.json " + r.status);
       return r.json();
     })
     .then(function (rounds) {

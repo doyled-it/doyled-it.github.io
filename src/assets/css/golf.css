@@ -736,10 +736,6 @@
   border: 3px double #228b22;
   background: #cfe8cf;
 }
-/* Keep the site's global image rules from distorting Leaflet tiles. */
-.shotmap img {
-  max-width: none;
-}
 .leaflet-container {
   font-family: var(--font-mono);
   background: #cfe8cf;
