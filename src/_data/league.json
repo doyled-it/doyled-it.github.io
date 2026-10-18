@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-10-17T13:34:33.754Z",
+      "updated": "2026-10-18T13:53:25.506Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4739,26 +4739,6 @@
           "status": "Scheduled",
           "completed": false,
           "away": {
-            "team": "Bubblegum Boys",
-            "score": null,
-            "record": "1 - 3"
-          },
-          "home": {
-            "team": "Bombers",
-            "score": null,
-            "record": "0 - 5"
-          },
-          "venue": "Chollas · Field",
-          "recapUrl": null
-        },
-        {
-          "date": "Nov 8",
-          "dow": "Sun",
-          "isoDate": "2026-11-08",
-          "time": "1:00 PM",
-          "status": "Scheduled",
-          "completed": false,
-          "away": {
             "team": "Vaqueros",
             "score": null,
             "record": "0 - 2"
@@ -4769,6 +4749,26 @@
             "record": "4 - 0"
           },
           "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "1:00 PM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "home": {
+            "team": "Bombers",
+            "score": null,
+            "record": "0 - 5"
+          },
+          "venue": "Chollas · Field",
           "recapUrl": null
         },
         {
