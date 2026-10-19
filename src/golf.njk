@@ -8,11 +8,13 @@ extraCSS:
   - /assets/css/golf.css
 extraJS:
   - /assets/js/golf-range.js
+  - /assets/js/golf-tabs.js
 ---
 {% set g = golf.golfer %}
 {% set scores = golf.scores %}
 {% set st = golf.stats %}
 {% set goals = golf.goals %}
+{% set eb = eighteenBirdies %}
 <main class="card golf-card" id="main">
   {% include "titlebar.njk" %}
   {% set lastRound = scores[0] if scores and scores.length else none %}
@@ -39,530 +41,756 @@ extraJS:
       <span class="sprite-green sprite-green--right" aria-hidden="true"></span>
     </div>
 
-    <div class="golf-stats-grid">
-      <div class="golf-stat-box" data-tip="Your official USGA Handicap Index — the average of the 8 lowest differentials from your last 20 rounds, times 0.96. Lower is better. Scratch = 0.">
-        <div class="stat-label">Handicap</div>
-        <div class="stat-value">{{ g.handicapIndex }}</div>
-      </div>
-      <div class="golf-stat-box" data-tip="Best-ever 18-hole round expressed as strokes over/under par.">
-        <div class="stat-label">Best 18H (to par)</div>
-        <div class="stat-value">{% if st.low18ToPar > 0 %}+{% endif %}{{ st.low18ToPar }}</div>
-      </div>
-      <div class="golf-stat-box" data-tip="Average adjusted gross score across all completed 18-hole rounds.">
-        <div class="stat-label">Avg Score (18H)</div>
-        <div class="stat-value">{{ st.avg18 }}</div>
-      </div>
-      <div class="golf-stat-box" data-tip="Average strokes-to-par across every hole you've played (with hole-level data).">
-        <div class="stat-label">Avg to Par</div>
-        <div class="stat-value">+{{ st.avgToPar }}</div>
-      </div>
-      <div class="golf-stat-box" data-tip="Your single best score differential — adjusts your score for course difficulty, so it's comparable across courses. Lower is better.">
-        <div class="stat-label">Best Differential</div>
-        <div class="stat-value">{{ st.bestDifferential }}</div>
-      </div>
-      <div class="golf-stat-box" data-tip="Best-ever 9-hole round expressed as strokes over/under par for those 9 holes.">
-        <div class="stat-label">Best 9H (to par)</div>
-        <div class="stat-value">{% if st.low9ToPar > 0 %}+{% endif %}{{ st.low9ToPar }}</div>
-      </div>
+    <noscript><style>.golf-tabs{display:none}.golf-tab-panel[hidden]{display:block}</style></noscript>
+    <div class="golf-tabs" role="tablist" aria-label="Golf stats sections">
+      <button class="golf-tab" id="tab-overview" role="tab" aria-controls="panel-overview" aria-selected="true" tabindex="0" data-tab="overview" type="button">Overview</button>
+      <button class="golf-tab" id="tab-scoring" role="tab" aria-controls="panel-scoring" aria-selected="false" tabindex="-1" data-tab="scoring" type="button">Scoring</button>
+      <button class="golf-tab" id="tab-shots" role="tab" aria-controls="panel-shots" aria-selected="false" tabindex="-1" data-tab="shots" type="button">Shots &amp; Lies</button>
+      {% if eb.ok and eb.mapData.length %}<button class="golf-tab" id="tab-map" role="tab" aria-controls="panel-map" aria-selected="false" tabindex="-1" data-tab="map" type="button">Shot Map</button>{% endif %}
+      {% if golfRange.hasData %}<button class="golf-tab" id="tab-range" role="tab" aria-controls="panel-range" aria-selected="false" tabindex="-1" data-tab="range" type="button">Range</button>{% endif %}
     </div>
 
-    <div class="golf-section">
-      <h3>RECENT FORM (AVG SCORE)</h3>
+    {# ============================ OVERVIEW ============================ #}
+    <div class="golf-tab-panel" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" tabindex="0" data-tab="overview">
       <div class="golf-stats-grid">
-        <div class="golf-stat-box">
-          <div class="stat-label">Last 5 Rounds</div>
-          <div class="stat-value">{{ st.recentForm.last5 }}</div>
+        <div class="golf-stat-box" data-tip="Your official USGA/GHIN Handicap Index — average of the 8 lowest differentials of your last 20 rounds × 0.96. Lower is better.">
+          <div class="stat-label">Handicap <span class="src-tag">GHIN</span></div>
+          <div class="stat-value">{{ g.handicapIndex }}</div>
         </div>
-        <div class="golf-stat-box">
-          <div class="stat-label">Last 10 Rounds</div>
-          <div class="stat-value">{{ st.recentForm.last10 }}</div>
+        {% if eb.ok and eb.profile.handicap != null %}
+        <div class="golf-stat-box" data-tip="18Birdies' own handicap index, computed from your on-course rounds in the app.">
+          <div class="stat-label">Handicap <span class="src-tag">18B</span></div>
+          <div class="stat-value">{{ eb.profile.handicap }}</div>
         </div>
-        <div class="golf-stat-box">
-          <div class="stat-label">Last 20 Rounds</div>
-          <div class="stat-value">{{ st.recentForm.last20 }}</div>
+        {% endif %}
+        <div class="golf-stat-box" data-tip="Total rounds in your GHIN record, split by 18-hole and 9-hole.">
+          <div class="stat-label">Rounds <span class="src-tag">GHIN</span></div>
+          <div class="stat-value">{{ st.totalRounds }} <span class="stat-unit">({{ st.full18Rounds }}×18 / {{ st.nineRounds }}×9)</span></div>
         </div>
-      </div>
-    </div>
-
-    <div class="golf-section">
-      <h3>SCORING DISTRIBUTION</h3>
-      <div class="scoring-dist">
-        <div class="dist-bar">
-          <span class="dist-label">Birdie+</span>
-          <div class="dist-fill dist-birdie" style="width: {{ (st.scoring.birdies / st.scoring.max * 100) | round(0) }}%"></div>
-          <span class="dist-pct">{{ st.scoring.birdies }}%</span>
+        <div class="golf-stat-box" data-tip="Best-ever 18-hole round expressed as strokes over/under par.">
+          <div class="stat-label">Best 18H</div>
+          <div class="stat-value score-under">{% if st.low18ToPar > 0 %}+{% endif %}{{ st.low18ToPar }}</div>
         </div>
-        <div class="dist-bar">
-          <span class="dist-label">Par</span>
-          <div class="dist-fill dist-par" style="width: {{ (st.scoring.pars / st.scoring.max * 100) | round(0) }}%"></div>
-          <span class="dist-pct">{{ st.scoring.pars }}%</span>
+        <div class="golf-stat-box" data-tip="Best-ever 9-hole round expressed as strokes over/under par for those 9 holes.">
+          <div class="stat-label">Best 9H</div>
+          <div class="stat-value score-under">{% if st.low9ToPar > 0 %}+{% endif %}{{ st.low9ToPar }}</div>
         </div>
-        <div class="dist-bar">
-          <span class="dist-label">Bogey</span>
-          <div class="dist-fill dist-bogey" style="width: {{ (st.scoring.bogeys / st.scoring.max * 100) | round(0) }}%"></div>
-          <span class="dist-pct">{{ st.scoring.bogeys }}%</span>
+        <div class="golf-stat-box" data-tip="Average adjusted gross score across all completed 18-hole rounds.">
+          <div class="stat-label">Avg 18H <span class="src-tag">GHIN</span></div>
+          <div class="stat-value">{{ st.avg18 }}</div>
         </div>
-        <div class="dist-bar">
-          <span class="dist-label">Double</span>
-          <div class="dist-fill dist-double" style="width: {{ (st.scoring.doubles / st.scoring.max * 100) | round(0) }}%"></div>
-          <span class="dist-pct">{{ st.scoring.doubles }}%</span>
+        <div class="golf-stat-box" data-tip="Average strokes-to-par across every hole you've played (with hole-level data).">
+          <div class="stat-label">Avg to Par <span class="src-tag">GHIN</span></div>
+          <div class="stat-value">+{{ st.avgToPar }}</div>
         </div>
-        <div class="dist-bar">
-          <span class="dist-label">Triple+</span>
-          <div class="dist-fill dist-triple" style="width: {{ (st.scoring.triples / st.scoring.max * 100) | round(0) }}%"></div>
-          <span class="dist-pct">{{ st.scoring.triples }}%</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="golf-section">
-      <h3>BY HOLE TYPE</h3>
-      <div class="golf-stats-grid">
-        <div class="golf-stat-box" data-tip="Avg strokes-to-par on par-3 holes. +1 means you average a bogey on par-3s. Lower is better.">
-          <div class="stat-label">Par 3 Avg</div>
-          <div class="stat-value {% if st.holeType.par3 > 1 %}score-over{% elif st.holeType.par3 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par3 }}</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Avg strokes-to-par on par-4 holes. Most common hole type; biggest determinant of your score.">
-          <div class="stat-label">Par 4 Avg</div>
-          <div class="stat-value {% if st.holeType.par4 > 1 %}score-over{% elif st.holeType.par4 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par4 }}</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Avg strokes-to-par on par-5 holes. Amateurs typically score best relative to par on par-5s; these are birdie opportunities.">
-          <div class="stat-label">Par 5 Avg</div>
-          <div class="stat-value {% if st.holeType.par5 > 1 %}score-over{% elif st.holeType.par5 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par5 }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="golf-section">
-      <h3>SHOT STATS</h3>
-      <div class="golf-stats-grid">
-        <div class="golf-stat-box" data-tip="Fairway hit % on par-4s and par-5s only (par-3s don't count). Tour pros ~60%, scratch amateurs ~50%.">
-          <div class="stat-label">Fairways</div>
-          <div class="stat-value">{{ st.shotStats.fairways }}%</div>
+        <div class="golf-stat-box" data-tip="Your single best score differential, adjusted for course difficulty. Lower is better.">
+          <div class="stat-label">Best Diff</div>
+          <div class="stat-value">{{ st.bestDifferential }}</div>
         </div>
         <div class="golf-stat-box" data-tip="Greens in regulation — reaching the green in (par − 2) strokes. Correlates strongly with score.">
-          <div class="stat-label">GIR</div>
+          <div class="stat-label">GIR <span class="src-tag">GHIN</span></div>
           <div class="stat-value">{{ st.shotStats.gir }}%</div>
         </div>
-        <div class="golf-stat-box" data-tip="Average putts per 18-hole round. Tour pros ~29, scratch ~31, bogey golfer ~34.">
-          <div class="stat-label">Avg Putts</div>
-          <div class="stat-value">{{ st.shotStats.avgPutts }}</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Percent of holes finished in one putt (including when you hole out from off the green).">
-          <div class="stat-label">1-Putt</div>
-          <div class="stat-value">{{ st.shotStats.onePutt }}%</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Percent of holes finished in exactly two putts — the 'expected' outcome on most greens.">
-          <div class="stat-label">2-Putt</div>
-          <div class="stat-value">{{ st.shotStats.twoPutt }}%</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Percent of holes where you needed 3 or more putts. These are the score-killers.">
-          <div class="stat-label">3-Putt+</div>
-          <div class="stat-value">{{ st.shotStats.threePutt }}%</div>
-        </div>
-      </div>
-    </div>
-
-    {% if st.handicapTrend.length > 1 %}
-    {% set chartW = 760 %}
-    {% set chartH = 180 %}
-    {% set padL = 44 %}{% set padR = 16 %}{% set padT = 14 %}{% set padB = 28 %}
-    {% set plotW = chartW - padL - padR %}
-    {% set plotH = chartH - padT - padB %}
-    {% set hiMinRaw = st.handicapTrend.min %}
-    {% set hiMaxRaw = st.handicapTrend.max %}
-    {% set hiPad = ((hiMaxRaw - hiMinRaw) or 1) * 0.1 %}
-    {% set hiMin = hiMinRaw - hiPad %}
-    {% set hiMax = hiMaxRaw + hiPad %}
-    {% set hiRange = (hiMax - hiMin) or 1 %}
-    {% set n = st.handicapTrend.length %}
-    <div class="golf-section">
-      <h3>HANDICAP INDEX TREND <span class="golf-sub">post-round HI (USGA lowest-N-of-20)</span></h3>
-      <svg class="golf-chart" viewBox="0 0 {{ chartW }} {{ chartH }}" role="img" aria-label="Handicap trend">
-        <rect x="{{ padL }}" y="{{ padT }}" width="{{ plotW }}" height="{{ plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
-        {% for p in [0, 0.25, 0.5, 0.75, 1.0] %}
-          {% set gy = padT + p * plotH %}
-          {% set val = hiMax - p * hiRange %}
-        <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-        <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
-        {% endfor %}
-        {% set path = "" %}
-        {% for p in st.handicapTrend %}
-          {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
-          {% set y = padT + ((hiMax - p.hi) / hiRange) * plotH %}
-          {% set path = path + (" L " if loop.index0 else "M ") + x|string + " " + y|string %}
-        {% endfor %}
-        <path d="{{ path }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>
-        {% for p in st.handicapTrend %}
-          {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
-          {% set y = padT + ((hiMax - p.hi) / hiRange) * plotH %}
-        <circle cx="{{ x }}" cy="{{ y }}" r="2.5" fill="#0f7a1e" stroke="#000" stroke-width="0.8"><title>{{ p.date }}: HI {{ p.hi }}</title></circle>
-        {% endfor %}
-        {% for idx in [0, (n / 2) | int, n - 1] %}
-          {% set p = st.handicapTrend[idx] %}
-          {% set x = padL + (idx * plotW / (n - 1)) %}
-        <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
-        {% endfor %}
-      </svg>
-    </div>
-    {% endif %}
-
-    {% if st.scoreTrend.length > 1 %}
-    {% set chartW2 = 760 %}
-    {% set chartH2 = 180 %}
-    {% set padL2 = 44 %}{% set padR2 = 16 %}{% set padT2 = 14 %}{% set padB2 = 28 %}
-    {% set plotW2 = chartW2 - padL2 - padR2 %}
-    {% set plotH2 = chartH2 - padT2 - padB2 %}
-    {% set tpMinRaw = st.scoreTrend.min %}
-    {% set tpMaxRaw = st.scoreTrend.max %}
-    {% set tpPad = ((tpMaxRaw - tpMinRaw) or 1) * 0.1 %}
-    {% set tpMin = tpMinRaw - tpPad %}
-    {% set tpMax = tpMaxRaw + tpPad %}
-    {% set tpRange = (tpMax - tpMin) or 1 %}
-    {% set n2 = st.scoreTrend.length %}
-    <div class="golf-section">
-      <h3>SCORE TO PAR <span class="golf-sub">every 18-hole round + rolling 5-round avg</span></h3>
-      <svg class="golf-chart" viewBox="0 0 {{ chartW2 }} {{ chartH2 }}" role="img" aria-label="Score-to-par trend">
-        <rect x="{{ padL2 }}" y="{{ padT2 }}" width="{{ plotW2 }}" height="{{ plotH2 }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
-        {% for p in [0, 0.25, 0.5, 0.75, 1.0] %}
-          {% set gy = padT2 + p * plotH2 %}
-          {% set val = tpMax - p * tpRange %}
-        <line x1="{{ padL2 }}" y1="{{ gy }}" x2="{{ padL2 + plotW2 }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
-        <text x="{{ padL2 - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{% if val > 0 %}+{% endif %}{{ val | round(0) }}</text>
-        {% endfor %}
-        {% set rawPath = "" %}
-        {% set rollPath = "" %}
-        {% for p in st.scoreTrend %}
-          {% set x = padL2 + (loop.index0 * plotW2 / (n2 - 1)) %}
-          {% set y1 = padT2 + ((tpMax - p.toPar) / tpRange) * plotH2 %}
-          {% set y2 = padT2 + ((tpMax - p.rolling5) / tpRange) * plotH2 %}
-          {% set rawPath = rawPath + (" L " if loop.index0 else "M ") + x|string + " " + y1|string %}
-          {% set rollPath = rollPath + (" L " if loop.index0 else "M ") + x|string + " " + y2|string %}
-        {% endfor %}
-        <path d="{{ rawPath }}" fill="none" stroke="#bbbbbb" stroke-width="1.5"/>
-        <path d="{{ rollPath }}" fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linejoin="round"/>
-        {% for p in st.scoreTrend %}
-          {% set x = padL2 + (loop.index0 * plotW2 / (n2 - 1)) %}
-          {% set y1 = padT2 + ((tpMax - p.toPar) / tpRange) * plotH2 %}
-        <circle cx="{{ x }}" cy="{{ y1 }}" r="2.5" fill="#888" stroke="#000" stroke-width="0.6"><title>{{ p.date }} · {{ p.course }} · {{ p.score }} ({% if p.toPar >= 0 %}+{% endif %}{{ p.toPar }})</title></circle>
-        {% endfor %}
-        {% for idx in [0, (n2 / 2) | int, n2 - 1] %}
-          {% set p = st.scoreTrend[idx] %}
-          {% set x = padL2 + (idx * plotW2 / (n2 - 1)) %}
-        <text x="{{ x }}" y="{{ chartH2 - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
-        {% endfor %}
-      </svg>
-      <div class="chart-legend">
-        <span class="legend-chip"><span class="chip-swatch" style="background:#bbb"></span>Per round</span>
-        <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>5-round avg</span>
-      </div>
-    </div>
-    {% endif %}
-
-    <div class="golf-section">
-      <h3>FRONT vs BACK 9 <span class="golf-sub">{{ st.frontBack.rounds }} rounds with splits</span></h3>
-      <div class="golf-stats-grid">
-        <div class="golf-stat-box">
-          <div class="stat-label">Front 9 Avg</div>
-          <div class="stat-value">{{ st.frontBack.front9Avg }}</div>
-        </div>
-        <div class="golf-stat-box">
-          <div class="stat-label">Back 9 Avg</div>
-          <div class="stat-value">{{ st.frontBack.back9Avg }}</div>
-        </div>
-        <div class="golf-stat-box">
-          <div class="stat-label">Diff (B-F)</div>
-          {% set fbDiff = (st.frontBack.back9Avg - st.frontBack.front9Avg) | round(1) %}
-          <div class="stat-value {% if fbDiff > 0.5 %}score-over{% elif fbDiff < -0.5 %}score-under{% endif %}">{% if fbDiff > 0 %}+{% endif %}{{ fbDiff }}</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="golf-section">
-      <h3>APPROACH MISSES <span class="golf-sub">where the ball ends up when you miss the green</span></h3>
-      <div class="miss-dispersion">
-        <div class="miss-row miss-row-top">
-          <div class="miss-label">Long</div>
-          <div class="miss-value">{{ st.missDispersion.long }}%</div>
-        </div>
-        <div class="miss-row miss-row-mid">
-          <div class="miss-cell miss-left">
-            <div class="miss-label">Left</div>
-            <div class="miss-value">{{ st.missDispersion.left }}%</div>
-          </div>
-          <div class="miss-target" aria-hidden="true">⛳</div>
-          <div class="miss-cell miss-right">
-            <div class="miss-label">Right</div>
-            <div class="miss-value">{{ st.missDispersion.right }}%</div>
-          </div>
-        </div>
-        <div class="miss-row miss-row-bot">
-          <div class="miss-label">Short</div>
-          <div class="miss-value">{{ st.missDispersion.short }}%</div>
-        </div>
-      </div>
-    </div>
-
-    {% if st.holeDifficulty.length %}
-    {% set hdMax = st.holeDifficulty.max %}
-    {% set hdMin = st.holeDifficulty.min %}
-    <div class="golf-section">
-      <h3>HOLE DIFFICULTY <span class="golf-sub">avg score-to-par by stroke-allocation rank (1 = hardest)</span></h3>
-      <div class="hole-diff-grid">
-        {% for h in st.holeDifficulty %}
-          {% set intensity = ((h.avgToPar - hdMin) / (hdMax - hdMin + 0.0001)) %}
-          {% set cls = 'diff-easy' if h.avgToPar < 0.5 else ('diff-hard' if h.avgToPar > 1.2 else 'diff-mid') %}
-        <div class="hole-diff-cell {{ cls }}">
-          <div class="hd-rank">#{{ h.stroke_allocation }}</div>
-          <div class="hd-value">+{{ h.avgToPar }}</div>
-          <div class="hd-sub">{{ h.rounds }} plays</div>
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %}
-
-    <div class="golf-section">
-      <h3>AFTER MISSING THE GREEN <span class="golf-sub">what happens when you don't hit GIR</span></h3>
-      <div class="golf-stats-grid">
-        <div class="golf-stat-box" data-tip="Greens in regulation — percent of holes where your ball was on the green in (par − 2) strokes. Tour pros average ~65%; scratch amateurs ~50%.">
-          <div class="stat-label">GIR</div>
-          <div class="stat-value">{{ st.scrambling.girPct }}%</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Of the holes where you missed the green, what percent did you still make par or better? Classic 'scrambling' stat — tests short-game recovery. Tour average ~60%.">
-          <div class="stat-label">Scrambling %</div>
+        <div class="golf-stat-box" data-tip="Of the holes where you missed the green, percent you still made par or better.">
+          <div class="stat-label">Scrambling</div>
           <div class="stat-value {% if st.scrambling.pct >= 50 %}score-under{% elif st.scrambling.pct < 30 %}score-over{% endif %}">{{ st.scrambling.pct }}%</div>
         </div>
-        <div class="golf-stat-box" data-tip="Count of scrambles attempted across all rounds with hole-by-hole data.">
-          <div class="stat-label">Misses</div>
-          <div class="stat-value">{{ st.scrambling.attempts }}</div>
+      </div>
+
+      <div class="golf-section">
+        <h3>RECENT FORM <span class="golf-sub">avg score</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box">
+            <div class="stat-label">Last 5 Rounds</div>
+            <div class="stat-value">{{ st.recentForm.last5 }}</div>
+          </div>
+          <div class="golf-stat-box">
+            <div class="stat-label">Last 10 Rounds</div>
+            <div class="stat-value">{{ st.recentForm.last10 }}</div>
+          </div>
+          <div class="golf-stat-box">
+            <div class="stat-label">Last 20 Rounds</div>
+            <div class="stat-value">{{ st.recentForm.last20 }}</div>
+          </div>
         </div>
-        <div class="golf-stat-box" data-tip="Holes where you missed the green AND made par (or birdie). These are the saves.">
-          <div class="stat-label">Par Saves</div>
-          <div class="stat-value">{{ st.scrambling.saves }}</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Missed the green but limited damage to a single bogey. Acceptable.">
-          <div class="stat-label">Bogeys</div>
-          <div class="stat-value">{{ st.scrambling.missedBogey }}</div>
-        </div>
-        <div class="golf-stat-box" data-tip="Missed the green and dropped 2+ shots. Where most of the score-bloat lives.">
-          <div class="stat-label">Double+</div>
-          <div class="stat-value">{{ st.scrambling.missedDouble }}</div>
-        </div>
+      </div>
+
+      {% if st.courses.length %}
+      <div class="golf-section">
+        <h3>COURSES PLAYED <span class="golf-sub">GHIN record</span></h3>
+        <table class="scorecard-table">
+          <thead>
+            <tr><th>Course</th><th>Rnds</th><th>Avg</th><th>Best</th><th>Avg Diff</th></tr>
+          </thead>
+          <tbody>
+            {% for c in st.courses %}
+            <tr>
+              <td style="text-align:left">{{ c.name }}</td>
+              <td>{{ c.rounds }}</td>
+              <td>{{ c.avgScore }}</td>
+              <td><strong>{{ c.bestScore }}</strong></td>
+              <td>{{ c.avgDiff }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+      <div class="golf-section">
+        <h3>RECENT ROUNDS <span class="golf-sub">★ = round contributing to current handicap</span></h3>
+        <table class="scorecard-table">
+          <thead>
+            <tr><th></th><th>Date</th><th>Course</th><th>Holes</th><th>Score</th><th>Diff</th></tr>
+          </thead>
+          <tbody>
+            {% for s in scores %}
+            {% if loop.index0 < 20 %}
+            <tr class="{% if s.usedInHI %}used-in-hi{% endif %}">
+              <td>{% if s.usedInHI %}<span class="hi-star" data-tip="One of the lowest differentials used in your current handicap index">★</span>{% endif %}</td>
+              <td>{{ s.played_at | readableDate }}</td>
+              <td style="text-align:left">{{ s.course_name }}</td>
+              <td>{{ s.number_of_holes }}</td>
+              <td><strong>{{ s.adjusted_gross_score }}</strong></td>
+              <td>{{ s.differential }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
       </div>
     </div>
 
-    {% if st.diffHistogram.length %}
-    {% set histMax = st.diffHistogram.maxCount %}
-    <div class="golf-section">
-      <h3>DIFFERENTIAL DISTRIBUTION <span class="golf-sub">how consistent your scoring is</span></h3>
-      <div class="hist">
-        {% for b in st.diffHistogram %}
-        <div class="hist-bar">
-          <div class="hist-fill" style="height: {{ (b.count / histMax * 100) | round(0) }}%;"><span class="hist-count">{{ b.count }}</span></div>
-          <div class="hist-label">{{ b.lo }}–{{ b.hi }}</div>
+    {# ============================ SCORING ============================ #}
+    <div class="golf-tab-panel" role="tabpanel" id="panel-scoring" aria-labelledby="tab-scoring" tabindex="0" data-tab="scoring" hidden>
+      <div class="golf-section">
+        <h3>SCORING DISTRIBUTION <span class="golf-sub">GHIN hole data</span></h3>
+        <div class="scoring-dist">
+          <div class="dist-bar">
+            <span class="dist-label">Birdie+</span>
+            <div class="dist-fill dist-birdie" style="width: {{ (st.scoring.birdies / st.scoring.max * 100) | round(0) }}%"></div>
+            <span class="dist-pct">{{ st.scoring.birdies }}%</span>
+          </div>
+          <div class="dist-bar">
+            <span class="dist-label">Par</span>
+            <div class="dist-fill dist-par" style="width: {{ (st.scoring.pars / st.scoring.max * 100) | round(0) }}%"></div>
+            <span class="dist-pct">{{ st.scoring.pars }}%</span>
+          </div>
+          <div class="dist-bar">
+            <span class="dist-label">Bogey</span>
+            <div class="dist-fill dist-bogey" style="width: {{ (st.scoring.bogeys / st.scoring.max * 100) | round(0) }}%"></div>
+            <span class="dist-pct">{{ st.scoring.bogeys }}%</span>
+          </div>
+          <div class="dist-bar">
+            <span class="dist-label">Double</span>
+            <div class="dist-fill dist-double" style="width: {{ (st.scoring.doubles / st.scoring.max * 100) | round(0) }}%"></div>
+            <span class="dist-pct">{{ st.scoring.doubles }}%</span>
+          </div>
+          <div class="dist-bar">
+            <span class="dist-label">Triple+</span>
+            <div class="dist-fill dist-triple" style="width: {{ (st.scoring.triples / st.scoring.max * 100) | round(0) }}%"></div>
+            <span class="dist-pct">{{ st.scoring.triples }}%</span>
+          </div>
         </div>
-        {% endfor %}
       </div>
-    </div>
-    {% endif %}
 
-    {% if st.monthly.length %}
-    {% set monMax = st.monthly.maxCount %}
-    <div class="golf-section">
-      <h3>ROUNDS PER MONTH</h3>
-      <div class="hist">
-        {% for m in st.monthly %}
-        <div class="hist-bar">
-          <div class="hist-fill hist-fill-month" style="height: {{ (m.count / monMax * 100) | round(0) }}%;"><span class="hist-count">{{ m.count }}</span></div>
-          <div class="hist-label">{{ m.ym }}</div>
+      <div class="golf-section">
+        <h3>BY HOLE TYPE <span class="golf-sub">avg strokes to par</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Avg strokes-to-par on par-3 holes. +1 means you average a bogey on par-3s. Lower is better.">
+            <div class="stat-label">Par 3 Avg</div>
+            <div class="stat-value {% if st.holeType.par3 > 1 %}score-over{% elif st.holeType.par3 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par3 }}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Avg strokes-to-par on par-4 holes. Most common hole type; biggest determinant of your score.">
+            <div class="stat-label">Par 4 Avg</div>
+            <div class="stat-value {% if st.holeType.par4 > 1 %}score-over{% elif st.holeType.par4 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par4 }}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Avg strokes-to-par on par-5 holes. Amateurs typically score best relative to par on par-5s.">
+            <div class="stat-label">Par 5 Avg</div>
+            <div class="stat-value {% if st.holeType.par5 > 1 %}score-over{% elif st.holeType.par5 < 0.5 %}score-under{% endif %}">+{{ st.holeType.par5 }}</div>
+          </div>
         </div>
-        {% endfor %}
       </div>
-    </div>
-    {% endif %}
 
-    {% if st.exceptional.length %}
-    <div class="golf-section">
-      <h3>EXCEPTIONAL ROUNDS <span class="golf-sub">scores that triggered a handicap reduction</span></h3>
-      <table class="scorecard-table">
-        <thead>
-          <tr><th>Date</th><th>Course</th><th>Score</th><th>Differential</th></tr>
-        </thead>
-        <tbody>
-          {% for s in st.exceptional %}
-          <tr>
-            <td>{{ s.played_at | readableDate }}</td>
-            <td style="text-align:left">{{ s.course_name }}</td>
-            <td><strong>{{ s.adjusted_gross_score }}</strong></td>
-            <td>{{ s.differential }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% endif %}
-
-    {% if st.courses.length %}
-    <div class="golf-section">
-      <h3>COURSES PLAYED</h3>
-      <table class="scorecard-table">
-        <thead>
-          <tr><th>Course</th><th>Rnds</th><th>Avg</th><th>Best</th><th>Avg Diff</th></tr>
-        </thead>
-        <tbody>
-          {% for c in st.courses %}
-          <tr>
-            <td style="text-align:left">{{ c.name }}</td>
-            <td>{{ c.rounds }}</td>
-            <td>{{ c.avgScore }}</td>
-            <td><strong>{{ c.bestScore }}</strong></td>
-            <td>{{ c.avgDiff }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-    {% endif %}
-
-    <div class="golf-section">
-      <h3>RECENT ROUNDS <span class="golf-sub">★ = round contributing to current handicap</span></h3>
-      <table class="scorecard-table">
-        <thead>
-          <tr><th></th><th>Date</th><th>Course</th><th>Holes</th><th>Score</th><th>Diff</th></tr>
-        </thead>
-        <tbody>
-          {% for s in scores %}
-          {% if loop.index0 < 20 %}
-          <tr class="{% if s.usedInHI %}used-in-hi{% endif %}">
-            <td>{% if s.usedInHI %}<span class="hi-star" data-tip="One of the lowest differentials used in your current handicap index">★</span>{% endif %}</td>
-            <td>{{ s.played_at | readableDate }}</td>
-            <td style="text-align:left">{{ s.course_name }}</td>
-            <td>{{ s.number_of_holes }}</td>
-            <td><strong>{{ s.adjusted_gross_score }}</strong></td>
-            <td>{{ s.differential }}</td>
-          </tr>
-          {% endif %}
-          {% endfor %}
-        </tbody>
-      </table>
-    </div>
-
-    {% if goals and goals.length %}
-    {% for goal in goals %}
-    {% set hist = goal.history %}
-    {% set chartW = 760 %}{% set chartH = 220 %}
-    {% set padL = 44 %}{% set padR = 16 %}{% set padT = 14 %}{% set padB = 28 %}
-    {% set plotW = chartW - padL - padR %}
-    {% set plotH = chartH - padT - padB %}
-    {# y-axis bounds: cover both history and target (computed in transform) #}
-    {% set hiMin = goal.hiMin %}
-    {% set hiMax = goal.hiMax %}
-    {% set hiRange = (hiMax - hiMin) or 1 %}
-    {# x-axis bounds: first history date → deadline #}
-    {% set firstDate = hist[0].date if hist and hist.length %}
-    {% set deadlineDate = goal.deadline %}
-    <div class="golf-section goal-section">
-      <h3>GOAL: {{ goal.label | upper }} <span class="golf-sub">{{ goal.blurb }}</span></h3>
-      <div class="goal-card {% if goal.hit %}goal-hit{% endif %}">
-        <div class="goal-summary">
-          <div class="goal-summary-metric">
-            <div class="goal-summary-label">CURRENT</div>
-            <div class="goal-summary-value goal-current">{{ goal.current }}</div>
+      {% if eb.ok %}
+      <div class="golf-section">
+        <h3>AVG SCORE TO PAR <span class="golf-sub">18B · average over/under par per round</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Your 18Birdies average strokes over/under par on 18-hole rounds.">
+            <div class="stat-label">18-Hole <span class="src-tag">18B</span></div>
+            <div class="stat-value {% if eb.summary.avgToPar18 > 0 %}score-over{% elif eb.summary.avgToPar18 < 0 %}score-under{% endif %}">{% if eb.summary.avgToPar18 != null %}{% if eb.summary.avgToPar18 > 0 %}+{% endif %}{{ eb.summary.avgToPar18 }}{% else %}&ndash;{% endif %}</div>
           </div>
-          <div class="goal-summary-metric">
-            <div class="goal-summary-label">TARGET</div>
-            <div class="goal-summary-value goal-target">{{ goal.target }}</div>
-          </div>
-          <div class="goal-summary-metric">
-            <div class="goal-summary-label">STROKES TO DROP</div>
-            <div class="goal-summary-value">{{ goal.gap }}</div>
-          </div>
-          <div class="goal-summary-metric">
-            <div class="goal-summary-label">DAYS LEFT</div>
-            <div class="goal-summary-value">{{ goal.daysLeft }}</div>
-          </div>
-          <div class="goal-summary-metric">
-            <div class="goal-summary-label">REQUIRED PACE</div>
-            <div class="goal-summary-value" data-tip="Strokes per month you need to drop to hit the target on time">{{ goal.requiredPerMonth }}/mo</div>
-          </div>
-          <div class="goal-summary-metric">
-            <div class="goal-summary-label">RECENT PACE</div>
-            <div class="goal-summary-value {% if goal.onPace %}goal-on-pace{% else %}goal-off-pace{% endif %}" data-tip="How much your HI has moved per month over the last 90 days. Negative = improving.">{{ goal.recentPerMonth }}/mo</div>
+          <div class="golf-stat-box" data-tip="Your 18Birdies average strokes over/under par on 9-hole rounds.">
+            <div class="stat-label">9-Hole <span class="src-tag">18B</span></div>
+            <div class="stat-value {% if eb.summary.avgToPar9 > 0 %}score-over{% elif eb.summary.avgToPar9 < 0 %}score-under{% endif %}">{% if eb.summary.avgToPar9 != null %}{% if eb.summary.avgToPar9 > 0 %}+{% endif %}{{ eb.summary.avgToPar9 }}{% else %}&ndash;{% endif %}</div>
           </div>
         </div>
-        <div class="goal-pace-note">
-          {% if goal.hit %}
-          🎉 You hit the target — keep it under {{ goal.target }} to stay there.
-          {% elif goal.onPace %}
-          ✓ On pace. If you keep dropping {{ goal.recentPerMonth | abs }} strokes per month you'll land at around
-          <strong>{{ goal.projectedHI }}</strong> by the deadline.
-          {% elif goal.recentPerMonth < 0 %}
-          Trending the right direction at {{ goal.recentPerMonth | abs }}/mo, but you'll need
-          <strong>{{ goal.requiredPerMonth | abs }}/mo</strong> to hit {{ goal.target }} on time.
-          Current trajectory projects to about <strong>{{ goal.projectedHI }}</strong>.
-          {% else %}
-          Your HI has been moving up recently — you'll need to drop
-          <strong>{{ goal.requiredPerMonth | abs }} strokes/month</strong>
-          to hit {{ goal.target }} by the deadline.
-          {% endif %}
-        </div>
-        {% if hist and hist.length > 1 %}
-        {% set n = hist.length %}
-        <svg class="golf-chart goal-chart" viewBox="0 0 {{ chartW }} {{ chartH }}" role="img" aria-label="Handicap trend vs goal">
+      </div>
+      {% endif %}
+
+      {% if st.handicapTrend.length > 1 %}
+      {% set chartW = 760 %}
+      {% set chartH = 180 %}
+      {% set padL = 44 %}{% set padR = 16 %}{% set padT = 14 %}{% set padB = 28 %}
+      {% set plotW = chartW - padL - padR %}
+      {% set plotH = chartH - padT - padB %}
+      {% set hiMinRaw = st.handicapTrend.min %}
+      {% set hiMaxRaw = st.handicapTrend.max %}
+      {% set hiPad = ((hiMaxRaw - hiMinRaw) or 1) * 0.1 %}
+      {% set hiMin = hiMinRaw - hiPad %}
+      {% set hiMax = hiMaxRaw + hiPad %}
+      {% set hiRange = (hiMax - hiMin) or 1 %}
+      {% set n = st.handicapTrend.length %}
+      <div class="golf-section">
+        <h3>HANDICAP INDEX TREND <span class="golf-sub">GHIN · post-round HI</span></h3>
+        <svg class="golf-chart" viewBox="0 0 {{ chartW }} {{ chartH }}" role="img" aria-label="Handicap trend">
           <rect x="{{ padL }}" y="{{ padT }}" width="{{ plotW }}" height="{{ plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
-          {% for p in [0, 0.25, 0.5, 0.75, 1.0] %}
-            {% set gy = padT + p * plotH %}
-            {% set val = hiMax - p * hiRange %}
+          {% for frac in [0, 0.25, 0.5, 0.75, 1.0] %}
+            {% set gy = padT + frac * plotH %}
+            {% set val = hiMax - frac * hiRange %}
           <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
           <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
           {% endfor %}
-          {# Target line #}
-          {% set ty = padT + ((hiMax - goal.target) / hiRange) * plotH %}
-          <line x1="{{ padL }}" y1="{{ ty }}" x2="{{ padL + plotW }}" y2="{{ ty }}" stroke="#c41e3a" stroke-width="2" stroke-dasharray="6 4"/>
-          <text x="{{ padL + 4 }}" y="{{ ty - 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#c41e3a">target {{ goal.target }}</text>
-          {# Actual history line (occupies left 75% of x-axis to leave room for projection) #}
-          {% set histEndX = padL + plotW * 0.75 %}
-          {% set histPath = "" %}
-          {% for p in hist %}
-            {% set x = padL + (loop.index0 * (histEndX - padL) / (n - 1)) %}
+          {% set path = "" %}
+          {% for p in st.handicapTrend %}
+            {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
             {% set y = padT + ((hiMax - p.hi) / hiRange) * plotH %}
-            {% set histPath = histPath + (" L " if loop.index0 else "M ") + x|string + " " + y|string %}
+            {% set path = path + (" L " if loop.index0 else "M ") + x|string + " " + y|string %}
           {% endfor %}
-          <path d="{{ histPath }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>
-          {% for p in hist %}
-            {% set x = padL + (loop.index0 * (histEndX - padL) / (n - 1)) %}
+          <path d="{{ path }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>
+          {% for p in st.handicapTrend %}
+            {% set x = padL + (loop.index0 * plotW / (n - 1)) %}
             {% set y = padT + ((hiMax - p.hi) / hiRange) * plotH %}
-          <circle cx="{{ x }}" cy="{{ y }}" r="2" fill="#0f7a1e" stroke="#000" stroke-width="0.6"><title>{{ p.date }}: HI {{ p.hi }}</title></circle>
+          <circle cx="{{ x }}" cy="{{ y }}" r="2.5" fill="#0f7a1e" stroke="#000" stroke-width="0.8"><title>{{ p.date }}: HI {{ p.hi }}</title></circle>
           {% endfor %}
-          {# Required projection (dashed, from current → target at deadline) #}
-          {% set curX = histEndX %}
-          {% set curY = padT + ((hiMax - goal.current) / hiRange) * plotH %}
-          {% set endX = padL + plotW %}
-          {% set endY = padT + ((hiMax - goal.target) / hiRange) * plotH %}
-          <path d="M {{ curX }} {{ curY }} L {{ endX }} {{ endY }}" fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-dasharray="6 4"/>
-          <circle cx="{{ endX }}" cy="{{ endY }}" r="5" fill="#c41e3a" stroke="#000" stroke-width="1"/>
-          {# X-axis labels #}
-          {% if hist[0] %}
-          <text x="{{ padL }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#555">{{ hist[0].date | readableDate }}</text>
-          {% endif %}
-          <text x="{{ histEndX }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">today</text>
-          <text x="{{ endX }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#c41e3a">{{ deadlineDate | readableDate }}</text>
+          {% for idx in [0, (n / 2) | int, n - 1] %}
+            {% set p = st.handicapTrend[idx] %}
+            {% set x = padL + (idx * plotW / (n - 1)) %}
+          <text x="{{ x }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
+          {% endfor %}
+        </svg>
+      </div>
+      {% endif %}
+
+      {% if st.scoreTrend.length > 1 %}
+      {% set chartW2 = 760 %}
+      {% set chartH2 = 180 %}
+      {% set padL2 = 44 %}{% set padR2 = 16 %}{% set padT2 = 14 %}{% set padB2 = 28 %}
+      {% set plotW2 = chartW2 - padL2 - padR2 %}
+      {% set plotH2 = chartH2 - padT2 - padB2 %}
+      {% set tpMinRaw = st.scoreTrend.min %}
+      {% set tpMaxRaw = st.scoreTrend.max %}
+      {% set tpPad = ((tpMaxRaw - tpMinRaw) or 1) * 0.1 %}
+      {% set tpMin = tpMinRaw - tpPad %}
+      {% set tpMax = tpMaxRaw + tpPad %}
+      {% set tpRange = (tpMax - tpMin) or 1 %}
+      {% set n2 = st.scoreTrend.length %}
+      <div class="golf-section">
+        <h3>SCORE TO PAR <span class="golf-sub">GHIN · every 18-hole round + rolling 5-round avg</span></h3>
+        <svg class="golf-chart" viewBox="0 0 {{ chartW2 }} {{ chartH2 }}" role="img" aria-label="Score-to-par trend">
+          <rect x="{{ padL2 }}" y="{{ padT2 }}" width="{{ plotW2 }}" height="{{ plotH2 }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+          {% for frac in [0, 0.25, 0.5, 0.75, 1.0] %}
+            {% set gy = padT2 + frac * plotH2 %}
+            {% set val = tpMax - frac * tpRange %}
+          <line x1="{{ padL2 }}" y1="{{ gy }}" x2="{{ padL2 + plotW2 }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
+          <text x="{{ padL2 - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{% if val > 0 %}+{% endif %}{{ val | round(0) }}</text>
+          {% endfor %}
+          {% set rawPath = "" %}
+          {% set rollPath = "" %}
+          {% for p in st.scoreTrend %}
+            {% set x = padL2 + (loop.index0 * plotW2 / (n2 - 1)) %}
+            {% set y1 = padT2 + ((tpMax - p.toPar) / tpRange) * plotH2 %}
+            {% set y2 = padT2 + ((tpMax - p.rolling5) / tpRange) * plotH2 %}
+            {% set rawPath = rawPath + (" L " if loop.index0 else "M ") + x|string + " " + y1|string %}
+            {% set rollPath = rollPath + (" L " if loop.index0 else "M ") + x|string + " " + y2|string %}
+          {% endfor %}
+          <path d="{{ rawPath }}" fill="none" stroke="#bbbbbb" stroke-width="1.5"/>
+          <path d="{{ rollPath }}" fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-linejoin="round"/>
+          {% for p in st.scoreTrend %}
+            {% set x = padL2 + (loop.index0 * plotW2 / (n2 - 1)) %}
+            {% set y1 = padT2 + ((tpMax - p.toPar) / tpRange) * plotH2 %}
+          <circle cx="{{ x }}" cy="{{ y1 }}" r="2.5" fill="#888" stroke="#000" stroke-width="0.6"><title>{{ p.date }} · {{ p.course }} · {{ p.score }} ({% if p.toPar >= 0 %}+{% endif %}{{ p.toPar }})</title></circle>
+          {% endfor %}
+          {% for idx in [0, (n2 / 2) | int, n2 - 1] %}
+            {% set p = st.scoreTrend[idx] %}
+            {% set x = padL2 + (idx * plotW2 / (n2 - 1)) %}
+          <text x="{{ x }}" y="{{ chartH2 - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
+          {% endfor %}
         </svg>
         <div class="chart-legend">
-          <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Actual HI</span>
-          <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Required path to target</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#bbb"></span>Per round</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>5-round avg</span>
         </div>
-        {% endif %}
+      </div>
+      {% endif %}
+
+      {% if eb.ok and eb.sgTrend.count > 2 %}
+      {% set sg = eb.sgTrend %}
+      {% set cw = 760 %}{% set ch = 190 %}
+      {% set pl = 44 %}{% set pr = 16 %}{% set pt = 14 %}{% set pb = 30 %}
+      {% set pw = cw - pl - pr %}{% set ph = ch - pt - pb %}
+      {% set padv = ((sg.max - sg.min) or 1) * 0.1 %}
+      {% set ymin = sg.min - padv %}{% set ymax = sg.max + padv %}
+      {% set yr = (ymax - ymin) or 1 %}
+      {% set n = sg.points | length %}
+      <div class="golf-section">
+        <h3>STROKES GAINED TREND <span class="golf-sub">18B · per round, overall and tee-to-green · higher is better</span></h3>
+        <svg class="golf-chart" viewBox="0 0 {{ cw }} {{ ch }}" role="img" aria-label="Strokes gained trend">
+          <rect x="{{ pl }}" y="{{ pt }}" width="{{ pw }}" height="{{ ph }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+          {% for frac in [0, 0.25, 0.5, 0.75, 1.0] %}
+            {% set gy = pt + frac * ph %}{% set val = ymax - frac * yr %}
+          <line x1="{{ pl }}" y1="{{ gy }}" x2="{{ pl + pw }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
+          <text x="{{ pl - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{% if val > 0 %}+{% endif %}{{ val | round(1) }}</text>
+          {% endfor %}
+          {% if ymin < 0 and ymax > 0 %}
+            {% set zy = pt + (ymax / yr) * ph %}
+          <line x1="{{ pl }}" y1="{{ zy }}" x2="{{ pl + pw }}" y2="{{ zy }}" stroke="#999" stroke-width="1" stroke-dasharray="4 3"/>
+          {% endif %}
+          {% set opath = "" %}
+          {% for p in sg.points %}
+            {% set x = pl + (loop.index0 * pw / (n - 1)) %}
+            {% set y = pt + ((ymax - p.overall) / yr) * ph %}
+            {% set opath = opath + (" L " if loop.index0 else "M ") + x | string + " " + y | string %}
+          {% endfor %}
+          <path d="{{ opath }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>
+          {% set tpath = "" %}{% set started = false %}
+          {% for p in sg.points %}
+            {% if p.t2g != null %}
+              {% set x = pl + (loop.index0 * pw / (n - 1)) %}
+              {% set y = pt + ((ymax - p.t2g) / yr) * ph %}
+              {% set tpath = tpath + (" L " if started else "M ") + x | string + " " + y | string %}
+              {% set started = true %}
+            {% endif %}
+          {% endfor %}
+          <path d="{{ tpath }}" fill="none" stroke="#c41e3a" stroke-width="1.8" stroke-dasharray="5 3"/>
+          {% for idx in [0, (n / 2) | int, n - 1] %}
+            {% set p = sg.points[idx] %}{% set x = pl + (idx * pw / (n - 1)) %}
+          <text x="{{ x }}" y="{{ ch - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">{{ p.date | readableDate }}</text>
+          {% endfor %}
+        </svg>
+        <div class="chart-legend">
+          <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Overall</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Tee-to-green</span>
+          <span class="legend-chip">Avg overall: {% if sg.avgOverall > 0 %}+{% endif %}{{ sg.avgOverall }}</span>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if st.diffHistogram.length %}
+      {% set histMax = st.diffHistogram.maxCount %}
+      <div class="golf-section">
+        <h3>DIFFERENTIAL DISTRIBUTION <span class="golf-sub">GHIN · how consistent your scoring is</span></h3>
+        <div class="hist">
+          {% for b in st.diffHistogram %}
+          <div class="hist-bar">
+            <div class="hist-fill" style="height: {{ (b.count / histMax * 100) | round(0) }}%;"><span class="hist-count">{{ b.count }}</span></div>
+            <div class="hist-label">{{ b.lo }}–{{ b.hi }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if st.monthly.length %}
+      {% set monMax = st.monthly.maxCount %}
+      <div class="golf-section">
+        <h3>ROUNDS PER MONTH <span class="golf-sub">GHIN</span></h3>
+        <div class="hist">
+          {% for m in st.monthly %}
+          <div class="hist-bar">
+            <div class="hist-fill hist-fill-month" style="height: {{ (m.count / monMax * 100) | round(0) }}%;"><span class="hist-count">{{ m.count }}</span></div>
+            <div class="hist-label">{{ m.ym }}</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if st.exceptional.length %}
+      <div class="golf-section">
+        <h3>EXCEPTIONAL ROUNDS <span class="golf-sub">GHIN · scores that triggered a handicap reduction</span></h3>
+        <table class="scorecard-table">
+          <thead>
+            <tr><th>Date</th><th>Course</th><th>Score</th><th>Differential</th></tr>
+          </thead>
+          <tbody>
+            {% for s in st.exceptional %}
+            <tr>
+              <td>{{ s.played_at | readableDate }}</td>
+              <td style="text-align:left">{{ s.course_name }}</td>
+              <td><strong>{{ s.adjusted_gross_score }}</strong></td>
+              <td>{{ s.differential }}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      {% endif %}
+
+      {% if goals and goals.length %}
+      {% for goal in goals %}
+      {% set hist = goal.history %}
+      {% set chartW = 760 %}{% set chartH = 220 %}
+      {% set padL = 44 %}{% set padR = 16 %}{% set padT = 14 %}{% set padB = 28 %}
+      {% set plotW = chartW - padL - padR %}
+      {% set plotH = chartH - padT - padB %}
+      {% set hiMin = goal.hiMin %}
+      {% set hiMax = goal.hiMax %}
+      {% set hiRange = (hiMax - hiMin) or 1 %}
+      {% set firstDate = hist[0].date if hist and hist.length %}
+      {% set deadlineDate = goal.deadline %}
+      <div class="golf-section goal-section">
+        <h3>GOAL: {{ goal.label | upper }} <span class="golf-sub">{{ goal.blurb }}</span></h3>
+        <div class="goal-card {% if goal.hit %}goal-hit{% endif %}">
+          <div class="goal-summary">
+            <div class="goal-summary-metric">
+              <div class="goal-summary-label">CURRENT</div>
+              <div class="goal-summary-value goal-current">{{ goal.current }}</div>
+            </div>
+            <div class="goal-summary-metric">
+              <div class="goal-summary-label">TARGET</div>
+              <div class="goal-summary-value goal-target">{{ goal.target }}</div>
+            </div>
+            <div class="goal-summary-metric">
+              <div class="goal-summary-label">STROKES TO DROP</div>
+              <div class="goal-summary-value">{{ goal.gap }}</div>
+            </div>
+            <div class="goal-summary-metric">
+              <div class="goal-summary-label">DAYS LEFT</div>
+              <div class="goal-summary-value">{{ goal.daysLeft }}</div>
+            </div>
+            <div class="goal-summary-metric">
+              <div class="goal-summary-label">REQUIRED PACE</div>
+              <div class="goal-summary-value" data-tip="Strokes per month you need to drop to hit the target on time">{{ goal.requiredPerMonth }}/mo</div>
+            </div>
+            <div class="goal-summary-metric">
+              <div class="goal-summary-label">RECENT PACE</div>
+              <div class="goal-summary-value {% if goal.onPace %}goal-on-pace{% else %}goal-off-pace{% endif %}" data-tip="How much your HI has moved per month over the last 90 days. Negative = improving.">{{ goal.recentPerMonth }}/mo</div>
+            </div>
+          </div>
+          <div class="goal-pace-note">
+            {% if goal.hit %}
+            🎉 You hit the target — keep it under {{ goal.target }} to stay there.
+            {% elif goal.onPace %}
+            ✓ On pace. If you keep dropping {{ goal.recentPerMonth | abs }} strokes per month you'll land at around
+            <strong>{{ goal.projectedHI }}</strong> by the deadline.
+            {% elif goal.recentPerMonth < 0 %}
+            Trending the right direction at {{ goal.recentPerMonth | abs }}/mo, but you'll need
+            <strong>{{ goal.requiredPerMonth | abs }}/mo</strong> to hit {{ goal.target }} on time.
+            Current trajectory projects to about <strong>{{ goal.projectedHI }}</strong>.
+            {% else %}
+            Your HI has been moving up recently — you'll need to drop
+            <strong>{{ goal.requiredPerMonth | abs }} strokes/month</strong>
+            to hit {{ goal.target }} by the deadline.
+            {% endif %}
+          </div>
+          {% if hist and hist.length > 1 %}
+          {% set n = hist.length %}
+          <svg class="golf-chart goal-chart" viewBox="0 0 {{ chartW }} {{ chartH }}" role="img" aria-label="Handicap trend vs goal">
+            <rect x="{{ padL }}" y="{{ padT }}" width="{{ plotW }}" height="{{ plotH }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+            {% for frac in [0, 0.25, 0.5, 0.75, 1.0] %}
+              {% set gy = padT + frac * plotH %}
+              {% set val = hiMax - frac * hiRange %}
+            <line x1="{{ padL }}" y1="{{ gy }}" x2="{{ padL + plotW }}" y2="{{ gy }}" stroke="#e6daa6" stroke-width="1"/>
+            <text x="{{ padL - 6 }}" y="{{ gy + 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#555">{{ val | round(1) }}</text>
+            {% endfor %}
+            {% set ty = padT + ((hiMax - goal.target) / hiRange) * plotH %}
+            <line x1="{{ padL }}" y1="{{ ty }}" x2="{{ padL + plotW }}" y2="{{ ty }}" stroke="#c41e3a" stroke-width="2" stroke-dasharray="6 4"/>
+            <text x="{{ padL + 4 }}" y="{{ ty - 4 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#c41e3a">target {{ goal.target }}</text>
+            {% set histEndX = padL + plotW * 0.75 %}
+            {% set histPath = "" %}
+            {% for p in hist %}
+              {% set x = padL + (loop.index0 * (histEndX - padL) / (n - 1)) %}
+              {% set y = padT + ((hiMax - p.hi) / hiRange) * plotH %}
+              {% set histPath = histPath + (" L " if loop.index0 else "M ") + x|string + " " + y|string %}
+            {% endfor %}
+            <path d="{{ histPath }}" fill="none" stroke="#0f7a1e" stroke-width="2.5" stroke-linejoin="round"/>
+            {% for p in hist %}
+              {% set x = padL + (loop.index0 * (histEndX - padL) / (n - 1)) %}
+              {% set y = padT + ((hiMax - p.hi) / hiRange) * plotH %}
+            <circle cx="{{ x }}" cy="{{ y }}" r="2" fill="#0f7a1e" stroke="#000" stroke-width="0.6"><title>{{ p.date }}: HI {{ p.hi }}</title></circle>
+            {% endfor %}
+            {% set curX = histEndX %}
+            {% set curY = padT + ((hiMax - goal.current) / hiRange) * plotH %}
+            {% set endX = padL + plotW %}
+            {% set endY = padT + ((hiMax - goal.target) / hiRange) * plotH %}
+            <path d="M {{ curX }} {{ curY }} L {{ endX }} {{ endY }}" fill="none" stroke="#c41e3a" stroke-width="2.5" stroke-dasharray="6 4"/>
+            <circle cx="{{ endX }}" cy="{{ endY }}" r="5" fill="#c41e3a" stroke="#000" stroke-width="1"/>
+            {% if hist[0] %}
+            <text x="{{ padL }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="start" fill="#555">{{ hist[0].date | readableDate }}</text>
+            {% endif %}
+            <text x="{{ histEndX }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="middle" fill="#555">today</text>
+            <text x="{{ endX }}" y="{{ chartH - 8 }}" font-size="13" font-family="VT323, monospace" text-anchor="end" fill="#c41e3a">{{ deadlineDate | readableDate }}</text>
+          </svg>
+          <div class="chart-legend">
+            <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Actual HI</span>
+            <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Required path to target</span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+      {% endif %}
+    </div>
+
+    {# ============================ SHOTS & LIES ============================ #}
+    <div class="golf-tab-panel" role="tabpanel" id="panel-shots" aria-labelledby="tab-shots" tabindex="0" data-tab="shots" hidden>
+      <div class="golf-section">
+        <h3>SHOT STATS <span class="golf-sub">GHIN hole data</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Fairway hit % on par-4s and par-5s only. Tour pros ~60%, scratch amateurs ~50%.">
+            <div class="stat-label">Fairways</div>
+            <div class="stat-value">{{ st.shotStats.fairways }}%</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Greens in regulation — reaching the green in (par − 2) strokes.">
+            <div class="stat-label">GIR</div>
+            <div class="stat-value">{{ st.shotStats.gir }}%</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Average putts per 18-hole round. Tour pros ~29, scratch ~31, bogey golfer ~34.">
+            <div class="stat-label">Avg Putts</div>
+            <div class="stat-value">{{ st.shotStats.avgPutts }}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Percent of holes finished in one putt.">
+            <div class="stat-label">1-Putt</div>
+            <div class="stat-value">{{ st.shotStats.onePutt }}%</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Percent of holes finished in exactly two putts.">
+            <div class="stat-label">2-Putt</div>
+            <div class="stat-value">{{ st.shotStats.twoPutt }}%</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Percent of holes where you needed 3 or more putts. The score-killers.">
+            <div class="stat-label">3-Putt+</div>
+            <div class="stat-value">{{ st.shotStats.threePutt }}%</div>
+          </div>
+        </div>
+      </div>
+
+      {% if eb.ok and eb.clubs.length %}
+      <div class="golf-section">
+        <h3>CLUB DISTANCES <span class="golf-sub">18B · median True Distance (elevation/wind-adjusted)</span></h3>
+        <div class="scoring-dist eb-dist">
+          {% for c in eb.clubs %}
+          <div class="dist-bar">
+            <span class="dist-label">{{ c.label }}</span>
+            <div class="dist-fill" style="width: {{ c.barPct }}%; background:#0f7a1e"></div>
+            <span class="dist-pct">{{ c.median }}y <span class="club-n">({{ c.shots }})</span></span>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      {% if eb.ok and eb.clubGaps.length %}
+      <div class="golf-section">
+        <h3>CLUB GAPPING <span class="golf-sub">18B · step to the next club down</span></h3>
+        <table class="scorecard-table">
+          <thead><tr><th>Club</th><th>Carry (median)</th><th>Gap to next</th></tr></thead>
+          <tbody>
+            {% for c in eb.clubGaps %}
+            <tr>
+              <td>{{ c.label }}</td>
+              <td>{{ c.median }}y</td>
+              <td class="{% if c.overlap or c.big %}score-over{% endif %}">{% if c.gap != null %}{{ c.gap }}y{% if c.overlap %} (overlap){% elif c.big %} (big gap){% endif %}{% else %}&ndash;{% endif %}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <p class="golf-note">Overlaps (same or inverted carry) and big gaps (18y+) point to bag-gapping to tidy up.</p>
+      </div>
+      {% endif %}
+
+      {% if eb.ok and eb.byLie.length %}
+      <div class="golf-section">
+        <h3>BY LIE <span class="golf-sub">18B · where your tracked shots are played from</span></h3>
+        <div class="scoring-dist eb-dist">
+          {% for l in eb.byLie %}
+          <div class="dist-bar">
+            <span class="dist-label">{{ l.lie }}</span>
+            <div class="dist-fill" style="width: {{ l.barPct }}%; background:#228b22"></div>
+            <span class="dist-pct">{{ l.pct }}% <span class="club-n">({{ l.shots }})</span></span>
+          </div>
+          {% endfor %}
+        </div>
+        <p class="golf-note">Lie labels from 18Birdies shot data: Tee, Fairway, Rough, and Recovery are verified; Sand is inferred from club and distance patterns.</p>
+      </div>
+      {% endif %}
+
+      {% if eb.ok and eb.onTargetByLie.length %}
+      <div class="golf-section">
+        <h3>ON TARGET BY LIE <span class="golf-sub">18B · share of shots finishing within 20 yd of the aim point</span></h3>
+        <div class="scoring-dist eb-dist">
+          {% for p in eb.onTargetByLie %}
+          <div class="dist-bar">
+            <span class="dist-label">{{ p.lie }}</span>
+            <div class="dist-fill" style="width: {{ p.pct }}%; background:#228b22"></div>
+            <span class="dist-pct">{{ p.pct }}% <span class="club-n">({{ p.shots }})</span></span>
+          </div>
+          {% endfor %}
+        </div>
+        <p class="golf-note">Higher is better: how your execution holds up from the fairway versus the rough or a recovery.</p>
+      </div>
+      {% endif %}
+
+      {% if eb.ok and eb.dispersion.count > 8 %}
+      {% set d = eb.dispersion %}
+      {% set size = 320 %}
+      {% set half = size / 2 %}
+      {% set scale = half / (d.window + 2) %}
+      <div class="golf-section">
+        <h3>APPROACH DISPERSION <span class="golf-sub">18B · {{ d.count }} aimed shots, miss relative to target (center = pin)</span></h3>
+        <svg class="golf-chart" viewBox="0 0 {{ size }} {{ size }}" role="img" aria-label="Approach shot dispersion around the pin">
+          <rect x="1" y="1" width="{{ size - 2 }}" height="{{ size - 2 }}" fill="#fffbe6" stroke="#000" stroke-width="2"/>
+          {% for ring in [10, 20, 30, 40] %}
+          <circle cx="{{ half }}" cy="{{ half }}" r="{{ ring * scale }}" fill="none" stroke="#e6daa6" stroke-width="1"/>
+          <text x="{{ half + ring * scale - 2 }}" y="{{ half - 3 }}" font-size="11" font-family="VT323, monospace" text-anchor="end" fill="#999">{{ ring }}y</text>
+          {% endfor %}
+          <line x1="{{ half }}" y1="8" x2="{{ half }}" y2="{{ size - 8 }}" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+          <line x1="8" y1="{{ half }}" x2="{{ size - 8 }}" y2="{{ half }}" stroke="#bbb" stroke-width="1" stroke-dasharray="3 3"/>
+          <text x="{{ half + 4 }}" y="14" font-size="12" font-family="VT323, monospace" fill="#555">LONG</text>
+          <text x="{{ half + 4 }}" y="{{ size - 6 }}" font-size="12" font-family="VT323, monospace" fill="#555">SHORT</text>
+          {% for p in d.points %}
+          <circle cx="{{ half + p.x * scale }}" cy="{{ half - p.y * scale }}" r="2.6" fill="#0f7a1e" fill-opacity="0.5" stroke="#0f5416" stroke-width="0.5"><title>{{ p.club }}: {{ p.y }}y {% if p.y >= 0 %}long{% else %}short{% endif %}, {{ p.x | abs }}y {% if p.x >= 0 %}right{% else %}left{% endif %}</title></circle>
+          {% endfor %}
+          <circle cx="{{ half }}" cy="{{ half }}" r="3.5" fill="#c41e3a" stroke="#000" stroke-width="1"/>
+        </svg>
+        <div class="chart-legend">
+          <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Pin</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Shot finish</span>
+          <span class="legend-chip">Avg: {{ d.avgLong | abs }}y {% if d.avgLong >= 0 %}long{% else %}short{% endif %}, {{ d.avgLateral | abs }}y {% if d.avgLateral >= 0 %}right{% else %}left{% endif %}</span>
+        </div>
+      </div>
+      {% endif %}
+
+      {% if eb.ok and eb.firstPutt.count > 8 %}
+      {% set fp = eb.firstPutt %}
+      <div class="golf-section">
+        <h3>APPROACH PROXIMITY <span class="golf-sub">18B · how close approaches finish to the pin · proxy for first-putt distance</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Average distance your approach shots finish from the pin, for shots that end on or near the green.">
+            <div class="stat-label">Avg Proximity</div>
+            <div class="stat-value">{{ fp.avgFt }}<span class="stat-unit">ft</span></div>
+          </div>
+          <div class="golf-stat-box" data-tip="Median proximity (half of approaches finish inside this).">
+            <div class="stat-label">Median</div>
+            <div class="stat-value">{{ fp.medianFt }}<span class="stat-unit">ft</span></div>
+          </div>
+        </div>
+        <div class="scoring-dist eb-dist">
+          {% for b in fp.bands %}
+          <div class="dist-bar">
+            <span class="dist-label">{{ b.lo }}-{{ b.hi }} ft</span>
+            <div class="dist-fill" style="width: {{ b.barPct }}%; background:#0f7a1e"></div>
+            <span class="dist-pct">{{ b.count }}</span>
+          </div>
+          {% endfor %}
+        </div>
+        <p class="golf-note">Derived from each approach's finish vs its aim point; 18Birdies does not expose first-putt distance in local data.</p>
+      </div>
+      {% endif %}
+
+      <div class="golf-section">
+        <h3>AFTER MISSING THE GREEN <span class="golf-sub">GHIN · what happens when you don't hit GIR</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Greens in regulation — percent of holes you reached the green in regulation. Scrambling is measured on the ones you missed.">
+            <div class="stat-label">GIR</div>
+            <div class="stat-value">{{ st.scrambling.girPct }}%</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Of the holes where you missed the green, what percent did you still make par or better? Tour average ~60%.">
+            <div class="stat-label">Scrambling %</div>
+            <div class="stat-value {% if st.scrambling.pct >= 50 %}score-under{% elif st.scrambling.pct < 30 %}score-over{% endif %}">{{ st.scrambling.pct }}%</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Count of scrambles attempted across all rounds with hole-by-hole data.">
+            <div class="stat-label">Misses</div>
+            <div class="stat-value">{{ st.scrambling.attempts }}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Holes where you missed the green AND made par (or birdie). These are the saves.">
+            <div class="stat-label">Par Saves</div>
+            <div class="stat-value">{{ st.scrambling.saves }}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Missed the green but limited damage to a single bogey.">
+            <div class="stat-label">Bogeys</div>
+            <div class="stat-value">{{ st.scrambling.missedBogey }}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Missed the green and dropped 2+ shots. Where most of the score-bloat lives.">
+            <div class="stat-label">Double+</div>
+            <div class="stat-value">{{ st.scrambling.missedDouble }}</div>
+          </div>
+        </div>
+      </div>
+
+      {% if st.holeDifficulty.length %}
+      {% set hdMax = st.holeDifficulty.max %}
+      {% set hdMin = st.holeDifficulty.min %}
+      <div class="golf-section">
+        <h3>HOLE DIFFICULTY <span class="golf-sub">GHIN · avg score-to-par by stroke-allocation rank (1 = hardest)</span></h3>
+        <div class="hole-diff-grid">
+          {% for h in st.holeDifficulty %}
+            {% set intensity = ((h.avgToPar - hdMin) / (hdMax - hdMin + 0.0001)) %}
+            {% set cls = 'diff-easy' if h.avgToPar < 0.5 else ('diff-hard' if h.avgToPar > 1.2 else 'diff-mid') %}
+          <div class="hole-diff-cell {{ cls }}">
+            <div class="hd-rank">#{{ h.stroke_allocation }}</div>
+            <div class="hd-value">+{{ h.avgToPar }}</div>
+            <div class="hd-sub">{{ h.rounds }} plays</div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+      {% endif %}
+
+      <div class="golf-section">
+        <h3>FRONT vs BACK 9 <span class="golf-sub">GHIN · {{ st.frontBack.rounds }} rounds with splits</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box">
+            <div class="stat-label">Front 9 Avg</div>
+            <div class="stat-value">{{ st.frontBack.front9Avg }}</div>
+          </div>
+          <div class="golf-stat-box">
+            <div class="stat-label">Back 9 Avg</div>
+            <div class="stat-value">{{ st.frontBack.back9Avg }}</div>
+          </div>
+          <div class="golf-stat-box">
+            <div class="stat-label">Diff (B-F)</div>
+            {% set fbDiff = (st.frontBack.back9Avg - st.frontBack.front9Avg) | round(1) %}
+            <div class="stat-value {% if fbDiff > 0.5 %}score-over{% elif fbDiff < -0.5 %}score-under{% endif %}">{% if fbDiff > 0 %}+{% endif %}{{ fbDiff }}</div>
+          </div>
+        </div>
+      </div>
+
+      {% if eb.ok %}
+      <p class="golf-note">18Birdies shot data updated {{ eb.generatedAt | readableDate }}.</p>
+      {% endif %}
+    </div>
+
+    {# ============================ SHOT MAP ============================ #}
+    {% if eb.ok and eb.mapData.length %}
+    <div class="golf-tab-panel" role="tabpanel" id="panel-map" aria-labelledby="tab-map" tabindex="0" data-tab="map" hidden>
+      <div class="golf-section">
+        <h3>SHOT MAP <span class="golf-sub">18B · your tracked shots on satellite imagery · pick a round</span></h3>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="" />
+        <div class="shotmap-controls">
+          <label for="shotmap-round">Round</label>
+          <select id="shotmap-round" class="shotmap-select"></select>
+        </div>
+        <div id="shotmap" class="shotmap"></div>
+        <div class="chart-legend">
+          <span class="legend-chip"><span class="chip-swatch" style="background:#1d6fd0"></span>Tee</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#0f7a1e"></span>Fairway</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#a0661e"></span>Rough</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#e8c84a"></span>Sand</span>
+          <span class="legend-chip"><span class="chip-swatch" style="background:#c41e3a"></span>Recovery</span>
+        </div>
+        <p class="golf-note">Tiles &copy; Esri, Maxar. Only shots 18Birdies GPS-tracked appear; putts are not tracked.</p>
+        <script defer src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js" integrity="sha512-puJW3E/qXDqYp9IfhAI54BJEaWIfloJ7JWs7OeD5i6ruC9JZL1gERT1wjtwXFlh7CjE7ZJ+/vcRZRkIYIb6p4g==" crossorigin=""></script>
+        <script defer src="/assets/js/golf-shotmap.js"></script>
       </div>
     </div>
-    {% endfor %}
     {% endif %}
 
-    {% include "18birdies.njk" %}
-
+    {# ============================ RANGE ============================ #}
     {% if golfRange.hasData %}
-    {% include "golf-range.njk" %}
+    <div class="golf-tab-panel" role="tabpanel" id="panel-range" aria-labelledby="tab-range" tabindex="0" data-tab="range" hidden>
+      {% include "golf-range.njk" %}
+    </div>
     {% endif %}
   </div>
   {% include "footer.njk" %}

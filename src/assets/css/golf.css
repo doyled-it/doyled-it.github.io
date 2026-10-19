@@ -241,45 +241,6 @@
   border: 1px solid var(--ink);
 }
 
-/* --- Approach miss dispersion (compass-around-pin layout) --- */
-.miss-dispersion {
-  max-width: 360px;
-  margin: 0 auto;
-  padding: 20px;
-  background: var(--card-body);
-  border: 2px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
-}
-.miss-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.miss-row-top { margin-bottom: 8px; }
-.miss-row-bot { margin-top: 8px; }
-.miss-row-mid {
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-.miss-cell { flex: 1; text-align: center; }
-.miss-target {
-  font-size: 36px;
-  line-height: 1;
-}
-.miss-label {
-  font-family: var(--font-mono);
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: var(--accent-pink-dark);
-}
-.miss-value {
-  font-family: var(--font-mono);
-  font-size: 22px;
-  font-weight: 700;
-}
-
 /* --- Hole difficulty grid --- */
 .hole-diff-grid {
   display: grid;
@@ -713,6 +674,59 @@
   font-style: italic;
 }
 .club-n { color: #888; font-size: 0.85em; }
+
+/* Golf page tabs */
+.golf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0 16px;
+  border-bottom: 3px solid #228b22;
+}
+.golf-tab {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1;
+  padding: 8px 14px;
+  border: 2px solid #228b22;
+  border-bottom: none;
+  background: #dff0df;
+  color: #145214;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.golf-tab:hover {
+  background: #cde8cd;
+}
+.golf-tab.active {
+  background: #228b22;
+  color: #fffbe6;
+}
+.golf-tab-panel[hidden] {
+  display: none;
+}
+@media print {
+  .golf-tabs {
+    display: none;
+  }
+  .golf-tab-panel[hidden] {
+    display: block;
+  }
+}
+.src-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #6a8a6a;
+  font-weight: 400;
+}
+@media (max-width: 520px) {
+  .golf-tab {
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+}
 
 /* 18Birdies bar lists carry a value plus a count, so widen the value column and
    let each row grow to fit instead of overlapping (the base .dist-bar is a

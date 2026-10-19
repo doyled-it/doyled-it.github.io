@@ -8,8 +8,8 @@
   var mapEl = document.getElementById("shotmap");
   if (!mapEl || typeof L === "undefined") return;
 
-  // Lie colors are mirrored by the legend swatches in _includes/18birdies.njk;
-  // keep the two in sync.
+  // Lie colors are mirrored by the legend swatches in src/golf.njk (the SHOT MAP
+  // section); keep the two in sync.
   var LIE_COLORS = {
     Tee: "#1d6fd0",
     Fairway: "#0f7a1e",
@@ -33,6 +33,16 @@
 
   var shotLayer = L.layerGroup().addTo(map);
   var select = document.getElementById("shotmap-round");
+  var current = null;
+
+  // Exposed so the tab switcher can resize the map when its (hidden) tab opens;
+  // a Leaflet map created in a display:none panel starts at zero size.
+  window.golfShotmap = {
+    show: function () {
+      map.invalidateSize();
+      if (current) drawRound(current);
+    },
+  };
 
   function latlng(point) {
     // stored as [lng, lat]
@@ -40,6 +50,7 @@
   }
 
   function drawRound(round) {
+    current = round;
     shotLayer.clearLayers();
     var bounds = [];
     round.shots.forEach(function (s) {
@@ -67,6 +78,15 @@
     if (bounds.length) map.fitBounds(bounds, { padding: [24, 24] });
   }
 
+  // Show a note without clobbering Leaflet's own container DOM.
+  function fail(msg) {
+    var note = document.createElement("p");
+    note.className = "golf-note";
+    note.textContent = msg;
+    mapEl.style.display = "none";
+    if (mapEl.parentNode) mapEl.parentNode.insertBefore(note, mapEl.nextSibling);
+  }
+
   fetch("/assets/data/shotmap.json")
     .then(function (r) {
       if (!r.ok) throw new Error("shotmap.json " + r.status);
@@ -74,7 +94,7 @@
     })
     .then(function (rounds) {
       if (!rounds.length || !select) {
-        mapEl.innerHTML = "<p class='golf-note'>No shot-mapped rounds yet.</p>";
+        fail("No shot-mapped rounds yet.");
         return;
       }
       rounds.forEach(function (round, i) {
@@ -90,6 +110,6 @@
       drawRound(rounds[0]);
     })
     .catch(function () {
-      mapEl.innerHTML = "<p class='golf-note'>Could not load shot data.</p>";
+      fail("Could not load shot data.");
     });
 })();
