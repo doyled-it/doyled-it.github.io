@@ -33,6 +33,16 @@
 
   var shotLayer = L.layerGroup().addTo(map);
   var select = document.getElementById("shotmap-round");
+  var current = null;
+
+  // Exposed so the tab switcher can resize the map when its (hidden) tab opens;
+  // a Leaflet map created in a display:none panel starts at zero size.
+  window.golfShotmap = {
+    show: function () {
+      map.invalidateSize();
+      if (current) drawRound(current);
+    },
+  };
 
   function latlng(point) {
     // stored as [lng, lat]
@@ -40,6 +50,7 @@
   }
 
   function drawRound(round) {
+    current = round;
     shotLayer.clearLayers();
     var bounds = [];
     round.shots.forEach(function (s) {

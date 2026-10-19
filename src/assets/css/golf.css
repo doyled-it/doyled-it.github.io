@@ -714,6 +714,51 @@
 }
 .club-n { color: #888; font-size: 0.85em; }
 
+/* Golf page tabs */
+.golf-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 8px 0 16px;
+  border-bottom: 3px solid #228b22;
+}
+.golf-tab {
+  font-family: var(--font-mono);
+  font-size: 18px;
+  line-height: 1;
+  padding: 8px 14px;
+  border: 2px solid #228b22;
+  border-bottom: none;
+  background: #dff0df;
+  color: #145214;
+  cursor: pointer;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.golf-tab:hover {
+  background: #cde8cd;
+}
+.golf-tab.active {
+  background: #228b22;
+  color: #fffbe6;
+}
+.golf-tab-panel[hidden] {
+  display: none;
+}
+.src-tag {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: #6a8a6a;
+  font-weight: 400;
+}
+@media (max-width: 520px) {
+  .golf-tab {
+    font-size: 15px;
+    padding: 6px 10px;
+  }
+}
+
 /* 18Birdies bar lists carry a value plus a count, so widen the value column and
    let each row grow to fit instead of overlapping (the base .dist-bar is a
    fixed 26px tall with a 46px value column, sized for GHIN's single values). */
