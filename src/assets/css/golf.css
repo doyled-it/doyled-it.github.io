@@ -241,45 +241,6 @@
   border: 1px solid var(--ink);
 }
 
-/* --- Approach miss dispersion (compass-around-pin layout) --- */
-.miss-dispersion {
-  max-width: 360px;
-  margin: 0 auto;
-  padding: 20px;
-  background: var(--card-body);
-  border: 2px solid var(--ink);
-  box-shadow: 4px 4px 0 var(--ink);
-}
-.miss-row {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.miss-row-top { margin-bottom: 8px; }
-.miss-row-bot { margin-top: 8px; }
-.miss-row-mid {
-  justify-content: space-between;
-  align-items: center;
-  gap: 16px;
-}
-.miss-cell { flex: 1; text-align: center; }
-.miss-target {
-  font-size: 36px;
-  line-height: 1;
-}
-.miss-label {
-  font-family: var(--font-mono);
-  font-size: 16px;
-  letter-spacing: 1px;
-  color: var(--accent-pink-dark);
-}
-.miss-value {
-  font-family: var(--font-mono);
-  font-size: 22px;
-  font-weight: 700;
-}
-
 /* --- Hole difficulty grid --- */
 .hole-diff-grid {
   display: grid;
@@ -745,6 +706,14 @@
 }
 .golf-tab-panel[hidden] {
   display: none;
+}
+@media print {
+  .golf-tabs {
+    display: none;
+  }
+  .golf-tab-panel[hidden] {
+    display: block;
+  }
 }
 .src-tag {
   font-family: var(--font-mono);

@@ -41,16 +41,17 @@ extraJS:
       <span class="sprite-green sprite-green--right" aria-hidden="true"></span>
     </div>
 
+    <noscript><style>.golf-tabs{display:none}.golf-tab-panel[hidden]{display:block}</style></noscript>
     <div class="golf-tabs" role="tablist" aria-label="Golf stats sections">
-      <button class="golf-tab" role="tab" data-tab="overview" type="button">Overview</button>
-      <button class="golf-tab" role="tab" data-tab="scoring" type="button">Scoring</button>
-      <button class="golf-tab" role="tab" data-tab="shots" type="button">Shots &amp; Lies</button>
-      {% if eb.ok and eb.mapData.length %}<button class="golf-tab" role="tab" data-tab="map" type="button">Shot Map</button>{% endif %}
-      {% if golfRange.hasData %}<button class="golf-tab" role="tab" data-tab="range" type="button">Range</button>{% endif %}
+      <button class="golf-tab" id="tab-overview" role="tab" aria-controls="panel-overview" aria-selected="true" tabindex="0" data-tab="overview" type="button">Overview</button>
+      <button class="golf-tab" id="tab-scoring" role="tab" aria-controls="panel-scoring" aria-selected="false" tabindex="-1" data-tab="scoring" type="button">Scoring</button>
+      <button class="golf-tab" id="tab-shots" role="tab" aria-controls="panel-shots" aria-selected="false" tabindex="-1" data-tab="shots" type="button">Shots &amp; Lies</button>
+      {% if eb.ok and eb.mapData.length %}<button class="golf-tab" id="tab-map" role="tab" aria-controls="panel-map" aria-selected="false" tabindex="-1" data-tab="map" type="button">Shot Map</button>{% endif %}
+      {% if golfRange.hasData %}<button class="golf-tab" id="tab-range" role="tab" aria-controls="panel-range" aria-selected="false" tabindex="-1" data-tab="range" type="button">Range</button>{% endif %}
     </div>
 
     {# ============================ OVERVIEW ============================ #}
-    <div class="golf-tab-panel" role="tabpanel" data-tab="overview">
+    <div class="golf-tab-panel" role="tabpanel" id="panel-overview" aria-labelledby="tab-overview" tabindex="0" data-tab="overview">
       <div class="golf-stats-grid">
         <div class="golf-stat-box" data-tip="Your official USGA/GHIN Handicap Index — average of the 8 lowest differentials of your last 20 rounds × 0.96. Lower is better.">
           <div class="stat-label">Handicap <span class="src-tag">GHIN</span></div>
@@ -70,9 +71,17 @@ extraJS:
           <div class="stat-label">Best 18H</div>
           <div class="stat-value score-under">{% if st.low18ToPar > 0 %}+{% endif %}{{ st.low18ToPar }}</div>
         </div>
+        <div class="golf-stat-box" data-tip="Best-ever 9-hole round expressed as strokes over/under par for those 9 holes.">
+          <div class="stat-label">Best 9H</div>
+          <div class="stat-value score-under">{% if st.low9ToPar > 0 %}+{% endif %}{{ st.low9ToPar }}</div>
+        </div>
         <div class="golf-stat-box" data-tip="Average adjusted gross score across all completed 18-hole rounds.">
           <div class="stat-label">Avg 18H <span class="src-tag">GHIN</span></div>
           <div class="stat-value">{{ st.avg18 }}</div>
+        </div>
+        <div class="golf-stat-box" data-tip="Average strokes-to-par across every hole you've played (with hole-level data).">
+          <div class="stat-label">Avg to Par <span class="src-tag">GHIN</span></div>
+          <div class="stat-value">+{{ st.avgToPar }}</div>
         </div>
         <div class="golf-stat-box" data-tip="Your single best score differential, adjusted for course difficulty. Lower is better.">
           <div class="stat-label">Best Diff</div>
@@ -153,7 +162,7 @@ extraJS:
     </div>
 
     {# ============================ SCORING ============================ #}
-    <div class="golf-tab-panel" role="tabpanel" data-tab="scoring" hidden>
+    <div class="golf-tab-panel" role="tabpanel" id="panel-scoring" aria-labelledby="tab-scoring" tabindex="0" data-tab="scoring" hidden>
       <div class="golf-section">
         <h3>SCORING DISTRIBUTION <span class="golf-sub">GHIN hole data</span></h3>
         <div class="scoring-dist">
@@ -202,6 +211,22 @@ extraJS:
           </div>
         </div>
       </div>
+
+      {% if eb.ok %}
+      <div class="golf-section">
+        <h3>AVG SCORE TO PAR <span class="golf-sub">18B · average over/under par per round</span></h3>
+        <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Your 18Birdies average strokes over/under par on 18-hole rounds.">
+            <div class="stat-label">18-Hole <span class="src-tag">18B</span></div>
+            <div class="stat-value {% if eb.summary.avgToPar18 > 0 %}score-over{% elif eb.summary.avgToPar18 < 0 %}score-under{% endif %}">{% if eb.summary.avgToPar18 != null %}{% if eb.summary.avgToPar18 > 0 %}+{% endif %}{{ eb.summary.avgToPar18 }}{% else %}&ndash;{% endif %}</div>
+          </div>
+          <div class="golf-stat-box" data-tip="Your 18Birdies average strokes over/under par on 9-hole rounds.">
+            <div class="stat-label">9-Hole <span class="src-tag">18B</span></div>
+            <div class="stat-value {% if eb.summary.avgToPar9 > 0 %}score-over{% elif eb.summary.avgToPar9 < 0 %}score-under{% endif %}">{% if eb.summary.avgToPar9 != null %}{% if eb.summary.avgToPar9 > 0 %}+{% endif %}{{ eb.summary.avgToPar9 }}{% else %}&ndash;{% endif %}</div>
+          </div>
+        </div>
+      </div>
+      {% endif %}
 
       {% if st.handicapTrend.length > 1 %}
       {% set chartW = 760 %}
@@ -509,7 +534,7 @@ extraJS:
     </div>
 
     {# ============================ SHOTS & LIES ============================ #}
-    <div class="golf-tab-panel" role="tabpanel" data-tab="shots" hidden>
+    <div class="golf-tab-panel" role="tabpanel" id="panel-shots" aria-labelledby="tab-shots" tabindex="0" data-tab="shots" hidden>
       <div class="golf-section">
         <h3>SHOT STATS <span class="golf-sub">GHIN hole data</span></h3>
         <div class="golf-stats-grid">
@@ -666,6 +691,10 @@ extraJS:
       <div class="golf-section">
         <h3>AFTER MISSING THE GREEN <span class="golf-sub">GHIN · what happens when you don't hit GIR</span></h3>
         <div class="golf-stats-grid">
+          <div class="golf-stat-box" data-tip="Greens in regulation — percent of holes you reached the green in regulation. Scrambling is measured on the ones you missed.">
+            <div class="stat-label">GIR</div>
+            <div class="stat-value">{{ st.scrambling.girPct }}%</div>
+          </div>
           <div class="golf-stat-box" data-tip="Of the holes where you missed the green, what percent did you still make par or better? Tour average ~60%.">
             <div class="stat-label">Scrambling %</div>
             <div class="stat-value {% if st.scrambling.pct >= 50 %}score-under{% elif st.scrambling.pct < 30 %}score-over{% endif %}">{{ st.scrambling.pct }}%</div>
@@ -726,11 +755,15 @@ extraJS:
           </div>
         </div>
       </div>
+
+      {% if eb.ok %}
+      <p class="golf-note">18Birdies shot data updated {{ eb.generatedAt | readableDate }}.</p>
+      {% endif %}
     </div>
 
     {# ============================ SHOT MAP ============================ #}
     {% if eb.ok and eb.mapData.length %}
-    <div class="golf-tab-panel" role="tabpanel" data-tab="map" hidden>
+    <div class="golf-tab-panel" role="tabpanel" id="panel-map" aria-labelledby="tab-map" tabindex="0" data-tab="map" hidden>
       <div class="golf-section">
         <h3>SHOT MAP <span class="golf-sub">18B · your tracked shots on satellite imagery · pick a round</span></h3>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" integrity="sha512-h9FcoyWjHcOcmEVkxOfTLnmZFWIH0iZhZT1H2TbOq55xssQGEJHEaIm+PgoUaZbRvQTNTluNOEfb1ZRy6D3BOw==" crossorigin="" />
@@ -755,7 +788,7 @@ extraJS:
 
     {# ============================ RANGE ============================ #}
     {% if golfRange.hasData %}
-    <div class="golf-tab-panel" role="tabpanel" data-tab="range" hidden>
+    <div class="golf-tab-panel" role="tabpanel" id="panel-range" aria-labelledby="tab-range" tabindex="0" data-tab="range" hidden>
       {% include "golf-range.njk" %}
     </div>
     {% endif %}
