@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.0] - 2026-10-19
+
+### Changed
+
+- feat(golf): tabs + dedupe the page (#15) (@doyled-it)
+
 ## [1.3.1] - 2026-10-17
 
 ### Changed
