@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-10-25T14:13:38.666Z",
+      "updated": "2026-10-26T16:41:51.259Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4635,7 +4635,7 @@
           "date": "Nov 1",
           "dow": "Sun",
           "isoDate": "2026-11-01",
-          "time": "9:00 AM",
+          "time": "8:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4675,6 +4675,26 @@
           "date": "Nov 1",
           "dow": "Sun",
           "isoDate": "2026-11-01",
+          "time": "11:30 AM",
+          "status": "Scheduled",
+          "completed": false,
+          "away": {
+            "team": "Fighting Friars",
+            "score": null,
+            "record": "6 - 0"
+          },
+          "home": {
+            "team": "Bubblegum Boys",
+            "score": null,
+            "record": "1 - 3"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": null
+        },
+        {
+          "date": "Nov 1",
+          "dow": "Sun",
+          "isoDate": "2026-11-01",
           "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
@@ -4689,26 +4709,6 @@
             "record": "3 - 3"
           },
           "venue": "Chollas · Field",
-          "recapUrl": null
-        },
-        {
-          "date": "Nov 1",
-          "dow": "Sun",
-          "isoDate": "2026-11-01",
-          "time": "1:00 PM",
-          "status": "Scheduled",
-          "completed": false,
-          "away": {
-            "team": "Fighting Friars",
-            "score": null,
-            "record": "6 - 0"
-          },
-          "home": {
-            "team": "Bubblegum Boys",
-            "score": null,
-            "record": "1 - 3"
-          },
-          "venue": "Presidio · Field",
           "recapUrl": null
         },
         {
