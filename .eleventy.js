@@ -22,6 +22,9 @@ export default function (eleventyConfig) {
     if (fs.existsSync(md) && isPublished(fs.readFileSync(md, "utf8")))
       eleventyConfig.addPassthroughCopy(`src/words/${slug}/images`);
   }
+  // Post images are copied as is, never built: a stray .md or .11ty.js in there
+  // would otherwise run as a template (and a .11ty.js fails the whole build).
+  eleventyConfig.ignores.add("src/words/*/images/**");
   eleventyConfig.addPassthroughCopy({ lib: "lib" });
   eleventyConfig.addPassthroughCopy({ "src/_data/botty-quips.json": "botty-quips.json" });
 

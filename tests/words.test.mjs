@@ -24,21 +24,33 @@ test("isPublished agrees with YAML on spacing and comments", () => {
   assert.equal(isPublished("---\ntitle: a\npublished:\ntrue\n---\nbody"), false);
   assert.equal(isPublished(fm("published: true # note")), true);
   assert.equal(isPublished(fm("published: true   ")), true);
+  // YAML reads `true#x` as the string "true#x", so this is a draft.
+  assert.equal(isPublished(fm("published: true#x")), false);
 });
 
 test("isPublished ignores body text", () => {
   assert.equal(isPublished("---\npublished: false\n---\npublished: true"), false);
+  // A closing line with trailing spaces still ends the front matter.
+  assert.equal(isPublished("---\npublished: false\n--- \nbody\npublished: true\n---\n"), false);
+  // So does a closing line right after the opening one.
+  assert.equal(isPublished("---\n---\nbody\npublished: true\n---\n"), false);
 });
 
-test("isPublished handles CRLF", () => {
+test("isPublished handles CRLF and a leading BOM", () => {
   assert.equal(isPublished("---\r\ntitle: a\r\npublished: true\r\n---\r\nbody"), true);
+  assert.equal(isPublished("\uFEFF---\ntitle: a\npublished: true\n---\nbody"), true);
 });
 
 test("wordsPermalink gives a URL only for published posts", () => {
-  const page = { fileSlug: "hello-world" };
+  const page = { filePathStem: "/words/hello-world/index" };
   assert.equal(wordsPermalink({ published: true, page }), "/words/hello-world/");
   assert.equal(wordsPermalink({ published: false, page }), false);
   assert.equal(wordsPermalink({ page }), false);
+});
+
+test("wordsPermalink keeps a date inside the folder name, matching where images are copied", () => {
+  const page = { filePathStem: "/words/trip-2026-05-01-recap/index" };
+  assert.equal(wordsPermalink({ published: true, page }), "/words/trip-2026-05-01-recap/");
 });
 
 test("publishedPosts filters and sorts newest first", () => {
