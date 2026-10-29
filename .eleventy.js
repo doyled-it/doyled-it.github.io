@@ -15,6 +15,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("CNAME");
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
+  eleventyConfig.addPassthroughCopy({ "src/admin/config.yml": "admin/config.yml" });
   eleventyConfig.addPassthroughCopy({ "src/resume.pdf": "resume.pdf" });
   for (const slug of fs.readdirSync("src/words")) {
     const md = `src/words/${slug}/index.md`;
