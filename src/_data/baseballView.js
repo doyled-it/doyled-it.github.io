@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { computeCalculated } from "../../lib/baseball-filters.mjs";
+import { mergeLeagueGames } from "../../lib/game-log.mjs";
 import {
   expectedWinPct,
   pythagWinPct,
@@ -521,39 +522,10 @@ export default function () {
           (g) => g.played || !g.date || g.date <= todayISO,
         );
       }
-      // SDABL is the source of truth for scores and W/L: override the game log
-      // from the league feed (matched by date + opponent) for fresh seasons.
+      // SDABL is the source of truth for scores and W/L for fresh seasons; it
+      // also fills in the games the user did not play as DNP rows.
       if (leagueData?.source === "se-api" && stats?.gamesList) {
-        const ut = leagueData.userTeams ?? [];
-        const sdabl = [];
-        for (const ev of leagueData.schedule ?? []) {
-          if (!ev.completed) continue;
-          const uTeam = ut.includes(ev.home.team) ? ev.home.team : ut.includes(ev.away.team) ? ev.away.team : null;
-          if (!uTeam) continue;
-          const mineHome = uTeam === ev.home.team;
-          const us = mineHome ? ev.home.score : ev.away.score;
-          const them = mineHome ? ev.away.score : ev.home.score;
-          const opp = mineHome ? ev.away.team : ev.home.team;
-          if (us == null || them == null || /^bye$/i.test(opp)) continue;
-          sdabl.push({ isoDate: ev.isoDate, opp, venue: ev.venue || "", result: us > them ? "W" : us < them ? "L" : "T", score: `${us}-${them}` });
-        }
-        const byGame = new Map(sdabl.map((g) => [`${g.isoDate}|${g.opp}`, g]));
-        // Scores/result come from SDABL for the games the user logged.
-        stats.gamesList = stats.gamesList.map((g) => {
-          const hit = byGame.get(`${g.date}|${g.opponent}`);
-          return hit ? { ...g, result: hit.result, score: hit.score } : g;
-        });
-        // Add the games the user did not play, from the SDABL schedule, as DNP rows.
-        const have = new Set(stats.gamesList.map((g) => `${g.date}|${g.opponent}`));
-        for (const g of sdabl) {
-          if (have.has(`${g.isoDate}|${g.opp}`)) continue;
-          stats.gamesList.push({
-            date: g.isoDate, opponent: g.opp, location: g.venue,
-            result: g.result, score: g.score, played: false,
-            stats: { hitting: {}, fielding: {}, pitching: {} },
-          });
-        }
-        stats.gamesList.sort((a, b) => (a.date || "").localeCompare(b.date || ""));
+        stats.gamesList = mergeLeagueGames(stats.gamesList, leagueData);
       }
       // Display the live league team name (minus any " (25A)" division code)
       // for fresh seasons so the header matches the standings and self-corrects
