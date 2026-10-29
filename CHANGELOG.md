@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.5.0] - 2026-10-29
+
+### Changed
+
+- feat(words): publish posts from the private words repo (#17) (@doyled-it)
+
 ## [1.4.1] - 2026-10-29
 
 ### Changed
