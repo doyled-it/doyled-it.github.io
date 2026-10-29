@@ -1,6 +1,7 @@
 import { dateRange, yearOf } from "./lib/resume-filters.mjs";
 import { statColor } from "./lib/baseball-filters.mjs";
 import pluginRss from "@11ty/eleventy-plugin-rss";
+import { publishedPosts } from "./lib/words.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
@@ -14,6 +15,7 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy({ "src/resume.pdf": "resume.pdf" });
+  eleventyConfig.addPassthroughCopy("src/words/*/images/**");
   eleventyConfig.addPassthroughCopy({ lib: "lib" });
   eleventyConfig.addPassthroughCopy({ "src/_data/botty-quips.json": "botty-quips.json" });
 
@@ -55,9 +57,7 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("words", (collection) =>
-    collection
-      .getFilteredByGlob("src/words/*.md")
-      .sort((a, b) => b.date - a.date)
+    publishedPosts(collection.getFilteredByGlob("src/words/*/index.md"))
   );
 
   return {

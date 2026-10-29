@@ -1,8 +1,7 @@
 ---
-layout: layouts/post.njk
 title: hello world
 date: 2026-04-11
-permalink: "/words/{{ page.fileSlug }}/"
+published: true
 ---
 
 This is the first post on the new doyled-it.com. The site is a full rewrite
