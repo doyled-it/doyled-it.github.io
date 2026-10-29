@@ -11,7 +11,8 @@ eleventyExcludeFromCollections: true
   <title>words · admin</title>
 </head>
 <body>
-  <script src="https://unpkg.com/@sveltia/cms@0.246.1/dist/sveltia-cms.js"></script>
+  <!-- Regenerate the hash when the version changes: curl -sL <url> | openssl dgst -sha384 -binary | openssl base64 -A -->
+  <script src="https://unpkg.com/@sveltia/cms@0.246.1/dist/sveltia-cms.js" integrity="sha384-MesywyNCDYtPV/xerXlPq0YXvMWNmWdmHGo1FQ7TotJtZ6QSLe7Nd2quNAdpni4j" crossorigin="anonymous"></script>
   <script>
     CMS.registerPreviewStyle("/assets/css/main.css");
     CMS.registerPreviewStyle("/assets/css/crt.css");
