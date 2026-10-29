@@ -1,6 +1,8 @@
 import { dateRange, yearOf } from "./lib/resume-filters.mjs";
 import { statColor } from "./lib/baseball-filters.mjs";
 import pluginRss from "@11ty/eleventy-plugin-rss";
+import fs from "node:fs";
+import { isPublished, publishedPosts } from "./lib/words.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
@@ -14,6 +16,14 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy({ "src/resume.pdf": "resume.pdf" });
+  for (const slug of fs.readdirSync("src/words")) {
+    const md = `src/words/${slug}/index.md`;
+    if (fs.existsSync(md) && isPublished(fs.readFileSync(md, "utf8")))
+      eleventyConfig.addPassthroughCopy(`src/words/${slug}/images`);
+  }
+  // Post images are copied as is, never built: a stray .md or .11ty.js in there
+  // would otherwise run as a template (and a .11ty.js fails the whole build).
+  eleventyConfig.ignores.add("src/words/*/images/**");
   eleventyConfig.addPassthroughCopy({ lib: "lib" });
   eleventyConfig.addPassthroughCopy({ "src/_data/botty-quips.json": "botty-quips.json" });
 
@@ -55,9 +65,7 @@ export default function (eleventyConfig) {
   });
 
   eleventyConfig.addCollection("words", (collection) =>
-    collection
-      .getFilteredByGlob("src/words/*.md")
-      .sort((a, b) => b.date - a.date)
+    publishedPosts(collection.getFilteredByGlob("src/words/*/index.md"))
   );
 
   return {

@@ -188,7 +188,7 @@ src/
     footer.njk                # version + data-refresh date footer
   assets/css/botty.css
   assets/js/botty.js          # browser orchestrator (face loop, swim, quips)
-  words/                      # markdown posts
+  words/                      # markdown posts, copied from the private doyled-it/words repo by its publish workflow (edits here get overwritten or deleted)
   *.njk                       # 9 cards + resume-print + sitemap + redirect
 tests/                        # node:test unit tests
 vendor/                       # vendored npm packages
