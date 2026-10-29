@@ -19,6 +19,13 @@ test("isPublished rejects false, missing, quoted, and no front matter", () => {
   assert.equal(isPublished("just a body\npublished: true"), false);
 });
 
+test("isPublished agrees with YAML on spacing and comments", () => {
+  assert.equal(isPublished(fm("published:true")), false);
+  assert.equal(isPublished("---\ntitle: a\npublished:\ntrue\n---\nbody"), false);
+  assert.equal(isPublished(fm("published: true # note")), true);
+  assert.equal(isPublished(fm("published: true   ")), true);
+});
+
 test("isPublished ignores body text", () => {
   assert.equal(isPublished("---\npublished: false\n---\npublished: true"), false);
 });
@@ -113,4 +120,21 @@ test("publishWords ignores dot dirs and folders without index.md, and keeps dest
     assert.equal(await fs.readFile(path.join(dest, "words.11tydata.js"), "utf8"), "keep");
     assert.equal(await exists(path.join(dest, ".DS_Store")), false);
     assert.equal(await exists(path.join(dest, "notes")), false);
+  }));
+
+test("publishWords copies only index.md and images, nested folders included", () =>
+  withDirs(async (src, dest) => {
+    await write(path.join(src, "hi/index.md"), post("true"));
+    await write(path.join(src, "hi/notes.md"), "stray");
+    await write(path.join(src, "hi/x.11tydata.js"), "stray");
+    await write(path.join(src, "hi/images/a.png"), "png");
+    await write(path.join(src, "hi/images/deep/b.png"), "png2");
+    await write(path.join(src, "hi/images/.hidden"), "x");
+    await publishWords(src, dest);
+    assert.equal(await exists(path.join(dest, "hi/notes.md")), false);
+    assert.equal(await exists(path.join(dest, "hi/x.11tydata.js")), false);
+    assert.equal(await fs.readFile(path.join(dest, "hi/index.md"), "utf8"), post("true"));
+    assert.equal(await fs.readFile(path.join(dest, "hi/images/a.png"), "utf8"), "png");
+    assert.equal(await fs.readFile(path.join(dest, "hi/images/deep/b.png"), "utf8"), "png2");
+    assert.equal(await exists(path.join(dest, "hi/images/.hidden")), false);
   }));
