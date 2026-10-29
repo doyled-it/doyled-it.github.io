@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.4.1] - 2026-10-29
+
+### Changed
+
+- fix(baseball): stop listing a played game again as DNP (#16) (@doyled-it)
+
 ## [1.4.0] - 2026-10-19
 
 ### Changed
