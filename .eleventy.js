@@ -1,7 +1,8 @@
 import { dateRange, yearOf } from "./lib/resume-filters.mjs";
 import { statColor } from "./lib/baseball-filters.mjs";
 import pluginRss from "@11ty/eleventy-plugin-rss";
-import { publishedPosts } from "./lib/words.mjs";
+import fs from "node:fs";
+import { isPublished, publishedPosts } from "./lib/words.mjs";
 
 export default function (eleventyConfig) {
   eleventyConfig.setInputDirectory("src");
@@ -15,7 +16,11 @@ export default function (eleventyConfig) {
   eleventyConfig.addPassthroughCopy("src/favicon.svg");
   eleventyConfig.addPassthroughCopy("src/robots.txt");
   eleventyConfig.addPassthroughCopy({ "src/resume.pdf": "resume.pdf" });
-  eleventyConfig.addPassthroughCopy("src/words/*/images/**");
+  for (const slug of fs.readdirSync("src/words")) {
+    const md = `src/words/${slug}/index.md`;
+    if (fs.existsSync(md) && isPublished(fs.readFileSync(md, "utf8")))
+      eleventyConfig.addPassthroughCopy(`src/words/${slug}/images`);
+  }
   eleventyConfig.addPassthroughCopy({ lib: "lib" });
   eleventyConfig.addPassthroughCopy({ "src/_data/botty-quips.json": "botty-quips.json" });
 
