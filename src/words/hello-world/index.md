@@ -1,5 +1,5 @@
 ---
-title: hello worldy
+title: hello world
 date: 2026-04-11
 published: true
 description: ''
