@@ -73,7 +73,7 @@
     "url": "https://github.com/doyled-it/golf-stats",
     "description": "",
     "language": "TypeScript",
-    "homepage": "https://doyled-it.com/golf-stats/",
+    "homepage": "https://doyled-it.com/golf/",
     "archived": false
   },
   "doyled-it/lawyer-brain": {
@@ -94,7 +94,7 @@
     "url": "https://github.com/doyled-it/obsidian-baseball",
     "description": "A vault for all of my baseball notes.",
     "language": "JavaScript",
-    "homepage": "https://doyled-it.com/obsidian-baseball/",
+    "homepage": "https://doyled-it.com/baseball/",
     "archived": false
   },
   "doyled-it/obsidian-plugin-dev-skill": {
