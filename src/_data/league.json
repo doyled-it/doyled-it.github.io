@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-11-08T16:35:42.727Z",
+      "updated": "2026-11-09T20:37:33.769Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4815,7 +4815,7 @@
           "date": "Nov 15",
           "dow": "Sun",
           "isoDate": "2026-11-15",
-          "time": "8:30 AM",
+          "time": "9:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4828,7 +4828,7 @@
             "score": null,
             "record": "2 - 3"
           },
-          "venue": "Presidio · Field",
+          "venue": "San Ysidro HS · JV",
           "recapUrl": null
         },
         {
