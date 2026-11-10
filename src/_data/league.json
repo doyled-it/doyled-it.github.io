@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-11-09T20:37:33.769Z",
+      "updated": "2026-11-10T17:38:07.967Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -3981,28 +3981,28 @@
         {
           "rank": 1,
           "team": "Fighting Friars",
-          "W": 6,
+          "W": 7,
           "L": 1,
           "T": 0,
-          "GP": 7,
-          "PCT": 0.857,
+          "GP": 8,
+          "PCT": 0.875,
           "GB": 0,
-          "RF": 118,
-          "RA": 64,
-          "diff": 54
+          "RF": 132,
+          "RA": 67,
+          "diff": 65
         },
         {
           "rank": 2,
           "team": "Reapers Baseball Club",
           "W": 5,
-          "L": 1,
+          "L": 2,
           "T": 0,
-          "GP": 6,
-          "PCT": 0.833,
-          "GB": 0.5,
-          "RF": 89,
-          "RA": 45,
-          "diff": 44
+          "GP": 7,
+          "PCT": 0.714,
+          "GB": 1.5,
+          "RF": 99,
+          "RA": 56,
+          "diff": 43
         },
         {
           "rank": 3,
@@ -4012,7 +4012,7 @@
           "T": 0,
           "GP": 6,
           "PCT": 0.667,
-          "GB": 1.5,
+          "GB": 2,
           "RF": 92,
           "RA": 58,
           "diff": 34
@@ -4020,15 +4020,15 @@
         {
           "rank": 4,
           "team": "Expos (25A)",
-          "W": 3,
+          "W": 4,
           "L": 3,
           "T": 0,
-          "GP": 6,
-          "PCT": 0.5,
+          "GP": 7,
+          "PCT": 0.571,
           "GB": 2.5,
-          "RF": 81,
-          "RA": 67,
-          "diff": 14
+          "RF": 92,
+          "RA": 77,
+          "diff": 15
         },
         {
           "rank": 5,
@@ -4038,7 +4038,7 @@
           "T": 0,
           "GP": 5,
           "PCT": 0.4,
-          "GB": 3,
+          "GB": 3.5,
           "RF": 57,
           "RA": 79,
           "diff": -22
@@ -4047,14 +4047,14 @@
           "rank": 6,
           "team": "Vaqueros",
           "W": 1,
-          "L": 4,
+          "L": 5,
           "T": 0,
-          "GP": 5,
-          "PCT": 0.2,
-          "GB": 4,
-          "RF": 45,
-          "RA": 78,
-          "diff": -33
+          "GP": 6,
+          "PCT": 0.167,
+          "GB": 5,
+          "RF": 48,
+          "RA": 92,
+          "diff": -44
         },
         {
           "rank": 7,
@@ -4064,7 +4064,7 @@
           "T": 0,
           "GP": 7,
           "PCT": 0,
-          "GB": 6,
+          "GB": 6.5,
           "RF": 37,
           "RA": 128,
           "diff": -91
@@ -4081,7 +4081,7 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 10,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "home": {
             "team": "THE OG",
@@ -4106,7 +4106,7 @@
           "home": {
             "team": "Fighting Friars",
             "score": 26,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/b2970b7a-c330-4a25-902c-c4a88c988d90"
@@ -4121,7 +4121,7 @@
           "away": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "home": {
             "team": "BYE",
@@ -4141,7 +4141,7 @@
           "away": {
             "team": "Expos (25A)",
             "score": 16,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "home": {
             "team": "Bombers",
@@ -4166,7 +4166,7 @@
           "home": {
             "team": "Fighting Friars",
             "score": 15,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/af735b13-f404-4439-92ba-22fa9f4404b7"
@@ -4181,12 +4181,12 @@
           "away": {
             "team": "Fighting Friars",
             "score": 16,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "Vaqueros",
             "score": 8,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/f3ad3f1e-217b-41fc-affd-ef43994577c6"
@@ -4201,12 +4201,12 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 14,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "home": {
             "team": "Expos (25A)",
             "score": 11,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/e1de5502-3030-4a10-bf78-c0567b10b6e6"
@@ -4241,12 +4241,12 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 20,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "home": {
             "team": "Vaqueros",
             "score": 2,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "venue": "Otay Ranch HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/e8aeee36-fbbe-4abf-bc9b-54dec71a36d0"
@@ -4266,7 +4266,7 @@
           "home": {
             "team": "Expos (25A)",
             "score": 11,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/16ac1295-fd9a-428a-9153-6d9b13bb3c4d"
@@ -4281,12 +4281,12 @@
           "away": {
             "team": "Expos (25A)",
             "score": 9,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "home": {
             "team": "Fighting Friars",
             "score": 25,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/1bb8d5a3-a570-42c1-b666-cb165cf3f247"
@@ -4326,7 +4326,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": 15,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/0bf4421a-cebf-4003-b78c-3388fe80e155"
@@ -4361,7 +4361,7 @@
           "away": {
             "team": "Fighting Friars",
             "score": 21,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "Bombers",
@@ -4381,12 +4381,12 @@
           "away": {
             "team": "Vaqueros",
             "score": 4,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "home": {
             "team": "Expos (25A)",
             "score": 22,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/a6591412-0e1b-436b-8bfb-d0405f86f393"
@@ -4401,12 +4401,12 @@
           "away": {
             "team": "Fighting Friars",
             "score": null,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "Expos (25A)",
             "score": null,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "venue": "Presidio · Field",
           "recapUrl": null
@@ -4426,7 +4426,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": null
@@ -4466,7 +4466,7 @@
           "home": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": null
@@ -4481,7 +4481,7 @@
           "away": {
             "team": "Expos (25A)",
             "score": 12,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "home": {
             "team": "THE OG",
@@ -4501,12 +4501,12 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 10,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "home": {
             "team": "Fighting Friars",
             "score": 14,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/3c264c61-5526-4849-b0bd-69e5af87364d"
@@ -4526,7 +4526,7 @@
           "home": {
             "team": "Vaqueros",
             "score": 14,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/f828c9c2-a8f3-4858-b5d5-0dc4d36049a0"
@@ -4561,7 +4561,7 @@
           "away": {
             "team": "Fighting Friars",
             "score": 1,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "THE OG",
@@ -4581,7 +4581,7 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 20,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "home": {
             "team": "Bombers",
@@ -4601,7 +4601,7 @@
           "away": {
             "team": "Vaqueros",
             "score": 17,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "home": {
             "team": "Bubblegum Boys",
@@ -4621,7 +4621,7 @@
           "away": {
             "team": "Expos (25A)",
             "score": null,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "home": {
             "team": "BYE",
@@ -4646,7 +4646,7 @@
           "home": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "venue": "Presidio · Field",
           "recapUrl": null
@@ -4666,7 +4666,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "venue": "Otay Ranch HS · JV",
           "recapUrl": null
@@ -4681,7 +4681,7 @@
           "away": {
             "team": "Fighting Friars",
             "score": null,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "Bubblegum Boys",
@@ -4706,7 +4706,7 @@
           "home": {
             "team": "Expos (25A)",
             "score": null,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "venue": "Chollas · Field",
           "recapUrl": null
@@ -4721,7 +4721,7 @@
           "away": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "home": {
             "team": "THE OG",
@@ -4739,26 +4739,6 @@
           "status": "Scheduled",
           "completed": false,
           "away": {
-            "team": "Vaqueros",
-            "score": null,
-            "record": "1 - 4"
-          },
-          "home": {
-            "team": "Fighting Friars",
-            "score": null,
-            "record": "6 - 1"
-          },
-          "venue": "Presidio · Field",
-          "recapUrl": null
-        },
-        {
-          "date": "Nov 8",
-          "dow": "Sun",
-          "isoDate": "2026-11-08",
-          "time": "1:00 PM",
-          "status": "Scheduled",
-          "completed": false,
-          "away": {
             "team": "Bubblegum Boys",
             "score": null,
             "record": "2 - 3"
@@ -4776,20 +4756,40 @@
           "dow": "Sun",
           "isoDate": "2026-11-08",
           "time": "1:00 PM",
-          "status": "Scheduled",
-          "completed": false,
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Vaqueros",
+            "score": 3,
+            "record": "1 - 5"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": 14,
+            "record": "7 - 1"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/261679d2-0fdd-4477-b5b6-d9df658e4e01"
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "1:00 PM",
+          "status": "Final",
+          "completed": true,
           "away": {
             "team": "Expos (25A)",
-            "score": null,
-            "record": "3 - 3"
+            "score": 11,
+            "record": "4 - 3"
           },
           "home": {
             "team": "Reapers Baseball Club",
-            "score": null,
-            "record": "5 - 1"
+            "score": 10,
+            "record": "5 - 2"
           },
           "venue": "Hilton Head · Field",
-          "recapUrl": null
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/b7e0f839-08b1-4ecb-97ea-d6d68650d871"
         },
         {
           "date": "Nov 8",
@@ -4821,7 +4821,7 @@
           "away": {
             "team": "Expos (25A)",
             "score": null,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "home": {
             "team": "Bubblegum Boys",
@@ -4861,12 +4861,12 @@
           "away": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": null
@@ -4881,7 +4881,7 @@
           "away": {
             "team": "Fighting Friars",
             "score": null,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "BYE",
@@ -4901,12 +4901,12 @@
           "away": {
             "team": "Fighting Friars",
             "score": null,
-            "record": "6 - 1"
+            "record": "7 - 1"
           },
           "home": {
             "team": "Expos (25A)",
             "score": null,
-            "record": "3 - 3"
+            "record": "4 - 3"
           },
           "venue": "Presidio · Field",
           "recapUrl": null
@@ -4926,7 +4926,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 1"
+            "record": "5 - 2"
           },
           "venue": "Otay Ranch HS · JV",
           "recapUrl": null
@@ -4946,7 +4946,7 @@
           "home": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 4"
+            "record": "1 - 5"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": null
