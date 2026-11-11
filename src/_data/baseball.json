@@ -1,6 +1,6 @@
 {
   "currentSeason": "fall2026",
-  "lastUpdated": "2026-11-10T17:38:04.113Z",
+  "lastUpdated": "2026-11-11T17:49:49.869Z",
   "seasons": {
     "fall2025": {
       "id": "fall2025",
@@ -1464,7 +1464,7 @@
         "games": {
           "total": 6,
           "played": 6,
-          "wins": 2,
+          "wins": 3,
           "losses": 3,
           "ties": 0
         },
@@ -1732,8 +1732,8 @@
             "date": "2026-11-08",
             "opponent": "Reapers Baseball Club",
             "location": "\"@Hilton Head\"",
-            "result": "W/L",
-            "score": "10-7",
+            "result": "W",
+            "score": "11-10",
             "played": true,
             "rating": "",
             "notable": "",
