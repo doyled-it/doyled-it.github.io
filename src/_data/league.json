@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-11-11T17:49:54.232Z",
+      "updated": "2026-11-12T18:04:49.937Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4000,9 +4000,9 @@
           "GP": 7,
           "PCT": 0.714,
           "GB": 1.5,
-          "RF": 99,
+          "RF": 101,
           "RA": 56,
-          "diff": 43
+          "diff": 45
         },
         {
           "rank": 3,
@@ -4066,8 +4066,8 @@
           "PCT": 0,
           "GB": 6.5,
           "RF": 37,
-          "RA": 128,
-          "diff": -91
+          "RA": 130,
+          "diff": -93
         }
       ],
       "schedule": [
@@ -4580,7 +4580,7 @@
           "completed": true,
           "away": {
             "team": "Reapers Baseball Club",
-            "score": 20,
+            "score": 22,
             "record": "5 - 2"
           },
           "home": {
