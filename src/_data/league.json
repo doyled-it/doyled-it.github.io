@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-11-16T20:14:15.146Z",
+      "updated": "2026-11-17T19:02:21.444Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -3994,15 +3994,15 @@
         {
           "rank": 2,
           "team": "Reapers Baseball Club",
-          "W": 5,
+          "W": 6,
           "L": 2,
           "T": 0,
-          "GP": 7,
-          "PCT": 0.714,
-          "GB": 1.5,
-          "RF": 101,
-          "RA": 56,
-          "diff": 45
+          "GP": 8,
+          "PCT": 0.75,
+          "GB": 1,
+          "RF": 112,
+          "RA": 62,
+          "diff": 50
         },
         {
           "rank": 3,
@@ -4047,14 +4047,14 @@
           "rank": 6,
           "team": "Vaqueros",
           "W": 1,
-          "L": 5,
+          "L": 6,
           "T": 0,
-          "GP": 6,
-          "PCT": 0.167,
-          "GB": 5,
-          "RF": 48,
-          "RA": 92,
-          "diff": -44
+          "GP": 7,
+          "PCT": 0.143,
+          "GB": 5.5,
+          "RF": 54,
+          "RA": 103,
+          "diff": -49
         },
         {
           "rank": 7,
@@ -4081,7 +4081,7 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 10,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "home": {
             "team": "THE OG",
@@ -4121,7 +4121,7 @@
           "away": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "home": {
             "team": "BYE",
@@ -4186,7 +4186,7 @@
           "home": {
             "team": "Vaqueros",
             "score": 8,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/f3ad3f1e-217b-41fc-affd-ef43994577c6"
@@ -4201,7 +4201,7 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 14,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "home": {
             "team": "Expos (25A)",
@@ -4241,12 +4241,12 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 20,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "home": {
             "team": "Vaqueros",
             "score": 2,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "venue": "Otay Ranch HS · JV",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/e8aeee36-fbbe-4abf-bc9b-54dec71a36d0"
@@ -4326,7 +4326,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": 15,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "venue": "Presidio · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/0bf4421a-cebf-4003-b78c-3388fe80e155"
@@ -4381,7 +4381,7 @@
           "away": {
             "team": "Vaqueros",
             "score": 4,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "home": {
             "team": "Expos (25A)",
@@ -4426,7 +4426,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": null
@@ -4466,7 +4466,7 @@
           "home": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": null
@@ -4501,7 +4501,7 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 10,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "home": {
             "team": "Fighting Friars",
@@ -4526,7 +4526,7 @@
           "home": {
             "team": "Vaqueros",
             "score": 14,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "venue": "Chollas · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/f828c9c2-a8f3-4858-b5d5-0dc4d36049a0"
@@ -4581,7 +4581,7 @@
           "away": {
             "team": "Reapers Baseball Club",
             "score": 22,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "home": {
             "team": "Bombers",
@@ -4601,7 +4601,7 @@
           "away": {
             "team": "Vaqueros",
             "score": 17,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "home": {
             "team": "Bubblegum Boys",
@@ -4646,7 +4646,7 @@
           "home": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "venue": "Presidio · Field",
           "recapUrl": null
@@ -4666,7 +4666,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "venue": "Otay Ranch HS · JV",
           "recapUrl": null
@@ -4721,7 +4721,7 @@
           "away": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "home": {
             "team": "THE OG",
@@ -4761,7 +4761,7 @@
           "away": {
             "team": "Vaqueros",
             "score": 3,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "home": {
             "team": "Fighting Friars",
@@ -4786,7 +4786,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": 10,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "venue": "Hilton Head · Field",
           "recapUrl": "https://game-recap.ui.sportngin.com/public/b7e0f839-08b1-4ecb-97ea-d6d68650d871"
@@ -4856,20 +4856,20 @@
           "dow": "Sun",
           "isoDate": "2026-11-15",
           "time": "1:00 PM",
-          "status": "Scheduled",
-          "completed": false,
+          "status": "Final",
+          "completed": true,
           "away": {
             "team": "Vaqueros",
-            "score": null,
-            "record": "1 - 5"
+            "score": 6,
+            "record": "1 - 6"
           },
           "home": {
             "team": "Reapers Baseball Club",
-            "score": null,
-            "record": "5 - 2"
+            "score": 11,
+            "record": "6 - 2"
           },
           "venue": "Hilton Head · Field",
-          "recapUrl": null
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/1eaa0674-9925-4490-8a7e-3d55c531b6dd"
         },
         {
           "date": "Nov 15",
@@ -4926,7 +4926,7 @@
           "home": {
             "team": "Reapers Baseball Club",
             "score": null,
-            "record": "5 - 2"
+            "record": "6 - 2"
           },
           "venue": "Otay Ranch HS · JV",
           "recapUrl": null
@@ -4946,7 +4946,7 @@
           "home": {
             "team": "Vaqueros",
             "score": null,
-            "record": "1 - 5"
+            "record": "1 - 6"
           },
           "venue": "San Ysidro HS · JV",
           "recapUrl": null
