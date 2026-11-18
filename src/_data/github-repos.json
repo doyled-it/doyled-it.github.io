@@ -14,7 +14,7 @@
     "archived": false
   },
   "doyled-it/claude-skills": {
-    "url": "https://github.com/doyled-it/claude-skills",
+    "url": "https://github.com/doyled-it/doyled-it-skills",
     "description": "Personal Claude Code skills marketplace",
     "language": "Python",
     "homepage": null,
