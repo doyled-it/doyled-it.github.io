@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-11-20T18:28:29.374Z",
+      "updated": "2026-11-21T10:11:22.569Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4895,7 +4895,7 @@
           "date": "Nov 22",
           "dow": "Sun",
           "isoDate": "2026-11-22",
-          "time": "8:30 AM",
+          "time": "8:00 AM",
           "status": "Scheduled",
           "completed": false,
           "away": {
