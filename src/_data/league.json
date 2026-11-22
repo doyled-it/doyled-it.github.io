@@ -3969,7 +3969,7 @@
       ]
     },
     "fall2026": {
-      "updated": "2026-11-21T10:11:22.569Z",
+      "updated": "2026-11-22T10:11:10.499Z",
       "source": "se-api",
       "divisionName": "25A",
       "userTeams": [
@@ -4736,26 +4736,6 @@
           "dow": "Sun",
           "isoDate": "2026-11-08",
           "time": "1:00 PM",
-          "status": "Final",
-          "completed": true,
-          "away": {
-            "team": "Vaqueros",
-            "score": 3,
-            "record": "1 - 6"
-          },
-          "home": {
-            "team": "Fighting Friars",
-            "score": 14,
-            "record": "7 - 1"
-          },
-          "venue": "Presidio · Field",
-          "recapUrl": "https://game-recap.ui.sportngin.com/public/261679d2-0fdd-4477-b5b6-d9df658e4e01"
-        },
-        {
-          "date": "Nov 8",
-          "dow": "Sun",
-          "isoDate": "2026-11-08",
-          "time": "1:00 PM",
           "status": "Scheduled",
           "completed": false,
           "away": {
@@ -4770,6 +4750,26 @@
           },
           "venue": "Chollas · Field",
           "recapUrl": null
+        },
+        {
+          "date": "Nov 8",
+          "dow": "Sun",
+          "isoDate": "2026-11-08",
+          "time": "1:00 PM",
+          "status": "Final",
+          "completed": true,
+          "away": {
+            "team": "Vaqueros",
+            "score": 3,
+            "record": "1 - 6"
+          },
+          "home": {
+            "team": "Fighting Friars",
+            "score": 14,
+            "record": "7 - 1"
+          },
+          "venue": "Presidio · Field",
+          "recapUrl": "https://game-recap.ui.sportngin.com/public/261679d2-0fdd-4477-b5b6-d9df658e4e01"
         },
         {
           "date": "Nov 8",
